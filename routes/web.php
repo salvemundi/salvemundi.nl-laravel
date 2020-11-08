@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome']);
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
+Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
+Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
