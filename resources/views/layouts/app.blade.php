@@ -24,9 +24,8 @@
 <body>
     <div id="app">
         @include('include/navbar')
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @yield('content')
+        @include('include/footer')
     </div>
 </body>
 </html>
