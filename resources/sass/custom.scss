@@ -1,7 +1,4 @@
-.test {
-  background-color: pink;
-}
-
+@import "variables";
 
 .alert-pre {
   word-wrap: break-word;
@@ -12,7 +9,7 @@
 /* begin navbar */
 
 .navbar {
-  background-color: #580A59 !important;
+  background-color:$salveMundi-primary !important;
   background-image: url("../../storage/app/images/headerLogoSamu.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -41,7 +38,7 @@
 /* begin footer */
 
 .site-footer {
-  background-color: #580A59;
+  background-color: $salveMundi-primary;
   padding: 45px 0 20px;
   font-size: 15px;
   line-height: 24px;
@@ -112,8 +109,9 @@
   background-color: #33353d
 }
 
-.copyright-text {
-  margin: 0
+.center {
+  display: flex !important;
+  justify-content: center;
 }
 
 @media (max-width:991px) {
@@ -182,20 +180,9 @@
   font-size: 14px
 }
 
-.social-icons a.facebook:hover {
-  background-color: #3b5998
-}
-
-.social-icons a.twitter:hover {
-  background-color: #00aced
-}
-
-.social-icons a.linkedin:hover {
-  background-color: #007bb6
-}
-
-.social-icons a.dribbble:hover {
-  background-color: #ea4c89
+.footerText{
+  color: white;
+  margin-bottom:0px !important;
 }
 
 @media (max-width:767px) {
