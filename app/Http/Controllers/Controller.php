@@ -31,6 +31,9 @@ class Controller extends BaseController
 
         return $viewData;
     }
-
+    public function index()
+    {
+        return view('index');
+    }
 }
 
