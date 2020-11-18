@@ -49897,9 +49897,9 @@ throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\salvemundi.nl-laravel\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! /Users/quintlegius/Documents/Projects/salvemundi.nl-laravel/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Users/quintlegius/Documents/Projects/salvemundi.nl-laravel/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/quintlegius/Documents/Projects/salvemundi.nl-laravel/resources/sass/custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })
