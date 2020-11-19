@@ -30,8 +30,9 @@ class GetUsersController extends Controller
         $user = $graph->createRequest("GET", '/users?$top=999')
                       ->setReturnType(Model\User::class)
                       ->execute();
-                         
-        //dd($user);
+                        
         return view('users', compact('user'));   
     }
+
+    
 }

@@ -10,13 +10,12 @@
 
 .navbar {
   background-color:$salveMundi-primary !important;
-  background-image: url("../../storage/app/images/headerLogoSamu.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   background-size: cover;
   color: white;
   text-decoration: none;
-  padding-bottom: 56rem;
+  position: fixed;
+  width: 100%;
+  transition: top 0.3s;
 }
 
 .navbar a {
@@ -33,6 +32,9 @@
   padding-right: 1rem;
 }
 
+.navImg{
+  width: 100%;
+}
 /* end navbar */
 
 /* begin footer */
