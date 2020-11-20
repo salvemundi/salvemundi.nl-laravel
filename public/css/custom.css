@@ -8,13 +8,12 @@
 
 .navbar {
   background-color: #663265 !important;
-  background-image: url(/images/headerLogoSamu.jpg?60a710f4c515b4fd303137a354c0aa97);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   background-size: cover;
   color: white;
   text-decoration: none;
-  padding-bottom: 56rem;
+  position: fixed;
+  width: 100%;
+  transition: top 0.3s;
 }
 
 .navbar a {
@@ -29,6 +28,10 @@
 .navbar-brand {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.navImg {
+  width: 100%;
 }
 
 /* end navbar */

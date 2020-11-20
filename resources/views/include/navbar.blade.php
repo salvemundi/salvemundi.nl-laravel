@@ -1,4 +1,12 @@
-<nav class="navbar navbar-expand-md shadow-sm">
+{{-- <div id="TopNavbar">
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+  </div> --}}
+
+
+
+<nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -51,3 +59,4 @@
         </div>
     </div>
 </nav>
+<img class="navImg" src="/images/headerLogoSamu.jpg">

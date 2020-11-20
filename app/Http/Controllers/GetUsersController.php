@@ -86,4 +86,6 @@ class GetUsersController extends Controller
         }
         return view('users', compact('user', 'photoCheck', 'photo'));
     }
+
+    
 }
