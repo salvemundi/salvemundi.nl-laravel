@@ -34,6 +34,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href>Intro</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href>Inschrijven</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href>Merch</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
