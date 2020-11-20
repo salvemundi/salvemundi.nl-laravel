@@ -17,7 +17,7 @@ class AuthController extends Controller
           $tokenCache->clearTokens();
           return redirect('/');
     }
-    
+
     public function signin()
     {
       // Initialize the OAuth client
@@ -73,23 +73,23 @@ class AuthController extends Controller
           'scopes'                  => env('OAUTH_SCOPES')
         ]);
 
-        try 
+        try
         {
           // Make the token request
           $accessToken = $oauthClient->getAccessToken('authorization_code', [
             'code' => $authCode
           ]);
-        
+
           $graph = new Graph();
           $graph->setAccessToken($accessToken->getToken());
-        
+
           $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName')
             ->setReturnType(Model\User::class)
             ->execute();
-        
+
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
-        
+
           return redirect('/');
         }
         catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) 
@@ -103,5 +103,5 @@ class AuthController extends Controller
       return redirect('/')
         ->with('error', $request->query('error'))
         ->with('errorDetail', $request->query('error_description'));
-    }    
+    }
 }
