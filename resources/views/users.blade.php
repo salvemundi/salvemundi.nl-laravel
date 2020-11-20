@@ -7,6 +7,6 @@
 
 {{-- <img src="data:image/jpeg;base64,{{\O365\Profile::photo()}}"/>  --}}
 
-@endforeach 
+@endforeach
 
 @endsection

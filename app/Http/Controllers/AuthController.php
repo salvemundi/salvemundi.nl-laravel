@@ -92,7 +92,7 @@ class AuthController extends Controller
 
           return redirect('/');
         }
-        catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) 
+        catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e)
         {
           return redirect('/')
             ->with('error', 'Error requesting access token')
