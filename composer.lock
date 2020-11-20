@@ -1856,13 +1856,10 @@
                 "serialization",
                 "serialize"
             ],
-<<<<<<< HEAD
-=======
             "support": {
                 "issues": "https://github.com/opis/closure/issues",
                 "source": "https://github.com/opis/closure/tree/3.6.1"
             },
->>>>>>> 91ee42186844c56c3571ae86048e4f292883570b
             "time": "2020-11-07T02:01:34+00:00"
         },
         {
@@ -7492,5 +7489,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

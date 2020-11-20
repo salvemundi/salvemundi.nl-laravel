@@ -32,4 +32,4 @@ Route::get('/user', function () {
     return Http::get('https://graph.microsoft.com/v1.0/me');
 });
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
-Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
+Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'getPhoto']);
