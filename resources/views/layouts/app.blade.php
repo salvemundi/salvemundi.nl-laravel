@@ -19,6 +19,8 @@
     <!-- Styles -->
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
@@ -26,6 +28,10 @@
     <div id="app">
         @include('include/navbar')
         @yield('content')
+        {{-- @if(session('userName'))
+        <h4>Welcome {{ session('userName') }}!</h4>
+        <p>Use the navigation bar at the top of the page to get started.</p>
+    @endif --}}
         @include('include/footer')
     </div>
 </body>

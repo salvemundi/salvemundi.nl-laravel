@@ -22,7 +22,7 @@ Route::get('/welcome', [App\Http\Controllers\HomeController::class, 'welcome']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
 Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
@@ -32,4 +32,5 @@ Route::get('/user', function () {
     return Http::get('https://graph.microsoft.com/v1.0/me');
 });
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
-Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'getPhoto']);
+// Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
+Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'users']);

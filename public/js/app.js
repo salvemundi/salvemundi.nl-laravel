@@ -49751,6 +49751,19 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+var prevScrollpos = window.pageYOffset;
+
+window.onscroll = function () {
+  var currentScrollPos = window.pageYOffset;
+
+  if (prevScrollpos < currentScrollPos) {
+    document.getElementById("TopNavbar").style.top = "-100px";
+  } else {
+    document.getElementById("TopNavbar").style.top = "0";
+  }
+
+  prevScrollpos = currentScrollPos;
+};
 
 /***/ }),
 
@@ -49897,9 +49910,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! D:\xampp\htdocs\salvemundi.nl-laravel\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

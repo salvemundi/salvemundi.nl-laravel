@@ -9,14 +9,13 @@
 /* begin navbar */
 
 .navbar {
-  background-color:$salveMundi-primary !important;
-  background-image: url("../../storage/app/images/headerLogoSamu.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: $salveMundi-primary !important;
   background-size: cover;
   color: white;
   text-decoration: none;
-  padding-bottom: 56rem;
+  position: fixed;
+  width: 100%;
+  transition: top 0.3s;
 }
 
 .navbar a {
@@ -26,11 +25,65 @@
 
 .navbar a:hover {
   background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.5s ease-in-out;
+
 }
 
 .navbar-brand {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.navImg {
+  width: 100%;
+}
+
+.dropbtn {
+  background-color: $salveMundi-primary;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 5px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $salveMundi-primary;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  transition: 0.5s ease-in-out;
 }
 
 /* end navbar */
@@ -42,7 +95,7 @@
   padding: 45px 0 20px;
   font-size: 15px;
   line-height: 24px;
-  color:white;
+  color: white;
 }
 
 .site-footer hr {
@@ -81,7 +134,7 @@
 }
 
 .footer-links a {
-  color:white;
+  color: white;
 }
 
 .footer-links a:active,
@@ -145,14 +198,14 @@
 .social-icons li.title {
   margin-right: 15px;
   text-transform: uppercase;
-  color:white;
+  color: white;
   font-weight: 700;
   font-size: 13px
 }
 
 .social-icons a {
   background-color: #eceeef;
-  color:white;
+  color: white;
   font-size: 16px;
   display: inline-block;
   line-height: 44px;
@@ -180,9 +233,9 @@
   font-size: 14px
 }
 
-.footerText{
+.footerText {
   color: white;
-  margin-bottom:0px !important;
+  margin-bottom: 0px !important;
 }
 
 @media (max-width:767px) {
@@ -194,3 +247,4 @@
 }
 
 /* end footer */
+
