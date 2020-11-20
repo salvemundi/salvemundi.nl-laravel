@@ -1,53 +1,54 @@
-<nav class="navbar navbar-expand-md shadow-sm">
+{{--
+<div id="TopNavbar">
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+--}}
+<nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+        {{ config('app.name', 'Laravel') }}
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="dropbtn">Commissies</button>
+                    <div class="dropdown-content">
+                      <a href="#">ICT-commissie</a>
+                      <a href="#">Studie-commissie</a>
+                      <a href="#">Activiteiten-commissie</a>
+                      <a href="#">Media-commissie</a>
+                      <a href="#">Feest-commissie</a>
+                      <a href="#">Kamp-commissie</a>
+                      <a href="#">Kas-commissie</a>
+                    </div>
+                </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href>Intro</a>
+                </li>
             </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
-                    
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
+                @if(session('userName') != null)
+                    <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
                 @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                     </li>
+                @endif
                 @endguest
             </ul>
         </div>
     </div>
 </nav>
+<img class="navImg" src="/images/headerLogoSamu.jpg">

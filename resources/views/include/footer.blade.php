@@ -7,7 +7,7 @@
           <p class="footerText">Rachelsmolen 1</p>
           <p class="footerText">5612 MA Eindhoven</p>
           <p class="footerText">KvK nr. 70280606</p>
-        </div> 
+        </div>
 
         <div class="col-sm-6 col-md-3">
             <h6>Contact</h6>
