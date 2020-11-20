@@ -1,4 +1,4 @@
-{{-- 
+{{--
 <div id="TopNavbar">
     <a href="#home">Home</a>
     <a href="#news">News</a>
@@ -17,6 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
                 <div class="dropdown">
                     <button class="dropbtn">Commissies</button>
                     <div class="dropdown-content">
@@ -29,9 +30,16 @@
                       <a href="#">Kas-commissie</a>
                     </div>
                 </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href>Intro</a>
-                </li>                
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href>Inschrijven</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href>Merch</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">

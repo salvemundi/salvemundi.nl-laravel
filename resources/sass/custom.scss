@@ -6,6 +6,13 @@
   white-space: pre-wrap;
 }
 
+.overlap {
+  background-color: white;
+  top: 600px;
+  position: relative;
+  margin-bottom: 600px;
+}
+
 /* begin navbar */
 
 .navbar {
@@ -36,14 +43,18 @@
 
 .navImg {
   width: 100%;
+  position: fixed;
+  z-index: -1;
 }
 
 .dropbtn {
   background-color: $salveMundi-primary;
   color: white;
-  font-size: 16px;
+  //font-size: 16px;
   border: none;
-  padding: 5px;
+  //padding: 6px;
+  display: block;
+  padding: 0.5rem 1rem;
 }
 
 .dropdown {
@@ -72,18 +83,18 @@
 
 .dropdown-content a:hover {
   background-color: rgba(255, 255, 255, 0.3);
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .dropdown:hover .dropbtn {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 /* end navbar */
@@ -247,4 +258,3 @@
 }
 
 /* end footer */
-
