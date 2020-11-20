@@ -23,6 +23,7 @@
 
 .navbar a:hover {
   background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.5s ease-in-out;
 }
 
 .navbar-brand {
@@ -32,6 +33,54 @@
 
 .navImg {
   width: 100%;
+}
+
+.dropbtn {
+  background-color: #663265;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 5px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #663265;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  transition: 0.5s ease-in-out;
 }
 
 /* end navbar */
