@@ -45,8 +45,17 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                @if(session('userName') != null)
-                    <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signin">{{ __('Login') }}</a>
+                        </li>
+                    @endif
+                    
+                    @if(isset($userName))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('/signout') }}">{{ __('Uitloggen') }}</a>
+                        </li>
+                    @endif
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>

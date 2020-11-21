@@ -6,9 +6,9 @@
 
 .overlap {
   background-color: white;
-  top: 600px;
+  top: 800px;
   position: relative;
-  margin-bottom: 600px;
+  margin-bottom: 800px;
 }
 
 @media only screen and (max-width: 1199.98px) {
