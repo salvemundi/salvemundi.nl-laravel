@@ -9,7 +9,7 @@ use Microsoft\Graph\Model;
 
 class GetUsersController extends Controller
 {
-    
+
     public function run()
     {
         // $guzzle = new \GuzzleHttp\Client();
@@ -30,9 +30,9 @@ class GetUsersController extends Controller
         // $user = $graph->createRequest("GET", '/users?$top=999')
         //               ->setReturnType(Model\User::class)
         //               ->execute();
-                         
+
         // //dd($user);
-        // return view('users', compact('user'));   
+        // return view('users', compact('user'));
     }
 
     public function users()
@@ -58,34 +58,32 @@ class GetUsersController extends Controller
         //dd($user2);
 
         //todo: kijken of foreach en data kunt veranderen in contr/view
-        foreach ($user as $users) 
+        foreach ($user as $users)
         {
             $upnuser = $users->getMail();
             $upnuser2 = $users->getJobTitle();
             // dd($upnuser);
 
-            if ($upnuser2 != "") 
+            if ($upnuser2 != "")
             {
-                
-                try 
+
+                try
                 {
                     $photo = $graph->createRequest("GET", '/users/'.$upnuser.'/photos/48x48/$value')->execute();
 
-                    if ($photo != null) 
+                    if ($photo != null)
                     {
-                        $photo = $photo->getRawBody();  
+                        $photo = $photo->getRawBody();
                         $photoCheck = true;
                         echo '<img class="pfPhoto" src="data:'.';base64,'.base64_encode($photo).'" />';
                     }
-                } 
-                catch (\Throwable $th) 
+                }
+                catch (\Throwable $th)
                 {
                     // echo'OMEGALUL';
                 }
-            }            
+            }
         }
         return view('users', compact('user', 'photoCheck', 'photo'));
     }
-
-    
 }

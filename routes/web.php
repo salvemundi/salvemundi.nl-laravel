@@ -22,7 +22,7 @@ Route::get('/welcome', [App\Http\Controllers\HomeController::class, 'welcome']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
 Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
