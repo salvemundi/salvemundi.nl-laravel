@@ -11,6 +11,12 @@
   top: 800px;
   position: relative;
   margin-bottom: 800px;
+  padding: 50px;
+}
+
+.pfPhoto{
+  width: 48px;
+  height: 48px;
 }
 
 @media only screen and (max-width: 1199.98px) {
@@ -87,6 +93,8 @@
   position: fixed;
   width: 100%;
   transition: top 0.3s;
+  z-index: 2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3) !important;
 }
 
 .navbar a {
@@ -131,7 +139,7 @@
   position: absolute;
   background-color: $salveMundi-primary;
   min-width: 180px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
   border-radius: 8px;
   transition: 0.5s ease-in-out;
