@@ -47,11 +47,16 @@
                 @guest
                 @if(session('userName') != null)
                     <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href>Mijn account</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                     </li>
+                    
                 @endif
+                
                 @endguest
             </ul>
         </div>
