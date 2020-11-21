@@ -2,18 +2,23 @@
 
 @section('content')
 <div class="overlap">
-@foreach ($user as $users)
-<div class="card" style="width: 18rem;">
-    <img class="card-img-left" src='src="data:images/jpeg;base64' alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{$users->getDisplayName() }}</h5>
-      <div class="float-right">
-      <p class="card-text-right">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-  </div>
-{{-- <img src="data:images/jpeg;base64,{{\O365\Profile::photo()}}"/>  --}}
+    <div class="card">
+        <div class="row">
+            @foreach ($user as $users)
+            <div class="col-md-4">
+                <img src="/images/headerLogoSamu.jpg" class="w-100">
+            </div>
+            <div class="col-md-4">
+                <div class="card-block">
+                    <h4 class="card-title">{{$users->getDisplayName() }}</h4>
+                    <p class="card-text">{{$users->getDisplayName() }}</p>
+                    <p class="card-text">{{$users->getDisplayName() }}</p>
+                </div>
+            </div>
 
-@endforeach
+            {{-- <img src="data:images/jpeg;base64,{{\O365\Profile::photo()}}"/> --}}
+            @endforeach
+        </div>
+    </div>
 </div>
 @endsection
