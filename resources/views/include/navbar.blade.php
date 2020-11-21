@@ -5,6 +5,7 @@
     <a href="#contact">Contact</a>
 </div>
 --}}
+<link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 <nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -12,7 +13,7 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-        <span class="navbar-toggler-icon"></span>
+            <i class="fa fa-bars" style='color: white;'></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
