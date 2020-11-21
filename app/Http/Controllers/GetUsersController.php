@@ -53,10 +53,10 @@ class GetUsersController extends Controller
         $graph = new Graph();
         $graph->setAccessToken($accessToken);
 
-        $user = $graph->createRequest("GET", '/users?$top=999')
+        $user = $graph->createRequest("GET", '/groups/a4aeb401-882d-4e1e-90ee-106b7fdb23cc/members')
                       ->setReturnType(Model\User::class)
                       ->execute();
-        //dd($user2);
+        // dd($user); 
 
         foreach ($user as $users)
         {
@@ -79,7 +79,7 @@ class GetUsersController extends Controller
                 }
                 catch (\Throwable $th)
                 {
-                    // echo'OMEGALUL';
+                    echo'<img class="pfPhoto" src="images/SalveMundiLogo.png" />';
                 }
             }
         }
