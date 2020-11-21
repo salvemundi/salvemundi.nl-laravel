@@ -9,6 +9,81 @@
   top: 800px;
   position: relative;
   margin-bottom: 800px;
+  padding: 50px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.pfPhoto {
+  width: 48px;
+  height: 48px;
+}
+
+@media only screen and (max-width: 1199.98px) {
+  .overlap {
+    top: 400px;
+    margin-bottom: 400px;
+  }
+}
+
+@media only screen and (max-width: 809.98px) {
+  .overlap {
+    top: 300px;
+    margin-bottom: 300px;
+  }
+}
+
+@media only screen and (max-width: 609.98px) {
+  .overlap {
+    top: 280px;
+    margin-bottom: 280px;
+  }
+}
+
+@media only screen and (max-width: 569.98px) {
+  .overlap {
+    top: 260px;
+    margin-bottom: 260px;
+  }
+}
+
+@media only screen and (max-width: 524.98px) {
+  .overlap {
+    top: 230px;
+    margin-bottom: 230px;
+  }
+}
+
+@media only screen and (max-width: 477.98px) {
+  .overlap {
+    top: 210px;
+    margin-bottom: 210px;
+  }
+}
+
+@media only screen and (max-width: 424.98px) {
+  .overlap {
+    top: 200px;
+    margin-bottom: 200px;
+  }
+}
+
+@media only screen and (max-width: 399.98px) {
+  .overlap {
+    top: 180px;
+    margin-bottom: 180px;
+  }
+}
+
+@media only screen and (max-width: 359.98px) {
+  .overlap {
+    top: 160px;
+    margin-bottom: 160px;
+  }
 }
 
 /* begin navbar */
@@ -21,6 +96,8 @@
   position: fixed;
   width: 100%;
   transition: top 0.3s;
+  z-index: 2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3) !important;
 }
 
 .navbar a {
@@ -62,7 +139,7 @@
   position: absolute;
   background-color: #663265;
   min-width: 180px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
   border-radius: 8px;
   transition: 0.5s ease-in-out;
@@ -90,6 +167,16 @@
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   transition: 0.3s ease-in-out;
+}
+
+#hamburgerMenu {
+  color: white;
+}
+
+@media only screen and (max-width: 767.98px) {
+  .dropbtn {
+    padding: 0;
+  }
 }
 
 /* end navbar */

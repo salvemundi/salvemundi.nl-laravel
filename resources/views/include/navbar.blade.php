@@ -5,6 +5,7 @@
     <a href="#contact">Contact</a>
 </div>
 --}}
+<link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 <nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -12,14 +13,14 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-        <span class="navbar-toggler-icon"></span>
+            <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <div class="dropdown">
-                    <button class="dropbtn">Commissies</button>
+                    <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
                     <div class="dropdown-content">
                       <a href="#">ICT-commissie</a>
                       <a href="#">Studie-commissie</a>
@@ -45,22 +46,18 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signin">{{ __('Login') }}</a>
-                        </li>
-                    @endif
-                    
-                    @if(isset($userName))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('/signout') }}">{{ __('Uitloggen') }}</a>
-                        </li>
-                    @endif
+                @if(session('userName') != null)
+                    <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href>Mijn account</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                     </li>
+                    
                 @endif
+                
                 @endguest
             </ul>
         </div>
