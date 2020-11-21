@@ -13,14 +13,14 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <i class="fa fa-bars" style='color: white;'></i>
+            <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <div class="dropdown">
-                    <button class="dropbtn">Commissies</button>
+                    <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
                     <div class="dropdown-content">
                       <a href="#">ICT-commissie</a>
                       <a href="#">Studie-commissie</a>
@@ -48,11 +48,16 @@
                 @guest
                 @if(session('userName') != null)
                     <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href>Mijn account</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                     </li>
+                    
                 @endif
+                
                 @endguest
             </ul>
         </div>

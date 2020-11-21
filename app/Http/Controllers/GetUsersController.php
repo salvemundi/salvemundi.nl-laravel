@@ -52,12 +52,12 @@ class GetUsersController extends Controller
 
         $graph = new Graph();
         $graph->setAccessToken($accessToken);
-        $user = $graph->createRequest("GET", '/users?$top=999')
+
+        $user = $graph->createRequest("GET", '/groups/a4aeb401-882d-4e1e-90ee-106b7fdb23cc/members')
                       ->setReturnType(Model\User::class)
                       ->execute();
-        //dd($user2);
+        // dd($user); 
 
-        //todo: kijken of foreach en data kunt veranderen in contr/view
         foreach ($user as $users)
         {
             $upnuser = $users->getMail();
@@ -66,7 +66,6 @@ class GetUsersController extends Controller
 
             if ($upnuser2 != "")
             {
-
                 try
                 {
                     $photo = $graph->createRequest("GET", '/users/'.$upnuser.'/photos/48x48/$value')->execute();
@@ -80,7 +79,7 @@ class GetUsersController extends Controller
                 }
                 catch (\Throwable $th)
                 {
-                    // echo'OMEGALUL';
+                    echo'<img class="pfPhoto" src="images/SalveMundiLogo.png" />';
                 }
             }
         }
