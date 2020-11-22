@@ -53,39 +53,46 @@ class GetUsersController extends Controller
         $graph = new Graph();
         $graph->setAccessToken($accessToken);
 
-        $user = $graph->createRequest("GET", '/groups/a4aeb401-882d-4e1e-90ee-106b7fdb23cc/members')
+        $userarray = $graph->createRequest("GET", '/groups/a4aeb401-882d-4e1e-90ee-106b7fdb23cc/members')
                       ->setReturnType(Model\User::class)
                       ->execute();
-        // dd($user);
+        //
+        // ANYTHING PAST THIS CODE NEEDS TO BE REVAMPED TO WORK WITH DATABASE.
+        //
+
+        //dd($userarray);
         $imgarray = array();
-        foreach ($user as $users)
+        foreach ($userarray as $users)
         {
             $upnuser = $users->getMail();
             $upnuser2 = $users->getJobTitle();
             // dd($upnuser);
 
-            if ($upnuser2 != "")
+            if (true)
             {
                 try
                 {
-                    $photo = $graph->createRequest("GET", '/users/'.$upnuser.'/photos/48x48/$value')->execute();
+                    $photo = $graph->createRequest("GET", '/users/'.$upnuser.'/photo')->execute();
 
                     if ($photo != null)
                     {
-                        $photo = $photo->getRawBody();
+                        //$photo = $photo->getRawBody();
                         $photoCheck = true;
                         //echo '<img class="pfPhoto" src="data:'.';base64,'.base64_encode($photo).'" />';
+                        //dd($photo);
                         array_push($imgarray, $photo);
+                        file_put_contents('images/'.$users->getID().'.png', base64_decode($photo));
                     }
                 }
                 catch (\Throwable $th)
                 {
                     //echo'<img class="pfPhoto" src="images/SalveMundiLogo.png" />';
+                    array_push($userarray, null);
                 }
             }
         }
-        $userArray = array_merge($user,$imgarray);
-        //dd($userArray);
-        return view('users', compact('user', 'photoCheck', 'imgarray'));
+        $imguserarray = array($userarray,$imgarray);
+        dd($photo);
+        return view('users', compact('user', 'photoCheck', 'imguserarray'));
     }
 }
