@@ -13,6 +13,11 @@
   margin-bottom: 800px;
   padding: 50px;
 }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
 
 .pfPhoto{
   width: 48px;
