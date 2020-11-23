@@ -4,6 +4,10 @@
   white-space: pre-wrap;
 }
 
+.card {
+  border-radius: 10px;
+}
+
 .overlap {
   background-color: white;
   top: 800px;
@@ -21,6 +25,7 @@
 .pfPhoto {
   width: 240px;
   height: 240px;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 1199.98px) {

@@ -33,7 +33,6 @@ class UpdateImgPath extends Migration
 
         $memberuser = DB::table('users')->select('id','AzureID')->get();
 
-
         foreach($memberuser as $members)
         {
             try
@@ -45,7 +44,7 @@ class UpdateImgPath extends Migration
                     $image->download('public/images/users/'.$members->AzureID.'.jpg');
                     DB::table('users')
                                 ->where('id', $members->id)
-                                ->update(['ImgPath' => 'images/users/'.$members->AzureID.'.jpeg']);
+                                ->update(['ImgPath' => 'images/users/'.$members->AzureID.'.jpg']);
                 }
             }
             catch (\Throwable $th)

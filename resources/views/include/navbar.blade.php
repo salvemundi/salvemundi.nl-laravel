@@ -5,7 +5,7 @@
     <a href="#contact">Contact</a>
 </div>
 --}}
-<link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+
 <nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -55,9 +55,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                     </li>
-                    
                 @endif
-                
                 @endguest
             </ul>
         </div>
