@@ -4,27 +4,25 @@
 <div class="overlap grid">
 
 
-@foreach ($imguserarray as $users)
-<?php
-dd($imguserarray);
-?>
+@foreach ($members as $users)
 <div class="card">
     <div class="row">
 
 
             @if($users != null)
                 <div class="col-md-4">
-                    <?php
-                        dd($users);
-                        echo '<img class="pfPhoto" src="data:'.';base64,'.base64_encode($users[1]).'" />';
-                    ?>
+                        {!! '<img class="pfPhoto" src="'.$users->Image.'" />' !!}
                 </div>
             @else
                 <img class="pfPhoto" src="images/SalveMundiLogo.png"/>
             @endif
 
                 <div class="col-md-4">
-                    <h4 class="card-title">{{$users[0]->getDisplayName() }}</h4>
+                    <br>
+                    <br>
+                    <br>
+                    <h4 class="card-title">{{ $users->DisplayName }}</h4>
+                    <p class="card-text">{{ $users->email }}</p>
                 </div>
 
         </div>
