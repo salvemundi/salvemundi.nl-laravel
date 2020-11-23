@@ -37,10 +37,12 @@ class UpdateImgPath extends Migration
         {
             try
             {
-                $image = $graph->createRequest("GET", '/users/'.$members->AzureID.'/photos/240x240/$value');
+                // I need to run the API call twice in order to check if there is even an image :( I figured saving IOPS was more important.
+                $image = $graph->createRequest("GET", '/users/'.$members->AzureID.'/photos/240x240/$value')->execute();
 
                 if($image != null)
                 {
+                    $image = $graph->createRequest("GET", '/users/'.$members->AzureID.'/photos/240x240/$value');
                     $image->download('public/images/users/'.$members->AzureID.'.jpg');
                     DB::table('users')
                                 ->where('id', $members->id)
@@ -51,7 +53,7 @@ class UpdateImgPath extends Migration
             {
                 DB::table('users')
                 ->where('id', $members->id)
-                ->update(['ImgPath' => 'images/SalveMundiLogo.png']);
+                ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
             }
         }
     }
