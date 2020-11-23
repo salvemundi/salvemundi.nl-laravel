@@ -33,4 +33,4 @@ Route::get('/user', function () {
 });
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
 // Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
-Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'users']);
+Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
