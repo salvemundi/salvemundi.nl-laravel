@@ -38,7 +38,7 @@ class UpdateImgPath extends Migration
             try
             {
                 $image = $graph->createRequest("GET", '/users/'.$members->AzureID.'/photos/240x240/$value')
-                                    ->download('storage/app/public/users/'.$members->AzureID.'.jpg');
+                                    ->download('public/storage/users/'.$members->AzureID.'.jpg');
                 DB::table('users')
                 ->where('id', $members->id)
                 ->update(['ImgPath' => 'users/'.$members->AzureID.'.jpg']);
