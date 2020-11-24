@@ -8,7 +8,7 @@
     <div class="row">
             @if($users != null)
                 <div class="col-md-4">
-                        {!! '<img class="pfPhoto" src="'.$users->Image.'" />' !!}
+                        {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!}
                 </div>
             @else
                 <img class="pfPhoto" src="images/SalveMundiLogo.png"/>
