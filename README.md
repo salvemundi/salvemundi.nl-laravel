@@ -4,7 +4,7 @@ In order to start this project:
 
 Install [NPM/NodeJS](https://nodejs.org/en/) and [Composer](https://getcomposer.org/download/)
 
-Setup a database. You can use something like XAMPP to accomplish this.
+Setup a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this.
 Create a database and a user that has full access to that database.
 
 Create an env file. The example env file should get you along the way.
@@ -29,4 +29,5 @@ In order to start up the project run the following in side of the project root d
 6. `php artisan serve`
 
 Thanks for reading!
+
 Made by: IT-Commission Salve Mundi
