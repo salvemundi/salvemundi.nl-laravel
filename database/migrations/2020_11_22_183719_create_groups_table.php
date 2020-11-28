@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use Illuminate\Support\Facades\DB;
@@ -34,12 +34,13 @@ class CreateGroupsTable extends Migration
                       ->setReturnType(Model\User::class)
                       ->execute();
         foreach ($grouparray as $groups) {
-            if($groups->getId() != "7b7cf6e2-b440-4eff-8cdc-ac753bfb27d7")
+            if(Str::contains($groups->getDisplayName(), ['|| Salve Mundi']))
             {
+                $commissieName = str_replace("|| Salve Mundi", "",$groups->getDisplayName());
                 DB::table('groups')->insert(
                     array(
                         'AzureID' => $groups->getId(),
-                        'DisplayName' => $groups->getDisplayName(),
+                        'DisplayName' => $commissieName,
                         'email' => $groups->getMail()
                     )
                 );
