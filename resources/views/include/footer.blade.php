@@ -21,6 +21,7 @@
         <div class="col-xs-6 col-md-3">
           <h6>Commissies</h6>
           <ul class="footer-links">
+            <li><a href="#">Bestuur</a></li>
             <li><a href="#">Ict-commissie</a></li>
             <li><a href="#">Studie-commissie</a></li>
             <li><a href="#">Activiteiten-commissie</a></li>
