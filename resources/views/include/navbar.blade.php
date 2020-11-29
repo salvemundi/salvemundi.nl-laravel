@@ -33,7 +33,7 @@
                 </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href>Intro</a>
+                    <a class="nav-link" href="/intro">Intro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href>Inschrijven</a>
