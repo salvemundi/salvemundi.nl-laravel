@@ -34,3 +34,9 @@ Route::get('/user', function () {
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
 // Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
 Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
+
+// Route::get('/intro', [App\Http\Controllers\MolliePaymentController::class, 'index']);
+
+Route::get('/intro', [App\Http\Controllers\InschrijvenController::class, 'index']);
+
+Route::post('/intro/store', [App\Http\Controllers\InschrijvenController::class, 'store']);
