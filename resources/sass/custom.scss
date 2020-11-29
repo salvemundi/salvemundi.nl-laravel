@@ -349,3 +349,31 @@
 }
 
 /* end footer */
+
+/* begin aanmelden intro */
+
+.btn-primary{
+  background: $salveMundi-primary !important;
+  border-color: $salveMundi-primary !important;
+
+  &:hover
+  {
+    background: $salveMundi-dark !important; 
+  }
+
+  &:focus
+  {
+    box-shadow: 0 0 0 0.2rem $salveMundi-boxShadow !important;
+  }
+}
+
+.form-control{
+   border-color: $salveMundi-primary;
+  &:focus
+  {
+    box-shadow: 0 0 0 0.2rem $salveMundi-boxShadow !important;
+  }
+}
+
+
+/* end aanmelden intro */

@@ -344,3 +344,28 @@
 
 /* end footer */
 
+/* begin aanmelden intro */
+
+.btn-primary {
+  background: #663265 !important;
+  border-color: #663265 !important;
+}
+
+.btn-primary:hover {
+  background: #39203B !important;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(102, 50, 101, 0.6) !important;
+}
+
+.form-control {
+  border-color: #663265;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(102, 50, 101, 0.6) !important;
+}
+
+/* end aanmelden intro */
+
