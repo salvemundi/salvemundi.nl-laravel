@@ -38,9 +38,8 @@ class InschrijvenController extends Controller
         $userIntro->save();
 
         Mail::to($userIntro->email)
-                ->send(new SendMail($userIntro->firstName, $userIntro->lastName));
+                ->send(new SendMail($userIntro->firstName, $userIntro->lastName, $userIntro->insertion));
 
         return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
-
 }
