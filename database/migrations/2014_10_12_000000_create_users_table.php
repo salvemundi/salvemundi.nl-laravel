@@ -34,34 +34,18 @@ class CreateUsersTable extends Migration
                       ->setReturnType(Model\User::class)
                       ->execute();
         foreach ($userarray as $users) {
-            if($users->getJobTitle() != ""){
-                if($users->getMobilePhone() == "")
-                {
-                    DB::table('users')->insert(
-                        array(
-                            'AzureID' => $users->getId(),
-                            'DisplayName' => $users->getDisplayName(),
-                            'FirstName' => $users->getGivenName(),
-                            'Lastname' => $users->getSurname(),
-                            'PhoneNumber' => "",
-                            'email' => $users->getMail(),
-                            'ImgPath' => ""
-                        )
-                    );
-                } else
-                {
-                    DB::table('users')->insert(
-                        array(
-                            'AzureID' => $users->getId(),
-                            'DisplayName' => $users->getDisplayName(),
-                            'FirstName' => $users->getGivenName(),
-                            'Lastname' => $users->getSurname(),
-                            'PhoneNumber' => $users->getMobilePhone(),
-                            'email' => $users->getMail(),
-                            'ImgPath' => ""
-                        )
-                    );
-                }
+            if($users->getJobTitle() != '')
+            {
+                DB::table('users')->insert(
+                    array(
+                        'AzureID' => $users->getId(),
+                        'DisplayName' => $users->getDisplayName(),
+                        'FirstName' => $users->getGivenName(),
+                        'Lastname' => $users->getSurname(),
+                        'PhoneNumber' => "",
+                        'email' => $users->getMail()
+                    )
+                );
             }
         }
     }
@@ -82,9 +66,9 @@ class CreateUsersTable extends Migration
             $table->string('DisplayName');
             $table->string('FirstName');
             $table->string('LastName');
-            $table->string('PhoneNumber');
+            $table->string('PhoneNumber')->nullable();
             $table->string('email')->unique();
-            $table->string('ImgPath');
+            $table->string('ImgPath')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

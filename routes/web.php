@@ -40,3 +40,10 @@ Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
 Route::get('/intro', [App\Http\Controllers\InschrijvenController::class, 'index']);
 
 Route::post('/intro/store', [App\Http\Controllers\InschrijvenController::class, 'store']);
+
+Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
+
+//Route::name('order.success')->post('webhooks/mollie', 'MollieWebhookController@handle');
+
+//Route::get('payment-success',[App\Http\Controllers\MolliePaymentController::Class, 'paymentSuccess'])->name('payment.success');
+//Route::get('mollie-payment',[App\Http\Controllers\MolliePaymentController::Class, 'preparePayment'])->name('mollie.payment');
