@@ -12,13 +12,28 @@ class GetUsersController extends Controller
 
     public function run()
     {
-        $members = DB::table('users')
+
+
+        $membersBestuur = DB::table('users')
                     ->join('groups_relation', 'user_id', '=', 'users.id')
                     ->join('groups', 'groups.id', '=', 'groups_relation.group_id')
                     ->select('users.DisplayName as DisplayName', 'users.ImgPath as Image', 'users.email as email')
-                    ->where('groups_relation.group_id', '=', 9)
+                    ->where('groups.AzureID', '=', 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0')
                     ->get();
 
-        return view('users', ['members' => $members]);
+        $groups = DB::table('groups')
+                    ->where('AzureID', '!=','b16d93c7-42ef-412e-afb3-f6cbe487d0e0')
+                    ->get();
+        foreach($groups as $commissies)
+        {
+            $getCommissieMembers = DB::table('users')
+                ->join('groups_relation', 'user_id', '=', 'users.id')
+                ->join('groups', 'groups.id', '=', 'groups_relation.group_id')
+                ->select('users.DisplayName as DisplayName', 'users.ImgPath as Image', 'users.email as email')
+                ->where('groups.AzureID', '=', $commissies->AzureID)
+                ->get();
+        }
+
+        return view('users', ['membersBestuur' => $membersBestuur,'']);
     }
 }

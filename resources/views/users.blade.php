@@ -3,7 +3,7 @@
 @section('content')
 <div class="overlap grid">
 
-@foreach ($members as $users)
+@foreach ($membersBestuur as $users)
 <div class="card">
     <div class="row">
             @if($users != null)
