@@ -33,7 +33,7 @@ class GetUsersController extends Controller
                 ->where('groups.AzureID', '=', $commissies->AzureID)
                 ->get();
         }
-
+        //dd($groups->getProperties());
         return view('users', ['membersBestuur' => $membersBestuur,'']);
     }
 }
