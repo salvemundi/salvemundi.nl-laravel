@@ -7,6 +7,11 @@ use App\Models\Intro;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
+use Mollie\Laravel\Facades\Mollie;
+use BenSampo\Enum\Enum;
+use App\Enums\paymentStatus;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\MolliePaymentController;
 
 class InschrijvenController extends Controller
 {
@@ -14,6 +19,7 @@ class InschrijvenController extends Controller
     {
         return view('intro');
     }
+
 
     public function store(Request $request)
     {
@@ -35,11 +41,36 @@ class InschrijvenController extends Controller
         $userIntro->email = $request->input('email');
         $userIntro->phoneNumber = $request->input('phoneNumber');
         $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
+        $userIntro->paymentStatus = paymentStatus::fromValue(paymentStatus::unPaid);
         $userIntro->save();
 
-        Mail::to($userIntro->email)
-                ->send(new SendMail($userIntro->firstName, $userIntro->lastName, $userIntro->insertion));
 
-        return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
+        $paying = $this->preparePayment();
+
+
+        //return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
+
+
+
+    public function preparePayment()
+    {
+        $payment = Mollie::api()->payments->create([
+            "amount" => [
+                "currency" => "EUR",
+                "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
+            ],
+            "description" => "Order #12345",
+            "redirectUrl" => 'https://google.com',
+            "webhookUrl" => 'http://sv.iqfx.nl/webhooks/mollie',
+            "metadata" => [
+                "order_id" => "12345",
+            ],
+        ]);
+
+        // redirect customer to Mollie checkout page
+        echo Redirect::to($payment->getCheckoutUrl());
+    }
+
+
 }
