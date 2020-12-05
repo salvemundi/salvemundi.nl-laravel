@@ -1,4 +1,11 @@
 <?php return array (
+  'bensampo/laravel-enum' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'BenSampo\\Enum\\EnumServiceProvider',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 
@@ -22,6 +29,13 @@
     'providers' => 
     array (
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
+    ),
+  ),
+  'laravel/cashier-mollie' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Cashier\\CashierServiceProvider',
     ),
   ),
   'laravel/tinker' => 

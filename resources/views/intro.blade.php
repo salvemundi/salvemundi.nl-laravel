@@ -4,18 +4,16 @@
 
 
 <div class="row center overlap">
-    schrijf je in voor de introoo!!!
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">
             {{ session()->get('message') }}
         </div>
         @endif
-  
         <form action="/intro/store" method="post">
             @csrf
             <br>
-            <h2 class="h2">Inschrijven</h2>
+            <h2 class="h2">Aanmelden voor de intro</h2>
 
             <div class="test">
                 <br>

@@ -16,10 +16,11 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public function __construct($firstName, $lastName)
+    public function __construct($firstName, $lastName,$insertion)
     {
-        $this->voorNaam = $firstName;
-        $this->achterNaam = $lastName;
+        $this->givenName = $firstName;
+        $this->surName = $lastName;
+        $this->insertionn = $insertion;
     }
 
     /**
@@ -29,9 +30,8 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        
         return $this
                 ->subject("Inschrijving intro")
-                ->markdown('introMail',['firstName'=> $this->voorNaam,'lastName'=>$this->achterNaam]);
+                ->markdown('introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertionn]);
     }
 }

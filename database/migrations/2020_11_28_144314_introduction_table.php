@@ -22,6 +22,7 @@ class IntroductionTable extends Migration
             $table->date('birthday', 8);
             $table->string('email', 65);
             $table->string('phoneNumber', 15);
+            $table->enum('paymentStatus', ['paid', 'unPaid']);
             $table->timestamps();
         });
     }
