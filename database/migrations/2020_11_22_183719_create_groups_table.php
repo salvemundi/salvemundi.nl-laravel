@@ -31,7 +31,7 @@ class CreateGroupsTable extends Migration
         $graph->setAccessToken($accessToken);
 
         $grouparray = $graph->createRequest("GET", '/groups')
-                      ->setReturnType(Model\User::class)
+                      ->setReturnType(Model\Group::class)
                       ->execute();
         foreach ($grouparray as $groups) {
             if(Str::contains($groups->getDisplayName(), ['|| Salve Mundi']))
@@ -41,6 +41,7 @@ class CreateGroupsTable extends Migration
                     array(
                         'AzureID' => $groups->getId(),
                         'DisplayName' => $commissieName,
+                        'Description' => $groups->getDescription(),
                         'email' => $groups->getMail()
                     )
                 );
@@ -61,6 +62,7 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('AzureID');
             $table->string('DisplayName');
+            $table->longText('Description')->nullable();
             $table->string('email')->unique();
             $table->timestamps();
         });
