@@ -22,6 +22,7 @@ class GetUsersController extends Controller
                     ->get();
 
         $groups = DB::table('groups')
+                    ->select('id')
                     ->where('AzureID', '!=','b16d93c7-42ef-412e-afb3-f6cbe487d0e0')
                     ->get();
         foreach($groups as $commissies)
