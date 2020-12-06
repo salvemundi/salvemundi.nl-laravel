@@ -222,6 +222,10 @@
   text-decoration: none;
 }
 
+.footerText:hover {
+  color: #39203B;
+}
+
 .footer-links {
   padding-left: 0;
   list-style: none;
@@ -238,7 +242,7 @@
 .footer-links a:active,
 .footer-links a:focus,
 .footer-links a:hover {
-  color: #3366cc;
+  color: #39203B !important;
   text-decoration: none;
 }
 
@@ -334,6 +338,15 @@
   margin-bottom: 0px !important;
 }
 
+.footerText:hover {
+  color: #39203B;
+}
+
+.footerText2 {
+  color: white;
+  margin-bottom: 0px !important;
+}
+
 @media (max-width: 767px) {
   .social-icons li.title {
     display: block;
@@ -368,4 +381,10 @@
 }
 
 /* end aanmelden intro */
+
+/* kaartjes begin*/
+
+.group {
+  width: 100% !important;
+}
 
