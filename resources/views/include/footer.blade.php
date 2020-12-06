@@ -4,9 +4,9 @@
       <div class="row">
         <div class="col-sm-12 col-md-3">
           <h6>Informatie</h6>
-          <p class="footerText">Rachelsmolen 1</p>
-          <p class="footerText">5612 MA Eindhoven</p>
-          <p class="footerText">KvK nr. 70280606</p>
+          <a href="https://goo.gl/maps/dnv849aVPd8DyXqa8" target="https://goo.gl/maps/dnv849aVPd8DyXqa8"> <p class="footerText">Rachelsmolen 1</p></a>
+          <a href="https://goo.gl/maps/dnv849aVPd8DyXqa8" target="https://goo.gl/maps/dnv849aVPd8DyXqa8"> <p class="footerText">5612 MA Eindhoven</p></a>
+          <p class="footerText2">KvK nr. 70280606</p>
         </div>
 
         <div class="col-sm-6 col-md-3">
