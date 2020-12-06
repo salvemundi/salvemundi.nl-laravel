@@ -225,7 +225,11 @@
   color: #3366cc;
   text-decoration: none;
 }
-
+.footerText{
+  &:hover{
+    color: $salveMundi-dark;
+  }
+}
 .footer-links {
   padding-left: 0;
   list-style: none
@@ -241,8 +245,8 @@
 
 .footer-links a:active,
 .footer-links a:focus,
-.footer-links a:hover {
-  color: $salveMundi-dark;
+.footer-links a:hover{
+  color: $salveMundi-dark !important;
   text-decoration: none;
 }
 
@@ -338,6 +342,15 @@
 .footerText {
   color: white;
   margin-bottom: 0px !important;
+
+  &:hover {
+    color: $salveMundi-dark;
+  }
+}
+
+.footerText2 {
+  color: white;
+  margin-bottom: 0px !important;
 }
 
 @media (max-width:767px) {
@@ -377,3 +390,8 @@
 
 
 /* end aanmelden intro */
+/* kaartjes begin*/
+
+.group{
+  width: 100% !important;
+}
