@@ -45,9 +45,7 @@ class InschrijvenController extends Controller
         $userIntro->save();
 
 
-        $paying = $this->preparePayment();
-
-
+        return $this->preparePayment();
         //return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
 
@@ -61,7 +59,7 @@ class InschrijvenController extends Controller
                 "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "Order #12345",
-            "redirectUrl" => 'http://sv.tut/intro',
+            "redirectUrl" => 'http://localhost:8000/intro',
             "webhookUrl" => 'http://sv.iqfx.nl/webhooks/mollie',
             "metadata" => [
                 "order_id" => "12345",
@@ -69,7 +67,7 @@ class InschrijvenController extends Controller
         ]);
 
         // redirect customer to Mollie checkout page
-        echo Redirect::to($payment->getCheckoutUrl());
+        return Redirect::to($payment->getCheckoutUrl());
     }
 
 
