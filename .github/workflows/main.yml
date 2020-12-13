@@ -38,6 +38,7 @@ jobs:
             git clean -f
             git pull
             sudo composer install
+            ${{ secrets.USER_PASS }}
             sudo npm install -- progress false
             sudo npm run production --progress false
             php artisan config:cache
