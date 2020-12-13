@@ -10,6 +10,7 @@
             </div>
             <div class="col-md-4">
                 <h4 class="card-title">{{$groupBestuur->groupName}}</h4>
+                <p class="card-text">{{$groupBestuur->email}}</p>
                 <p class="card-text">{{$groupBestuur->Description}}</p>
             </div>
         </div>
@@ -36,6 +37,7 @@
     @foreach ($groups as $group)
         <h2>{{$group->DisplayName}}</h2>
         <p>{{$group->Description}}</p>
+        <p>{{$group->email}}</p>
     @foreach ($getCommissieMembers as $users)
         @if ($users->groupID == $group->id)
             <div class="card">
@@ -43,7 +45,6 @@
                     <div class="col-md-4">
                         {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!}
                     </div>
-        
                     <div class="col-md-4">
                         <br>
                         <br>

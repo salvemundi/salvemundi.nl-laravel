@@ -20,7 +20,7 @@
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <div class="dropdown">
-                    <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
+                    <button href="/users" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
                     <div class="dropdown-content">
                       <a href="#">ICT-commissie</a>
                       <a href="#">Studie-commissie</a>
@@ -49,7 +49,7 @@
                 @if(session('userName') != null)
                     <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href>Mijn account</a>
+                        <a class="nav-link" href="/mijnAccount">Mijn account</a>
                     </li>
                 @else
                     <li class="nav-item">

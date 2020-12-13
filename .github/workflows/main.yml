@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Deploy website
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: |
+            cd /var/www/salvemundi.nl-laravel
+            php artisan down
+            git fetch
+            git checkout main
+            git reset --hard
+            git clean -f
+            git pull
+            composer install
+            npm install -- progress false
+            npm run production --progress false
+            php artisan config:cache
+            php artisan route:cache
+            php artisan migrate --force
+            php artisan up
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.USER_PASS }}
+          port: ${{ secrets.SERVER_PORT }}
+          privatekey: ${{ secrets.DEPLOYMENT_KEY }}
+          tryKeyboard: true
