@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Deploy website
-        uses: fifsky/ssh-action@master
+        uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
             cd /var/www/salvemundi.nl-laravel
@@ -46,8 +46,7 @@ jobs:
             php artisan migrate --force
             php artisan up
           host: ${{ secrets.HOST }}
-          user: ${{ secrets.USER }}
-          pass: ${{ secrets.USER_PASS }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.USER_PASS }}
           port: ${{ secrets.SERVER_PORT }}
-          key: ${{ secrets.DEPLOYMENT_KEY }}
-          args: -tt
+          privatekey: ${{ secrets.DEPLOYMENT_KEY }}
