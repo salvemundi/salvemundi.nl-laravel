@@ -24,7 +24,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
+Route::post('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
 Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
 Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 Route::get('/user', function () {
