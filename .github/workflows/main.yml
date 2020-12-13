@@ -37,8 +37,8 @@ jobs:
             git reset --hard
             git clean -f
             git pull
-            composer install
-            npm install -- progress false
+            sudo composer install
+            sudo npm install -- progress false
             sudo npm run production --progress false
             php artisan config:cache
             php artisan route:cache
