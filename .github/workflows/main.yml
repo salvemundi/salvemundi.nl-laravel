@@ -45,5 +45,6 @@ jobs:
             php artisan migrate --force
             php artisan up
           host: ${{ secrets.HOST }}
-          user: githubrunner
+          user: ${{ secrets.USER }}
+          port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.DEPLOYMENT_KEY }}
