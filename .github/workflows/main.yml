@@ -50,3 +50,4 @@ jobs:
           password: ${{ secrets.USER_PASS }}
           port: ${{ secrets.SERVER_PORT }}
           privatekey: ${{ secrets.DEPLOYMENT_KEY }}
+          tryKeyboard: true
