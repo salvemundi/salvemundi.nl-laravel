@@ -46,7 +46,7 @@ jobs:
             php artisan up
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USER }}
-          pass: ${{ secres.USER_PASS }}
+          pass: ${{ secrets.USER_PASS }}
           port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.DEPLOYMENT_KEY }}
           args: -tt
