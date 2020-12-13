@@ -38,7 +38,7 @@ class AuthController extends Controller
       session(['oauthState' => $oauthClient->getState()]);
 
       // Redirect to AAD signin page.
-      return redirect()->to($authUrl)->send();
+      return Redirect::away($authUrl);
     }
 
     public function callback(Request $request)
