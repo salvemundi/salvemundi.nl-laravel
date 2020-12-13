@@ -48,3 +48,4 @@ jobs:
           user: ${{ secrets.USER }}
           port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.DEPLOYMENT_KEY }}
+          args: -tt
