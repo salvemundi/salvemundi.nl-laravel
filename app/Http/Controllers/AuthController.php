@@ -83,9 +83,11 @@ class AuthController extends Controller
           $graph = new Graph();
           $graph->setAccessToken($accessToken->getToken());
 
-          $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName')
+          $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName,id')
             ->setReturnType(Model\User::class)
             ->execute();
+
+            session(['id' => $user->getId()]);
 
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
