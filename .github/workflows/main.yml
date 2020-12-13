@@ -34,7 +34,7 @@ jobs:
             php artisan down
             sudo git fetch
             ${{ secrets.USER_PASS }}
-            sudo git checkout master
+            sudo git checkout main
             sudo git reset --hard
             sudo git clean -f
             sudo git pull
