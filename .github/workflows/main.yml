@@ -32,15 +32,14 @@ jobs:
           command: |
             cd /var/www/salvemundi.nl-laravel
             php artisan down
-            sudo git fetch
-            ${{ secrets.USER_PASS }}
-            sudo git checkout main
-            sudo git reset --hard
-            sudo git clean -f
-            sudo git pull
-            sudo composer install
-            sudo npm install -- progress false
-            sudo npm run production --progress false
+            git fetch
+            git checkout main
+            git reset --hard
+            git clean -f
+            git pull
+            composer install
+            npm install -- progress false
+            npm run production --progress false
             php artisan config:cache
             php artisan route:cache
             php artisan migrate --force
