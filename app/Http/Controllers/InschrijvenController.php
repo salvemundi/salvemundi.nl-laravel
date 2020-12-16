@@ -61,7 +61,7 @@ class InschrijvenController extends Controller
             ],
             "description" => "Order #12345",
             "redirectUrl" => route('intro'),
-            "webhookUrl" => route(webhooks.mollie),
+            "webhookUrl" => route('webhooks.mollie'),
             "metadata" => [
                 "order_id" => $orderIdentifier,
             ],
