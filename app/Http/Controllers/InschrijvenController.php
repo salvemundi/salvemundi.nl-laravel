@@ -44,14 +44,15 @@ class InschrijvenController extends Controller
         $userIntro->paymentStatus = paymentStatus::fromValue(paymentStatus::unPaid);
         $userIntro->save();
 
+        $orderId = Intro::where('email', $request->input('email'));
 
-        return $this->preparePayment();
+        return $this->preparePayment($orderId);
         //return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
 
 
 
-    public function preparePayment()
+    public function preparePayment($orderIdentifier)
     {
         $payment = Mollie::api()->payments->create([
             "amount" => [
@@ -59,10 +60,10 @@ class InschrijvenController extends Controller
                 "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "Order #12345",
-            "redirectUrl" => 'http://localhost:8000/intro',
-            "webhookUrl" => 'http://sv.iqfx.nl/webhooks/mollie',
+            "redirectUrl" => 'https://sv.iqfx.nl/intro',
+            "webhookUrl" => 'https://sv.iqfx.nl/webhooks/mollie',
             "metadata" => [
-                "order_id" => "12345",
+                "order_id" => $orderIdentifier,
             ],
         ]);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\paymentStatus;
 use Illuminate\Http\Request;
 
 class MollieWebhookController extends Controller
@@ -15,7 +16,8 @@ class MollieWebhookController extends Controller
         $payment = Mollie::api()->payments()->get($request->id);
 
         if ($payment->isPaid()) {
-            return view('/user');
+            $order = Order::find($payment->id);
+            $order->paymentStatus = paymentStatus::paid;
         }
     }
 }
