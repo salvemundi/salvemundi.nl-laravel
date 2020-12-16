@@ -60,8 +60,8 @@ class InschrijvenController extends Controller
                 "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "Order #12345",
-            "redirectUrl" => 'https://sv.iqfx.nl/intro',
-            "webhookUrl" => 'https://sv.iqfx.nl/webhooks/mollie',
+            "redirectUrl" => route('intro'),
+            "webhookUrl" => route(webhooks.mollie),
             "metadata" => [
                 "order_id" => $orderIdentifier,
             ],
