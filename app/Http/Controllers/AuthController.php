@@ -36,9 +36,8 @@ class AuthController extends Controller
 
       // Save client state so we can validate in callback
       session(['oauthState' => $oauthClient->getState()]);
-
-      // Redirect to AAD signin page.
-      return Redirect::away($authUrl);
+      // Redirect to AAD signin page
+      return redirect()->away($authUrl);
     }
 
     public function callback(Request $request)
