@@ -69,6 +69,7 @@ class InschrijvenController extends Controller
         ]);
         $introObject = Intro::find($introId);
         $introObject->update(['paymentId' => $payment->id]);
+        dd($payment->id);
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());
     }
