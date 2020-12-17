@@ -8,17 +8,17 @@ use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 class MollieWebhookController extends Controller
 {
-
     public function handle(Request $request) {
         if (! $request->has('id')) {
             return;
         }
+
         $paymentId = $request->input('id');
         $payment = Mollie::api()->payments()->get($paymentId);
 
         if ($payment->isPaid()) {
             $order = Intro::where('paymentId', $paymentId)->get();
-            $order->all()->update(['paymentStatus' => paymentStatus::paid]);
+            $order->push(['paymentStatus' => paymentStatus::paid]);
         }
     }
 }
