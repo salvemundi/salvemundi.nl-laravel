@@ -41,13 +41,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href>Merch</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
                 @if(session('userName') != null)
-                    <li class="nav-item"><a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href>Mijn account</a>
                     </li>
