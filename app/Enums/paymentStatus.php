@@ -11,6 +11,6 @@ use BenSampo\Enum\Enum;
  */
 final class paymentStatus extends Enum
 {
-    const unPaid =   0;
-    const paid =   1;
+    const unPaid = 0;
+    const paid = 1;
 }

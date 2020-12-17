@@ -27,7 +27,7 @@
     <li> Willekeurige spontane activiteiten </li>
     <br>
     <p> En voor de wat minder uitgaande studenten:</p>
-    
+
     <li> Jaarlijks op kamp </li>
     <li> Game Nights (bordspellen & eSports) </li>
     <li> Partnership met een grote hackathon </li>
