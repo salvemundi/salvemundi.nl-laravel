@@ -18,8 +18,7 @@ class MollieWebhookController extends Controller
 
         if ($payment->isPaid()) {
             $order = Intro::where('paymentId', $paymentId)->get();
-            $order->paymentStatus = paymentStatus::paid;
-            $order->save();
+            $order->update(['paymentStatus' => paymentStatus::paid]);
         }
     }
 }
