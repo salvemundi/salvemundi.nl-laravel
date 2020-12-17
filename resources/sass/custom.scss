@@ -227,7 +227,7 @@
 }
 .footerText{
   &:hover{
-    color: $salveMundi-dark;
+    color: $salveMundi-link;
   }
 }
 .footer-links {
@@ -246,7 +246,7 @@
 .footer-links a:active,
 .footer-links a:focus,
 .footer-links a:hover{
-  color: $salveMundi-dark !important;
+  color: $salveMundi-link !important;
   text-decoration: none;
 }
 
@@ -329,7 +329,7 @@
 .social-icons a:focus,
 .social-icons a:hover {
   color: #fff;
-  background-color: #29aafe
+  background-color: $salveMundi-link;
 }
 
 .social-icons.size-sm a {
@@ -344,7 +344,7 @@
   margin-bottom: 0px !important;
 
   &:hover {
-    color: $salveMundi-dark;
+    color: $salveMundi-link;
   }
 }
 
@@ -371,7 +371,7 @@
 
   &:hover
   {
-    background: $salveMundi-dark !important; 
+    background: $salveMundi-dark !important;
   }
 
   &:focus

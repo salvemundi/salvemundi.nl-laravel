@@ -20,7 +20,7 @@ class IntroductionTable extends Migration
             $table->string('insertion', 32)->nullable();
             $table->string('lastName', 45);
             $table->date('birthday', 8);
-            $table->string('email', 65);
+            $table->string('email', 65)->unique();
             $table->string('phoneNumber', 15);
             $table->tinyInteger('paymentStatus')->unsigned()->default(paymentStatus::unPaid);
             $table->timestamps();

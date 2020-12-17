@@ -20,12 +20,12 @@ class GetUsersController extends Controller
                     ->get();
 
         $groupsBestuur = DB::table('groups')
-                    ->select('id', 'AzureID', 'Description', 'groups.DisplayName as groupName')
+                    ->select('id', 'AzureID', 'Description', 'groups.DisplayName as groupName', 'email')
                     ->where('AzureID', '=','b16d93c7-42ef-412e-afb3-f6cbe487d0e0')
                     ->get();
 
         $groups = DB::table('groups')
-                    ->select('id', 'AzureID', 'Description', 'DisplayName')
+                    ->select('id', 'AzureID', 'Description', 'DisplayName', 'email')
                     ->where('AzureID', '!=','b16d93c7-42ef-412e-afb3-f6cbe487d0e0')
                     ->get();
         $array = array();
