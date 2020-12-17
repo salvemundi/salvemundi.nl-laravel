@@ -33,7 +33,7 @@ jobs:
             cd /var/www/salvemundi.nl-laravel
             php artisan down
             git fetch
-            git checkout main
+            git checkout Online-branch
             git reset --hard
             git clean -f
             git pull
