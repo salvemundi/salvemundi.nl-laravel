@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
@@ -35,7 +36,6 @@ class AuthController extends Controller
 
       // Save client state so we can validate in callback
       session(['oauthState' => $oauthClient->getState()]);
-
       // Redirect to AAD signin page
       return redirect()->away($authUrl);
     }
@@ -83,9 +83,11 @@ class AuthController extends Controller
           $graph = new Graph();
           $graph->setAccessToken($accessToken->getToken());
 
-          $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName')
+          $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName,id')
             ->setReturnType(Model\User::class)
             ->execute();
+
+            session(['id' => $user->getId()]);
 
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
