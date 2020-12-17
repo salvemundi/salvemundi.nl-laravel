@@ -223,7 +223,7 @@
 }
 
 .footerText:hover {
-  color: #39203B;
+  color: #BA5EB8;
 }
 
 .footer-links {
@@ -242,7 +242,7 @@
 .footer-links a:active,
 .footer-links a:focus,
 .footer-links a:hover {
-  color: #39203B !important;
+  color: #BA5EB8 !important;
   text-decoration: none;
 }
 
@@ -323,7 +323,7 @@
 .social-icons a:focus,
 .social-icons a:hover {
   color: #fff;
-  background-color: #29aafe;
+  background-color: #BA5EB8;
 }
 
 .social-icons.size-sm a {
@@ -339,7 +339,7 @@
 }
 
 .footerText:hover {
-  color: #39203B;
+  color: #BA5EB8;
 }
 
 .footerText2 {
