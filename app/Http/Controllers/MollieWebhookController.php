@@ -6,6 +6,8 @@ use App\Enums\paymentStatus;
 use App\Models\Intro;
 use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
+use Illuminate\Support\Facades\Log;
+
 class MollieWebhookController extends Controller
 {
     public function handle(Request $request) {
