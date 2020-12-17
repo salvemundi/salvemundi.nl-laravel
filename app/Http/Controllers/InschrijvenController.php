@@ -47,13 +47,13 @@ class InschrijvenController extends Controller
 
         $orderId = Intro::where('email', $request->input('email'));
 
-        return $this->preparePayment($orderId, $userIntro);
+        return $this->preparePayment($orderId, $userIntro->id);
         //return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
 
 
 
-    public function preparePayment($orderIdentifier, $introObject)
+    public function preparePayment($orderIdentifier, $introId)
     {
         $payment = Mollie::api()->payments->create([
             "amount" => [
@@ -67,6 +67,7 @@ class InschrijvenController extends Controller
                 "order_id" => $orderIdentifier,
             ],
         ]);
+        $introObject::find($introId);
         $introObject->update(['paymentId' => $payment->id]);
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());
