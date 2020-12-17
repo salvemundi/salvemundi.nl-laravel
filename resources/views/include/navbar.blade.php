@@ -66,4 +66,4 @@
         </div>
     </div>
 </nav>
-{{-- <img class="navImg" src="/images/headerLogoSamu.jpg"> --}}
+<img class="navImg" src="/images/headerLogoSamu.jpg">
