@@ -42,6 +42,7 @@ class InschrijvenController extends Controller
         $userIntro->phoneNumber = $request->input('phoneNumber');
         $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
         $userIntro->paymentStatus = paymentStatus::fromValue(paymentStatus::unPaid);
+        $userIntro->paymentId = '';
         $userIntro->save();
 
         $orderId = Intro::where('email', $request->input('email'));
