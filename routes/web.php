@@ -37,7 +37,7 @@ Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
 
 // Route::get('/intro', [App\Http\Controllers\MolliePaymentController::class, 'index']);
 
-Route::get('/intro', [App\Http\Controllers\InschrijvenController::class, 'index']);
+Route::get('/intro', [App\Http\Controllers\InschrijvenController::class, 'index'])->name('intro');
 
 Route::post('/intro/store', [App\Http\Controllers\InschrijvenController::class, 'store']);
 

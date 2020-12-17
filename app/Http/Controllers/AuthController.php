@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
@@ -35,7 +36,6 @@ class AuthController extends Controller
 
       // Save client state so we can validate in callback
       session(['oauthState' => $oauthClient->getState()]);
-
       // Redirect to AAD signin page
       return redirect()->away($authUrl);
     }

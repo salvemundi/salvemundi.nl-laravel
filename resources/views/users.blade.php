@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="overlap grid">
+<div class="overlap">
     @foreach ($groupsBestuur as $groupBestuur)
-    <div class="card group">
+    <div class="card group mb-5">
         <div class="row">
             <div class="col-md-4">
                 {{-- {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!} --}}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-10 pl-4">
                 <h4 class="card-title">{{$groupBestuur->groupName}}</h4>
-                <p class="card-text">{{$groupBestuur->email}}</p>
                 <p class="card-text">{{$groupBestuur->Description}}</p>
+                <p class="card-text">E-mail: <a href="mailto:{{$groupBestuur->email}}">{{$groupBestuur->email}}</a></p>
             </div>
         </div>
     </div>
     <br>
     @foreach ($membersBestuur as $users)
-    <div class="card">
+    <div class="card mb-3">
         <div class="row">
             <div class="col-md-4">
                 {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!}
@@ -35,12 +35,21 @@
     @endforeach
 
     @foreach ($groups as $group)
-        <h2>{{$group->DisplayName}}</h2>
-        <p>{{$group->Description}}</p>
-        <p>{{$group->email}}</p>
+            <div class="card group mb-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        {{-- {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!} --}}
+                    </div>
+                    <div class="col-md-10 pl-4">
+                        <h4 class="card-title">{{$group->DisplayName}}</h4>
+                        <p class="card-text">{{$group->Description}}</p>
+                        <p class="card-text">E-mail: <a href="mailto:{{$group->email}}">{{$group->email}}</a></p>
+                    </div>
+                </div>
+            </div>
     @foreach ($getCommissieMembers as $users)
         @if ($users->groupID == $group->id)
-            <div class="card">
+            <div class="card mb-3">
                 <div class="row">
                     <div class="col-md-4">
                         {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!}
