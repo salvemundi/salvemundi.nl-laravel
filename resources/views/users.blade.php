@@ -23,9 +23,9 @@
                 {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!}
             </div>
             <div class="col-md-4">
-                {{-- <br>
                 <br>
-                <br> --}}
+                <br>
+                <br>
                 <h4 class="card-title">{{ $users->DisplayName }}</h4>
                 <p class="card-text">{{ $users->email }}</p>
             </div>
@@ -62,26 +62,8 @@
                         <p class="card-text">{{ $users->email }}</p>
                     </div>
                 </div>
-                <p class="card-text">{{$group->Description}}</p>
             </div>
-        </div>
-    </div>
-    @foreach ($getCommissieMembers as $users)
-    @if ($users->groupID == $group->id)
-    <div class="card">
-        <div class="row">
-            <div class="col-md-6">
-                <h4 class="card-title">{{ $users->DisplayName }}</h4>
-                <p class="card-text">{{ $users->email }}</p>
-            </div>
-            <div class="col-md-6">
-                <div class="card-img-bottom">
-                    {!! '<img class="pfPhoto" src="storage/'.$users->Image.'" />' !!}
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
+        @endif
     @endforeach
     @endforeach
 </div>
