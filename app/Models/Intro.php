@@ -9,4 +9,5 @@ class Intro extends Model
 {
     use HasFactory;
     protected $table = 'introduction';
+    protected $fillable = ['projectId'];
 }
