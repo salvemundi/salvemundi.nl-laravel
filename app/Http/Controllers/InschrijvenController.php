@@ -23,7 +23,7 @@ class InschrijvenController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+            $request->validate([
             'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
             'insertion' => 'max:32',
             'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],

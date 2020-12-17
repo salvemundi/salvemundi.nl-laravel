@@ -12,8 +12,6 @@ class GetUsersController extends Controller
 
     public function run()
     {
-
-
         $membersBestuur = DB::table('users')
                     ->join('groups_relation', 'user_id', '=', 'users.id')
                     ->join('groups', 'groups.id', '=', 'groups_relation.group_id')

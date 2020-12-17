@@ -45,6 +45,10 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index']);
 
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'show']);
+
+
 //Route::name('order.success')->post('webhooks/mollie', 'MollieWebhookController@handle');
 
 //Route::get('payment-success',[App\Http\Controllers\MolliePaymentController::Class, 'paymentSuccess'])->name('payment.success');

@@ -22,8 +22,7 @@ class IntroductionTable extends Migration
             $table->date('birthday', 8);
             $table->string('email', 65)->unique();
             $table->string('phoneNumber', 15);
-            $table->enum('paymentStatus', paymentStatus::getValues())
-            ->default(paymentStatus::unPaid);
+            $table->tinyInteger('paymentStatus')->unsigned()->default(paymentStatus::unPaid);
             $table->timestamps();
         });
     }
