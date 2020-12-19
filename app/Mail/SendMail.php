@@ -31,6 +31,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
+        Log::debug($this->paymentStatus);
         return $this
                 ->subject("Inschrijving intro")
                 ->markdown('introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertionn, 'paymentStatus'=>$this->paymentStatus]);
