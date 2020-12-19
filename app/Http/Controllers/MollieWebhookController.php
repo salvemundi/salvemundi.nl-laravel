@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use Mollie\Laravel\Facades\Mollie;
+use Illuminate\Support\Facades\Log;
 
 class MollieWebhookController extends Controller
 {
@@ -37,6 +38,7 @@ class MollieWebhookController extends Controller
             $order->delete();
             Mail::to($order->email)
                 ->send(new SendMail($order->firstName, $order->lastName, $order->insertion, $order->paymentStatus));
+            Log::debug($order->paymentStatus);
         }
         if ($payment->isCanceled()) {
             $order = Intro::where('paymentId', $paymentId)->first();
