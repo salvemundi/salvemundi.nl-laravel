@@ -16,7 +16,7 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public function __construct($firstName, $lastName,$insertion)
+    public function __construct($firstName, $lastName, $insertion)
     {
         $this->givenName = $firstName;
         $this->surName = $lastName;

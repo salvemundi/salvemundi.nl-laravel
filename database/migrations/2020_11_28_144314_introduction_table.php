@@ -24,6 +24,7 @@ class IntroductionTable extends Migration
             $table->string('phoneNumber', 15);
             $table->tinyInteger('paymentStatus')->unsigned()->default(paymentStatus::unPaid);
             $table->string('paymentId')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
