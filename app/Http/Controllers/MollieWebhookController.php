@@ -34,9 +34,9 @@ class MollieWebhookController extends Controller
             $order = Intro::where('paymentId', $paymentId)->first();
             $order->paymentStatus = paymentStatus::failed;
             $order->save();
-            $order->delete();
             Mail::to($order->email)
                 ->send(new SendMail($order->firstName, $order->lastName, $order->insertion, $order->paymentStatus));
+            $order->delete();
         }
         if ($payment->isCanceled()) {
             $order = Intro::where('paymentId', $paymentId)->first();
