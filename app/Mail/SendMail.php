@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class SendMail extends Mailable
 {
@@ -32,7 +31,6 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        Log::debug($this->paymentStatus);
         return $this
                 ->subject("Inschrijving intro")
                 ->markdown('introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertionn, 'paymentStatus'=>$this->paymentStatus]);
