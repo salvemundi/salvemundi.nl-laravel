@@ -46,7 +46,7 @@ class InschrijvenController extends Controller
         $userIntro->save();
         $orderId = Intro::where('email', $request->input('email'));
 
-        return $this->preparePayment($userIntro->id)->with('message', 'Inschrijf formulier is verstuurd');
+        return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
     }
 
     public function preparePayment($introId)
