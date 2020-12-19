@@ -46,12 +46,6 @@ class InschrijvenController extends Controller
         $userIntro->save();
         $orderId = Intro::where('email', $request->input('email'));
 
-        if ($payment->isFailed())
-        {
-            return view('intro')->with('message', 'kekw');
-        }
-
-
         return $this->preparePayment($userIntro->id);
         //return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
