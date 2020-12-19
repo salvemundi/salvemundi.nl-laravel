@@ -20,7 +20,6 @@ class InschrijvenController extends Controller
         return view('intro');
     }
 
-
     public function store(Request $request)
     {
             $request->validate([
@@ -42,17 +41,16 @@ class InschrijvenController extends Controller
         $userIntro->phoneNumber = $request->input('phoneNumber');
         $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
         $userIntro->paymentStatus = paymentStatus::fromValue(paymentStatus::unPaid);
-        $userIntro->save();
+        $userIntro->paymentId = '';
 
+        $userIntro->save();
         $orderId = Intro::where('email', $request->input('email'));
 
-        return $this->preparePayment($orderId);
+        return $this->preparePayment($userIntro->id);
         //return redirect('intro')->with('message', 'Inschrijf formulier is verstuurd');
     }
 
-
-
-    public function preparePayment($orderIdentifier)
+    public function preparePayment($introId)
     {
         $payment = Mollie::api()->payments->create([
             "amount" => [
@@ -63,13 +61,14 @@ class InschrijvenController extends Controller
             "redirectUrl" => route('intro'),
             "webhookUrl" => route('webhooks.mollie'),
             "metadata" => [
-                "order_id" => $orderIdentifier,
+                "order_id" => $introId,
             ],
         ]);
 
+        $introObject = Intro::find($introId);
+        $introObject->paymentId = $payment->id;
+        $introObject->save();
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());
     }
-
-
 }
