@@ -23,7 +23,7 @@ Uw inschrijving is niet gelukt.
 De betaling is verlopen.
 @endif
 <br>
-{{$paymentStatus}}
+
 Veel liefs,<br>
 De Intro-commissie van Salve Mundi<br>
 @endcomponent
