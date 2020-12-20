@@ -5,14 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\Intro;
-use Illuminate\Mail\Mailable;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMailIntro;
 use Mollie\Laravel\Facades\Mollie;
-use BenSampo\Enum\Enum;
-use App\Enums\paymentStatus;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Controllers\MolliePaymentController;
 use App\Enums\paymentType;
 
 class IntroController extends Controller
@@ -76,6 +70,7 @@ class IntroController extends Controller
 
         $introObject->payment()->associate($transaction);
         $introObject->save();
+
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());
     }
