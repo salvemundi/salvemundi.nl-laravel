@@ -41,7 +41,6 @@ class IntroController extends Controller
         $userIntro->email = $request->input('email');
         $userIntro->phoneNumber = $request->input('phoneNumber');
         $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
-        $userIntro->paymentId = '';
 
         $userIntro->save();
         $orderId = Intro::where('email', $request->input('email'));
