@@ -14,7 +14,7 @@ class UpdateIntroductionTable extends Migration
     public function up()
     {
         Schema::table('introduction', function (Blueprint $table) {
-            $table->integer('paymentId')->unsigned()->nullable();
+            $table->unsignedBigInteger('paymentId')->nullable();
             $table->foreign('paymentId')->references('id')->on('transaction');
         });
     }
