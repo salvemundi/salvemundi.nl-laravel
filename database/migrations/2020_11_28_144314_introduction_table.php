@@ -22,8 +22,6 @@ class IntroductionTable extends Migration
             $table->date('birthday');
             $table->string('email', 65)->unique();
             $table->string('phoneNumber', 15);
-            $table->integer('paymentId')->unsigned()->nullable();
-            $table->foreign('paymentId')->references('id')->on('transaction');
             $table->softDeletes();
             $table->timestamps();
         });
