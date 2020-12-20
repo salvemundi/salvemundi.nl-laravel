@@ -11,6 +11,6 @@ class Transaction extends Model
     protected $table = 'transaction';
     public function introRelation()
     {
-        return $this->hasOne(Intro::class);
+        return $this->hasOne(Intro::class,'paymentId','id');
     }
 }
