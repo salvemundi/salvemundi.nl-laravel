@@ -11,10 +11,16 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $givenName;
+    private $surName;
+    private $insertion;
+
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $firstName
+     * @param $lastName
+     * @param $insertion
      */
     public function __construct($firstName, $lastName, $insertion, $paymentStatus)
     {
@@ -29,7 +35,7 @@ class SendMail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): SendMail
     {
         return $this
                 ->subject("Inschrijving intro")
