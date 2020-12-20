@@ -12,4 +12,9 @@ class Intro extends Model
     use SoftDeletes;
     protected $table = 'introduction';
     protected $fillable = ['projectId'];
+
+    public function payment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Transaction::class,'paymentId');
+    }
 }

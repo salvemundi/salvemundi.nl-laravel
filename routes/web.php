@@ -37,9 +37,9 @@ Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
 
 // Route::get('/intro', [App\Http\Controllers\MolliePaymentController::class, 'index']);
 
-Route::get('/intro', [App\Http\Controllers\InschrijvenController::class, 'index'])->name('intro');
+Route::get('/intro', [App\Http\Controllers\IntroController::class, 'index'])->name('intro');
 
-Route::post('/intro/store', [App\Http\Controllers\InschrijvenController::class, 'store']);
+Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store']);
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 

@@ -22,8 +22,7 @@ class IntroductionTable extends Migration
             $table->date('birthday');
             $table->string('email', 65)->unique();
             $table->string('phoneNumber', 15);
-            $table->tinyInteger('paymentStatus')->unsigned()->default(paymentStatus::unPaid);
-            $table->string('paymentId')->nullable();
+            $table->foreign('paymentId')->references('id')->on('transcation');
             $table->softDeletes();
             $table->timestamps();
         });

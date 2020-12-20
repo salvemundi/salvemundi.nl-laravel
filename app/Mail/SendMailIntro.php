@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class SendMailIntro extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -37,7 +37,7 @@ class SendMail extends Mailable
      *
      * @return $this
      */
-    public function build(): SendMail
+    public function build(): SendMailIntro
     {
         return $this
                 ->subject("Inschrijving intro")

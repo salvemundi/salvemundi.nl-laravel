@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Intro;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
+use App\Mail\SendMailIntro;
 use Mollie\Laravel\Facades\Mollie;
 use BenSampo\Enum\Enum;
 use App\Enums\paymentStatus;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MolliePaymentController;
+use App\Enums\paymentType;
 
-class InschrijvenController extends Controller
+class IntroController extends Controller
 {
     public function index()
     {
@@ -51,21 +52,24 @@ class InschrijvenController extends Controller
 
     public function preparePayment($introId)
     {
+        $introObject = Intro::find($introId);
         $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
                 "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
-            "description" => "Order #12345",
+            "description" => "Intro inschrijving",
             "redirectUrl" => route('intro'),
             "webhookUrl" => route('webhooks.mollie'),
             "metadata" => [
-                "order_id" => $introId,
+                "type" => paymentType::intro,
             ],
         ]);
 
-        $introObject = Intro::find($introId);
-        $introObject->paymentId = $payment->id;
+        $introObject->payment->create([
+            'transactionId' => $payment->id,
+            'paymentType' => paymentType::intro,
+        ]);
         $introObject->save();
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());
