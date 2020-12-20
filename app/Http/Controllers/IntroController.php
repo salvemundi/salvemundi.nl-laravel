@@ -71,10 +71,10 @@ class IntroController extends Controller
         ]);*/
         $transaction = new Transaction();
         $transaction->transactionId = $payment->id;
-        $transaction->paymentType = paymentType::intro;
+        $transaction->type = paymentType::intro;
+        $transaction->save();
 
-        $transaction->introRelation()->save($introObject);
-
+        $introObject->payment()->associate($transaction);
         $introObject->save();
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());

@@ -13,8 +13,8 @@ class Intro extends Model
     protected $table = 'introduction';
     protected $fillable = ['projectId'];
 
-    public function payment()
+    public function payment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Transaction::class,'id','paymentId','transaction');
+        return $this->belongsTo(Transaction::class,'paymentId','id','transaction');
     }
 }
