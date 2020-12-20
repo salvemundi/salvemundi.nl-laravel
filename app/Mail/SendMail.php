@@ -14,6 +14,7 @@ class SendMail extends Mailable
     private $givenName;
     private $surName;
     private $insertion;
+    private $paymentStatus;
 
     /**
      * Create a new message instance.
@@ -21,12 +22,13 @@ class SendMail extends Mailable
      * @param $firstName
      * @param $lastName
      * @param $insertion
+     * @param $paymentStatus
      */
     public function __construct($firstName, $lastName, $insertion, $paymentStatus)
     {
         $this->givenName = $firstName;
         $this->surName = $lastName;
-        $this->insertionn = $insertion;
+        $this->insertion = $insertion;
         $this->paymentStatus = $paymentStatus;
     }
 
@@ -39,6 +41,6 @@ class SendMail extends Mailable
     {
         return $this
                 ->subject("Inschrijving intro")
-                ->markdown('introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertionn, 'paymentStatus'=>$this->paymentStatus]);
+                ->markdown('introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus'=>$this->paymentStatus]);
     }
 }
