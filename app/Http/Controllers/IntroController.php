@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\Intro;
 use Illuminate\Mail\Mailable;
@@ -64,10 +65,16 @@ class IntroController extends Controller
             ],
         ]);
 
-        $introObject->payment->create([
+      /*  $introObject->payment->create([
             'transactionId' => $payment->id,
             'paymentType' => paymentType::intro,
-        ]);
+        ]);*/
+        $transaction = new Transaction();
+        $transaction->transactionId = $payment->id;
+        $transaction->paymentType = paymentType::intro;
+
+        $transaction->introRelation()->save($introObject);
+
         $introObject->save();
         // redirect customer to Mollie checkout page
         return Redirect::to($payment->getCheckoutUrl());

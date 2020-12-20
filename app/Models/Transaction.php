@@ -9,4 +9,8 @@ class Transaction extends Model
 {
     use HasFactory;
     protected $table = 'transaction';
+    public function introRelation()
+    {
+        return $this->hasOne(Intro::class);
+    }
 }

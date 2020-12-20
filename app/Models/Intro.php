@@ -13,8 +13,8 @@ class Intro extends Model
     protected $table = 'introduction';
     protected $fillable = ['projectId'];
 
-    public function payment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function payment()
     {
-        return $this->hasOne(Transaction::class,'paymentId');
+        return $this->belongsTo(Transaction::class,'id','paymentId','transaction');
     }
 }
