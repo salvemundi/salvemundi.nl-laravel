@@ -12,45 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class CreateGroupsTable extends Migration
 {
-    public function FetchAzureGroups()
-    {
-        $guzzle = new \GuzzleHttp\Client();
-        $url = 'https://login.microsoftonline.com/salvemundi.onmicrosoft.com/oauth2/token';
-        $token = json_decode($guzzle->post($url, [
-            'form_params' => [
-            'client_id' => env("OAUTH_APP_ID"),
-            'client_secret' => env("OAUTH_APP_PASSWORD"),
-            'resource' => 'https://graph.microsoft.com/',
-            'grant_type' => 'client_credentials',
-            ],
-        ])->getBody()->getContents());
-
-        $accessToken = $token->access_token;
-
-        $graph = new Graph();
-        $graph->setAccessToken($accessToken);
-
-        $grouparray = $graph->createRequest("GET", '/groups')
-                      ->setReturnType(Model\Group::class)
-                      ->execute();
-        foreach ($grouparray as $groups) {
-            if(Str::contains($groups->getDisplayName(), ['|| Salve Mundi']))
-            {
-                $commissieName = str_replace("|| Salve Mundi", "",$groups->getDisplayName());
-                DB::table('groups')->insert(
-                    array(
-                        'AzureID' => $groups->getId(),
-                        'DisplayName' => $commissieName,
-                        'Description' => $groups->getDescription(),
-                        'email' => $groups->getMail()
-                    )
-                );
-            }
-        }
-    }
-
-
-
     /**
      * Run the migrations.
      *
@@ -66,7 +27,6 @@ class CreateGroupsTable extends Migration
             $table->string('email')->unique();
             $table->timestamps();
         });
-        $this->FetchAzureGroups();
     }
 
     /**

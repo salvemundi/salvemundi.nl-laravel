@@ -7,7 +7,7 @@ use Mollie\Laravel\Facades\Mollie;
 
 class MolliePaymentController extends Controller
 {
-    public function preparePayment()
+    public function preparePayment(): \Illuminate\Http\RedirectResponse
     {
         $payment = Mollie::api()->payments->create([
             "amount" => [
