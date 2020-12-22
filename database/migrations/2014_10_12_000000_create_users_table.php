@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('PhoneNumber')->nullable();
             $table->string('email')->nullable();
             $table->string('ImgPath')->nullable();
-            $table->unsignedBigInteger('paymentId');
+            $table->unsignedBigInteger('paymentId')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
