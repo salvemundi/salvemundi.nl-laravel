@@ -36,7 +36,7 @@
                     <a class="nav-link" href="/intro">Intro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href>Inschrijven</a>
+                    <a class="nav-link" href="/inschrijven">Inschrijven</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href>Merch</a>

@@ -9,8 +9,12 @@ class Transaction extends Model
 {
     use HasFactory;
     protected $table = 'transaction';
-    public function introRelation()
+    public function introRelation(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Intro::class,'paymentId','id');
+    }
+    public function registerRelation(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Inschrijving::class,'paymentId','id');
     }
 }
