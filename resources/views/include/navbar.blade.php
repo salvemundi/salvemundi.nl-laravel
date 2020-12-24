@@ -41,9 +41,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href>Merch</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">

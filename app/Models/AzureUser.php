@@ -12,7 +12,8 @@ class AzureUser extends Model
 
     public function register(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(
+        return $this->hasOne
+        (
             Inschrijving::class,
             'officeId',
             'id'
@@ -28,4 +29,16 @@ class AzureUser extends Model
             'transaction'
         );
     }
+
+    public function commissie()
+    {
+        return $this->belongsToMany
+        (
+            Commissie::class,
+            'groups_relation',
+            'user_id',
+            'group_id'
+        );
+    }
+
 }

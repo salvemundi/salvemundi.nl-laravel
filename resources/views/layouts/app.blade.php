@@ -22,6 +22,9 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/a6479d1508.js" crossorigin="anonymous"></script>
 
     <!-- Favicons -->
 

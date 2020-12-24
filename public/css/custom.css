@@ -394,3 +394,97 @@
   background-size: cover;
 }
 
+/* kaartjes end */
+
+/* myaccount navbar begin */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.myAccount {
+  position: relative;
+  display: inline-block;
+  background-color: #f6f9ff;
+  padding: 10px;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.myAccount a {
+  position: relative;
+  text-decoration: none;
+  color: #39203B;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  display: inline-block;
+  width: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.myAccount a b {
+  position: relative;
+  top: 40px;
+  transition: 0.3s ease top;
+}
+
+.myAccount a i {
+  position: relative;
+  left: 25%;
+  transition: 0.3s ease left;
+}
+
+.myAccount span {
+  position: absolute;
+  background-color: #e5eeff;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  border-radius: 50px;
+  z-index: 1;
+  transition: 0.3s ease left;
+}
+
+.myAccount a:hover b {
+  top: 0;
+}
+
+.myAccount a:hover i {
+  left: 0;
+}
+
+.myAccount a:nth-child(1):hover ~ span {
+  left: 10px;
+}
+
+.myAccount a:nth-child(2):hover ~ span {
+  left: 114px;
+}
+
+.myAccount a:nth-child(3):hover ~ span {
+  left: 218px;
+}
+
+#ytd-url {
+  display: block;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  margin: 20px;
+  color: #fff;
+  font-family: Arial;
+  font-size: 14px;
+  text-decoration: none;
+  background-color: #53588b;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px -5px rgba(83, 88, 139, 0.3);
+  z-index: 125;
+}
+
+/* myaccount navbar end */
+
