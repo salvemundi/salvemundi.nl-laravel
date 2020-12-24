@@ -5,10 +5,12 @@
 <div class="overlap">
 
     <nav class='myAccount'>
+        @if ($authorized == 1)
         <a href="/admin">
             <i class="fas fa-user-cog"></i>
             <b>Admin</b>
         </a>
+        @endif
         <a href="#">
             <i class="fa fa-credit-card"></i>
             <b>Transacties</b>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AzureUser;
+use App\Models\Commissie;
 use Illuminate\Http\Request;
 use DB;
 
@@ -22,17 +23,17 @@ class AdminController extends Controller
 
         return view('admin',['signins' => $signins]);
     }
-    public function authorizeUser($userid)
+    public static function authorizeUser($userid): int
     {
-        $user = AzureUser::where('AzureID', $userid)->commissie()->where('AzureID', 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc')->first();
+        $groups = AzureUser::where('AzureID', $userid)->first();
 
-        if($user->firstName != null)
+        foreach ($groups->commissie as $group)
         {
-            return 0;
+            if($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc')
+            {
+                return 1;
+            }
         }
-        else
-        {
-            return 1;
-        }
+        return 0;
     }
 }

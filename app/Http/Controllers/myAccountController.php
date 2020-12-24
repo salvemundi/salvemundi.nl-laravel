@@ -14,7 +14,7 @@ class myAccountController extends Controller
         //$getUser = DB::table('users')->where('AzureID', '=', session('id'))->get();
         $getUser = AzureUser::where('AzureID', session('id'))->first();
         //dd($getUser);
-
-        return view('mijnAccount', ['user' => $getUser]);
+        $adminAuthorization = AdminController::authorizeUser(session('id'));
+        return view('mijnAccount', ['user' => $getUser,'authorized' => $adminAuthorization]);
     }
 }
