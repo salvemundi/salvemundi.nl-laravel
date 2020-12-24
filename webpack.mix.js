@@ -14,4 +14,5 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/custom.scss', 'public/css/custom.css')
+    .sass('resources/sass/tabs.scss', 'public/css/tabs.css')
     .js('resources/js/scrollonload.js', 'public/js')

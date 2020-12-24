@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/custom.css": "/css/custom.css",
+    "/css/tabs.css": "/css/tabs.css",
     "/js/scrollonload.js": "/js/scrollonload.js"
 }
