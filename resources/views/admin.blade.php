@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appmin')
 @section('content')
 <div class="overlap">
     <div class="row">

@@ -9,7 +9,7 @@
 <nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-        {{ config('app.name', 'Laravel') }}
+        <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -63,4 +63,8 @@
         </div>
     </div>
 </nav>
-<img class="navImg" src="/images/headerLogoSamu.jpg">
+{{-- <img class="navImg" src="/images/headerLogoSamu.jpg"> --}}
+<video class="navImg" autoplay muted loop>
+    <source src="{{asset('/images/rickroll.mp4')}}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
