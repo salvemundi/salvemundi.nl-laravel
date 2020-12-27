@@ -11,9 +11,9 @@
         </div>
         @endif
 
-        @if($message != null)
+        @if($message ?? '' != null)
             <div class="alert alert-primary">
-                {{ $message }}
+                {{ $message ?? '' }}
             </div>
         @endif
         <form action="/intro/store" method="post">
