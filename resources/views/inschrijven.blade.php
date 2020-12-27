@@ -10,16 +10,10 @@
             {{ session()->get('message') }}
         </div>
         @endif
-
-        @if($message != null)
-            <div class="alert alert-primary">
-                {{ $message }}
-            </div>
-        @endif
-        <form action="/intro/store" method="post">
+        <form action="/inschrijven/store" method="post">
             @csrf
             <br>
-            <h2 class="h2">Aanmelden voor de intro</h2>
+            <h2 class="h2">Inschrijven voor SalveMundi</h2>
 
             <div class="test">
                 <br>

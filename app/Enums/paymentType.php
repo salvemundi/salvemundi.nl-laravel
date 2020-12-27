@@ -13,5 +13,6 @@ final class paymentType extends Enum
 {
     const default      = 0;
     const intro        = 1;
-    const inschrijving = 2;
+    const registration = 2;
+    const contribution = 3;
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 
+use App\Http\Controllers\AzureController;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
 
@@ -20,29 +21,29 @@ class ADUsers extends Seeder
      * Run the database seeds.
      *
      * @return void
-     * @throws GuzzleException|GraphException
+     * @throws GraphException
      */
     public function run()
     {
         //
         // Authenticate with Microsoft Azure Active Directory.
         //
-
-        $guzzle = new Client();
-        $url = 'https://login.microsoftonline.com/salvemundi.onmicrosoft.com/oauth2/token';
-        $token = json_decode($guzzle->post($url, [
-            'form_params' => array(
-                'client_id' => env("OAUTH_APP_ID"),
-                'client_secret' => env("OAUTH_APP_PASSWORD"),
-                'resource' => 'https://graph.microsoft.com/',
-                'grant_type' => 'client_credentials',
-            ),
-        ])->getBody()->getContents());
-
-        $accessToken = $token->access_token;
-
-        $graph = new Graph();
-        $graph->setAccessToken($accessToken);
+        $graph = AzureController::connectToAzure();
+//        $guzzle = new Client();
+//        $url = 'https://login.microsoftonline.com/salvemundi.onmicrosoft.com/oauth2/token';
+//        $token = json_decode($guzzle->post($url, [
+//            'form_params' => array(
+//                'client_id' => env("OAUTH_APP_ID"),
+//                'client_secret' => env("OAUTH_APP_PASSWORD"),
+//                'resource' => 'https://graph.microsoft.com/',
+//                'grant_type' => 'client_credentials',
+//            ),
+//        ])->getBody()->getContents());
+//
+//        $accessToken = $token->access_token;
+//
+//        $graph = new Graph();
+//        $graph->setAccessToken($accessToken);
 
         //
         // Get Users from Azure
@@ -63,7 +64,8 @@ class ADUsers extends Seeder
                 )
             );
         }
-
+        echo('Users fetched, fetching groups now.');
+        echo("\r\n");
         //
         // Get Groups from Azure
         //
@@ -85,7 +87,8 @@ class ADUsers extends Seeder
                 );
             }
         }
-
+        echo('Groups fetched, setting relation between users and groups now.');
+        echo("\r\n");
         //
         // Set relation between groups and users.
         //
@@ -110,7 +113,8 @@ class ADUsers extends Seeder
                 }
             }
         }
-
+        echo('Relations set, now fetching profile images.');
+        echo("\r\n");
         //
         // Get user profile pictures from Azure.
         //
@@ -135,5 +139,6 @@ class ADUsers extends Seeder
                     ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
             }
         }
+        echo('All data successfully fetched!');
     }
 }
