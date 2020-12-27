@@ -4,33 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 class AzureUser extends Model
 {
     use HasFactory;
     protected $table = 'users';
 
-    public function register(): \Illuminate\Database\Eloquent\Relations\HasOne
+//    public function register(): HasOne
+//    {
+//        return $this->hasOne
+//        (
+//            Inschrijving::class,
+//            'officeId',
+//            'id'
+//        );
+//    }
+
+    public function payment(): BelongsToMany
     {
-        return $this->hasOne
-        (
-            Inschrijving::class,
-            'officeId',
-            'id'
-        );
-    }
-    public function payment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo
+        return $this->belongsToMany
         (
             Transaction::class,
-            'paymentId',
-            'id',
-            'transaction'
+            'userpayment',
+            'user_id',
+            'payment_id'
         );
     }
 
-    public function commissie()
+    public function commission(): BelongsToMany
     {
         return $this->belongsToMany
         (

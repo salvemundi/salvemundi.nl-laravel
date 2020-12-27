@@ -27,7 +27,7 @@ class AdminController extends Controller
     {
         $groups = AzureUser::where('AzureID', $userid)->first();
 
-        foreach ($groups->commissie as $group)
+        foreach ($groups->commission as $group)
         {
             if($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc')
             {

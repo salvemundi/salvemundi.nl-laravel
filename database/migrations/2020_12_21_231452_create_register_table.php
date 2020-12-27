@@ -22,6 +22,9 @@ class CreateRegisterTable extends Migration
             $table->string('email');
             $table->string('phoneNumber');
             $table->unsignedBigInteger('officeId');
+            $table->foreign('officeId')->references('id')->on('users');
+            $table->unsignedBigInteger('paymentId')->nullable()->index();
+            $table->foreign('paymentId')->references('id')->on('transaction');
             $table->timestamps();
         });
     }
