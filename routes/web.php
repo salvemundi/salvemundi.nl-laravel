@@ -32,14 +32,12 @@ Route::get('/user', function () {
     return Http::get('https://graph.microsoft.com/v1.0/me');
 });
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
-// Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
 Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
 
-// Route::get('/intro', [App\Http\Controllers\MolliePaymentController::class, 'index']);
+Route::get('/intro', [App\Http\Controllers\IntroController::class, 'index'])->name('intro');
+Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store']);
 
-Route::get('/intro', [App\Http\Controllers\InschrijvenController::class, 'index'])->name('intro');
-
-Route::post('/intro/store', [App\Http\Controllers\InschrijvenController::class, 'store']);
+Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'index'])->name('inschrijven');
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
@@ -47,9 +45,3 @@ Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'in
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'show']);
-
-
-//Route::name('order.success')->post('webhooks/mollie', 'MollieWebhookController@handle');
-
-//Route::get('payment-success',[App\Http\Controllers\MolliePaymentController::Class, 'paymentSuccess'])->name('payment.success');
-//Route::get('mollie-payment',[App\Http\Controllers\MolliePaymentController::Class, 'preparePayment'])->name('mollie.payment');
