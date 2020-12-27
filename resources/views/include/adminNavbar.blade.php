@@ -6,10 +6,10 @@
 </div>
 --}}
 
-<nav id="TopNavbar" class="navbarAdmin navbar-expand-md shadow-sm">
+<nav id="TopNavbar" class="navbarAdmin navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-        <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
+            <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -18,6 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/leden">Leden</a>
                 </li>

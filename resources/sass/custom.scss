@@ -94,7 +94,7 @@
 
 /* begin navbar */
 
-.navbar {
+.navbar,.navbarAdmin {
   background-color: rgba(0,0,0,0) !important;
   background-size: cover;
   color: white;
@@ -103,14 +103,13 @@
   width: 100%;
   transition: 0.6s;
   z-index: 2;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1) !important;
-  text-shadow: 0px 2px rgba(0,0,0,0.3);
+  text-shadow: 0 2px rgba(0,0,0,0.3);
 }
 
 .affix{
   background-color: $salveMundi-primary !important;
   transition: 0.6s;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
 .navbar a, .navbarAdmin a{
@@ -137,7 +136,7 @@
 
 .dropbtn {
   background-color: rgba(0,0,0,0);
-  text-shadow: 0px 2px rgba(0,0,0,0.3);
+  text-shadow: 0 2px rgba(0,0,0,0.3);
   color: white;
   //font-size: 16px;
   border: none;
@@ -149,7 +148,7 @@
 .affix-dropdown{
   background-color: $salveMundi-primary !important;
   transition: 0.6s;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
 .dropdown {
@@ -162,7 +161,7 @@
   position: absolute;
   background-color: rgba(0,0,0,0);
   min-width: 180px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
   border-radius: 8px;
   transition: 0.5s ease-in-out;
@@ -219,17 +218,8 @@
 /* begin navbarAdmin */
 .navbarAdmin {
   background-color: $salveMundi-primary !important;
-  background-size: cover;
-  color: white;
-  text-decoration: none;
-  position: fixed;
-  width: 100%;
-  transition: 0.6s;
-  z-index: 2;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1) !important;
-  text-shadow: 0px 2px rgba(0,0,0,0.3);
 }
-/* end navbarAdmin*?
+/* end navbarAdmin */
 
 /* begin footer */
 
@@ -382,7 +372,7 @@
 
 .footerText {
   color: white;
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 
   &:hover {
     color: $salveMundi-link;
@@ -391,7 +381,7 @@
 
 .footerText2 {
   color: white;
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 }
 
 @media (max-width:767px) {
@@ -517,6 +507,13 @@ html {
   left: 218px;
 }
 
-
-
 /* myaccount navbar end */
+
+/* Admin page begin */
+
+.adminOverlap{
+  position: relative;
+  top: 100px;
+}
+
+/* Admin page end */

@@ -28,7 +28,6 @@ Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
 Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
 Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 Route::get('/user', function () {
-    //return UserResource::collection(User::all());
     return Http::get('https://graph.microsoft.com/v1.0/me');
 });
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
@@ -44,4 +43,4 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index']);
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'show']);
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard']);

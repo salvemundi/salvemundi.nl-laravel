@@ -54,3 +54,6 @@ $(window).scroll(function() {
       $('.dropdown-content').removeClass('affix-dropdown');
   }
 });
+
+vid=document.getElementById("vid")
+vid.disablePictureInPicture = true

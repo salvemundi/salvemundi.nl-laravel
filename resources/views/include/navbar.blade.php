@@ -6,7 +6,7 @@
 </div>
 --}}
 
-<nav id="TopNavbar" class="navbar navbar-expand-md shadow-sm">
+<nav id="TopNavbar" class="navbar navbar-expand-md ">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
         <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
@@ -64,7 +64,7 @@
     </div>
 </nav>
 {{-- <img class="navImg" src="/images/headerLogoSamu.jpg"> --}}
-<video class="navImg" autoplay muted loop>
+<video class="navImg" autoplay muted loop disablePictureInPicture id="vid">
     <source src="{{asset('/images/rickroll.mp4')}}" type="video/mp4">
   Your browser does not support the video tag.
 </video>
