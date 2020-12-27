@@ -5,9 +5,13 @@ namespace App\Enums;
 use BenSampo\Enum\Enum;
 
 /**
- * @method static static OptionOne()
- * @method static static OptionTwo()
- * @method static static OptionThree()
+ * @method static static unPaid()
+ * @method static static paid()
+ * @method static static open()
+ * @method static static failed()
+ * @method static static canceled()
+ * @method static static expired()
+ * @method static static pending()
  */
 final class paymentStatus extends Enum
 {

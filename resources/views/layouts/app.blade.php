@@ -23,6 +23,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
+    <script src="https://kit.fontawesome.com/a6479d1508.js" crossorigin="anonymous"></script>
+
     <!-- Favicons -->
 
     <link rel="shortcut icon" href="{{ asset('images/favicons/favicon.ico') }}">

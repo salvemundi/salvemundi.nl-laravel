@@ -2,28 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\paymentType;
+use App\Models\Product;
+use App\Models\Transaction;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 
 class MolliePaymentController extends Controller
 {
-    public function preparePayment()
+    public static function processRegistration($orderObject, $productIndex): RedirectResponse
     {
-        $payment = Mollie::api()->payments->create([
+        $createPayment = MolliePaymentController::preparePayment($productIndex);
+        $transaction = new Transaction();
+        $transaction->transactionId = $createPayment->id;
+        $transaction->product()->associate(Product::where('index', $productIndex));
+        $transaction->save();
+
+        $orderObject->payment()->associate($transaction);
+        $orderObject->save();
+        if($productIndex == 2)
+        {
+            AzureController::createAzureUser($orderObject);
+        }
+        return redirect()->away($createPayment->getCheckoutUrl(), 303);
+    }
+    private static function preparePayment($productIndex)
+    {
+        $product = Product::where('index', $productIndex)->first();
+        // redirect customer to Mollie checkout page
+        $formattedPrice = number_format($product->price, 2, '.', '');
+        return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => "10.00" // You must send the correct number of decimals, thus we enforce the use of strings
+                "value" => $formattedPrice // You must send the correct number of decimals, thus we enforce the use of strings
             ],
-            "description" => "Order #12345",
-            "redirectUrl" => 'https://google.com',
-            "webhookUrl" => 'http://sv.iqfx.nl/webhooks/mollie',
-            "metadata" => [
-                "order_id" => "12345",
-            ],
+            "description" => "$product->description",
+            "redirectUrl" => route('intro'),
+            "webhookUrl" => route('webhooks.mollie'),
         ]);
-
-        // redirect customer to Mollie checkout page
-        return redirect()->away($payment->getCheckoutUrl(), 303);
+        //return redirect()->away($payment->getCheckoutUrl(), 303);
     }
 
     public function index()
@@ -38,3 +56,4 @@ class MolliePaymentController extends Controller
      * See the webhook docs in /docs and on mollie.com for more information.
      */
 }
+;
