@@ -44,33 +44,4 @@ class IntroController extends Controller
         return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
         //return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
     }
-
-    public function preparePayment($introId)
-    {
-        $introObject = Intro::find($introId);
-        $payment = Mollie::api()->payments->create([
-            "amount" => [
-                "currency" => "EUR",
-                "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
-            ],
-            "description" => "Intro inschrijving",
-            "redirectUrl" => route('intro'),
-            "webhookUrl" => route('webhooks.mollie'),
-            "metadata" => [
-                "type" => paymentType::intro,
-            ],
-        ]);
-
-      /*  $introObject->payment->create([
-            'transactionId' => $payment->id,
-            'paymentType' => paymentType::intro,
-        ]);*/
-
-
-        $introObject->payment()->associate($transaction);
-        $introObject->save();
-
-        // redirect customer to Mollie checkout page
-        return Redirect::to($payment->getCheckoutUrl());
-    }
 }
