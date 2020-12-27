@@ -31,13 +31,26 @@ const app = new Vue({
     el: '#app',
 });
 
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos < currentScrollPos) {
-    document.getElementById("TopNavbar").style.top = "-100px";
+// var prevScrollpos = window.pageYOffset;
+// window.onscroll = function() {
+//   var currentScrollPos = window.pageYOffset;
+//   if (prevScrollpos < currentScrollPos) {
+//     document.getElementById("TopNavbar").style.top = "-100px";
+//   } else {
+//     document.getElementById("TopNavbar").style.top = "0";
+//   }
+//   prevScrollpos = currentScrollPos;
+// }
+
+$(window).scroll(function() {
+  if ($(document).scrollTop() > 300) {
+      $('.navbar').addClass('affix');
+      $('.imgNavbar').addClass('affix-img');
+      $('.dropdown-content').addClass('affix-dropdown');
+      console.log("OK");
   } else {
-    document.getElementById("TopNavbar").style.top = "0";
+      $('.navbar').removeClass('affix');
+      $('.imgNavbar').removeClass('affix-img');
+      $('.dropdown-content').removeClass('affix-dropdown');
   }
-  prevScrollpos = currentScrollPos;
-}
+});

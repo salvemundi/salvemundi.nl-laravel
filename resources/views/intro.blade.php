@@ -11,7 +11,7 @@
         </div>
         @endif
 
-        @if($message != null)
+        @if($message ?? '' != null)
             <div class="alert alert-primary">
                 {{ $message }}
             </div>
