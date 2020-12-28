@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
             $newProduct = new Product();
             $newProduct->name = $product;
             $newProduct->index = $i;
-            $newProduct->price = 0.00;
+            $newProduct->price = 20.00;
             $newProduct->description = "Test";
             $newProduct->save();
         }

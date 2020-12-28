@@ -35,7 +35,7 @@ class MolliePaymentController extends Controller
         return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => $formattedPrice // You must send the correct number of decimals, thus we enforce the use of strings
+                "value" => "$formattedPrice" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "$product->description",
             "redirectUrl" => route('intro'),
