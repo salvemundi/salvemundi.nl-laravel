@@ -43,14 +43,13 @@ class Transaction extends Model
         );
     }
 
-    public function product(): BelongsTo
+    public function product(): HasOne
     {
-        return $this->belongsTo
+        return $this->hasOne
         (
             Product::class,
-            'id',
-            'productId',
-            'products'
+            'paymentId',
+            'id'
         );
     }
 }
