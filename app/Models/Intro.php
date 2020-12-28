@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Intro extends Model
@@ -14,14 +15,13 @@ class Intro extends Model
     protected $table = 'introduction';
     protected $fillable = ['projectId'];
 
-    public function payment(): BelongsTo
+    public function payment(): hasOne
     {
-        return $this->belongsTo
+        return $this->hasOne
         (
             Transaction::class,
-            'paymentId',
-            'id',
-            'transaction'
+            'productId',
+            'id'
         );
     }
 }
