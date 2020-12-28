@@ -16,8 +16,11 @@ class MolliePaymentController extends Controller
         $createPayment = MolliePaymentController::preparePayment($productIndex);
         $transaction = new Transaction();
         $transaction->transactionId = $createPayment->id;
-        $transaction->product()->associate(Product::where('index', $productIndex));
         $transaction->save();
+        $transaction->product()->attach(Product::where('index', $productIndex)->first());
+        $transaction->save();
+        
+        $transaction->refresh();
 
         $orderObject->payment()->associate($transaction);
         $orderObject->save();
@@ -32,10 +35,11 @@ class MolliePaymentController extends Controller
         $product = Product::where('index', $productIndex)->first();
         // redirect customer to Mollie checkout page
         $formattedPrice = number_format($product->price, 2, '.', '');
+        $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => $formattedPrice // You must send the correct number of decimals, thus we enforce the use of strings
+                "value" => "$priceToString" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "$product->description",
             "redirectUrl" => route('intro'),

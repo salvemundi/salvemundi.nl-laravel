@@ -27,7 +27,7 @@ class IntroController extends Controller
             'email' => 'required|email|max:65',
             'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
             ]);
-        if(Intro::where('email',$request->input('email')))
+        if(Intro::where('email',$request->input('email'))->first())
         {
             return view('intro',['message' => 'Een gebruiker met deze e-mail heeft zich al ingeschreven']);
         }
