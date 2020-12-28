@@ -7,9 +7,7 @@ use App\Http\Controllers\AzureController;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
 
-use GuzzleHttp\Client;
 use Microsoft\Graph\Exception\GraphException;
-use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -29,21 +27,6 @@ class ADUsers extends Seeder
         // Authenticate with Microsoft Azure Active Directory.
         //
         $graph = AzureController::connectToAzure();
-//        $guzzle = new Client();
-//        $url = 'https://login.microsoftonline.com/salvemundi.onmicrosoft.com/oauth2/token';
-//        $token = json_decode($guzzle->post($url, [
-//            'form_params' => array(
-//                'client_id' => env("OAUTH_APP_ID"),
-//                'client_secret' => env("OAUTH_APP_PASSWORD"),
-//                'resource' => 'https://graph.microsoft.com/',
-//                'grant_type' => 'client_credentials',
-//            ),
-//        ])->getBody()->getContents());
-//
-//        $accessToken = $token->access_token;
-//
-//        $graph = new Graph();
-//        $graph->setAccessToken($accessToken);
 
         //
         // Get Users from Azure
