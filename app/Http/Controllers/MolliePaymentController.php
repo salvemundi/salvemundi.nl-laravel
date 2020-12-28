@@ -16,8 +16,9 @@ class MolliePaymentController extends Controller
         $createPayment = MolliePaymentController::preparePayment($productIndex);
         $transaction = new Transaction();
         $transaction->transactionId = $createPayment->id;
-        $transaction->product()->associate(Product::where('index', $productIndex)->first());
+        $transaction->product()->save(Product::where('index', $productIndex)->first());
         $transaction->save();
+        $transaction->refresh();
 
         $orderObject->payment()->associate($transaction);
         $orderObject->save();
