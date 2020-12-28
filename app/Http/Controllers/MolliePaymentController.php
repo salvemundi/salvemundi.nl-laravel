@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\paymentType;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 
 class MolliePaymentController extends Controller
@@ -14,13 +12,11 @@ class MolliePaymentController extends Controller
     public static function processRegistration($orderObject, $productIndex): RedirectResponse
     {
         $createPayment = MolliePaymentController::preparePayment($productIndex);
+        $getProductObject = Product::where('index', $productIndex)->first();
         $transaction = new Transaction();
         $transaction->transactionId = $createPayment->id;
+        $transaction->product()->associate($getProductObject);
         $transaction->save();
-        $transaction->product()->attach(Product::where('index', $productIndex)->first());
-        $transaction->save();
-        
-        $transaction->refresh();
 
         $orderObject->payment()->associate($transaction);
         $orderObject->save();
