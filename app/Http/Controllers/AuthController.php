@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
@@ -16,6 +17,7 @@ class AuthController extends Controller
     {
           $tokenCache = new TokenCache();
           $tokenCache->clearTokens();
+          Session::forget('id');
           return redirect('/');
     }
 

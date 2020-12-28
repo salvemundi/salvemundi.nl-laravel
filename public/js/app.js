@@ -49797,6 +49797,8 @@ $(window).scroll(function () {
     $('.dropdown-content').removeClass('affix-dropdown');
   }
 });
+vid = document.getElementById("vid");
+vid.disablePictureInPicture = true;
 
 /***/ }),
 
@@ -49954,10 +49956,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\tabs.scss */"./resources/sass/tabs.scss");
+__webpack_require__(/*! /home/qlegius/Documents/Projects/salvemundi.nl-laravel/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/qlegius/Documents/Projects/salvemundi.nl-laravel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/qlegius/Documents/Projects/salvemundi.nl-laravel/resources/sass/custom.scss */"./resources/sass/custom.scss");
+module.exports = __webpack_require__(/*! /home/qlegius/Documents/Projects/salvemundi.nl-laravel/resources/sass/tabs.scss */"./resources/sass/tabs.scss");
 
 
 /***/ })

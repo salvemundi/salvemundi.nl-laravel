@@ -77,7 +77,6 @@
 </div>
     <script>
         openTab(event, 'gegevens');
-
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
