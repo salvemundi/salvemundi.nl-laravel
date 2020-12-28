@@ -14,10 +14,10 @@ class MolliePaymentController extends Controller
     public static function processRegistration($orderObject, $productIndex): RedirectResponse
     {
         $createPayment = MolliePaymentController::preparePayment($productIndex);
+        $getProductObject = Product::where('index', $productIndex)->first();
         $transaction = new Transaction();
         $transaction->transactionId = $createPayment->id;
-        $transaction->save();
-        $transaction->product()->attach(Product::where('index', $productIndex)->first());
+        $transaction->product()->associate($getProductObject);
         $transaction->save();
         
         $transaction->refresh();

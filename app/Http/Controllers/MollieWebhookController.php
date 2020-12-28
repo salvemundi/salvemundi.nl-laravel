@@ -30,10 +30,7 @@ class MollieWebhookController extends Controller
             $order->save();
             if($order->type == paymentType::intro)
             {
-                $introObject = $order->introRelation;
-
-                Mail::to($introObject->email)
-                    ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
+                IntroController::postProcessPayment($order);
             }
         }
 
@@ -47,10 +44,7 @@ class MollieWebhookController extends Controller
             $order->save();
             if($order->type == paymentType::intro)
             {
-                $introObject = $order->introRelation;
-                Mail::to($introObject->email)
-                    ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
-                $introObject->delete();
+
             }
         }
 

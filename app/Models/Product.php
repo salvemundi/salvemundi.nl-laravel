@@ -12,15 +12,13 @@ class Product extends Model
     use HasFactory;
     protected $table = 'products';
     
-    public function transactions(): BelongsToMany
+    public function transactions(): HasMany
     {
-        return $this->belongsToMany
+        return $this->hasMany
         (
             Transaction::class,
-            'producttransaction',
-            'product_Id',
-            'transaction_id'
-
+            'productId',
+            'id'
         );
     }
 }
