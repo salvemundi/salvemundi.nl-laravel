@@ -17,8 +17,6 @@ class MolliePaymentController extends Controller
         $transaction->transactionId = $createPayment->id;
         $transaction->product()->associate($getProductObject);
         $transaction->save();
-        
-        $transaction->refresh();
 
         $orderObject->payment()->associate($transaction);
         $orderObject->save();
