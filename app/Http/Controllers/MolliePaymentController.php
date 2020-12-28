@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\paymentType;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 
 class MolliePaymentController extends Controller
