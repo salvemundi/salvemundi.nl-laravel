@@ -43,14 +43,14 @@ class Transaction extends Model
         );
     }
 
-    public function product(): BelongsTo
+    public function product(): BelongsToMany
     {
-        return $this->belongsTo
+        return $this->belongsToMany
         (
             Product::class,
-            'id',
-            'productId',
-            'products'
+            'producttransaction',
+            'transaction_id',
+            'product_id'
         );
     }
 }

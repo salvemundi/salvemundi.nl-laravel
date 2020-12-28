@@ -15,13 +15,14 @@ class Intro extends Model
     protected $table = 'introduction';
     protected $fillable = ['projectId'];
 
-    public function payment(): hasOne
+    public function payment(): BelongsTo
     {
-        return $this->hasOne
+        return $this->belongsTo
         (
             Transaction::class,
-            'productId',
-            'id'
+            'paymentId',
+            'id',
+            'transaction'
         );
     }
 }
