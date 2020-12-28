@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AzureUser;
+use App\Models\Commissie;
 use Illuminate\Http\Request;
 use DB;
 
@@ -14,11 +16,25 @@ class AdminController extends Controller
         return view('admin');
     }
 
-    public function show()
+    public function dashboard()
     {
         $signins = DB::table('introduction')->get();
-        // dd($signins);
-
         return view('admin',['signins' => $signins]);
     }
+    public static function authorizeUser($userid): int
+    {
+        if($userid != null) {
+            $groups = AzureUser::where('AzureID', $userid)->first();
+
+            foreach ($groups->commission as $group) {
+                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc') {
+                    return 1;
+                }
+            }
+            return 0;
+        } else {
+            return 401;
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.appmin')
 @section('content')
-<div class="overlap">
+<div class="adminOverlap">
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -25,7 +25,7 @@
                                     </th>
                                     <th>{{$signin->lastName}}</th>
                                     <th>{{{ date("d-m-Y", strtotime($signin->birthday)) }}}</th>
-                                    <th>{{\App\Enums\paymentStatus::getDescription($signin->paymentStatus)}}</th>
+{{--                                    <th>{{\App\Enums\paymentStatus::getDescription($signin->paymentStatus)}}</th>--}}
                                 </tr>
                         @endforeach
                     </tbody>

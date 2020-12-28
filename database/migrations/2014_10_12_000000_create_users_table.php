@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Http\Request;
 
-use Microsoft\Graph\Graph;
-use Microsoft\Graph\Model;
-use Illuminate\Support\Facades\DB;
 class CreateUsersTable extends Migration
 {
     /**
