@@ -23,11 +23,13 @@ class ADUsers extends Seeder
      * @return void
      * @throws GraphException
      */
+
     public function run()
     {
         //
         // Authenticate with Microsoft Azure Active Directory.
         //
+
         $graph = AzureController::connectToAzure();
 //        $guzzle = new Client();
 //        $url = 'https://login.microsoftonline.com/salvemundi.onmicrosoft.com/oauth2/token';
@@ -66,6 +68,7 @@ class ADUsers extends Seeder
         }
         echo('Users fetched, fetching groups now.');
         echo("\r\n");
+
         //
         // Get Groups from Azure
         //
@@ -76,7 +79,7 @@ class ADUsers extends Seeder
         foreach ($grouparray as $groups) {
             if(Str::contains($groups->getDisplayName(), ['|| Salve Mundi']))
             {
-                $commissieName = str_replace("|| Salve Mundi", "",$groups->getDisplayName());
+                $commissieName = str_replace(" || Salve Mundi", "",$groups->getDisplayName());
                 DB::table('groups')->insert(
                     array(
                         'AzureID' => $groups->getId(),
@@ -89,6 +92,7 @@ class ADUsers extends Seeder
         }
         echo('Groups fetched, setting relation between users and groups now.');
         echo("\r\n");
+
         //
         // Set relation between groups and users.
         //
@@ -115,6 +119,7 @@ class ADUsers extends Seeder
         }
         echo('Relations set, now fetching profile images.');
         echo("\r\n");
+
         //
         // Get user profile pictures from Azure.
         //

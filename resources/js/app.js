@@ -31,16 +31,18 @@ const app = new Vue({
     el: '#app',
 });
 
-// var prevScrollpos = window.pageYOffset;
-// window.onscroll = function() {
-//   var currentScrollPos = window.pageYOffset;
-//   if (prevScrollpos < currentScrollPos) {
-//     document.getElementById("TopNavbar").style.top = "-100px";
-//   } else {
-//     document.getElementById("TopNavbar").style.top = "0";
-//   }
-//   prevScrollpos = currentScrollPos;
-// }
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+    if ($(document).scrollTop() > 800) {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos < currentScrollPos) {
+            document.getElementById("TopNavbar").style.top = "-100px";
+        } else {
+            document.getElementById("TopNavbar").style.top = "0";
+        }
+        prevScrollpos = currentScrollPos;
+    }
+}
 
 $(window).scroll(function() {
   if ($(document).scrollTop() > 300) {
