@@ -42,5 +42,6 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index']);
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard']);
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'authorizeAdmin']);
+
+Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers']);

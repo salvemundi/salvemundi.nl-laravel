@@ -20,15 +20,17 @@
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <div class="dropdown">
-                    <button href="/users" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
+                    <a href="/user" class="navLink">
+                        <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
+                    </a>
                     <div class="dropdown-content">
-                      <a href="#">ICT-commissie</a>
-                      <a href="#">Studie-commissie</a>
-                      <a href="#">Activiteiten-commissie</a>
-                      <a href="#">Media-commissie</a>
-                      <a href="#">Feest-commissie</a>
-                      <a href="#">Kamp-commissie</a>
-                      <a href="#">Kas-commissie</a>
+                      <a href="/user#Ict commissie">ICT-commissie</a>
+                      <a href="/user#Studie commissie">Studie-commissie</a>
+                      <a href="/user#Activiteiten commissie">Activiteiten-commissie</a>
+                      <a href="/user#Media commissie">Media-commissie</a>
+                      <a href="/user#Feest Commissie">Feest-commissie</a>
+                      <a href="/user#Kamp commissie">Kamp-commissie</a>
+                      <a href="/user#Kas commissie">Kas-commissie</a>
                     </div>
                 </div>
                 </li>
