@@ -13,9 +13,9 @@ class UpdateTransactionTable extends Migration
      */
     public function up()
     {
-        Schema::table('transaction',function (Blueprint $table){
-            $table->foreign('productId','productTransaction')->references('id')->on('products');
-            $table->dropColumn('type');
+        Schema::table('transaction',  function(Blueprint $table){
+            $table->unsignedBigInteger('productId');
+            $table->foreign('productId')->references('id')->on('products');
         });
     }
 
@@ -26,8 +26,6 @@ class UpdateTransactionTable extends Migration
      */
     public function down()
     {
-        Schema::table('transaction',function (Blueprint $table) {
-            $table->dropForeign('productTransaction');
-        });
+        //
     }
 }

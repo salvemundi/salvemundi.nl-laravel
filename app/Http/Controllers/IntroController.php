@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Transaction;
+use App\Mail\SendMailIntro;
 use Illuminate\Http\Request;
 use App\Models\Intro;
-use Mollie\Laravel\Facades\Mollie;
-use Illuminate\Support\Facades\Redirect;
 use App\Enums\paymentType;
+use Illuminate\Support\Facades\Mail;
 
 class IntroController extends Controller
 {
@@ -43,5 +41,13 @@ class IntroController extends Controller
         $userIntro->save();
         return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
         //return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
+    }
+    public static function postProcessPayment($paymentObject)
+    {
+
+        $introObject = $paymentObject->introRelation;
+        Mail::to($introObject->email)
+            ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
+        $introObject->delete();
     }
 }
