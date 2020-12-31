@@ -49922,6 +49922,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/adminCards.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/adminCards.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49967,9 +49978,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!****************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/custom.scss ./resources/sass/tabs.scss ./resources/sass/checkbox.scss ***!
-  \****************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/custom.scss ./resources/sass/tabs.scss ./resources/sass/checkbox.scss ./resources/sass/adminCards.scss ***!
+  \*************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49977,7 +49988,8 @@ __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\
 __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
 __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\tabs.scss */"./resources/sass/tabs.scss");
-module.exports = __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\checkbox.scss */"./resources/sass/checkbox.scss");
+__webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\checkbox.scss */"./resources/sass/checkbox.scss");
+module.exports = __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\adminCards.scss */"./resources/sass/adminCards.scss");
 
 
 /***/ })

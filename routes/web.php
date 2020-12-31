@@ -40,9 +40,9 @@ Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'in
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
-Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index']);
+Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences']);
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'authorizeAdmin']);
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
 
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers']);

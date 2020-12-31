@@ -22,6 +22,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/adminCards.css') }}" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/a6479d1508.js" crossorigin="anonymous"></script>
 

@@ -52,19 +52,4 @@ class AdminController extends Controller
             return 401;
         }
     }
-    public function authorizeAdmin(){
-        $userid = session('id');
-
-        if($userid != null) {
-            $groups = AzureUser::where('AzureID', $userid)->first();
-
-            foreach ($groups->commission as $group) {
-                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc') {
-                    return $this->dashboard();
-                }
-            }
-            return Abort(401);
-        }
-        return Abort(401);
-    }
 }
