@@ -45,4 +45,5 @@ Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::clas
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
 
-Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers']);
+Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->middleware('admin.auth');
+Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin.auth');

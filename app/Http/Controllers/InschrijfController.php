@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailInschrijving;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InschrijfController extends Controller
 {
@@ -31,5 +33,12 @@ class InschrijfController extends Controller
         $inschrijving->email = $request->input('email');
         $inschrijving->phoneNumber = $request->input('phoneNumber');
         $inschrijving->save();
+    }
+    public static function processPayment($orderObject)
+    {
+        $registerObject = $orderObject->registerRelation;
+        AzureController::createAzureUser($registerObject);
+        Mail::to($registerObject->email)
+            ->send(new SendMailInschrijving($registerObject->firstName, $registerObject->lastName, $registerObject->insertion, $registerObject->paymentStatus));
     }
 }
