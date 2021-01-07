@@ -32,6 +32,10 @@ class MollieWebhookController extends Controller
             {
                 IntroController::postProcessPayment($order);
             }
+            if($order->type == paymentType::registration)
+            {
+                InschrijfController::processPayment($order);
+            }
         }
 
         if ($payment->isOpen()) {

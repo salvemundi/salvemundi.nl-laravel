@@ -27,20 +27,22 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
 
-// var prevScrollpos = window.pageYOffset;
-// window.onscroll = function() {
-//   var currentScrollPos = window.pageYOffset;
-//   if (prevScrollpos < currentScrollPos) {
-//     document.getElementById("TopNavbar").style.top = "-100px";
-//   } else {
-//     document.getElementById("TopNavbar").style.top = "0";
-//   }
-//   prevScrollpos = currentScrollPos;
-// }
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+    if ($(document).scrollTop() > 800) {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos < currentScrollPos) {
+            document.getElementById("TopNavbar").style.top = "-100px";
+        } else {
+            document.getElementById("TopNavbar").style.top = "0";
+        }
+        prevScrollpos = currentScrollPos;
+    }
+}
 
 $(window).scroll(function() {
   if ($(document).scrollTop() > 300) {
@@ -55,5 +57,5 @@ $(window).scroll(function() {
   }
 });
 
-vid=document.getElementById("vid")
-vid.disablePictureInPicture = true
+// vid=document.getElementById("vid")
+// vid.disablePictureInPicture = true

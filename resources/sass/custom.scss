@@ -9,6 +9,10 @@
 
   border-radius: 10px;
 }
+.user{
+  width: 50%;
+  left: 25%;
+}
 .overlap {
   background-color: white;
   top: 800px;
@@ -143,6 +147,7 @@
   //padding: 6px;
   display: block;
   padding: 0.5rem 1rem;
+  text-decoration: none;
 }
 
 .affix-dropdown{
@@ -205,6 +210,10 @@
 
 #hamburgerMenu {
   color: white;
+}
+
+.navLink:hover, .navLink:link {
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 767.98px) {

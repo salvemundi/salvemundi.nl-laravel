@@ -42,5 +42,4 @@ class AzureUser extends Model
             'group_id'
         );
     }
-
 }

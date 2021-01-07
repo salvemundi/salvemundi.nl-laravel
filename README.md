@@ -5,7 +5,8 @@ In order to get started:
 Install [NPM/NodeJS](https://nodejs.org/en/) and [Composer](https://getcomposer.org/download/)
 
 Set up a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this.
-Create a database, and add a user that has full access to that database.
+Create a database, and add a user that has full access to that database. Keep in mind that If you are using XAMPP's php,
+You'll need to download an older version. Reason being php 7.4 is required and this project does not support php 8.0 yet.
 
 Create an env file. The example env file should get you along the way.
 
