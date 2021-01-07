@@ -17,7 +17,7 @@
                             <th data-field="firstName" data-sortable="true">Voornaam</th>
                             <th data-field="lastName" data-sortable="true">Achternaam</th>
                             <th data-field="email" data-sortable="true">E-mail</th>
-                            <th data-field="email" data-sortable="true">Betalings Status</th>
+                            <th data-field="paymentStatus" data-sortable="true">Betalings Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,7 +26,7 @@
                                 <td data-value="{{ $user->firstName }}">{{$user->firstName}}</td>
                                 <td data-value="{{ $user->lastName }}">{{$user->lastName}}</td>
                                 <td data-value="{{ $user->email }}">{{$user->email}}</td>
-                                <td data-value="{{ $user->paymentStatus }}">{{$user->paymentStatus}}</td>
+                                <td data-value="{{ $user->payment->paymentStatus }}">{{$user->payment->paymentStatus}}</td>
                             </tr>
                         @endforeach
                         </tbody>
