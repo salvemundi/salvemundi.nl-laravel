@@ -10,6 +10,10 @@ You'll need to download an older version. Reason being php 7.4 is required and t
 
 Create an env file. The example env file should get you along the way.
 
+If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/).
+I have made a Dockerfile that you will have to build first. However, you can just do: `docker compose up -d`.
+That will startup the project.
+
 We are using [Microsoft Graph](https://docs.microsoft.com/en-us/graph/), therefore we have API tokens.
 Meaning that a lot of functionality of the site is broken if you don't have Microsoft Graph api tokens.
 However, if you are a part of the IT-commission of Salve Mundi we will trust you with these tokens.
@@ -27,8 +31,10 @@ In order to start up the project run the following inside the project root direc
 3. `npm run dev` or `npm run watch` (second option automatically re-compiles css when altering css/scss files)
 4. `php artisan storage:link`
 5. `php artisan migrate`
-7. `php artisan db:seed`
-6. `php artisan serve`
+6. `php artisan db:seed`
+7. `php artisan serve`
+
+If you are using docker step 5,6 & 7 can be ignored.
 
 Thanks for reading!
 

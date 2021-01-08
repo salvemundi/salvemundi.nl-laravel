@@ -26,7 +26,7 @@
                                 <td data-value="{{ $user->firstName }}">{{$user->firstName}}</td>
                                 <td data-value="{{ $user->lastName }}">{{$user->lastName}}</td>
                                 <td data-value="{{ $user->email }}">{{$user->email}}</td>
-                                <td data-value="{{ $user->payment->paymentStatus }}">{{$user->payment->paymentStatus}}</td>
+                                <td data-value="{{ $user->payment->paymentStatus }}">{{ \App\Enums\paymentStatus::fromValue($user->payment->paymentStatus)->key }}</td>
                             </tr>
                         @endforeach
                         </tbody>

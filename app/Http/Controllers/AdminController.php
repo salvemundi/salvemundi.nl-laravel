@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function getIntro()
     {
         $allIntro = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
-            return $query->where('paymentStatus', 1);
+            return $query->where('paymentStatus', PaymentStatus::paid);
         })->get();
         return view('admin/intro', ['introObjects' => $allIntro]);
     }
