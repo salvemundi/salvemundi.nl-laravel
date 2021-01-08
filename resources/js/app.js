@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-
+require('bootstrap-table');
 window.Vue = require('vue');
 
 /**
@@ -27,17 +27,35 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
 
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos < currentScrollPos) {
-    document.getElementById("TopNavbar").style.top = "-100px";
-  } else {
-    document.getElementById("TopNavbar").style.top = "0";
-  }
-  prevScrollpos = currentScrollPos;
+    if ($(document).scrollTop() > 800) {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos < currentScrollPos) {
+            document.getElementById("TopNavbar").style.top = "-100px";
+        } else {
+            document.getElementById("TopNavbar").style.top = "0";
+        }
+        prevScrollpos = currentScrollPos;
+    }
 }
+
+$(window).scroll(function() {
+  if ($(document).scrollTop() > 300) {
+      $('.navbar').addClass('affix');
+      $('.imgNavbar').addClass('affix-img');
+      $('.dropdown-content').addClass('affix-dropdown');
+      console.log("OK");
+  } else {
+      $('.navbar').removeClass('affix');
+      $('.imgNavbar').removeClass('affix-img');
+      $('.dropdown-content').removeClass('affix-dropdown');
+  }
+});
+
+// vid=document.getElementById("vid")
+// vid.disablePictureInPicture = true

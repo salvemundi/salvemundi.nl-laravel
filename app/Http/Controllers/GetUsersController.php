@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AzureUser;
+use App\Models\Commissie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Microsoft\Graph\Graph;
@@ -9,16 +11,10 @@ use Microsoft\Graph\Model;
 
 class GetUsersController extends Controller
 {
-
     public function run()
     {
-        $members = DB::table('users')
-                    ->join('groups_relation', 'user_id', '=', 'users.id')
-                    ->join('groups', 'groups.id', '=', 'groups_relation.group_id')
-                    ->select('users.DisplayName as DisplayName', 'users.ImgPath as Image', 'users.email as email')
-                    ->where('groups_relation.group_id', '=', 9)
-                    ->get();
-
-        return view('users', ['members' => $members]);
+        $bestuur = Commissie::where('AzureID','b16d93c7-42ef-412e-afb3-f6cbe487d0e0')->with('users')->first();
+        $groups = Commissie::where('AzureID','!=','b16d93c7-42ef-412e-afb3-f6cbe487d0e0')->with('users')->get();
+        return view('users', ['groups' => $groups, 'groupsBestuur' => $bestuur]);
     }
 }

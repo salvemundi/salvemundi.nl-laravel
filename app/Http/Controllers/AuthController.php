@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\AzureAuth;
+use App\Models\AzureUser;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
@@ -15,6 +19,7 @@ class AuthController extends Controller
     {
           $tokenCache = new TokenCache();
           $tokenCache->clearTokens();
+          Session::forget('id');
           return redirect('/');
     }
 
@@ -35,7 +40,6 @@ class AuthController extends Controller
 
       // Save client state so we can validate in callback
       session(['oauthState' => $oauthClient->getState()]);
-
       // Redirect to AAD signin page
       return redirect()->away($authUrl);
     }
@@ -83,13 +87,17 @@ class AuthController extends Controller
           $graph = new Graph();
           $graph->setAccessToken($accessToken->getToken());
 
-          $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName')
+          $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName,id')
             ->setReturnType(Model\User::class)
             ->execute();
 
+            session(['id' => $user->getId()]);
+
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
-
+          $AzureUser = AzureUser::where('AzureID',$user->getId())->first();
+          $AzureUser->api_token = hash('sha256', $accessToken);
+          $AzureUser->save();
           return redirect('/');
         }
         catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e)

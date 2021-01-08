@@ -13,4 +13,8 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/custom.scss', 'public/css/custom.css');
+    .sass('resources/sass/custom.scss', 'public/css/custom.css')
+    .sass('resources/sass/tabs.scss', 'public/css/tabs.css')
+    .sass('resources/sass/checkbox.scss', 'public/css/checkbox.css')
+    .sass('resources/sass/adminCards.scss', 'public/css/adminCards.css')
+    .js('resources/js/scrollonload.js', 'public/js')
