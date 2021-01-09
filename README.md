@@ -12,7 +12,7 @@ Create an env file. The example env file should get you along the way.
 
 If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/).
 I have made a Dockerfile that you will have to build first. However, you can just do: `docker compose up -d`.
-That will startup the project.
+That will startup the project, however this may take a while due to database seeding.
 
 We are using [Microsoft Graph](https://docs.microsoft.com/en-us/graph/), therefore we have API tokens.
 Meaning that a lot of functionality of the site is broken if you don't have Microsoft Graph api tokens.
