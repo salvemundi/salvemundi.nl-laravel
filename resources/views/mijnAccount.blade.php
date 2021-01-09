@@ -61,8 +61,7 @@
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
         <table id="table"
-               data-toggle="table"
-               data-url="json/data1.json">
+               data-toggle="table">
             <thead>
             <tr>
                 <th data-field="toegekend">Toegekend aan</th>
