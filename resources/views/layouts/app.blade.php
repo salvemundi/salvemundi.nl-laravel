@@ -23,6 +23,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tabs.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
     <script src="https://kit.fontawesome.com/a6479d1508.js" crossorigin="anonymous"></script>
 
     <!-- Favicons -->
@@ -32,6 +36,7 @@
     <link rel="icon" href="{{ asset('images/favicons/favicon.ico') }}">
     <link rel="icon" sizes="32x32" href="{{ asset('images/favicons/favicon-32x32.png') }}">
     <link rel="icon" sizes="16x16" href="{{ asset('images/favicons/favicon-16x16.png') }}">
+    
 </head>
 <body>
     <div id="app">
