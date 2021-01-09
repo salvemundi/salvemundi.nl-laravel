@@ -52829,6 +52829,7 @@ $(window).scroll(function () {
 $(function () {
   $('.slider').slick({
     slidesToShow: 1,
+    autoplay: true,
     slidesToScroll: 1,
     dots: true,
     infinite: true,
