@@ -35,7 +35,6 @@ class AzureController extends Controller
     {
         $randomPass = Str::random(40);
         $graph = AzureController::connectToAzure();
-        echo "in progress";
         $data = [
             'accountEnabled' => true,
             'displayName' => $registration->firstName.$registration->lastName,
