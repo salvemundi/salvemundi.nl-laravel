@@ -37,6 +37,7 @@ Route::get('/intro', [App\Http\Controllers\IntroController::class, 'index'])->na
 Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store']);
 
 Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'index'])->name('inschrijven');
+Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::class, 'signupprocess'])->name('signupprocess');
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
