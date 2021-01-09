@@ -20,7 +20,6 @@ class CreateTransactionTable extends Migration
             $table->string('transactionId')->nullable();
             $table->tinyInteger('type')->unsigned()->default(paymentType::default);
             $table->tinyInteger('paymentStatus')->unsigned()->default(paymentStatus::unPaid);
-            $table->unsignedBigInteger('productId');
             $table->timestamps();
         });
     }

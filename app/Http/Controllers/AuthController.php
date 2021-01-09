@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\AzureAuth;
+use App\Models\AzureUser;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
@@ -16,6 +19,7 @@ class AuthController extends Controller
     {
           $tokenCache = new TokenCache();
           $tokenCache->clearTokens();
+          Session::forget('id');
           return redirect('/');
     }
 
@@ -91,7 +95,9 @@ class AuthController extends Controller
 
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
-
+          $AzureUser = AzureUser::where('AzureID',$user->getId())->first();
+          $AzureUser->api_token = hash('sha256', $accessToken);
+          $AzureUser->save();
           return redirect('/');
         }
         catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e)

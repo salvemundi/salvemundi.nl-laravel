@@ -48,8 +48,8 @@ class Transaction extends Model
         return $this->belongsTo
         (
             Product::class,
-            'id',
             'productId',
+            'id',
             'products'
         );
     }

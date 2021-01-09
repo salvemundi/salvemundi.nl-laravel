@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\paymentType;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 
 class MolliePaymentController extends Controller
@@ -14,9 +12,10 @@ class MolliePaymentController extends Controller
     public static function processRegistration($orderObject, $productIndex): RedirectResponse
     {
         $createPayment = MolliePaymentController::preparePayment($productIndex);
+        $getProductObject = Product::where('index', $productIndex)->first();
         $transaction = new Transaction();
         $transaction->transactionId = $createPayment->id;
-        $transaction->product()->associate(Product::where('index', $productIndex));
+        $transaction->product()->associate($getProductObject);
         $transaction->save();
 
         $orderObject->payment()->associate($transaction);
@@ -32,10 +31,11 @@ class MolliePaymentController extends Controller
         $product = Product::where('index', $productIndex)->first();
         // redirect customer to Mollie checkout page
         $formattedPrice = number_format($product->price, 2, '.', '');
+        $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => $formattedPrice // You must send the correct number of decimals, thus we enforce the use of strings
+                "value" => "$priceToString" // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "$product->description",
             "redirectUrl" => route('intro'),

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Transaction;
+use App\Mail\SendMailIntro;
 use Illuminate\Http\Request;
 use App\Models\Intro;
-use Mollie\Laravel\Facades\Mollie;
-use Illuminate\Support\Facades\Redirect;
 use App\Enums\paymentType;
+use Illuminate\Support\Facades\Mail;
 
 class IntroController extends Controller
 {
@@ -27,7 +25,7 @@ class IntroController extends Controller
             'email' => 'required|email|max:65',
             'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
             ]);
-        if(Intro::where('email',$request->input('email')))
+        if(Intro::where('email',$request->input('email'))->first())
         {
             return view('intro',['message' => 'Een gebruiker met deze e-mail heeft zich al ingeschreven']);
         }
@@ -44,33 +42,12 @@ class IntroController extends Controller
         return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
         //return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
     }
-
-    public function preparePayment($introId)
+    public static function postProcessPayment($paymentObject)
     {
-        $introObject = Intro::find($introId);
-        $payment = Mollie::api()->payments->create([
-            "amount" => [
-                "currency" => "EUR",
-                "value" => "69.00" // You must send the correct number of decimals, thus we enforce the use of strings
-            ],
-            "description" => "Intro inschrijving",
-            "redirectUrl" => route('intro'),
-            "webhookUrl" => route('webhooks.mollie'),
-            "metadata" => [
-                "type" => paymentType::intro,
-            ],
-        ]);
 
-      /*  $introObject->payment->create([
-            'transactionId' => $payment->id,
-            'paymentType' => paymentType::intro,
-        ]);*/
-
-
-        $introObject->payment()->associate($transaction);
-        $introObject->save();
-
-        // redirect customer to Mollie checkout page
-        return Redirect::to($payment->getCheckoutUrl());
+        $introObject = $paymentObject->introRelation;
+        Mail::to($introObject->email)
+            ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
+        //$introObject->delete();
     }
 }

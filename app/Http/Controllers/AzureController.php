@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
+use Microsoft\Graph\Model;
 
 class AzureController extends Controller
 {
@@ -29,6 +33,54 @@ class AzureController extends Controller
 
     public static function createAzureUser($registration)
     {
+        $randomPass = Str::random(40);
+        $graph = AzureController::connectToAzure();
         echo "in progress";
+        $data = [
+            'accountEnabled' => true,
+            'displayName' => $registration->firstName.$registration->lastName,
+            'givenName' => $registration->firstName,
+            'surname' => $registration->lastName,
+            'mobilePhone' => $registration->phoneNumber,
+            'userPrincipleName' => $registration->fistName.".".$registration->lastName."@lid.salvemundi.nl",
+            'passwordProfile' => [
+                'forceChangePasswordNextSignIn' => true,
+                'password' => $randomPass,
+            ],
+        ];
+        try {
+            $createUser = $graph->createRequest("POST", "/users")
+                ->addHeaders(array("Content-Type" => "application/json"))
+                ->attachBody($data)
+                ->execute();
+            $newUserID = $createUser->getId();
+            AzureController::fetchSpecificUser($newUserID);
+            return $randomPass;
+        } catch (GraphException $e) {
+            return 503;
+        }
+
+    }
+
+    public static function fetchSpecificUser($userId)
+    {
+        $graph = AzureController::connectToAzure();
+
+        $fetchedUser = $graph->createRequest("GET",'/users/'.$userId)
+            ->setReturnType(Model\User::class)
+            ->execute();
+
+        foreach ($fetchedUser as $users) {
+            DB::table('users')->insert(
+                array(
+                    'AzureID' => $users->getId(),
+                    'DisplayName' => $users->getDisplayName(),
+                    'FirstName' => $users->getGivenName(),
+                    'Lastname' => $users->getSurname(),
+                    'PhoneNumber' => "",
+                    'email' => $users->getMail()
+                )
+            );
+        }
     }
 }

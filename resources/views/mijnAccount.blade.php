@@ -2,15 +2,8 @@
 
 @section('content')
 
-
-<link rel="stylesheet" href="css/tabs.css">
 <script src="js/scrollonload.js"></script>
 <div class="overlap" id="navlink">
-
-
-
-
-
     <h2>Mijn account</h2>
     <p>Zier hier jou account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
     <nav class='myAccount' >
@@ -40,20 +33,35 @@
     </nav>
     <div id="gegevens" class="tabcontent">
         <h2>Jouw gegevens:</h2>
-
-        <p><b>Naam:</b> {{ $user->FirstName }} </p>
-        <p><b>Achternaam:</b> {{ $user->LastName }} </p>
-        <p><b>Email:</b> {{ $user->email }} </p>
-        <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
-        <p><b>Profiel foto:</b></p>
-        {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
+        <form method="post" action="mijnAccount/store">
+            @csrf
+            @if($user->visibility == 1)
+            <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
+            @elseif($user->visibility == 0)
+                <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" style="display: none"/>
+            @endif
+            <label class="cbx" for="cbx"><span>
+            <svg width="12px" height="10px" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg></span><span>Ik wil op de website komen als ik bij een commissie hoor.</span></label>
+            <br><br>
+            <p><b>Naam:</b> {{ $user->FirstName }} </p>
+            <p><b>Achternaam:</b> {{ $user->LastName }} </p>
+            <p><b>Email:</b> {{ $user->email }} </p>
+            <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
+            <p><b>Profiel foto:</b></p>
+            {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
+            <br>
+            <br>
+            <input type="hidden" name="user_id" id="user_id" value="{{  $user->id  }}">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </form>
     </div>
 
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
         <table id="table"
-               data-toggle="table"
-               data-url="json/data1.json">
+               data-toggle="table">
             <thead>
             <tr>
                 <th data-field="toegekend">Toegekend aan</th>
@@ -64,7 +72,6 @@
             </tr>
             </thead>
         </table>
-
     </div>
 
     <div id="whatsapp" class="tabcontent">
@@ -76,7 +83,7 @@
     </div>
 </div>
     <script>
-
+        openTab(event, 'gegevens');
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");

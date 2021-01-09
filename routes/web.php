@@ -28,7 +28,6 @@ Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
 Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
 Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 Route::get('/user', function () {
-    //return UserResource::collection(User::all());
     return Http::get('https://graph.microsoft.com/v1.0/me');
 });
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index']);
@@ -41,7 +40,10 @@ Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'in
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
-Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index']);
+Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
+Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences']);
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'show']);
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
+
+Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->middleware('admin.auth');
+Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin.auth');
