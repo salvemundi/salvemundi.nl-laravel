@@ -6,50 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Http\Request;
 
-use Microsoft\Graph\Graph;
-use Microsoft\Graph\Model;
-use Illuminate\Support\Facades\DB;
 class CreateUsersTable extends Migration
 {
-
-    public function FetchAzureUsers()
-    {
-        $guzzle = new \GuzzleHttp\Client();
-        $url = 'https://login.microsoftonline.com/salvemundi.onmicrosoft.com/oauth2/token';
-        $token = json_decode($guzzle->post($url, [
-            'form_params' => [
-            'client_id' => env("OAUTH_APP_ID"),
-            'client_secret' => env("OAUTH_APP_PASSWORD"),
-            'resource' => 'https://graph.microsoft.com/',
-            'grant_type' => 'client_credentials',
-            ],
-        ])->getBody()->getContents());
-
-        $accessToken = $token->access_token;
-
-        $graph = new Graph();
-        $graph->setAccessToken($accessToken);
-
-        $userarray = $graph->createRequest("GET", '/users/?$top=900')
-                      ->setReturnType(Model\User::class)
-                      ->execute();
-        foreach ($userarray as $users) {
-            DB::table('users')->insert(
-                array(
-                    'AzureID' => $users->getId(),
-                    'DisplayName' => $users->getDisplayName(),
-                    'FirstName' => $users->getGivenName(),
-                    'Lastname' => $users->getSurname(),
-                    'PhoneNumber' => "",
-                    'email' => $users->getMail()
-                )
-            );
-        }
-    }
-
-
-
-
     /**
      * Run the migrations.
      *
@@ -66,11 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('PhoneNumber')->nullable();
             $table->string('email')->nullable();
             $table->string('ImgPath')->nullable();
+            $table->integer('visibility')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
-
-        $this->FetchAzureUsers();
     }
 
     /**

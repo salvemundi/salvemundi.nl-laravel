@@ -35,6 +35,16 @@
     <br>
     <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
 
+
+        <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+            <div><h3>1</h3></div>
+            <div><h3>2</h3></div>
+            <div><h3>3</h3></div>
+            <div><h3>4</h3></div>
+            <div><h3>5</h3></div>
+            <div><h3>6</h3></div>
+        </div>
+
 </div>
 
 @endsection

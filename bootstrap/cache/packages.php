@@ -1,4 +1,15 @@
 <?php return array (
+  'barryvdh/laravel-debugbar' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
+    ),
+  ),
   'bensampo/laravel-enum' => 
   array (
     'providers' => 
@@ -75,6 +86,17 @@
     'providers' => 
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
+  'pbmedia/laravel-ffmpeg' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'FFMpeg' => 'ProtoneMedia\\LaravelFFMpeg\\Support\\FFMpeg',
     ),
   ),
 );
