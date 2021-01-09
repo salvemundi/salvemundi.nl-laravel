@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 require('bootstrap-table');
+require('slick-carousel');
+
 window.Vue = require('vue');
 
 /**
@@ -55,6 +57,16 @@ $(window).scroll(function() {
       $('.imgNavbar').removeClass('affix-img');
       $('.dropdown-content').removeClass('affix-dropdown');
   }
+});
+
+$(function() {
+    $('.slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+        infinite: true,
+        cssEase: 'linear'
+    });
 });
 
 // vid=document.getElementById("vid")
