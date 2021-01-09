@@ -36,35 +36,15 @@
     <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
 
 
-    <div class="slick-bar autoplay">
-        <div>Sponsor 1</div>
-        <div>sponsor 2</div>
-        <div>sponsor 3</div>
-        <div>sponsor 4</div>
-        <div>sponsor 5</div>
-        <div>sponsor 6</div>
-        <div>sponsor 7</div>
-        <div>sponsor 8</div>
-    </div>
+        <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+            <div><h3>1</h3></div>
+            <div><h3>2</h3></div>
+            <div><h3>3</h3></div>
+            <div><h3>4</h3></div>
+            <div><h3>5</h3></div>
+            <div><h3>6</h3></div>
+        </div>
 
-      <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-      <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-      <script type="text/javascript" src="slick/slick.min.js"></script>
-
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $('.slick-bar').slick({
-            setting-name: setting-value
-          });
-        });
-
-        $('.autoplay').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-        });
-      </script>
 </div>
 
 @endsection
