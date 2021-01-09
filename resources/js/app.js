@@ -27,9 +27,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
 
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
@@ -57,5 +57,5 @@ $(window).scroll(function() {
   }
 });
 
-vid=document.getElementById("vid")
-vid.disablePictureInPicture = true
+// vid=document.getElementById("vid")
+// vid.disablePictureInPicture = true

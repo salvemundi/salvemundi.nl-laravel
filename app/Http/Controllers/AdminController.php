@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AzureUser;
 use App\Models\Commissie;
+use App\Models\Intro;
+use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
 
@@ -24,9 +27,19 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $signins = DB::table('introduction')->get();
-        return view('admin',['signins' => $signins]);
+        $getAllUsers = AzureUser::all()->count();
+        $getAllIntroSignups = Intro::all()->count();
+        return view('admin',['userCount' => $getAllUsers, 'introCount' => $getAllIntroSignups]);
     }
+
+    public function getIntro()
+    {
+        $allIntro = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
+            return $query->where('paymentStatus', PaymentStatus::paid);
+        })->get();
+        return view('admin/intro', ['introObjects' => $allIntro]);
+    }
+
     public static function authorizeUser($userid): int
     {
         if($userid != null) {
@@ -51,20 +64,5 @@ class AdminController extends Controller
             }
             return 401;
         }
-    }
-    public function authorizeAdmin(){
-        $userid = session('id');
-
-        if($userid != null) {
-            $groups = AzureUser::where('AzureID', $userid)->first();
-
-            foreach ($groups->commission as $group) {
-                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc') {
-                    return $this->dashboard();
-                }
-            }
-            return Abort(401);
-        }
-        return Abort(401);
     }
 }

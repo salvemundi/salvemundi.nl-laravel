@@ -8,6 +8,11 @@
   border-radius: 10px;
 }
 
+.user {
+  width: 50%;
+  left: 25%;
+}
+
 .overlap {
   background-color: white;
   top: 800px;

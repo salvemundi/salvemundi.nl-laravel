@@ -23,7 +23,7 @@
                     <a class="nav-link" href="/admin/leden">Leden</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/intro">intro inschrijvingen</a>
+                    <a class="nav-link" href="/admin/intro">Intro inschrijvingen</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/transactie">Transactie lijst</a>

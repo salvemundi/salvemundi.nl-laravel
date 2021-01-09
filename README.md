@@ -5,9 +5,14 @@ In order to get started:
 Install [NPM/NodeJS](https://nodejs.org/en/) and [Composer](https://getcomposer.org/download/)
 
 Set up a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this.
-Create a database, and add a user that has full access to that database.
+Create a database, and add a user that has full access to that database. Keep in mind that If you are using XAMPP's php,
+You'll need to download an older version. Reason being php 7.4 is required and this project does not support php 8.0 yet.
 
 Create an env file. The example env file should get you along the way.
+
+If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/).
+I have made a Dockerfile that you will have to build first. However, you can just do: `docker compose up -d`.
+That will startup the project.
 
 We are using [Microsoft Graph](https://docs.microsoft.com/en-us/graph/), therefore we have API tokens.
 Meaning that a lot of functionality of the site is broken if you don't have Microsoft Graph api tokens.
@@ -26,8 +31,10 @@ In order to start up the project run the following inside the project root direc
 3. `npm run dev` or `npm run watch` (second option automatically re-compiles css when altering css/scss files)
 4. `php artisan storage:link`
 5. `php artisan migrate`
-7. `php artisan db:seed`
-6. `php artisan serve`
+6. `php artisan db:seed`
+7. `php artisan serve`
+
+If you are using docker, step 5,6 & 7 can be ignored.
 
 Thanks for reading!
 
