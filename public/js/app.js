@@ -52833,7 +52833,10 @@ $(function () {
     slidesToScroll: 1,
     dots: true,
     infinite: true,
-    cssEase: 'linear'
+    cssEase: 'linear',
+    arrows: true,
+    nextArrow: '<button type="button" unselectable="on" class="slick-right"></button>',
+    prevArrow: '<button type="button" unselectable="on" class="slick-left"></button>'
   });
 }); // vid=document.getElementById("vid")
 // vid.disablePictureInPicture = true
@@ -53016,12 +53019,12 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
-__webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\tabs.scss */"./resources/sass/tabs.scss");
-__webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\checkbox.scss */"./resources/sass/checkbox.scss");
-module.exports = __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\sass\adminCards.scss */"./resources/sass/adminCards.scss");
+__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\tabs.scss */"./resources/sass/tabs.scss");
+__webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\checkbox.scss */"./resources/sass/checkbox.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\sass\adminCards.scss */"./resources/sass/adminCards.scss");
 
 
 /***/ })
