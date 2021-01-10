@@ -39,7 +39,9 @@
         </div>
     </div>
     <div class="center">
+        <a href="/admin/sponsors/add">
     <input class="btn btn-primary" type="submit" value="Toevoegen">
+        </a>
     </div>
 </div>
 @endsection
