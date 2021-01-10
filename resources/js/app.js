@@ -66,7 +66,10 @@ $(function() {
         slidesToScroll: 1,
         dots: true,
         infinite: true,
-        cssEase: 'linear'
+        cssEase: 'linear',
+        arrows: true,
+        nextArrow: '<button type="button" unselectable="on" class="slick-right"></button>',
+        prevArrow: '<button type="button" unselectable="on" class="slick-left"></button>',
     });
 });
 // vid=document.getElementById("vid")

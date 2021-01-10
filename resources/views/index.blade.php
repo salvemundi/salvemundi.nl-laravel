@@ -35,16 +35,17 @@
     <br>
     <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
 
-
-        <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
-            <div><h3>1</h3></div>
-            <div><h3>2</h3></div>
-            <div><h3>3</h3></div>
-            <div><h3>4</h3></div>
-            <div><h3>5</h3></div>
-            <div><h3>6</h3></div>
+    <div class="mijnSlider">
+        <h1 class="center groot"><b>Onze sponsoren</b></h1>
+        <div class="slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 1}'>
+            <div><h3><img class="sponsor" src="/images/Fontys-Logo.png"></h3></div>
+            <div><h3><img class="sponsor" src="/images/SalveMundiLogo.png"></h3></div>
+            <div><h3><img class="sponsor" src="/images/Fontys-Logo.png"></h3></div>
+            <div><h3><img class="sponsor" src="/images/SalveMundiLogo.png"></h3></div>
+            <div><h3><img class="sponsor" src="/images/Fontys-Logo.png"></h3></div>
+            <div><h3><img class="sponsor" src="/images/SalveMundiLogo.png"></h3></div>
         </div>
-
+    </div>
 </div>
 
 @endsection
