@@ -16,4 +16,14 @@ class SponsorController extends Controller
     {
         return Sponsor::all();
     }
+    public function deleteSponsor(Request $request)
+    {
+        if($request->id != null) {
+            $tobeDeleted = Sponsor::find($request->id);
+            $tobeDeleted->delete();
+            return redirect('admin/sponsors');
+        } else {
+            return redirect('admin/sponsors');
+        }
+    }
 }

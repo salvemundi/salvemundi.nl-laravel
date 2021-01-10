@@ -65,7 +65,7 @@ class AdminController extends Controller
             return 401;
         }
     }
-    public function getSponsors()
+    public static function getSponsors()
     {
         return view('admin/sponsors', ['sponsors' => SponsorController::getSponsors()]);
     }
