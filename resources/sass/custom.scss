@@ -663,6 +663,7 @@ html {
   padding-right: 15px;
   content: '<';
   margin-left:-150px;
+  transition: ease-in-out 0.2s;
 }
 .slick-right:before {
   // background-color: white !important;
@@ -673,10 +674,12 @@ html {
   padding-left: 15px;
   padding-right: 15px;
   content: '>';
+  transition: ease-in-out 0.2s;
 }
 .slick-right:hover::before, .slick-left:hover::before {
   background: $salveMundi-primary !important;
   color: white !important;
+  transition: ease-in-out 0.2s;
 }
 
 .slick-right, .slick-left
