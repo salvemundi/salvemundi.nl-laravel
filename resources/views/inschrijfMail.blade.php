@@ -9,9 +9,10 @@
 Uw inschijving is niet gelukt.<br>
 U hebt niet betaald.<br>
 @elseif ($paymentStatus == 1)
-Bedankt voor het inschrijven bij de intro van Salve Mundi!<br>
+
+Leuk dat je hebt gekozen om deel te zijn van onze studie vereniging Salve Mundi.
+<br>
 De betaling is gelukt.<br>
-Het wordt super gezellig!<br>
 @elseif ($paymentStatus == 3)
 Uw inschrijving is niet gelukt.
 De betaling is niet gelukt.
