@@ -38,12 +38,9 @@
     <div class="mijnSlider">
         <h1 class="center groot"><b>Onze sponsoren</b></h1>
         <div class="slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 1}'>
-            <div><h3><img class="sponsor" src="/images/Fontys-Logo.png"></h3></div>
-            <div><h3><img class="sponsor" src="/images/SalveMundiLogo.png"></h3></div>
-            <div><h3><img class="sponsor" src="/images/Fontys-Logo.png"></h3></div>
-            <div><h3><img class="sponsor" src="/images/SalveMundiLogo.png"></h3></div>
-            <div><h3><img class="sponsor" src="/images/Fontys-Logo.png"></h3></div>
-            <div><h3><img class="sponsor" src="/images/SalveMundiLogo.png"></h3></div>
+            @foreach($sponsorsData as $sponsor)
+            <div><h3><img class="sponsor" src="{{ asset("storage/".$sponsor->imagePath) }}"></h3></div>
+            @endforeach
         </div>
     </div>
 </div>
