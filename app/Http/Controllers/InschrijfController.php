@@ -17,20 +17,21 @@ class InschrijfController extends Controller
 
     public function signupprocess(Request $request)
     {
-//        $request->validate([
-/*            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],*/
-//            'insertion' => 'max:32',
-/*            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],*/
-//            'birthday' => 'required','date_format:"l, j F Y"',
-//            'email' => 'required|email|max:65',
-//            'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
-//        ]);
+        $request->validate([
+            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+            'insertion' => 'max:32',
+            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+            'birthday' => 'required','date_format:"l, j F Y"',
+            'email' => 'required|email|max:65',
+            'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
+        ]);
 
         $inschrijving = new Inschrijving;
         $inschrijving->firstName = $request->input('firstName');
         $inschrijving->insertion = $request->input('insertion');
         $inschrijving->lastName = $request->input('lastName');
         $inschrijving->birthday = $request->input('birthday');
+        $inschrijving->birthday = date("Y-m-d", strtotime($inschrijving->birthday));
         $inschrijving->email = $request->input('email');
         $inschrijving->phoneNumber = $request->input('phoneNumber');
         $inschrijving->save();
