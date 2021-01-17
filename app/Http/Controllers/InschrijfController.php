@@ -17,14 +17,14 @@ class InschrijfController extends Controller
 
     public function signupprocess(Request $request)
     {
-        $request->validate([
-            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'insertion' => 'max:32',
-            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'birthday' => 'required','date_format:"l, j F Y"',
-            'email' => 'required|email|max:65',
-            'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
-        ]);
+//        $request->validate([
+/*            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],*/
+//            'insertion' => 'max:32',
+/*            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],*/
+//            'birthday' => 'required','date_format:"l, j F Y"',
+//            'email' => 'required|email|max:65',
+//            'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
+//        ]);
 
         $inschrijving = new Inschrijving;
         $inschrijving->firstName = $request->input('firstName');

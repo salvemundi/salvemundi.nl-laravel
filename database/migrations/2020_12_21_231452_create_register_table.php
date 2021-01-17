@@ -16,7 +16,7 @@ class CreateRegisterTable extends Migration
         Schema::create('register', function (Blueprint $table) {
             $table->id();
             $table->string('firstName');
-            $table->string('insertion');
+            $table->string('insertion')->nullable();
             $table->string('lastName');
             $table->date('birthday');
             $table->string('email');
