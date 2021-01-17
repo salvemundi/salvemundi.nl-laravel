@@ -21,6 +21,7 @@ class MollieWebhookController extends Controller
         if (! $request->has('id')) {
             return;
         }
+
         $paymentId = $request->input('id');
         $payment = Mollie::api()->payments()->get($paymentId);
         $order = $this->getTransactionObject($paymentId);
