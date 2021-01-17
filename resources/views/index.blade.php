@@ -35,16 +35,14 @@
     <br>
     <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
 
-
-        <div class="slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
-            <div><h3>1</h3></div>
-            <div><h3>2</h3></div>
-            <div><h3>3</h3></div>
-            <div><h3>4</h3></div>
-            <div><h3>5</h3></div>
-            <div><h3>6</h3></div>
+    <div class="mijnSlider">
+        <h1 class="center groot"><b>Onze sponsoren</b></h1>
+        <div class="slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 1}'>
+            @foreach($sponsorsData as $sponsor)
+                <div><h3><a href="{{ $sponsor->reference }}"><img class="sponsor" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3></div>
+            @endforeach
         </div>
-
+    </div>
 </div>
 
 @endsection
