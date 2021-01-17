@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
@@ -33,9 +34,13 @@ class AzureController extends Controller
 
     public static function createAzureUser($registration)
     {
+        if($registration == null)
+        {
+            Log::error('WHERE IS MY OBJECT');
+        }
         $randomPass = Str::random(40);
         $graph = AzureController::connectToAzure();
-        $data = [
+        $data[] = [
             'accountEnabled' => true,
             'displayName' => $registration->firstName.$registration->lastName,
             'givenName' => $registration->firstName,
