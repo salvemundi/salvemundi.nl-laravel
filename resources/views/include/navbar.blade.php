@@ -50,10 +50,10 @@
                 @guest
                 @if(session('userName') != null)
                     <li class="nav-item">
-                        <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
+                        <a class="nav-link" href="/mijnAccount">Mijn account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mijnAccount">Mijn account</a>
+                        <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
                     </li>
                 @else
                     <li class="nav-item">
