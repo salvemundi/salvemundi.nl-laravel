@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 
 
@@ -13,7 +14,8 @@ class HomeController extends Controller
   public function welcome()
   {
     $viewData = $this->loadViewData();
-
-    return view('welcome', $viewData);
+    $sponsorsData = Sponsor::all();
+    //dd($sponsorsData);
+    return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData]);
   }
 }
