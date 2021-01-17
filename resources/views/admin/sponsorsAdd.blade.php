@@ -20,13 +20,13 @@
             <div class="test">
                 <br>
                 <label for="name">Naam</label>
-                <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" type="text" id="name" name="name" placeholder="Voornaam...">
+                <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" type="text" id="name" name="name" placeholder="Naam...">
             </div>
 
             <div class="test">
                 <br>
                 <label for="reference">Referentie / Website</label>
-                <input class="form-control{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}" type="text" id="reference" name="reference" placeholder="Tussenvoegsel...">
+                <input class="form-control{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}" type="text" id="reference" name="reference" placeholder="Referentie / Website...">
             </div>
 
             <div class="test">
