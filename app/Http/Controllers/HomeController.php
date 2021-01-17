@@ -14,7 +14,7 @@ class HomeController extends Controller
   public function welcome()
   {
     $viewData = $this->loadViewData();
-    $sponsorsData = Sponsor::select('imagePath')->get();
+    $sponsorsData = Sponsor::all();
     //dd($sponsorsData);
     return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData]);
   }
