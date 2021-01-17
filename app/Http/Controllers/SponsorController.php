@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class SponsorController extends Controller
 {
-    public function addSponsor($name,$imgPath,$reference)
+    public function addSponsor(Request $request)
     {
-
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+        ]);
+        $newSponsor = new Sponsor();
+        $path = $request->file('photo')->storeAs(
+            'public/images/sponsors', $request->input('name').".png"
+        );
+        $newSponsor->reference = $request->input('reference');
+        $newSponsor->name = $request->input('name');
+        $newSponsor->imagePath = 'images/sponsors/'.$request->input('name').".png";
+        $newSponsor->save();
+        return redirect('admin/sponsors/');
     }
 
     public static function getSponsors()
@@ -21,6 +32,7 @@ class SponsorController extends Controller
         if($request->id != null) {
             $tobeDeleted = Sponsor::find($request->id);
             $tobeDeleted->delete();
+
             return redirect('admin/sponsors');
         } else {
             return redirect('admin/sponsors');

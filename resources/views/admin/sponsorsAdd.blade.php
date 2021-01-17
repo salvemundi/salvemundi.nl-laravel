@@ -1,6 +1,10 @@
 @extends('layouts.appmin')
 @section('content')
-
+    <script>
+        function CopyMe(oFileInput, sTargetID) {
+            document.getElementById(sTargetID).value = oFileInput.value;
+        }
+    </script>
 <div class="adminOverlap center">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
@@ -8,7 +12,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <form action="/admin/sponsors/add/store" method="post">
+        <form action="/admin/sponsors/add/store" method="post" enctype="multipart/form-data">
             @csrf
             <br>
             <h2 class="h2">Sponsor toevoegen</h2>
@@ -30,10 +34,10 @@
                 <label for="photo">Foto</label>
                 <div class="input-group mb-3 test">
                     <div class="input-group-prepend">
-                        <span class="input-group-text form-control" id="inputGroupFileAddon01">Browse</span>
+                        <span class="input-group-text form-control" id="inputGroupFileAddon01">Browse <input type="file" onchange="CopyMe(this, 'txtFileName');" class="custom-file-input" id="photo" name="photo" aria-describedby="inputGroupFileAddon01"></span>
                     </div>
                     <div class="custom-file form-control">
-                        <input type="file" class="custom-file-input form-control" id="photo" name="photo" aria-describedby="inputGroupFileAddon01">
+                        <input id="txtFileName" type="text" readonly="readonly" />
                     </div>
                 </div>
             </div>
@@ -45,4 +49,5 @@
         </form>
     </div>
 </div>
+
 @endsection
