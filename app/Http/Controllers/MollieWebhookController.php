@@ -29,11 +29,11 @@ class MollieWebhookController extends Controller
         if ($payment->isPaid()) {
             $order->paymentStatus = paymentStatus::paid;
             $order->save();
-            if($order->type == paymentType::intro)
+            if($order->productId == paymentType::intro)
             {
                 IntroController::postProcessPayment($order);
             }
-            if($order->type == paymentType::registration)
+            if($order->productId == paymentType::registration)
             {
                 InschrijfController::processPayment($order);
             }
