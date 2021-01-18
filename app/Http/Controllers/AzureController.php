@@ -67,8 +67,10 @@ class AzureController extends Controller
             ->execute();
         $licenseData = [
             'addLicenses' => array([
+                'disabledPlans' => array([]),
                 'skuId' => '18181a46-0d4e-45cd-891e-60aabd171b4e',
             ]),
+            'removeLicenses' => array([]),
         ];
         Log::info(json_encode($licenseData));
         Log::info($licenseData);
