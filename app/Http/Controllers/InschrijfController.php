@@ -26,15 +26,16 @@ class InschrijfController extends Controller
             'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
         ]);
 
-        $inschrijving = new Inschrijving();
+        $inschrijving = new Inschrijving;
         $inschrijving->firstName = $request->input('firstName');
         $inschrijving->insertion = $request->input('insertion');
         $inschrijving->lastName = $request->input('lastName');
         $inschrijving->birthday = $request->input('birthday');
+        $inschrijving->birthday = date("Y-m-d", strtotime($inschrijving->birthday));
         $inschrijving->email = $request->input('email');
         $inschrijving->phoneNumber = $request->input('phoneNumber');
         $inschrijving->save();
-        return MolliePaymentController::processRegistration($inschrijving, paymentType::intro);
+        return MolliePaymentController::processRegistration($inschrijving, paymentType::registration);
     }
     public static function processPayment($orderObject)
     {
