@@ -45,8 +45,9 @@ class AzureController extends Controller
             'displayName' => $registration->firstName." ".$registration->lastName,
             'givenName' => $registration->firstName,
             'surname' => $registration->lastName,
+            'mailNickname' => $registration->firstName,
             'mobilePhone' => $registration->phoneNumber,
-            'userPrincipleName' => $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl",
+            'userPrincipalName' => $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl",
             'passwordProfile' => [
                 'forceChangePasswordNextSignIn' => true,
                 'password' => $randomPass,
