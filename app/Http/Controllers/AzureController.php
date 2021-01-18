@@ -59,19 +59,17 @@ class AzureController extends Controller
         Log::info(json_encode($data));
         Mail::to($registration->email)
             ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass));
-        try {
-            $createUser = $graph->createRequest("POST", "/users")
-                ->addHeaders(array("Content-Type" => "application/json"))
-                ->setReturnType(Model\User::class)
-                ->attachBody(json_encode($data))
-                ->execute();
-            $newUserID = $createUser->getId();
-            Log::info('New user id:'.$newUserID);
-            AzureController::fetchSpecificUser($newUserID);
-            return $randomPass;
-        } catch (GraphException $e) {
-            return 503;
-        }
+
+        $createUser = $graph->createRequest("POST", "/users")
+            ->addHeaders(array("Content-Type" => "application/json"))
+            ->setReturnType(Model\User::class)
+            ->attachBody(json_encode($data))
+            ->execute();
+        $newUserID = $createUser->getId();
+        Log::info('New user id:'.$newUserID);
+        AzureController::fetchSpecificUser($newUserID);
+        return $randomPass;
+
 
     }
 
@@ -85,7 +83,7 @@ class AzureController extends Controller
         $newUser = new User;
         $newUser->AzureID = $fetchedUser->getId();
         $newUser->DisplayName = $fetchedUser->getDisplayName();
-        $newUser->FirstName = $fetchedUser->getFirstName();
+        $newUser->FirstName = $fetchedUser->getGivenName();
         $newUser->LastName = $fetchedUser->getSurname();
         $newUser->PhoneNumber = $fetchedUser->getMobilePhone();
         $newUser->email = $fetchedUser->getMail();
