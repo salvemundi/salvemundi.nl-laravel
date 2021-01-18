@@ -7,6 +7,7 @@ use App\Models\Intro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailIntro;
+use Illuminate\Support\Facades\Log;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
@@ -35,6 +36,7 @@ class MollieWebhookController extends Controller
             }
             if($order->product->index == paymentType::registration)
             {
+                Log::info('Webhook');
                 InschrijfController::processPayment($order);
             }
         }
