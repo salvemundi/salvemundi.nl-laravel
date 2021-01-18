@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -61,6 +62,7 @@ class AzureController extends Controller
                 ->attachBody(json_encode($data))
                 ->execute();
             $newUserID = $createUser->getId();
+            Log::info('New user id:'.$newUserID);
             AzureController::fetchSpecificUser($newUserID);
             return $randomPass;
         } catch (GraphException $e) {
@@ -76,18 +78,26 @@ class AzureController extends Controller
         $fetchedUser = $graph->createRequest("GET",'/users/'.$userId)
             ->setReturnType(Model\User::class)
             ->execute();
-
-        foreach ($fetchedUser as $users) {
-            DB::table('users')->insert(
-                array(
-                    'AzureID' => $users->getId(),
-                    'DisplayName' => $users->getDisplayName(),
-                    'FirstName' => $users->getGivenName(),
-                    'Lastname' => $users->getSurname(),
-                    'PhoneNumber' => "",
-                    'email' => $users->getMail()
-                )
-            );
-        }
+        $newUser = new User;
+        $newUser->AzureID = $fetchedUser->getId();
+        $newUser->DisplayName = $fetchedUser->getDisplayName();
+        $newUser->FirstName = $fetchedUser->getFirstName();
+        $newUser->LastName = $fetchedUser->getSurname();
+        $newUser->PhoneNumber = $fetchedUser->getMobilePhone();
+        $newUser->email = $fetchedUser->getMail();
+        $newUser->ImgPath = "images/SalveMundi-Vector.svg";
+        $newUser->save();
+//        foreach ($fetchedUser as $users) {
+//            DB::table('users')->insert(
+//                array(
+//                    'AzureID' => $users->getId(),
+//                    'DisplayName' => $users->getDisplayName(),
+//                    'FirstName' => $users->getGivenName(),
+//                    'Lastname' => $users->getSurname(),
+//                    'PhoneNumber' => "",
+//                    'email' => $users->getMail()
+//                )
+//            );
+//        }
     }
 }

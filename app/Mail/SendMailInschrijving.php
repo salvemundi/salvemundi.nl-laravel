@@ -37,7 +37,7 @@ class SendMailInschrijving extends Mailable
      *
      * @return $this
      */
-    public function build(): SendMailIntro
+    public function build(): SendMailInschrijving
     {
         return $this
                 ->subject("Inschrijving SalveMundi")
