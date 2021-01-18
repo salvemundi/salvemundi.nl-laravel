@@ -13,6 +13,8 @@ U hebt niet betaald.<br>
 Leuk dat je hebt gekozen om deel te zijn van onze studie vereniging Salve Mundi.
 <br>
 De betaling is gelukt.<br>
+    Je gebruikersnaam voor office is: {{ $firstName.$lastName."@lid.salvemundi.nl" }}
+    Je wachtwoord is: {{ $pass }}
 @elseif ($paymentStatus == 3)
 Uw inschrijving is niet gelukt.
 De betaling is niet gelukt.
