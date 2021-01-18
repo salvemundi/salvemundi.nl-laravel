@@ -29,14 +29,16 @@ class MollieWebhookController extends Controller
         $order = $this->getTransactionObject($paymentId);
 
         if ($payment->isPaid()) {
-            $order->paymentStatus = paymentStatus::paid;
+
             $order->save();
-            if($order->paymentStatus == paymentStatus::paid) {
+            if($order->paymentStatus != paymentStatus::paid) {
                 if ($order->product->index == paymentType::intro) {
+                    $order->paymentStatus = paymentStatus::paid;
                     IntroController::postProcessPayment($order);
                     return response(null,200);
                 }
                 if ($order->product->index == paymentType::registration) {
+                    $order->paymentStatus = paymentStatus::paid;
                     Log::info('Webhook');
                     InschrijfController::processPayment($order);
                     return response(null,200);
