@@ -35,7 +35,7 @@ class InschrijfController extends Controller
         $inschrijving->email = $request->input('email');
         $inschrijving->phoneNumber = $request->input('phoneNumber');
         $inschrijving->save();
-        return MolliePaymentController::processRegistration($inschrijving, paymentType::intro);
+        return MolliePaymentController::processRegistration($inschrijving, paymentType::registration);
     }
     public static function processPayment($orderObject)
     {

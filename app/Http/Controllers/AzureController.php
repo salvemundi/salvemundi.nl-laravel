@@ -52,6 +52,7 @@ class AzureController extends Controller
                 'password' => $randomPass,
             ],
         ];
+        Log::info(json_encode($data));
         try {
             $createUser = $graph->createRequest("POST", "/users")
                 ->addHeaders(array("Content-Type" => "application/json"))
