@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enums\paymentStatus;
 use App\Models\Intro;
+use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailIntro;
+use Illuminate\Support\Facades\Log;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
@@ -27,15 +29,22 @@ class MollieWebhookController extends Controller
         $order = $this->getTransactionObject($paymentId);
 
         if ($payment->isPaid()) {
-            $order->paymentStatus = paymentStatus::paid;
+
             $order->save();
-            if($order->product->index == paymentType::intro)
-            {
-                IntroController::postProcessPayment($order);
-            }
-            if($order->product->index == paymentType::registration)
-            {
-                InschrijfController::processPayment($order);
+            if($order->paymentStatus != paymentStatus::paid) {
+                if ($order->product->index == paymentType::intro) {
+                    $order->paymentStatus = paymentStatus::paid;
+                    IntroController::postProcessPayment($order);
+                    return response(null,200);
+                }
+                if ($order->product->index == paymentType::registration) {
+                    $order->paymentStatus = paymentStatus::paid;
+                    Log::info('Webhook');
+                    InschrijfController::processPayment($order);
+                    return response(null,200);
+                }
+            } else {
+                return response(null,200);
             }
         }
 

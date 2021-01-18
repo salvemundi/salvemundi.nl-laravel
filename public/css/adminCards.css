@@ -20,12 +20,12 @@ Stati - minimal statistical cards
   font-family: "Nunito", sans-serif !important;
   /* Safari */
   transition: margin 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0px 0.2em 0.4em rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0.2em 0.4em rgba(0, 0, 0, 0.4);
 }
 
 .stati:hover {
   margin-top: 0.5em;
-  box-shadow: 0px 0.4em 0.5em rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0.4em 0.5em rgba(0, 0, 0, 0.4);
 }
 
 .stati i {
@@ -237,5 +237,9 @@ Stati - minimal statistical cards
 
 .stati.asbestos {
   color: #7f8c8d;
+}
+
+.stati.svdark {
+  color: #663265;
 }
 
