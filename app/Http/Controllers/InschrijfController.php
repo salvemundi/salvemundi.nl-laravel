@@ -41,7 +41,6 @@ class InschrijfController extends Controller
     {
         $registerObject = $orderObject->registerRelation;
         AzureController::createAzureUser($registerObject);
-        Mail::to($registerObject->email)
-            ->send(new SendMailInschrijving($registerObject->firstName, $registerObject->lastName, $registerObject->insertion, $registerObject->paymentStatus));
+
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailInschrijving;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
@@ -55,6 +57,8 @@ class AzureController extends Controller
             ],
         ];
         Log::info(json_encode($data));
+        Mail::to($registration->email)
+            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $registration->paymentStatus, $randomPass));
         try {
             $createUser = $graph->createRequest("POST", "/users")
                 ->addHeaders(array("Content-Type" => "application/json"))
