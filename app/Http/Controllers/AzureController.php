@@ -84,7 +84,7 @@ class AzureController extends Controller
         $newUser->FirstName = $fetchedUser->getGivenName();
         $newUser->LastName = $fetchedUser->getSurname();
         $newUser->PhoneNumber = $fetchedUser->getMobilePhone();
-        $newUser->email = $fetchedUser->getMail();
+        $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
         $newUser->ImgPath = "images/SalveMundi-Vector.svg";
         $newUser->save();
 //        foreach ($fetchedUser as $users) {
