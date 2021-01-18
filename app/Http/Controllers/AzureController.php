@@ -35,7 +35,7 @@ class AzureController extends Controller
         return $graph;
     }
 
-    public static function createAzureUser($registration)
+    public static function createAzureUser($registration,$transaction)
     {
         if($registration == null)
         {
@@ -58,7 +58,7 @@ class AzureController extends Controller
         ];
         Log::info(json_encode($data));
         Mail::to($registration->email)
-            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $registration->payment()->paymentStatus, $randomPass));
+            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass));
         try {
             $createUser = $graph->createRequest("POST", "/users")
                 ->addHeaders(array("Content-Type" => "application/json"))
