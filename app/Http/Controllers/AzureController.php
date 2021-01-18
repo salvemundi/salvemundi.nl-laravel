@@ -58,7 +58,7 @@ class AzureController extends Controller
         ];
         Log::info(json_encode($data));
         Mail::to($registration->email)
-            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $registration->paymentStatus, $randomPass));
+            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $registration->payment()->paymentStatus, $randomPass));
         try {
             $createUser = $graph->createRequest("POST", "/users")
                 ->addHeaders(array("Content-Type" => "application/json"))
