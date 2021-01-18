@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\paymentStatus;
 use App\Models\Intro;
+use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailIntro;
@@ -33,11 +34,13 @@ class MollieWebhookController extends Controller
             if($order->product->index == paymentType::intro)
             {
                 IntroController::postProcessPayment($order);
+                return \response('',200);
             }
             if($order->product->index == paymentType::registration)
             {
                 Log::info('Webhook');
                 InschrijfController::processPayment($order);
+                return \response('',200);
             }
         }
 
