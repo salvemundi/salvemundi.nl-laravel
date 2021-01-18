@@ -66,10 +66,12 @@ class AzureController extends Controller
             ->attachBody(json_encode($data))
             ->execute();
         $licenseData = [
-            'addLicenses' => [
+            'addLicenses' => array([
                 'skuId' => '18181a46-0d4e-45cd-891e-60aabd171b4e',
-            ],
+            ]),
         ];
+        Log::info(json_encode($licenseData));
+        Log::info($licenseData);
         $assignLicense = $graph->createRequest("POST","/users/".$createUser->getId()."/assignLicense")
             ->addHeaders(array("Content-Type" => "application/json"))
             ->setReturnType(Model\User::class)

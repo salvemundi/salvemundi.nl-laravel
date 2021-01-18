@@ -34,13 +34,13 @@ class MollieWebhookController extends Controller
             if($order->product->index == paymentType::intro)
             {
                 IntroController::postProcessPayment($order);
-                return \response('',200);
+                return response()->json(['success' => 'success'], 200);
             }
             if($order->product->index == paymentType::registration)
             {
                 Log::info('Webhook');
                 InschrijfController::processPayment($order);
-                return \response('',200);
+                return response()->json(['success' => 'success'], 200);
             }
         }
 
