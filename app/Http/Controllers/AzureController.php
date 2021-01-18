@@ -40,13 +40,13 @@ class AzureController extends Controller
         }
         $randomPass = Str::random(40);
         $graph = AzureController::connectToAzure();
-        $data[] = [
+        $data = [
             'accountEnabled' => true,
-            'displayName' => $registration->firstName.$registration->lastName,
+            'displayName' => $registration->firstName." ".$registration->lastName,
             'givenName' => $registration->firstName,
             'surname' => $registration->lastName,
             'mobilePhone' => $registration->phoneNumber,
-            'userPrincipleName' => $registration->fistName.".".$registration->lastName."@lid.salvemundi.nl",
+            'userPrincipleName' => $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl",
             'passwordProfile' => [
                 'forceChangePasswordNextSignIn' => true,
                 'password' => $randomPass,
@@ -56,7 +56,8 @@ class AzureController extends Controller
         try {
             $createUser = $graph->createRequest("POST", "/users")
                 ->addHeaders(array("Content-Type" => "application/json"))
-                ->attachBody($data)
+                ->setReturnType(Model\User::class)
+                ->attachBody(json_encode($data))
                 ->execute();
             $newUserID = $createUser->getId();
             AzureController::fetchSpecificUser($newUserID);
