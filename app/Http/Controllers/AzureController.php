@@ -73,7 +73,7 @@ class AzureController extends Controller
         $assignLicense = $graph->createRequest("POST","/users/".$createUser->getId()."/assignLicense")
             ->addHeaders(array("Content-Type" => "application/json"))
             ->setReturnType(Model\User::class)
-            ->attachBody(json_encode($licenseData))
+            ->attachBody($licenseData)
             ->execute();
         $newUserID = $createUser->getId();
         Log::info('New user id:'.$newUserID);
