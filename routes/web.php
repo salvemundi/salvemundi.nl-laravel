@@ -68,3 +68,5 @@ Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'get
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');
 Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');})->middleware('admin.auth');
 Route::post('/admin/sponsors/add/store', [App\Http\Controllers\SponsorController::class, 'addSponsor'])->middleware('admin.auth');
+Route::get('/admin/activities', [App\Http\Controllers\ActiviteitenController::class, 'index'])->name('Activiteiten')->middleware('admin.auth');
+Route::post('/admin/activities/store', [App\Http\Controllers\ActiviteitenController::class, 'store'])->middleware('admin.auth');
