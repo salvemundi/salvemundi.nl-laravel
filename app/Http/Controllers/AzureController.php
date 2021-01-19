@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailInschrijving;
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
@@ -31,35 +35,40 @@ class AzureController extends Controller
         return $graph;
     }
 
-    public static function createAzureUser($registration)
+    public static function createAzureUser($registration,$transaction)
     {
+        if($registration == null)
+        {
+            Log::error('WHERE IS MY OBJECT');
+        }
         $randomPass = Str::random(40);
         $graph = AzureController::connectToAzure();
-        echo "in progress";
         $data = [
             'accountEnabled' => true,
-            'displayName' => $registration->firstName.$registration->lastName,
+            'displayName' => $registration->firstName." ".$registration->lastName,
             'givenName' => $registration->firstName,
             'surname' => $registration->lastName,
+            'mailNickname' => $registration->firstName,
             'mobilePhone' => $registration->phoneNumber,
-            'userPrincipleName' => $registration->fistName.".".$registration->lastName."@lid.salvemundi.nl",
+            'userPrincipalName' => $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl",
             'passwordProfile' => [
                 'forceChangePasswordNextSignIn' => true,
                 'password' => $randomPass,
             ],
         ];
-        try {
-            $createUser = $graph->createRequest("POST", "/users")
-                ->addHeaders(array("Content-Type" => "application/json"))
-                ->attachBody($data)
-                ->execute();
-            $newUserID = $createUser->getId();
-            AzureController::fetchSpecificUser($newUserID);
-            return $randomPass;
-        } catch (GraphException $e) {
-            return 503;
-        }
+        Log::info(json_encode($data));
+        Mail::to($registration->email)
+            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass));
 
+        $createUser = $graph->createRequest("POST", "/users")
+            ->addHeaders(array("Content-Type" => "application/json"))
+            ->setReturnType(Model\User::class)
+            ->attachBody(json_encode($data))
+            ->execute();
+        $newUserID = $createUser->getId();
+        Log::info('New user id:'.$newUserID);
+        AzureController::fetchSpecificUser($newUserID);
+        return $randomPass;
     }
 
     public static function fetchSpecificUser($userId)
@@ -69,18 +78,26 @@ class AzureController extends Controller
         $fetchedUser = $graph->createRequest("GET",'/users/'.$userId)
             ->setReturnType(Model\User::class)
             ->execute();
-
-        foreach ($fetchedUser as $users) {
-            DB::table('users')->insert(
-                array(
-                    'AzureID' => $users->getId(),
-                    'DisplayName' => $users->getDisplayName(),
-                    'FirstName' => $users->getGivenName(),
-                    'Lastname' => $users->getSurname(),
-                    'PhoneNumber' => "",
-                    'email' => $users->getMail()
-                )
-            );
-        }
+        $newUser = new User;
+        $newUser->AzureID = $fetchedUser->getId();
+        $newUser->DisplayName = $fetchedUser->getDisplayName();
+        $newUser->FirstName = $fetchedUser->getGivenName();
+        $newUser->LastName = $fetchedUser->getSurname();
+        $newUser->PhoneNumber = $fetchedUser->getMobilePhone();
+        $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
+        $newUser->ImgPath = "images/SalveMundi-Vector.svg";
+        $newUser->save();
+//        foreach ($fetchedUser as $users) {
+//            DB::table('users')->insert(
+//                array(
+//                    'AzureID' => $users->getId(),
+//                    'DisplayName' => $users->getDisplayName(),
+//                    'FirstName' => $users->getGivenName(),
+//                    'Lastname' => $users->getSurname(),
+//                    'PhoneNumber' => "",
+//                    'email' => $users->getMail()
+//                )
+//            );
+//        }
     }
 }

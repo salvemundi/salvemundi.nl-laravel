@@ -18,7 +18,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
             $table->string('transactionId')->nullable();
-            $table->tinyInteger('type')->unsigned()->default(paymentType::default);
+            #$table->tinyInteger('type')->unsigned()->default(paymentType::default);
             $table->tinyInteger('paymentStatus')->unsigned()->default(paymentStatus::unPaid);
             $table->timestamps();
         });

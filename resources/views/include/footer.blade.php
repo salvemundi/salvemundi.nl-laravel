@@ -21,14 +21,20 @@
         <div class="col-xs-6 col-md-3">
           <h6>Commissies</h6>
           <ul class="footer-links">
-            <li><a href="#">Bestuur</a></li>
+            <li><a href="/user#Bestuur">Bestuur</a></li>
+            @foreach ($Commissies as $commissie)
+                @if (str_contains($commissie->DisplayName, 'commissie'))
+                    <li><a href="/user#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a></li>
+                @endif
+            @endforeach
+            {{-- <li><a href="#">Bestuur</a></li>
             <li><a href="#">Ict-commissie</a></li>
             <li><a href="#">Studie-commissie</a></li>
             <li><a href="#">Activiteiten-commissie</a></li>
             <li><a href="#">Media-commissie</a></li>
             <li><a href="#">Feest-commissie</a></li>
             <li><a href="#">Kamp-commissie</a></li>
-            <li><a href="#">Kas-commissie</a></li>
+            <li><a href="#">Kas-commissie</a></li> --}}
 
           </ul>
         </div>

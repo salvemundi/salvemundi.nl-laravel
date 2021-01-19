@@ -8,17 +8,13 @@
   border-radius: 10px;
 }
 
-.user {
-  width: 50%;
-  left: 25%;
-}
-
 .overlap {
   background-color: white;
   top: 800px;
   position: relative;
   margin-bottom: 800px;
   padding: 50px;
+  width: 100% !important;
 }
 
 .grid {
@@ -72,6 +68,12 @@
   .overlap {
     top: 210px;
     margin-bottom: 210px;
+  }
+
+  #activiteitDescription {
+    justify-content: left !important;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -629,5 +631,117 @@ html {
   display: none;
 }
 
+.sponsor {
+  height: 80%;
+  width: 80%;
+}
+
+.mijnSlider {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.slick-left:before {
+  color: #663265 !important;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  font-size: 40px !important;
+  border-radius: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  content: "<";
+  margin-left: -150px;
+  transition: ease-in-out 0.2s;
+}
+
+.slick-right:before {
+  color: #663265 !important;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  font-size: 40px !important;
+  border-radius: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  content: ">";
+  transition: ease-in-out 0.2s;
+}
+
+.slick-right:hover::before,
+.slick-left:hover::before {
+  background: #663265 !important;
+  color: white !important;
+  transition: ease-in-out 0.2s;
+}
+
+.slick-right,
+.slick-left {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  transform: translate(0, -50%);
+  background-color: transparent;
+  outline: none !important;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.slick-right {
+  right: -25px;
+}
+
+[dir=rtl] .slick-right {
+  right: auto;
+  left: -25px;
+}
+
+.slick-left {
+  left: -25px;
+}
+
+[dir=rtl] .slick-left {
+  right: -25px;
+  left: auto;
+}
+
+.groot {
+  font-size: 50px;
+  margin: 20px;
+  color: #864485;
+}
+
 /* Slick-Bar end */
+
+.card {
+  flex-direction: row;
+}
+
+/* Activiteit begin */
+
+@media only screen and (max-width: 549.99px) {
+  .textCard {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 468.99px) {
+  .textCard {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 409.99px) {
+  .textCard {
+    font-size: 8px;
+  }
+}
+
+@media only screen and (max-width: 349.99px) {
+  .textCard {
+    font-size: 7px;
+  }
+}
 
