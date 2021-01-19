@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AzureUser;
+use App\Models\WhatsappLink;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -18,7 +19,8 @@ class myAccountController extends Controller
         if($adminAuthorization == 401){
             return abort(401);
         } else {
-            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization]);
+            $whatsappLinks = WhatsappLink::all();
+            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks]);
         }
     }
 

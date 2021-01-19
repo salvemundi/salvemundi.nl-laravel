@@ -24,6 +24,7 @@
         <a class="tablinks" onclick="openTab(event, 'whatsapp')" href="#navlink">
             <i class="fab fa-whatsapp"></i>
             <b>Whatsapp</b>
+
         </a>
         <a class="tablinks" onclick="openTab(event, 'regels')" href="#navlink">
             <i class="fas fa-heart"></i>
@@ -76,6 +77,27 @@
 
     <div id="whatsapp" class="tabcontent">
         <h1>Whatsapp</h1>
+        <p>Op vrijwillige basis mag je deelnemen aan onze whatsapp groepen.</p>
+        <table id="table"
+               data-toggle="table"
+               data-show-columns="true">
+            <thead>
+                <tr>
+                    <th data-field="link">Link</th>
+                    <th data-field="naam">Naam</th>
+                    <th data-field="beschrijving">Beschrijving</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($whatsapplink as $whatsapp)
+                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                        <td data-value="link"><a href="{{$whatsapp->link}}">{{$whatsapp->link}}</a></td>
+                        <td data-value="naam">{{$whatsapp->naam}}</td>
+                        <td data-value="beschrijving">{{$whatsapp->beschrijving}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
     <div id="regels" class="tabcontent">
