@@ -37,9 +37,10 @@
     33 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
     34 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
     35 => 'App\\Providers\\AppServiceProvider',
-    36 => 'App\\Providers\\AuthServiceProvider',
-    37 => 'App\\Providers\\EventServiceProvider',
-    38 => 'App\\Providers\\RouteServiceProvider',
+    36 => 'App\\Providers\\AppServiceProvider',
+    37 => 'App\\Providers\\AuthServiceProvider',
+    38 => 'App\\Providers\\EventServiceProvider',
+    39 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -66,9 +67,10 @@
     20 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
     21 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
     22 => 'App\\Providers\\AppServiceProvider',
-    23 => 'App\\Providers\\AuthServiceProvider',
-    24 => 'App\\Providers\\EventServiceProvider',
-    25 => 'App\\Providers\\RouteServiceProvider',
+    23 => 'App\\Providers\\AppServiceProvider',
+    24 => 'App\\Providers\\AuthServiceProvider',
+    25 => 'App\\Providers\\EventServiceProvider',
+    26 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (

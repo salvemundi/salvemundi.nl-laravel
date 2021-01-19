@@ -14,6 +14,7 @@
   position: relative;
   margin-bottom: 800px;
   padding: 50px;
+  width: 100% !important;
 }
 
 .grid {
@@ -67,6 +68,12 @@
   .overlap {
     top: 210px;
     margin-bottom: 210px;
+  }
+
+  #activiteitDescription {
+    justify-content: left !important;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -710,5 +717,31 @@ html {
 
 .card {
   flex-direction: row;
+}
+
+/* Activiteit begin */
+
+@media only screen and (max-width: 549.99px) {
+  .textCard {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 468.99px) {
+  .textCard {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 409.99px) {
+  .textCard {
+    font-size: 8px;
+  }
+}
+
+@media only screen and (max-width: 349.99px) {
+  .textCard {
+    font-size: 7px;
+  }
 }
 

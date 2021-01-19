@@ -56,6 +56,9 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences']);
 
+// Activiteiten page
+Route::get('/activiteiten',[App\Http\Controllers\ActiviteitenController::class, 'run'] );
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
