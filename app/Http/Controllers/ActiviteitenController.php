@@ -22,7 +22,6 @@ class ActiviteitenController extends Controller
 
         $products = new Product;
         $products->name = $request->input('name');
-        $products->index = null;
         $products->price = $request->input('price');
         $products->description = $request->input('description');
         $products->save();
