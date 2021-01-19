@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\paymentType;
 use App\Mail\SendMailInschrijving;
+use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -36,6 +37,8 @@ class InschrijfController extends Controller
         $inschrijving->phoneNumber = $request->input('phoneNumber');
         $inschrijving->save();
         return MolliePaymentController::processRegistration($inschrijving, paymentType::registration);
+//        Mail::to($inschrijving->email)
+//            ->send(new SendMailInschrijvingTransactie($inschrijving->firstName, $inschrijving->lastName, $inschrijving->insertion,));
     }
     public static function processPayment($orderObject)
     {

@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('AzureID');
+            // Should not be nullable, botching sumthing here :DDDDd !!!11!11!1!!1!1!!
+            $table->string('AzureID')->nullable();
             $table->string('DisplayName');
             $table->string('FirstName');
             $table->string('LastName');
@@ -25,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->string('ImgPath')->nullable();
             $table->integer('visibility')->default(1);
+            $table->string('mollie_customer_id')->nullable();
+            $table->string('mollie_mandate_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

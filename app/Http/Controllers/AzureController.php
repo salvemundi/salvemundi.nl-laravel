@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
@@ -67,7 +68,12 @@ class AzureController extends Controller
             ->execute();
         $newUserID = $createUser->getId();
         Log::info('New user id:'.$newUserID);
-        AzureController::fetchSpecificUser($newUserID);
+        $userEmail = $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl";
+        $userObject = User::where('email', $userEmail)->first();
+        $userObject->AzureID = $newUserID;
+        $userObject->save();
+
+        //AzureController::fetchSpecificUser($newUserID);
         return $randomPass;
     }
 
@@ -87,17 +93,24 @@ class AzureController extends Controller
         $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
         $newUser->ImgPath = "images/SalveMundi-Vector.svg";
         $newUser->save();
-//        foreach ($fetchedUser as $users) {
-//            DB::table('users')->insert(
-//                array(
-//                    'AzureID' => $users->getId(),
-//                    'DisplayName' => $users->getDisplayName(),
-//                    'FirstName' => $users->getGivenName(),
-//                    'Lastname' => $users->getSurname(),
-//                    'PhoneNumber' => "",
-//                    'email' => $users->getMail()
-//                )
-//            );
-//        }
+        AzureController::createSubscription('registration',$fetchedUser->getId());
+    }
+
+    public static function createSubscription(string $plan,$id)
+    {
+        $user = User::where('AzureID',$id)->first();
+
+        $name = ucfirst($plan) . ' membership';
+
+        if(!$user->subscribed($name, $plan)) {
+
+            $result = $user->newSubscription($name, $plan)->create();
+
+            if(is_a($result, RedirectToCheckoutResponse::class)) {
+                return $result; // Redirect to Mollie checkout
+            }
+            return back()->with('status', 'Welcome to the ' . $plan . ' plan');
+        }
+        return back()->with('status', 'You are already on the ' . $plan . ' plan');
     }
 }

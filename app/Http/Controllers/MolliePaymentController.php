@@ -2,29 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 use Mollie\Laravel\Facades\Mollie;
+use App\Enums\paymentType;
 
 class MolliePaymentController extends Controller
 {
     public static function processRegistration($orderObject, $productIndex): RedirectResponse
     {
-        $createPayment = MolliePaymentController::preparePayment($productIndex);
-        $getProductObject = Product::where('index', $productIndex)->first();
-        $transaction = new Transaction();
-        $transaction->transactionId = $createPayment->id;
-        $transaction->product()->associate($getProductObject);
-        $transaction->save();
+        if($productIndex == paymentType::registration){
+            $newUser = new User;
+            //$newUser->AzureID = $fetchedUser->getId();
+            $newUser->DisplayName = $orderObject->firstName.$orderObject->lastName;
+            $newUser->FirstName = $orderObject->firstName;
+            $newUser->LastName = $orderObject->lastName;
+            $newUser->phoneNumber = $orderObject->phoneNumber;
+            $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
+            $newUser->ImgPath = "images/SalveMundi-Vector.svg";
+            $newUser->save();
+            $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
 
-        $orderObject->payment()->associate($transaction);
-        $orderObject->save();
-        return redirect()->away($createPayment->getCheckoutUrl(), 303);
+            Mail::to($newUser->email)
+            ->send(new SendMailInschrijvingTransactie($orderObject->firstName, $orderObject->lastName, $orderObject->insertion,$createPayment->getCheckoutUrl()));
+        } else{
+            $createPayment = MolliePaymentController::preparePayment($productIndex);
+            $getProductObject = Product::where('index', $productIndex)->first();
+            $transaction = new Transaction();
+            $transaction->transactionId = $createPayment->id;
+            $transaction->product()->associate($getProductObject);
+            $transaction->save();
+
+            $orderObject->payment()->associate($transaction);
+            $orderObject->save();
+            return redirect()->away($createPayment->getCheckoutUrl(), 303);
+        }
+        return redirect('/');
     }
-    private static function preparePayment($productIndex)
+    private static function preparePayment($productIndex, $userObject = null)
     {
         $product = Product::where('index', $productIndex)->first();
+        if($userObject != null)
+        {
+            $product = Product::find('id',$productIndex)->first();
+            return $userObject->newSubscription('registration')->create();
+        }
         // redirect customer to Mollie checkout page
         $formattedPrice = number_format($product->price, 2, '.', '');
         $priceToString = strval($formattedPrice);

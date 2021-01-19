@@ -6,10 +6,26 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    use Billable;
+
+    public function getInvoiceInformation()
+    {
+        return [$this->name, $this->email];
+    }
+    /**
+     * Get additional information to be displayed on the invoice. Typically a note provided by the customer.
+     *
+     * @return string|null
+     */
+    public function getExtraBillingInformation()
+    {
+        return null;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +38,13 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function mollieCustomerFields(): array
+    {
+        return [
+            'email' => $this->email,
+            'name' => $this->name,
+        ];
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
