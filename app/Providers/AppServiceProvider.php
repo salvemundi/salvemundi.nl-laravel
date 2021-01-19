@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\DatabasePlanRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Commissie;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->share('Commissies', Commissie::all());
     }
 }

@@ -4,7 +4,7 @@
 <div class="overlap">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" id="{{$groupsBestuur->DisplayName}}">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{$groupsBestuur->DisplayName}}</h4>
@@ -30,7 +30,7 @@
 
         <div class="row">
             @foreach ($groups as $group)
-            <div class="col-md-12">
+            <div class="col-md-12" id="{{$group->DisplayName}}">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{$group->DisplayName}}</h4>
