@@ -20,10 +20,6 @@ class MolliePaymentController extends Controller
 
         $orderObject->payment()->associate($transaction);
         $orderObject->save();
-        if($productIndex == 2)
-        {
-            AzureController::createAzureUser($orderObject);
-        }
         return redirect()->away($createPayment->getCheckoutUrl(), 303);
     }
     private static function preparePayment($productIndex)

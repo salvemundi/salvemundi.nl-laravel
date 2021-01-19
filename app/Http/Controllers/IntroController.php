@@ -47,7 +47,7 @@ class IntroController extends Controller
 
         $introObject = $paymentObject->introRelation;
         Mail::to($introObject->email)
-            ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
+            ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $paymentObject->paymentStatus));
         //$introObject->delete();
     }
 }
