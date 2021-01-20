@@ -49,7 +49,6 @@ class MolliePaymentController extends Controller
         if($userObject != null)
         {
             //s$product = Product::find('id',$productIndex)->first();
-
             return $userObject->newSubscription('main','registration')->create();
         }
         // redirect customer to Mollie checkout page

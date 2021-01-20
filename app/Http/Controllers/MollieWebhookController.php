@@ -6,13 +6,16 @@ use App\Enums\paymentStatus;
 use App\Models\Intro;
 use http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailIntro;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Events\FirstPaymentPaid;
+use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
+use PharIo\Manifest\Exception;
 
 class MollieWebhookController extends Controller
 {
@@ -31,22 +34,30 @@ class MollieWebhookController extends Controller
 
 
         if ($payment->isPaid()) {
-            if($order->paymentStatus != paymentStatus::paid) {
-                if ($order->product->index == paymentType::intro) {
-                    $order->paymentStatus = paymentStatus::paid;
-                    $order->save();
-                    IntroController::postProcessPayment($order);
-                    return response(null,200);
+            try {
+                if ($order->paymentStatus != paymentStatus::paid) {
+                    if ($order->product->index == paymentType::intro) {
+                        $order->paymentStatus = paymentStatus::paid;
+                        $order->save();
+                        IntroController::postProcessPayment($order);
+                        return response(null, 200);
+                    }
+                } else {
+                    return response(null, 200);
                 }
-                if ($order->product->index == paymentType::registration) {
-                    //$order->paymentStatus = paymentStatus::paid;
-                    //$order->save();
+            }
+            catch (Exception $e) {
+                    //if ($order->product->index == paymentType::registration) {
+                        //$order->paymentStatus = paymentStatus::paid;
+                        //$order->save();
+                        $order = (new FirstPaymentHandler($payment))->execute();
+
+                        Event::dispatch(new FirstPaymentPaid($payment, $order));
                     Log::info('Webhook');
+                    $order->handlePaymentPaid();
                     InschrijfController::processPayment($order);
-                    return response(null,200);
-                }
-            } else {
-                return response(null,200);
+                    return response(null, 200);
+                //}
             }
         }
 
