@@ -36,7 +36,7 @@ class AzureController extends Controller
         return $graph;
     }
 
-    public static function createAzureUser($registration,$transaction)
+    public static function createAzureUser($registration,$transaction = null)
     {
         if($registration == null)
         {
@@ -58,8 +58,6 @@ class AzureController extends Controller
             ],
         ];
         Log::info(json_encode($data));
-        Mail::to($registration->email)
-            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass));
 
         $createUser = $graph->createRequest("POST", "/users")
             ->addHeaders(array("Content-Type" => "application/json"))
@@ -73,7 +71,6 @@ class AzureController extends Controller
         $userObject->AzureID = $newUserID;
         $userObject->save();
 
-        //AzureController::fetchSpecificUser($newUserID);
         return $randomPass;
     }
 
@@ -93,24 +90,12 @@ class AzureController extends Controller
         $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
         $newUser->ImgPath = "images/SalveMundi-Vector.svg";
         $newUser->save();
-        AzureController::createSubscription('registration',$fetchedUser->getId());
+        //return MolliePaymentController::createSubscription('registration',$fetchedUser->getId());
     }
 
-    public static function createSubscription(string $plan,$id)
+    public static function checkIfUserExists($userId)
     {
-        $user = User::where('AzureID',$id)->first();
+        AzureController::fetchSpecificUser($userId);
 
-        $name = ucfirst($plan) . ' membership';
-
-        if(!$user->subscribed($name, $plan)) {
-
-            $result = $user->newSubscription($name, $plan)->create();
-
-            if(is_a($result, RedirectToCheckoutResponse::class)) {
-                return $result; // Redirect to Mollie checkout
-            }
-            return back()->with('status', 'Welcome to the ' . $plan . ' plan');
-        }
-        return back()->with('status', 'You are already on the ' . $plan . ' plan');
     }
 }

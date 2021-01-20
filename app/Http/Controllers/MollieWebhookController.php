@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Enums\paymentStatus;
-use App\Models\Intro;
-use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailIntro;
+use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
 use Illuminate\Support\Facades\Log;
+use Laravel\Cashier\Http\Controllers\BaseWebhookController;
+use Laravel\Cashier\Order\Order;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
 
-class MollieWebhookController extends Controller
+
+class MollieWebhookController extends BaseWebhookController
 {
     protected function getTransactionObject($pid)
     {
@@ -27,24 +29,32 @@ class MollieWebhookController extends Controller
         $paymentId = $request->input('id');
         $payment = Mollie::api()->payments()->get($paymentId);
         $order = $this->getTransactionObject($paymentId);
+        $paymentRegister = $this->getPaymentById($request->get('id'));
 
         if ($payment->isPaid()) {
-
-            $order->save();
-            if($order->paymentStatus != paymentStatus::paid) {
-                if ($order->product->index == paymentType::intro) {
-                    $order->paymentStatus = paymentStatus::paid;
-                    IntroController::postProcessPayment($order);
-                    return response(null,200);
+            if($order != null){
+                if ($order->paymentStatus != paymentStatus::paid) {
+                    if ($order->product->index == paymentType::intro) {
+                        $order->paymentStatus = paymentStatus::paid;
+                        $order->save();
+                        IntroController::postProcessPayment($order);
+                        return response(null, 200);
+                    }
+                } else {
+                    return response(null, 200);
                 }
-                if ($order->product->index == paymentType::registration) {
-                    $order->paymentStatus = paymentStatus::paid;
-                    Log::info('Webhook');
-                    InschrijfController::processPayment($order);
-                    return response(null,200);
-                }
-            } else {
-                return response(null,200);
+            } else
+            {
+                $order = (new FirstPaymentHandler($paymentRegister))->execute();
+                $orderReg = Transaction::where('transactionId', null)->latest()->first();
+                $orderReg->transactionId = $paymentId;
+                $orderReg->save();
+                Log::info('Webhook');
+                $order->handlePaymentPaid();
+                Log::info($order);
+                Log::info($orderReg);
+                InschrijfController::processPayment($orderReg);
+                return response(null, 200);
             }
         }
 
@@ -56,10 +66,6 @@ class MollieWebhookController extends Controller
         if ($payment->isFailed()) {
             $order->paymentStatus = paymentStatus::failed;
             $order->save();
-            if($order->type == paymentType::intro)
-            {
-
-            }
         }
 
         if ($payment->isCanceled()) {

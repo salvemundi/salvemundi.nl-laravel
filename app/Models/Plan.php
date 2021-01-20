@@ -141,7 +141,7 @@ class Plan extends Model implements PlanImplements
      */
     public function firstPaymentRedirectUrl()
     {
-        return "http://localhost:8000/redirect";
+        return route('inschrijven');
     }
 
     /**
@@ -158,7 +158,7 @@ class Plan extends Model implements PlanImplements
      */
     public function firstPaymentWebhookUrl()
     {
-        return "webhookurl";
+        return route('webhooks.mollie');
 
     }
 
