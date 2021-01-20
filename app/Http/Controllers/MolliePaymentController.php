@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Mollie\Laravel\Facades\Mollie;
@@ -28,13 +29,15 @@ class MolliePaymentController extends Controller
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
-            $getProductObject = Product::where('index', $productIndex)->first();
+            $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
+            $getProductObject = Product::where('index', paymentType::registration)->first();
             $transaction = new Transaction();
+            $transaction->transactionId = DB::table('orders')->latest()->first();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
             $orderObject->payment()->associate($transaction);
             $orderObject->save();
-            return MolliePaymentController::preparePayment($productIndex, $newUser);
+            return $createPayment;
         } else{
             $createPayment = MolliePaymentController::preparePayment($productIndex);
             $getProductObject = Product::where('index', $productIndex)->first();

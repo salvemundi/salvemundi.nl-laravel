@@ -44,6 +44,5 @@ class InschrijfController extends Controller
     {
         $registerObject = $orderObject->registerRelation;
         AzureController::createAzureUser($registerObject, $orderObject);
-
     }
 }
