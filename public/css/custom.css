@@ -243,6 +243,7 @@
   font-size: 15px;
   line-height: 24px;
   color: white;
+  position: relative;
 }
 
 .site-footer hr {
