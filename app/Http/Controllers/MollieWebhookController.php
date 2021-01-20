@@ -53,7 +53,7 @@ class MollieWebhookController extends BaseWebhookController
                         //$order->paymentStatus = paymentStatus::paid;
                         //$order->save();
                 if(Order::where('mollie_payment_id',$paymentId)->first()->mollie_payment_status != 'paid') {
-                    $orderReg = Transaction::all()->where('transactionId' == null)->last();
+                    $orderReg = Transaction::where('transactionId' == null)->last();
                     $orderReg->transactionId = $paymentId;
                     $orderReg->save();
                     $order = (new FirstPaymentHandler($paymentRegister))->execute();
