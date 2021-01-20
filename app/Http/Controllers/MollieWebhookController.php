@@ -12,12 +12,13 @@ use App\Mail\SendMailIntro;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Events\FirstPaymentPaid;
 use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
+use Laravel\Cashier\Http\Controllers\BaseWebhookController;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
 use PharIo\Manifest\Exception;
 
-class MollieWebhookController extends Controller
+class MollieWebhookController extends BaseWebhookController
 {
     protected function getTransactionObject($pid)
     {
