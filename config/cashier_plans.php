@@ -37,7 +37,7 @@ return [
         /**
          * The plan reference.
          */
-        'example-1' => [
+        'example' => [
 
             /**
              * The amount to be billed each billing cycle.
@@ -48,7 +48,7 @@ return [
                  * A string containing the exact amount you want to charge each billing cycle, in the given currency.
                  * Make sure to set the right amount of decimals. Non-string values are not accepted by Mollie.
                  */
-                'value' => '10.00',
+                'value' => '80.00',
 
                 /**
                  * An ISO 4217 currency code. The currencies supported depend on the payment methods that are enabled on
@@ -60,22 +60,23 @@ return [
             /**
              * The length of the billing cycle.
              */
-            'interval' => '1 month',
+            'interval' => '1 year',
 
             /**
              * The text to appear on the invoice.
              */
-            'description' => 'Monthly payment',
+            'description' => 'Contributie SalveMundi',
 
             /**
              * The chain of subscription OrderItem preprocessors. These are called right before the Subscription's
              * OrderItem is processed into an OrderItem. You can use this for calculating variable costs a.k.a. metered
              * billing. Make sure the preprocessors extend the BaseOrderItemProcessor.
              */
-            //'order_item_preprocessors' => [
-            //    ProcessCoupons::class,
-            //    PersistOrderItems::class,
-            //],
+            'order_item_preprocessors' => [
+                ProcessCoupons::class,
+                PersistOrderItems::class,
+
+            ],
         ],
     ],
 ];

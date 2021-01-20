@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 
 use App\Http\Controllers\AzureController;
+use App\Models\User;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
 
@@ -38,17 +39,27 @@ class ADUsers extends Seeder
             ->setReturnType(Model\User::class)
             ->execute();
         foreach ($userArray as $users) {
-            DB::table('users')->insert(
-                array(
-                    'AzureID' => $users->getId(),
-                    'DisplayName' => $users->getDisplayName(),
-                    'FirstName' => $users->getGivenName(),
-                    'Lastname' => $users->getSurname(),
-                    'PhoneNumber' => "",
-                    'email' => $users->getMail()
-                )
-            );
+            $newUser = new User;
+            $newUser->AzureID = $users->getId();
+            $newUser->DisplayName = $users->getDisplayName();
+            $newUser->FirstName = $users->getGivenName();
+            $newUser->LastName = $users->getSurname();
+            $newUser->PhoneNumber = "";
+            $newUser->email = $users->getMail();
+            $newUser->save();
+            //AzureController::createSubscription('registration',$users->getId());
+//            DB::table('users')->insert(
+//                array(
+//                    'AzureID' => $users->getId(),
+//                    'DisplayName' => $users->getDisplayName(),
+//                    'FirstName' => $users->getGivenName(),
+//                    'Lastname' => $users->getSurname(),
+//                    'PhoneNumber' => "",
+//                    'email' => $users->getMail()
+//                )
+//            );
         }
+
         echo('Users fetched, fetching groups now.');
         echo("\r\n");
 

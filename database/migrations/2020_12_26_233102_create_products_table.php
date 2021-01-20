@@ -17,8 +17,13 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('index')->nullable();
-            $table->text('description');
-            $table->double('price',8,2);
+            $table->text('description')->nullable();
+            $table->double('amount',8,2);
+            $table->string('interval')->default('monthly');
+            $table->string('currency')->default('EUR');
+            $table->text('firstPaymentDescription')->nullable();
+            $table->double('firstPaymentAmount')->default(0.01);
+            $table->string('firstPaymentCurrency')->default('EUR');
             $table->timestamps();
         });
     }

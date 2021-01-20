@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailIntro;
 use Illuminate\Support\Facades\Log;
+use Laravel\Cashier\Events\FirstPaymentPaid;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
@@ -28,17 +29,18 @@ class MollieWebhookController extends Controller
         $payment = Mollie::api()->payments()->get($paymentId);
         $order = $this->getTransactionObject($paymentId);
 
-        if ($payment->isPaid()) {
 
-            $order->save();
+        if ($payment->isPaid()) {
             if($order->paymentStatus != paymentStatus::paid) {
                 if ($order->product->index == paymentType::intro) {
                     $order->paymentStatus = paymentStatus::paid;
+                    $order->save();
                     IntroController::postProcessPayment($order);
                     return response(null,200);
                 }
                 if ($order->product->index == paymentType::registration) {
-                    $order->paymentStatus = paymentStatus::paid;
+                    //$order->paymentStatus = paymentStatus::paid;
+                    //$order->save();
                     Log::info('Webhook');
                     InschrijfController::processPayment($order);
                     return response(null,200);
