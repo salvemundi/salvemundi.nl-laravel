@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Events\FirstPaymentPaid;
 use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
 use Laravel\Cashier\Http\Controllers\BaseWebhookController;
+use Laravel\Cashier\Order\Order;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
@@ -55,7 +56,8 @@ class MollieWebhookController extends BaseWebhookController
                     Event::dispatch(new FirstPaymentPaid($paymentRegister, $order));
                     Log::info('Webhook');
                     $order->handlePaymentPaid();
-                    InschrijfController::processPayment($order);
+                    $orderObject = Order::all()->last()->first();
+                    InschrijfController::processPayment($orderObject);
                     return response(null, 200);
                 //}
             }
