@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
-    
+
     public function transactions(): HasMany
     {
         return $this->hasMany

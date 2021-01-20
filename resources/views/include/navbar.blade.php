@@ -24,13 +24,18 @@
                         <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
                     </a>
                     <div class="dropdown-content">
-                      <a href="/user#Ict commissie">ICT-commissie</a>
-                      <a href="/user#Studie commissie">Studie-commissie</a>
+                        <a href="/user#Bestuur">Bestuur</a>
+                        @foreach ($Commissies as $commissie)
+                            @if (str_contains($commissie->DisplayName, 'commissie'))
+                                <a href="/user#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
+                            @endif
+                        @endforeach
+                      {{-- <a href="/user#Studie commissie">Studie-commissie</a>
                       <a href="/user#Activiteiten commissie">Activiteiten-commissie</a>
                       <a href="/user#Media commissie">Media-commissie</a>
                       <a href="/user#Feest Commissie">Feest-commissie</a>
                       <a href="/user#Kamp commissie">Kamp-commissie</a>
-                      <a href="/user#Kas commissie">Kas-commissie</a>
+                      <a href="/user#Kas commissie">Kas-commissie</a> --}}
                     </div>
                 </div>
                 </li>
