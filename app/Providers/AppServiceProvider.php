@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share('Commissies', Commissie::all());
+        //view()->share('Commissies', Commissie::all());
     }
 }

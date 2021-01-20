@@ -13,6 +13,15 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use Billable;
 
+    public function inschrijving()
+    {
+        return $this->hasOne(
+            Inschrijving::class,
+            'userId',
+            'id'
+        );
+    }
+
     public function getInvoiceInformation()
     {
         return [$this->name, $this->email];

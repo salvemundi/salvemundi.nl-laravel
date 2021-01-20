@@ -32,4 +32,14 @@ class Inschrijving extends Model
             'transaction'
         );
     }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo
+        (
+            User::class,
+            'userId',
+            'id',
+            'users'
+        );
+    }
 }

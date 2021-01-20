@@ -47,7 +47,7 @@ class ADUsers extends Seeder
             $newUser->PhoneNumber = "";
             $newUser->email = $users->getMail();
             $newUser->save();
-            AzureController::createSubscription('registration',$users->getId());
+            //AzureController::createSubscription('registration',$users->getId());
 //            DB::table('users')->insert(
 //                array(
 //                    'AzureID' => $users->getId(),

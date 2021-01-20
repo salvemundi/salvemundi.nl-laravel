@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 
@@ -18,17 +19,16 @@ class MolliePaymentController extends Controller
         if($productIndex == paymentType::registration){
             $newUser = new User;
             //$newUser->AzureID = $fetchedUser->getId();
-            $newUser->DisplayName = $orderObject->firstName.$orderObject->lastName;
+            $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
             $newUser->FirstName = $orderObject->firstName;
             $newUser->LastName = $orderObject->lastName;
             $newUser->phoneNumber = $orderObject->phoneNumber;
             $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
             $newUser->ImgPath = "images/SalveMundi-Vector.svg";
             $newUser->save();
-            $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
-
-            Mail::to($newUser->email)
-            ->send(new SendMailInschrijvingTransactie($orderObject->firstName, $orderObject->lastName, $orderObject->insertion,$createPayment->getCheckoutUrl()));
+            $newUser->inschrijving()->save($orderObject);
+            $newUser->save();
+            return MolliePaymentController::preparePayment($productIndex, $newUser);
         } else{
             $createPayment = MolliePaymentController::preparePayment($productIndex);
             $getProductObject = Product::where('index', $productIndex)->first();
@@ -48,8 +48,9 @@ class MolliePaymentController extends Controller
         $product = Product::where('index', $productIndex)->first();
         if($userObject != null)
         {
-            $product = Product::find('id',$productIndex)->first();
-            return $userObject->newSubscription('registration')->create();
+            //s$product = Product::find('id',$productIndex)->first();
+
+            return $userObject->newSubscription('main','registration')->create();
         }
         // redirect customer to Mollie checkout page
         $formattedPrice = number_format($product->price, 2, '.', '');
@@ -71,11 +72,31 @@ class MolliePaymentController extends Controller
         return view('intro');
     }
 
+    public static function createSubscription(string $plan,$id)
+    {
+        $user = User::where('AzureID',$id)->first();
+
+        $name = ucfirst($plan) . ' membership';
+
+        if(!$user->subscribed($name, $plan)) {
+
+            $result = $user->newSubscription($name, $plan)->create();
+
+            if(is_a($result, RedirectToCheckoutResponse::class)) {
+                return $result; // Redirect to Mollie checkout
+            }
+            return back()->with('status', 'Welcome to the ' . $plan . ' plan');
+        }
+        return back()->with('status', 'You are already on the ' . $plan . ' plan');
+    }
+
     /**
      * After the customer has completed the transaction,
      * you can fetch, check and process the payment.
      * This logic typically goes into the controller handling the inbound webhook request.
      * See the webhook docs in /docs and on mollie.com for more information.
      */
+
+
 }
 ;
