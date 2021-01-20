@@ -21,6 +21,8 @@ class CreateRegisterTable extends Migration
             $table->date('birthday');
             $table->string('email');
             $table->string('phoneNumber');
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users');
             $table->unsignedBigInteger('officeId')->nullable();
             $table->foreign('officeId')->references('id')->on('users');
             $table->unsignedBigInteger('paymentId')->nullable()->index();
