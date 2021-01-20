@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('index')->nullable();
             $table->text('description')->nullable();
             $table->double('amount',8,2);
-            $table->string('interval')->default('monthly');
+            $table->string('interval')->default('1 month');
             $table->string('currency')->default('EUR');
             $table->text('firstPaymentDescription')->nullable();
             $table->double('firstPaymentAmount')->default(0.01);

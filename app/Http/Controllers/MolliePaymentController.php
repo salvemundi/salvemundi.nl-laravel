@@ -28,6 +28,12 @@ class MolliePaymentController extends Controller
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
+            $getProductObject = Product::where('index', $productIndex)->first();
+            $transaction = new Transaction();
+            $transaction->product()->associate($getProductObject);
+            $transaction->save();
+            $orderObject->payment()->associate($transaction);
+            $orderObject->save();
             return MolliePaymentController::preparePayment($productIndex, $newUser);
         } else{
             $createPayment = MolliePaymentController::preparePayment($productIndex);
