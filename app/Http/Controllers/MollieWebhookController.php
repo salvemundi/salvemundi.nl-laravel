@@ -46,17 +46,15 @@ class MollieWebhookController extends BaseWebhookController
             } else
             {
                 $order = (new FirstPaymentHandler($paymentRegister))->execute();
-                if(Order::where('mollie_payment_id',$paymentId)->first()->mollie_payment_status != 'paid') {
-                    $orderReg = Transaction::where('transactionId', null)->latest()->first();
-                    $orderReg->transactionId = $paymentId;
-                    $orderReg->save();
-                    Log::info('Webhook');
-                    $order->handlePaymentPaid();
-                    Log::info($order);
-                    Log::info($orderReg);
-                    InschrijfController::processPayment($orderReg);
-                    return response(null, 200);
-                }
+                $orderReg = Transaction::where('transactionId', null)->latest()->first();
+                $orderReg->transactionId = $paymentId;
+                $orderReg->save();
+                Log::info('Webhook');
+                $order->handlePaymentPaid();
+                Log::info($order);
+                Log::info($orderReg);
+                InschrijfController::processPayment($orderReg);
+                return response(null, 200);
             }
         }
 
