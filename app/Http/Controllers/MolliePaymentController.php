@@ -57,7 +57,6 @@ class MolliePaymentController extends Controller
         $product = Product::where('index', $productIndex)->first();
         if($userObject != null)
         {
-            //s$product = Product::find('id',$productIndex)->first();
             return $userObject->newSubscription('main','registration')->create();
         }
         // redirect customer to Mollie checkout page
@@ -72,7 +71,6 @@ class MolliePaymentController extends Controller
             "redirectUrl" => route('intro'),
             "webhookUrl" => route('webhooks.mollie'),
         ]);
-        //return redirect()->away($payment->getCheckoutUrl(), 303);
     }
 
     public function index()
@@ -107,4 +105,3 @@ class MolliePaymentController extends Controller
 
 
 }
-;

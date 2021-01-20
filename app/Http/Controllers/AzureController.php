@@ -71,7 +71,6 @@ class AzureController extends Controller
         $userObject->AzureID = $newUserID;
         $userObject->save();
 
-        //AzureController::fetchSpecificUser($newUserID);
         return $randomPass;
     }
 
@@ -91,7 +90,12 @@ class AzureController extends Controller
         $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
         $newUser->ImgPath = "images/SalveMundi-Vector.svg";
         $newUser->save();
-        return MolliePaymentController::createSubscription('registration',$fetchedUser->getId());
+        //return MolliePaymentController::createSubscription('registration',$fetchedUser->getId());
     }
 
+    public static function checkIfUserExists($userId)
+    {
+        AzureController::fetchSpecificUser($userId);
+
+    }
 }
