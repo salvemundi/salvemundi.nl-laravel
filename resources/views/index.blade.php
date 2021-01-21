@@ -36,14 +36,14 @@
     <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
 
     <div class="mijnSlider">
-        <a href="/activities">
+        <a href="/activiteiten">
             <h1 class="center groot"><b>Activiteiten</b></h1>
         </a>
         <div class="row">
             @foreach ($activitiesData as $activity)
                 <div class="col-sm-4">
                     <div class="card">
-                        <a class="link" href="/activities#{{$activity->name}}">
+                        <a class="link" href="/activiteiten#{{$activity->name}}">
                         <div class="card-body">
                             <h5 class="card-title" >{{$activity->name}}</h5>
                             <p class="card-text">{{Str::limit($activity->description, 300)}}</p>

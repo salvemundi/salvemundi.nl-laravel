@@ -69,9 +69,18 @@
                 <th data-field="inschrijving">Inschrijving</th>
                 <th data-field="paymentStatus">Betalings status</th>
                 <th data-field="price">Totaal prijs</th>
-                <th data-field="geldigheidsdatum">Geldig tot</th>
             </tr>
             </thead>
+            <tbody>
+                @foreach($transactions as $transaction)
+                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                        <td data-value="toegekend"><a href="{{$user->FirstName}}">{{$user->FirstName}}</a></td>
+                        <td data-value="inschrijving">{{$transaction->product->name}}</td>
+                        <td data-value="beschrijving">{{$transaction->paymentStatus}}</td>
+                        <td data-value="beschrijving">{{"€ ".$transaction->product->amount}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 
