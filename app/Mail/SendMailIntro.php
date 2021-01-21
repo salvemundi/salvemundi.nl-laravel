@@ -41,6 +41,6 @@ class SendMailIntro extends Mailable
     {
         return $this
                 ->subject("Inschrijving intro")
-                ->markdown('introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus'=>$this->paymentStatus]);
+                ->markdown('mail/introMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus'=>$this->paymentStatus]);
     }
 }

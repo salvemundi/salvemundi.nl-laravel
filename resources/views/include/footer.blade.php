@@ -27,15 +27,6 @@
                     <li><a href="/user#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a></li>
                 @endif
             @endforeach
-            {{-- <li><a href="#">Bestuur</a></li>
-            <li><a href="#">Ict-commissie</a></li>
-            <li><a href="#">Studie-commissie</a></li>
-            <li><a href="#">Activiteiten-commissie</a></li>
-            <li><a href="#">Media-commissie</a></li>
-            <li><a href="#">Feest-commissie</a></li>
-            <li><a href="#">Kamp-commissie</a></li>
-            <li><a href="#">Kas-commissie</a></li> --}}
-
           </ul>
         </div>
 
@@ -53,7 +44,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <p class="center">Copyright &copy; <?php echo date("Y"); ?> &nbsp;
-              <a href="#">Salve Mundi</a>&nbsp;alle rechten voorbehouden.
+                <a href="#">Salve Mundi</a>&nbsp;alle rechten voorbehouden. <a href="https://github.com/salvemundi/salvemundi.nl-laravel"> &nbsp; Source</a>
             </p>
         </div>
       </div>
