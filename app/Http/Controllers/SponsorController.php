@@ -27,6 +27,7 @@ class SponsorController extends Controller
     {
         return Sponsor::all();
     }
+
     public function deleteSponsor(Request $request)
     {
         if($request->id != null) {
