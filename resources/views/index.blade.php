@@ -36,10 +36,30 @@
     <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
 
     <div class="mijnSlider">
+        <a href="/activities">
+            <h1 class="center groot"><b>Activiteiten</b></h1>
+        </a>
+        <div class="row">
+            @foreach ($activitiesData as $activity)
+                <div class="col-sm-4">
+                    <div class="card">
+                        <a class="link" href="/activities#{{$activity->name}}">
+                        <div class="card-body">
+                            <h5 class="card-title" >{{$activity->name}}</h5>
+                            <p class="card-text">{{Str::limit($activity->description, 300)}}</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="mijnSlider">
         <h1 class="center groot"><b>Onze sponsoren</b></h1>
         <div class="slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 1}'>
             @foreach($sponsorsData as $sponsor)
-                <div><h3><a href="{{ $sponsor->reference }}"><img class="sponsor" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3></div>
+                <div><h3><a target="_blank" href="{{ $sponsor->reference }}"><img class="sponsor" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3></div>
             @endforeach
         </div>
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.appmin')
 @section('content')
 
-<div class="row center overlap">
+<div class="row center adminOverlap">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">
@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Beschrijving</label>
-                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" value="{{{ old('description') }}}" name="description" placeholder="Beschrijving..."></textarea>
+                <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
             </div>
 
             <div class="form-group">
