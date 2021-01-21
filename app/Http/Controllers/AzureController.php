@@ -44,6 +44,10 @@ class AzureController extends Controller
         }
         $randomPass = Str::random(40);
         $graph = AzureController::connectToAzure();
+        if($registration->insertion != null)
+        {
+
+        }
         $data = [
             'accountEnabled' => true,
             'displayName' => $registration->firstName." ".$registration->lastName,
