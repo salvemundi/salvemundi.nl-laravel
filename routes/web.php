@@ -32,10 +32,10 @@ Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 
 // Commission page.
 
-Route::get('/user', function () {
+Route::get('/commissies', function () {
     return Http::get('https://graph.microsoft.com/v1.0/me');
 });
-Route::get('/user', [App\Http\Controllers\GetUsersController::class, 'run']);
+Route::get('/commissies', [App\Http\Controllers\GetUsersController::class, 'run']);
 
 // Signup for Introduction
 
@@ -57,7 +57,12 @@ Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'in
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences']);
 
 // Activiteiten page
-Route::get('/activiteiten',[App\Http\Controllers\ActiviteitenController::class, 'run'] );
+
+Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
+
+// News page
+
+Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 // Admin Panel
 
@@ -68,5 +73,7 @@ Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'get
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');
 Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');})->middleware('admin.auth');
 Route::post('/admin/sponsors/add/store', [App\Http\Controllers\SponsorController::class, 'addSponsor'])->middleware('admin.auth');
-Route::get('/admin/activities', [App\Http\Controllers\ActiviteitenController::class, 'index'])->name('Activiteiten')->middleware('admin.auth');
-Route::post('/admin/activities/store', [App\Http\Controllers\ActiviteitenController::class, 'store'])->middleware('admin.auth');
+Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities')->middleware('admin.auth');
+Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
+Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
+Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
