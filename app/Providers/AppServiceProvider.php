@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Providers;
-
+use App\DatabasePlanRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Commissie;
+use mysql_xdevapi\Exception;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(\Laravel\Cashier\Plan\Contracts\PlanRepository::class, DatabasePlanRepository::class);
     }
 
     /**
@@ -24,6 +25,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share('Commissies', Commissie::all());
+        try {
+            view()->share('Commissies', Commissie::all());
+        }
+        catch (\Exception $e)
+        {
+
+        }
+
     }
 }
