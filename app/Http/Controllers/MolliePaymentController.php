@@ -60,7 +60,7 @@ class MolliePaymentController extends Controller
             return $userObject->newSubscription('main','registration')->create();
         }
         // redirect customer to Mollie checkout page
-        $formattedPrice = number_format($product->price, 2, '.', '');
+        $formattedPrice = number_format($product->amount, 2, '.', '');
         $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
             "amount" => [
