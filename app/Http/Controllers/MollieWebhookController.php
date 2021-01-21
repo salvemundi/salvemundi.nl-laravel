@@ -9,7 +9,6 @@ use App\Mail\SendMailIntro;
 use Laravel\Cashier\FirstPayment\FirstPaymentHandler;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Http\Controllers\BaseWebhookController;
-use Laravel\Cashier\Order\Order;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
@@ -48,6 +47,7 @@ class MollieWebhookController extends BaseWebhookController
                 $order = (new FirstPaymentHandler($paymentRegister))->execute();
                 $orderReg = Transaction::where('transactionId', null)->latest()->first();
                 $orderReg->transactionId = $paymentId;
+                $orderReg->paymentStatus = paymentStatus::paid;
                 $orderReg->save();
                 Log::info('Webhook');
                 $order->handlePaymentPaid();
