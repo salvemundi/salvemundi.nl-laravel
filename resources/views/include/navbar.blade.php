@@ -20,14 +20,14 @@
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <div class="dropdown">
-                    <a href="/user" class="navLink">
+                    <a href="/commissies" class="navLink">
                         <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
                     </a>
                     <div class="dropdown-content">
-                        <a href="/user#Bestuur">Bestuur</a>
+                        <a href="/commissies#Bestuur">Bestuur</a>
                         @foreach ($Commissies as $commissie)
                             @if (str_contains($commissie->DisplayName, 'commissie'))
-                                <a href="/user#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
+                                <a href="/commissies#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
                             @endif
                         @endforeach
                       {{-- <a href="/user#Studie commissie">Studie-commissie</a>
@@ -40,13 +40,19 @@
                 </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/intro">Intro</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/inschrijven">Inschrijven</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href>Merch</a>
+                    <a class="nav-link" href="/intro">Intro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/activiteiten">Activiteiten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nieuws">Nieuws</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://shop.spreadshirt.nl/salvemundi/">Merch</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
