@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AzureUser;
 use App\Models\WhatsappLink;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -13,6 +15,7 @@ class myAccountController extends Controller
     public function index(){
         Session::get('user');
         //$getUser = DB::table('users')->where('AzureID', '=', session('id'))->get();
+        $userObject = User::where('AzureID', session('id'))->first();
         $getUser = AzureUser::where('AzureID', session('id'))->first();
         //dd($getUser);
         $adminAuthorization = AdminController::authorizeUser(session('id'));
@@ -20,7 +23,7 @@ class myAccountController extends Controller
             return abort(401);
         } else {
             $whatsappLinks = WhatsappLink::all();
-            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks]);
+            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $userObject->subscribed('main'),'transactions' => $getUser->payment]);
         }
     }
 
@@ -36,4 +39,6 @@ class myAccountController extends Controller
         $user->save();
         return redirect('/mijnAccount');
     }
+
+
 }

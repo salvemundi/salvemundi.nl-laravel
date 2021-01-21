@@ -11,7 +11,7 @@
         <form action="/admin/activities/store" method="post">
             @csrf
             <br>
-            <h2 class="h2">Activiteiten aanmaken</h2>
+            <h2 class="h2">Activiteit aanmaken</h2>
 
             <div class="form-group">
                 <label for="voornaam">Activiteit naam</label>
