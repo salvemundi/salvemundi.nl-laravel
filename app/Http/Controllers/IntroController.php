@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendMailIntro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Intro;
 use App\Enums\paymentType;
 use Illuminate\Support\Facades\Mail;
@@ -44,8 +45,8 @@ class IntroController extends Controller
     }
     public static function postProcessPayment($paymentObject)
     {
-
         $introObject = $paymentObject->introRelation;
+        Log::info($introObject);
         Mail::to($introObject->email)
             ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $paymentObject->paymentStatus));
         //$introObject->delete();
