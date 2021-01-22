@@ -13,11 +13,9 @@ use DB;
 class myAccountController extends Controller
 {
     public function index(){
-        Session::get('user');
-        //$getUser = DB::table('users')->where('AzureID', '=', session('id'))->get();
+        //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = AzureUser::where('AzureID', session('id'))->first();
-        //dd($getUser);
         $adminAuthorization = AdminController::authorizeUser(session('id'));
         if($adminAuthorization == 401){
             return abort(401);

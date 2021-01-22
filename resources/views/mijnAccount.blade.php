@@ -62,13 +62,19 @@
 
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
-
-        @if($subscriptionActive == false)
-        <p><b>Contributie deelname: </b></b><button type="button" class="btn btn-secondary">Non actief</button></p>
-        @else
-        <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
-        @endif
-
+        <form method="post" action="/mijnAccount/pay">
+            @csrf
+            <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
+            <input type="hidden" name="lastName" value="{{ $user->LastName }}">
+            <input type="hidden" name="insertion" value="{{ $user->insertion }}">
+            <input type="hidden" name="email" value="{{ $user->email }}">
+            <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
+            @if($subscriptionActive == false)
+                <p><b>Contributie deelname: </b></b><button type="submit" class="btn btn-secondary">Non actief</button></p>
+            @else
+                <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
+            @endif
+        </form>
         <table id="table"
                data-toggle="table">
             <thead>
