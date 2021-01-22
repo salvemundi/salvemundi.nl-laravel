@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Product;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +14,17 @@ use Laravel\Cashier\Order\Order;
 use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
+use App\Models\AzureUser;
+use App\Models\Inschrijving;
+use Illuminate\Http\Request;
+
+/// I AM NOT PROUD OF THIS CONTROLLER, IF YOU CAN DO IT BETTER PLEASE PR :)
 
 class MolliePaymentController extends Controller
 {
     public static function processRegistration($orderObject, $productIndex): RedirectResponse
     {
-        if($productIndex == paymentType::registration){
+        if($productIndex == paymentType::contribution){
             $newUser = new User;
             //$newUser->AzureID = $fetchedUser->getId();
             $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
@@ -31,7 +37,7 @@ class MolliePaymentController extends Controller
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
             $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
-            $getProductObject = Product::where('index', paymentType::registration)->first();
+            $getProductObject = Product::where('index', paymentType::contribution)->first();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
@@ -65,7 +71,7 @@ class MolliePaymentController extends Controller
         return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => "$priceToString" // You must send the correct number of decimals, thus we enforce the use of strings
+                "value" => "$priceToString"
             ],
             "description" => "$product->description",
             "redirectUrl" => route('intro'),
@@ -78,18 +84,26 @@ class MolliePaymentController extends Controller
         return view('intro');
     }
 
-    public static function createSubscription(string $plan,$id)
+    private static function createSubscription($plan,$id)
     {
         $user = User::where('AzureID',$id)->first();
-
+        $azureUser = AzureUser::where('AzureID',$id)->first();
+        $plan = paymentType::fromValue($plan);
         $name = ucfirst($plan) . ' membership';
+        Log::info($plan);
+        if(!$user->subscribed($name, $plan->key)) {
 
-        if(!$user->subscribed($name, $plan)) {
+            $getProductObject = Product::where('index',$plan)->first();
 
-            $result = $user->newSubscription($name, $plan)->create();
+            $result = $user->newSubscription($name, $plan->key)->create();
+            $transaction = new Transaction();
+            $transaction->product()->associate($getProductObject);
+            $transaction->save();
+            $transaction->contribution()->attach($azureUser);
+            $transaction->save();
 
             if(is_a($result, RedirectToCheckoutResponse::class)) {
-                return $result; // Redirect to Mollie checkout
+                return $result;
             }
             return back()->with('status', 'Welcome to the ' . $plan . ' plan');
         }
@@ -102,6 +116,8 @@ class MolliePaymentController extends Controller
      * This logic typically goes into the controller handling the inbound webhook request.
      * See the webhook docs in /docs and on mollie.com for more information.
      */
-
-
+    public static function handleContributionPaymentFirstTime(Request $request)
+    {
+        return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+    }
 }
