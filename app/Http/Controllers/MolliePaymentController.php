@@ -93,7 +93,7 @@ class MolliePaymentController extends Controller
         Log::info($plan);
         if(!$user->subscribed($name, $plan->key)) {
 
-            $getProductObject = Product::where('index',$plan);
+            $getProductObject = Product::where('index',$plan)->first();
 
             $result = $user->newSubscription($name, $plan->key)->create();
             $transaction = new Transaction();
@@ -118,6 +118,6 @@ class MolliePaymentController extends Controller
      */
     public static function handleContributionPaymentFirstTime(Request $request)
     {
-        MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+        return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
     }
 }

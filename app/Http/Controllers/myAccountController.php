@@ -17,11 +17,16 @@ class myAccountController extends Controller
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = AzureUser::where('AzureID', session('id'))->first();
         $adminAuthorization = AdminController::authorizeUser(session('id'));
+        $status = 0;
+        if($userObject->subscribed('main'))
+        {
+            $status = 1;
+        }
         if($adminAuthorization == 401){
             return abort(401);
         } else {
             $whatsappLinks = WhatsappLink::all();
-            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $userObject->subscribed('main'),'transactions' => $getUser->payment]);
+            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment]);
         }
     }
 
