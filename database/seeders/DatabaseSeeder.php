@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
 Use Database\Seeders\ADUsers;
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProductSeeder::class,
            ADUsers::class,
+           AdminSettings::class,
         ]);
     }
 }

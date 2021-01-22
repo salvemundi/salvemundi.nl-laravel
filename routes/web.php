@@ -80,3 +80,4 @@ Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, '
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\AdminController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\AdminController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
+Route::post('/admin/intro/store', [App\Http\Controllers\AdminController::class, 'storeIntro'])->middleware('admin.auth');

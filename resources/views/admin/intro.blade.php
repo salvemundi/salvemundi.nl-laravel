@@ -34,5 +34,20 @@
                 </div>
             </div>
         </div>
+        <div class="introCheck">
+            <form method="POST" action="intro/store">
+                @csrf
+                @if($introSetting->settingValue == 1)
+                    <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
+                @elseif($introSetting->settingValue == 0)
+                    <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" style="display: none"/>
+                @endif
+                <label class="cbx" for="cbx"><span>
+                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </svg></span><span>Intro inschrijvingen aan / uit zetten.</span></label>
+                <button type="submit" class="btn btn-primary btn-sm">Opslaan</button>
+            </form>
+        </div>
     </div>
 @endsection
