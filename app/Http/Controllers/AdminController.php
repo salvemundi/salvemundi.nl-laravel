@@ -10,21 +10,22 @@ use App\Models\WhatsappLink;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
+use App\Models\User;
 
 use App\Enums\paymentStatus;
+use App\Models\AdminSetting;
 
 class AdminController extends Controller
 {
     public function index()
     {
         $whatsappLinks = WhatsappLink::all();
-        return view('admin/admin');
+        return view('admin/admin',['whatsappLinks' => $whatsappLinks]);
     }
 
     public function getUsers()
     {
-        $users = DB::table('users')->get();
-        return view('admin/leden',['users' => $users]);
+        return view('admin/leden',['users' => User::all()]);
     }
 
     public function dashboard()
@@ -40,7 +41,8 @@ class AdminController extends Controller
         $allIntro = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
             return $query->where('paymentStatus', PaymentStatus::paid);
         })->get();
-        return view('admin/intro', ['introObjects' => $allIntro]);
+        $IntroSetting = AdminSetting::where('settingName','intro')->first();
+        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting]);
     }
 
     public static function authorizeUser($userid): int
@@ -100,5 +102,17 @@ class AdminController extends Controller
         } else {
             return redirect('admin/');
         }
+    }
+    public function storeIntro(Request $request)
+    {
+        $adminSetting = AdminSetting::where('settingName', 'intro')->first();
+        if($request->input('cbx'))
+        {
+            $adminSetting->settingValue = 1;
+        } else {
+            $adminSetting->settingValue = 0;
+        }
+        $adminSetting->save();
+        return redirect('/admin/intro');
     }
 }
