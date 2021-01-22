@@ -56,6 +56,26 @@
     </div>
 
     <div class="mijnSlider">
+        <a href="/nieuws">
+            <h1 class="center groot"><b>Nieuws</b></h1>
+        </a>
+        <div class="row">
+            @foreach ($newsData as $nieuws)
+                <div class="col-sm-4">
+                    <div class="card">
+                        <a class="link" href="/nieuws#{{$nieuws->title}}">
+                        <div class="card-body">
+                            <h5 class="card-title" >{{$nieuws->title}}</h5>
+                            <p class="card-text">{{Str::limit($nieuws->content, 300)}}</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="mijnSlider">
         <h1 class="center groot"><b>Onze sponsoren</b></h1>
         <div class="slider" data-slick='{"slidesToShow": 5, "slidesToScroll": 1}'>
             @foreach($sponsorsData as $sponsor)
