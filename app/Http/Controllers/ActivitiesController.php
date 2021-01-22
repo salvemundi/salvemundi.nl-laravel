@@ -23,14 +23,15 @@ class ActivitiesController extends Controller
 
         $products = new Product;
         $products->name = $request->input('name');
-        $products->price = $request->input('price');
+        $products->amount = $request->input('price');
         $products->description = $request->input('description');
         $products->save();
 
         return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
     }
 
-    public function run(){
+    public function run()
+    {
         $activiteiten = Product::latest()->where('index', null)->get();
         return view('activities', ['activiteiten' => $activiteiten]);
     }

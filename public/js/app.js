@@ -52822,7 +52822,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! bootstrap-table */ "./node_modules/bootstrap-table/dist/bootstrap-table.min.js");
 
-__webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
+__webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js"); // require('');
+
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**

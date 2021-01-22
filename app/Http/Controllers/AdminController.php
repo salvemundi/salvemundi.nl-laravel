@@ -6,6 +6,7 @@ use App\Models\AzureUser;
 use App\Models\Commissie;
 use App\Models\Intro;
 use App\Models\Transaction;
+use App\Models\WhatsappLink;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
@@ -16,7 +17,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin');
+        $whatsappLinks = WhatsappLink::all();
+        return view('admin/admin');
     }
 
     public function getUsers()
@@ -29,7 +31,8 @@ class AdminController extends Controller
     {
         $getAllUsers = AzureUser::all()->count();
         $getAllIntroSignups = Intro::all()->count();
-        return view('admin',['userCount' => $getAllUsers, 'introCount' => $getAllIntroSignups]);
+        $whatsappLinks = WhatsappLink::all();
+        return view('admin/admin',['userCount' => $getAllUsers, 'introCount' => $getAllIntroSignups, 'whatsappLinks' => $whatsappLinks]);
     }
 
     public function getIntro()
@@ -68,5 +71,34 @@ class AdminController extends Controller
     public static function getSponsors()
     {
         return view('admin/sponsors', ['sponsors' => SponsorController::getSponsors()]);
+    }
+
+    public function addWhatsappLinks(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+            'link' => 'required',
+            'description' => 'required'
+        ]);
+
+        $products = new WhatsappLink;
+        $products->name = $request->input('name');
+        $products->link = $request->input('link');
+        $products->description = $request->input('description');
+        $products->save();
+
+        return redirect('admin/')->with('message', 'WhatsApp link gemaakt');
+    }
+
+    public function deleteWhatsappLinks(Request $request)
+    {
+        if($request->id != null) {
+            $tobeDeleted = WhatsappLink::find($request->id);
+            $tobeDeleted->delete();
+
+            return redirect('admin/')->with('information', 'Link verwijderd');
+        } else {
+            return redirect('admin/');
+        }
     }
 }

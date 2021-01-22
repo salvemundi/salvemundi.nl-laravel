@@ -75,4 +75,8 @@ Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::cl
 Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/activities/delete', [App\Http\Controllers\ActivitiesController::class, 'deleteActivity'])->middleware('admin.auth');
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
-Route::post('/admin/nieuws/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
+Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
+Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\AdminController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
+Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\AdminController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');

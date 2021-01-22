@@ -6,7 +6,7 @@
         <div class="row center">
             @foreach ($news as $nieuws)
             @if($nieuws->imgPath == null)
-                <div class="card">
+                <div class="card" id="{{$nieuws->title}}">
                     <div class="card-body">
                         <h4 class="card-title center"><b>{{$nieuws->title}}</b></h4>
                         <p class="card-text">{{$nieuws->content}}</p>
@@ -19,7 +19,7 @@
                 </div>
             @else
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card" id="{{$nieuws->title}}">
                         <div class="row">
                             {!! '<img class="pfPhoto card-img-top" src="storage/'.$nieuws->imgPath.'" />' !!}
                         </div>

@@ -115,8 +115,8 @@
                 @foreach($whatsapplink as $whatsapp)
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                         <td data-value="link"><a href="{{$whatsapp->link}}">{{$whatsapp->link}}</a></td>
-                        <td data-value="naam">{{$whatsapp->naam}}</td>
-                        <td data-value="beschrijving">{{$whatsapp->beschrijving}}</td>
+                        <td data-value="naam">{{$whatsapp->name}}</td>
+                        <td data-value="beschrijving">{{$whatsapp->description}}</td>
                     </tr>
                 @endforeach
             </tbody>
