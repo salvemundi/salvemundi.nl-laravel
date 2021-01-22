@@ -18,7 +18,7 @@ class CreateRegisterTable extends Migration
             $table->string('firstName');
             $table->string('insertion')->nullable();
             $table->string('lastName');
-            $table->date('birthday');
+            $table->date('birthday')->nullable();
             $table->string('email');
             $table->string('phoneNumber');
             $table->unsignedBigInteger('userId')->nullable();

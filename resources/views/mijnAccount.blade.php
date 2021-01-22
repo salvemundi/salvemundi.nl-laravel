@@ -50,6 +50,7 @@
             <p><b>Achternaam:</b> {{ $user->LastName }} </p>
             <p><b>Email:</b> {{ $user->email }} </p>
             <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
+
             <p><b>Profiel foto:</b></p>
             {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
             <br>
@@ -61,6 +62,19 @@
 
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
+        <form method="post" action="/mijnAccount/pay">
+            @csrf
+            <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
+            <input type="hidden" name="lastName" value="{{ $user->LastName }}">
+            <input type="hidden" name="insertion" value="{{ $user->insertion }}">
+            <input type="hidden" name="email" value="{{ $user->email }}">
+            <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
+            @if($subscriptionActive == false)
+                <p><b>Contributie deelname: </b></b><button type="submit" class="btn btn-secondary">Non actief</button></p>
+            @else
+                <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
+            @endif
+        </form>
         <table id="table"
                data-toggle="table">
             <thead>
@@ -101,8 +115,8 @@
                 @foreach($whatsapplink as $whatsapp)
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                         <td data-value="link"><a href="{{$whatsapp->link}}">{{$whatsapp->link}}</a></td>
-                        <td data-value="naam">{{$whatsapp->naam}}</td>
-                        <td data-value="beschrijving">{{$whatsapp->beschrijving}}</td>
+                        <td data-value="naam">{{$whatsapp->name}}</td>
+                        <td data-value="beschrijving">{{$whatsapp->description}}</td>
                     </tr>
                 @endforeach
             </tbody>

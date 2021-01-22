@@ -85,21 +85,20 @@ class AzureController extends Controller
         $fetchedUser = $graph->createRequest("GET",'/users/'.$userId)
             ->setReturnType(Model\User::class)
             ->execute();
-        $newUser = new User;
-        $newUser->AzureID = $fetchedUser->getId();
-        $newUser->DisplayName = $fetchedUser->getDisplayName();
-        $newUser->FirstName = $fetchedUser->getGivenName();
-        $newUser->LastName = $fetchedUser->getSurname();
-        $newUser->PhoneNumber = $fetchedUser->getMobilePhone();
-        $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
-        $newUser->ImgPath = "images/SalveMundi-Vector.svg";
-        $newUser->save();
+        if($fetchedUser == null){
+            return false;
+        } else {
+            return true;
+        }
+        // $newUser = new User;
+        // $newUser->AzureID = $fetchedUser->getId();
+        // $newUser->DisplayName = $fetchedUser->getDisplayName();
+        // $newUser->FirstName = $fetchedUser->getGivenName();
+        // $newUser->LastName = $fetchedUser->getSurname();
+        // $newUser->PhoneNumber = $fetchedUser->getMobilePhone();
+        // $newUser->email = $fetchedUser->getGivenName().".".$fetchedUser->getSurname()."@lid.salvemundi.nl";
+        // $newUser->ImgPath = "images/SalveMundi-Vector.svg";
+        // $newUser->save();
         //return MolliePaymentController::createSubscription('registration',$fetchedUser->getId());
-    }
-
-    public static function checkIfUserExists($userId)
-    {
-        AzureController::fetchSpecificUser($userId);
-
     }
 }

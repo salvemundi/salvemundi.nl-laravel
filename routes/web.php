@@ -18,7 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Resources\User as UserResource;
 use App\Models\User;
 
-Auth::routes();
+//Auth::routes();
 
 // Main page.
 
@@ -32,9 +32,6 @@ Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 
 // Commission page.
 
-Route::get('/commissies', function () {
-    return Http::get('https://graph.microsoft.com/v1.0/me');
-});
 Route::get('/commissies', [App\Http\Controllers\GetUsersController::class, 'run']);
 
 // Signup for Introduction
@@ -54,7 +51,8 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 // MyAccount page
 
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
-Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences']);
+Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences'])->middleware('azure.auth');
+Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');;
 
 // Activiteiten page
 
@@ -75,5 +73,10 @@ Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');}
 Route::post('/admin/sponsors/add/store', [App\Http\Controllers\SponsorController::class, 'addSponsor'])->middleware('admin.auth');
 Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities')->middleware('admin.auth');
 Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/activities/delete', [App\Http\Controllers\ActivitiesController::class, 'deleteActivity'])->middleware('admin.auth');
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
 Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
+Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
+Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\AdminController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
+Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\AdminController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
