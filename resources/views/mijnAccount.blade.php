@@ -50,6 +50,7 @@
             <p><b>Achternaam:</b> {{ $user->LastName }} </p>
             <p><b>Email:</b> {{ $user->email }} </p>
             <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
+
             <p><b>Profiel foto:</b></p>
             {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
             <br>
@@ -61,6 +62,13 @@
 
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
+
+        @if($subscriptionActive == false)
+        <p><b>Contributie deelname: </b></b><button type="button" class="btn btn-secondary">Non actief</button></p>
+        @else
+        <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
+        @endif
+
         <table id="table"
                data-toggle="table">
             <thead>
