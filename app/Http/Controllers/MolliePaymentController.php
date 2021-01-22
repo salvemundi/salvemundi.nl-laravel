@@ -98,9 +98,9 @@ class MolliePaymentController extends Controller
             $result = $user->newSubscription($name, $plan->key)->create();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
-            $transaction->contribution()->associate($azureUser);
             $transaction->save();
-
+            $transaction->contribution()->attach($azureUser);
+            $transaction->save();
 
             if(is_a($result, RedirectToCheckoutResponse::class)) {
                 return $result;
