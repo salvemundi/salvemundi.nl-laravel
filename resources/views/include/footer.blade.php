@@ -44,7 +44,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <p class="center">Copyright &copy; <?php echo date("Y"); ?> &nbsp;
-                <a href="#">Salve Mundi</a>&nbsp;alle rechten voorbehouden. <a href="https://github.com/salvemundi/salvemundi.nl-laravel"> &nbsp; Source</a>
+                <a href="#">Salve Mundi</a>&nbsp;alle rechten voorbehouden. <a href="https://github.com/salvemundi/salvemundi.nl-laravel"> &nbsp;<i class="fab fa-github"></i> Source code</a>
             </p>
         </div>
       </div>

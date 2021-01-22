@@ -23,7 +23,7 @@ class NewsController extends Controller
         $news->content = $request->input('content');
         $news->imgPath = 'news/'.$request->input('title').".png";
         $news->save();
-        return redirect('admin/news')->with('message', 'Nieubws is toegevoegd');
+        return redirect('admin/nieuws')->with('message', 'Nieuws is toegevoegd');
     }
 
     public function index()
@@ -34,6 +34,19 @@ class NewsController extends Controller
 
     public function indexAdmin()
     {
-        return view('/admin/news');
+        $news = News::all();
+        return view('/admin/news', ['news' => $news]);
+    }
+
+    public function deleteNews(Request $request)
+    {
+        if($request->id != null) {
+            $tobeDeleted = News::find($request->id);
+            $tobeDeleted->delete();
+
+            return redirect('admin/nieuws')->with('information', 'Nieuws verwijderd');
+        } else {
+            return redirect('admin/nieuws');
+        }
     }
 }
