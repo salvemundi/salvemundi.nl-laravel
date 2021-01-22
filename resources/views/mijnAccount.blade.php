@@ -69,7 +69,7 @@
             <input type="hidden" name="insertion" value="{{ $user->insertion }}">
             <input type="hidden" name="email" value="{{ $user->email }}">
             <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
-            @if($subscriptionActive == false)
+            @if($subscriptionActive == 0)
                 <p><b>Contributie deelname: </b></b><button type="submit" class="btn btn-secondary">Non actief</button></p>
             @else
                 <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
@@ -90,7 +90,7 @@
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                         <td data-value="toegekend"><a href="{{$user->FirstName}}">{{$user->FirstName}}</a></td>
                         <td data-value="inschrijving">{{$transaction->product->name}}</td>
-                        <td data-value="beschrijving">{{$transaction->paymentStatus}}</td>
+                        <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
                         <td data-value="beschrijving">{{"€ ".$transaction->product->amount}}</td>
                     </tr>
                 @endforeach
