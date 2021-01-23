@@ -16,7 +16,7 @@ class ActivitiesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+            'name' => 'required',
             'price' => 'required',
             'description' => 'required'
         ]);
