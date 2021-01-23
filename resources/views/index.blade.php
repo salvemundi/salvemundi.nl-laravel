@@ -46,7 +46,7 @@
                         <a class="link" href="/activiteiten#{{$activity->name}}">
                         <div class="card-body">
                             <h5 class="card-title" >{{$activity->name}}</h5>
-                            <p class="card-text">{{Str::limit($activity->description, 300)}}</p>
+                            <p class="card-text" style="white-space: pre-line">{{Str::limit($activity->description, 300)}}</p>
                         </div>
                         </a>
                     </div>
@@ -66,7 +66,7 @@
                         <a class="link" href="/nieuws#{{$nieuws->title}}">
                         <div class="card-body">
                             <h5 class="card-title" >{{$nieuws->title}}</h5>
-                            <p class="card-text">{{Str::limit($nieuws->content, 300)}}</p>
+                            <p class="card-text" style="white-space: pre-line">{{Str::limit($nieuws->content, 300)}}</p>
                         </div>
                         </a>
                     </div>
