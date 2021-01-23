@@ -44,10 +44,12 @@
                         <h4 class="card-title center">{{$activiteit->name}}</h4>
                         <p class="card-text" style="white-space: pre-line">{{$activiteit->description}}</p>
                         <div class="row">
-                            <div class="col-md-12">
-                                <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
-                                <a href="#" class="btn btn-primary buttonActiviteiten float-right">inschrijven €{{$activiteit->amount}}</a></p>
-                            </div>
+                            @if(session('id') != null)
+                                <div class="col-md-12">
+                                    <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
+                                    <a href="#" class="btn btn-primary buttonActiviteiten float-right">inschrijven €{{$activiteit->amount}}</a></p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -56,5 +58,4 @@
         </div>
     </div>
 </div>
-
 @endsection
