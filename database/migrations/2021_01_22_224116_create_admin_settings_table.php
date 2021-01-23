@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWhatsappTable extends Migration
+class CreateAdminSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateWhatsappTable extends Migration
      */
     public function up()
     {
-        Schema::create('whatsapp', function (Blueprint $table) {
+        Schema::create('admin_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('link');
-            $table->string('name');
-            $table->longText('description');
+            $table->string('settingName');
+            $table->integer('settingValue')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateWhatsappTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('whatsapp');
+        Schema::dropIfExists('admin_settings');
     }
 }

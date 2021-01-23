@@ -62,13 +62,19 @@
 
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
-
-        @if($subscriptionActive == false)
-        <p><b>Contributie deelname: </b></b><button type="button" class="btn btn-secondary">Non actief</button></p>
-        @else
-        <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
-        @endif
-
+        <form method="post" action="/mijnAccount/pay">
+            @csrf
+            <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
+            <input type="hidden" name="lastName" value="{{ $user->LastName }}">
+            <input type="hidden" name="insertion" value="{{ $user->insertion }}">
+            <input type="hidden" name="email" value="{{ $user->email }}">
+            <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
+            @if($subscriptionActive == 0)
+                <p><b>Contributie deelname: </b></b><button type="submit" class="btn btn-secondary">Non actief</button></p>
+            @else
+                <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
+            @endif
+        </form>
         <table id="table"
                data-toggle="table">
             <thead>
@@ -84,7 +90,7 @@
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                         <td data-value="toegekend"><a href="{{$user->FirstName}}">{{$user->FirstName}}</a></td>
                         <td data-value="inschrijving">{{$transaction->product->name}}</td>
-                        <td data-value="beschrijving">{{$transaction->paymentStatus}}</td>
+                        <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
                         <td data-value="beschrijving">{{"€ ".$transaction->product->amount}}</td>
                     </tr>
                 @endforeach
@@ -109,8 +115,8 @@
                 @foreach($whatsapplink as $whatsapp)
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                         <td data-value="link"><a href="{{$whatsapp->link}}">{{$whatsapp->link}}</a></td>
-                        <td data-value="naam">{{$whatsapp->naam}}</td>
-                        <td data-value="beschrijving">{{$whatsapp->beschrijving}}</td>
+                        <td data-value="naam">{{$whatsapp->name}}</td>
+                        <td data-value="beschrijving">{{$whatsapp->description}}</td>
                     </tr>
                 @endforeach
             </tbody>
