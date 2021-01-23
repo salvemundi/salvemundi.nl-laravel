@@ -745,6 +745,8 @@ html {
 
 .card {
   flex-direction: row;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
+  margin: 10px;
 }
 
 /* Activiteit begin */
@@ -754,25 +756,25 @@ html {
 // }
 
 @media only screen and (max-width: 549.99px) {
-  .textCard {
+  .textCard,.card-text {
   font-size: 12px;
   }
 }
 
 @media only screen and (max-width: 468.99px) {
-  .textCard {
+  .textCard,.card-text {
   font-size: 10px;
   }
 }
 
 @media only screen and (max-width: 409.99px) {
-  .textCard {
+  .textCard,.card-text {
   font-size: 8px;
   }
 }
 
 @media only screen and (max-width: 349.99px) {
-  .textCard {
+  .textCard,.card-text {
   font-size: 7px;
   }
 }

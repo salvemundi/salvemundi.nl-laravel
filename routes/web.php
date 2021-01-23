@@ -41,8 +41,8 @@ Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store
 
 // Signup for SalveMundi page
 
-Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'index'])->name('inschrijven');
-Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::class, 'signupprocess'])->name('signupprocess');
+Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'index'])->name('inschrijven')->middleware('signUp.auth');
+Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::class, 'signupprocess'])->name('signupprocess')->middleware('signUp.auth');
 
 // Mollie
 
@@ -52,7 +52,7 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences'])->middleware('azure.auth');
-Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');;
+Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');
 
 // Activiteiten page
 
