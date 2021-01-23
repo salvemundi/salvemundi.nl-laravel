@@ -41,9 +41,8 @@ class InschrijfController extends Controller
         $inschrijving->phoneNumber = $request->input('phoneNumber');
         $inschrijving->save();
         return MolliePaymentController::processRegistration($inschrijving, paymentType::contribution);
-//        Mail::to($inschrijving->email)
-//            ->send(new SendMailInschrijvingTransactie($inschrijving->firstName, $inschrijving->lastName, $inschrijving->insertion,));
     }
+
     public static function processPayment($orderObject)
     {
         $registerObject = $orderObject->registerRelation;
