@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         'azure.auth' => \App\Http\Middleware\AzureAuth::class,
+        'signUp.auth' => \App\Http\Middleware\SignUpCheck::class,
     ];
 }

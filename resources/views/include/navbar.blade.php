@@ -39,9 +39,11 @@
                     </div>
                 </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/inschrijven">Inschrijven</a>
-                </li>
+                @if (session('id') == null)
+                    <li class="nav-item">
+                        <a class="nav-link" href="/inschrijven">Inschrijven</a>
+                    </li>
+                @endif
                 @if($introSetting->settingValue  == 1)
                     <li class="nav-item">
                         <a class="nav-link" href="/intro">Intro</a>
