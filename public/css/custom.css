@@ -1,11 +1,24 @@
+/* Begin main CSS page */
+
+a,
+a:hover {
+  text-decoration: none !important;
+  color: black;
+}
+
+.imgIndex {
+  width: 80%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 .alert-pre {
   word-wrap: break-word;
   word-break: break-all;
   white-space: pre-wrap;
-}
-
-.card {
-  border-radius: 10px;
 }
 
 .overlap {
@@ -23,82 +36,9 @@
   grid-gap: 20px;
 }
 
-.pfPhoto {
-  width: 240px;
-  height: 240px;
-  border-radius: 10px;
-}
+/* End main CSS page */
 
-@media only screen and (max-width: 1199.98px) {
-  .overlap {
-    top: 400px;
-    margin-bottom: 400px;
-  }
-}
-
-@media only screen and (max-width: 809.98px) {
-  .overlap {
-    top: 300px;
-    margin-bottom: 300px;
-  }
-}
-
-@media only screen and (max-width: 609.98px) {
-  .overlap {
-    top: 280px;
-    margin-bottom: 280px;
-  }
-}
-
-@media only screen and (max-width: 569.98px) {
-  .overlap {
-    top: 260px;
-    margin-bottom: 260px;
-  }
-}
-
-@media only screen and (max-width: 524.98px) {
-  .overlap {
-    top: 230px;
-    margin-bottom: 230px;
-  }
-}
-
-@media only screen and (max-width: 477.98px) {
-  .overlap {
-    top: 210px;
-    margin-bottom: 210px;
-  }
-
-  #activiteitDescription {
-    justify-content: left !important;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-@media only screen and (max-width: 424.98px) {
-  .overlap {
-    top: 200px;
-    margin-bottom: 200px;
-  }
-}
-
-@media only screen and (max-width: 399.98px) {
-  .overlap {
-    top: 180px;
-    margin-bottom: 180px;
-  }
-}
-
-@media only screen and (max-width: 359.98px) {
-  .overlap {
-    top: 160px;
-    margin-bottom: 160px;
-  }
-}
-
-/* begin navbar */
+/* Begin navbar */
 
 .navbar,
 .navbarAdmin {
@@ -246,17 +186,17 @@
   }
 }
 
-/* end navbar */
+/* End navbar */
 
-/* begin navbarAdmin */
+/* Begin navbarAdmin */
 
 .navbarAdmin {
   background-color: #663265 !important;
 }
 
-/* end navbarAdmin */
+/* End navbarAdmin */
 
-/* begin footer */
+/* Begin footer */
 
 .site-footer {
   background-color: #663265;
@@ -426,9 +366,9 @@
   }
 }
 
-/* end footer */
+/* End footer */
 
-/* begin aanmelden intro */
+/* Begin intro signup */
 
 .btn-primary {
   background: #663265 !important;
@@ -451,9 +391,16 @@
   box-shadow: 0 0 0 0.2rem rgba(102, 50, 101, 0.6) !important;
 }
 
-/* end aanmelden intro */
+/* End intro signup*/
 
-/* kaartjes begin*/
+/* Cards begin*/
+
+.card {
+  border-radius: 10px;
+  flex-direction: row;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
+  margin: 10px;
+}
 
 .group {
   width: 100% !important;
@@ -465,13 +412,15 @@
   background-size: cover;
 }
 
-/* kaartjes end */
-
-/* myaccount navbar begin */
-
-html {
-  scroll-behavior: smooth;
+.pfPhoto {
+  width: 240px;
+  height: 240px;
+  border-radius: 10px;
 }
+
+/* Cards end */
+
+/* Myaccount navbar begin */
 
 .myAccount {
   position: relative;
@@ -540,7 +489,7 @@ html {
   left: 218px;
 }
 
-/* myaccount navbar end */
+/* Myaccount navbar end */
 
 /* Admin page begin */
 
@@ -742,50 +691,153 @@ html {
 
 /* Slick-Bar end */
 
-.card {
-  flex-direction: row;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
-  margin: 10px;
-}
+/* Begin media query's  */
 
-/* Activiteit begin */
-
-@media only screen and (max-width: 549.99px) {
+@media only screen and (max-width: 549.98px) {
   .textCard,
   .card-text {
     font-size: 12px;
   }
 }
 
-@media only screen and (max-width: 468.99px) {
+@media only screen and (max-width: 468.98px) {
   .textCard,
   .card-text {
     font-size: 10px;
   }
 }
 
-@media only screen and (max-width: 409.99px) {
+@media only screen and (max-width: 409.98px) {
   .textCard,
   .card-text {
     font-size: 8px;
   }
 }
 
-@media only screen and (max-width: 349.99px) {
+@media only screen and (max-width: 349.98px) {
   .textCard,
   .card-text {
     font-size: 7px;
   }
 }
 
-a,
-a:hover {
-  text-decoration: none !important;
-  color: black;
+@media only screen and (max-width: 1409.98px) {
+  .card {
+    flex-direction: column;
+  }
 }
 
-.imgIndex {
-  width: 80%;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+@media only screen and (max-width: 505.98px) {
+  .card {
+    width: 300px;
+  }
 }
+
+@media only screen and (max-width: 424.98px) {
+  .card {
+    width: 235px;
+  }
+}
+
+@media only screen and (max-width: 319.98px) {
+  .card {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .card {
+    flex-direction: unset;
+  }
+
+  .pfPhoto {
+    width: 20% !important;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 835.98px) {
+  .pfPhoto {
+    width: 215px;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 367.98px) {
+  .mijnSlider {
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+  }
+}
+
+@media only screen and (max-width: 1199.98px) {
+  .overlap {
+    top: 400px;
+    margin-bottom: 400px;
+  }
+}
+
+@media only screen and (max-width: 809.98px) {
+  .overlap {
+    top: 300px;
+    margin-bottom: 300px;
+  }
+}
+
+@media only screen and (max-width: 609.98px) {
+  .overlap {
+    top: 280px;
+    margin-bottom: 280px;
+  }
+}
+
+@media only screen and (max-width: 569.98px) {
+  .overlap {
+    top: 260px;
+    margin-bottom: 260px;
+  }
+}
+
+@media only screen and (max-width: 524.98px) {
+  .overlap {
+    top: 230px;
+    margin-bottom: 230px;
+  }
+}
+
+@media only screen and (max-width: 477.98px) {
+  .overlap {
+    top: 210px;
+    margin-bottom: 210px;
+  }
+
+  #activiteitDescription {
+    justify-content: left !important;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media only screen and (max-width: 424.98px) {
+  .overlap {
+    top: 200px;
+    margin-bottom: 200px;
+  }
+}
+
+@media only screen and (max-width: 399.98px) {
+  .overlap {
+    top: 180px;
+    margin-bottom: 180px;
+  }
+}
+
+@media only screen and (max-width: 359.98px) {
+  .overlap {
+    top: 160px;
+    margin-bottom: 160px;
+  }
+}
+
+/* End media query's  */
 
