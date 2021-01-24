@@ -101,4 +101,9 @@ class AdminController extends Controller
         $adminSetting->save();
         return redirect('/admin/intro');
     }
+
+    public function indexTransaction(){
+        $transaction = Transaction::all();
+        return view('admin/transaction', ['transactions' => $transaction]);
+    }
 }
