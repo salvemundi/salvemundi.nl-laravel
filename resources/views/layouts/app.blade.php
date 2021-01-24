@@ -1,4 +1,19 @@
 <!doctype html>
+
+<!--
+   _____       _             __  __                 _ _
+  / ____|     | |           |  \/  |               | (_)
+ | (___   __ _| |_   _____  | \  / |_   _ _ __   __| |_
+  \___ \ / _` | \ \ / / _ \ | |\/| | | | | '_ \ / _` | |
+  ____) | (_| | |\ V /  __/ | |  | | |_| | | | | (_| | |
+ |_____/ \__,_|_| \_/ \___| |_|  |_|\__,_|_| |_|\__,_|_|
+
+ Leuk dat je op onze site kijkt.
+ Interesse in onze website? De Github link staat onderaan de website.
+ Wil je mee werken aan onze website? Neem dan contact op met de ICT-commissie.
+
+-->
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
