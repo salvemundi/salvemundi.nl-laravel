@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\AzureUser;
 use App\Models\Commissie;
 use App\Models\Intro;
+use App\Models\Sponsor;
 use App\Models\Transaction;
 use App\Models\WhatsappLink;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\User;
+use App\Enums\paymentType;
 
 use App\Enums\paymentStatus;
 use App\Models\AdminSetting;
@@ -32,8 +34,20 @@ class AdminController extends Controller
     {
         $getAllUsers = AzureUser::all()->count();
         $getAllIntroSignups = Intro::all()->count();
-        $whatsappLinks = WhatsappLink::all();
-        return view('admin/admin',['userCount' => $getAllUsers, 'introCount' => $getAllIntroSignups, 'whatsappLinks' => $whatsappLinks]);
+        $whatsappLinks = WhatsappLink::latest()->first();
+        $sponsorsCount = Sponsor::all()->count();
+        $transactionCount = Transaction::all()->count();
+        $plan = paymentType::fromValue(3);
+        $name = ucfirst($plan) . ' membership';
+        $OpenPaymentsCount = 0;
+        foreach(User::all() as $user)
+        {
+            if($user->subscribed($name, $plan->key))
+            {
+                $OpenPaymentsCount += 1;
+            }
+        }
+        return view('admin/admin',['userCount' => $getAllUsers, 'introCount' => $getAllIntroSignups, 'whatsappLinks' => $whatsappLinks, 'sponsorsCount' => $sponsorsCount, 'transactionCount' => $transactionCount, 'OpenPaymentsCount' => $OpenPaymentsCount]);
     }
 
     public function getIntro()
@@ -75,34 +89,6 @@ class AdminController extends Controller
         return view('admin/sponsors', ['sponsors' => SponsorController::getSponsors()]);
     }
 
-    public function addWhatsappLinks(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'link' => 'required',
-            'description' => 'required'
-        ]);
-
-        $products = new WhatsappLink;
-        $products->name = $request->input('name');
-        $products->link = $request->input('link');
-        $products->description = $request->input('description');
-        $products->save();
-
-        return redirect('admin/')->with('message', 'WhatsApp link gemaakt');
-    }
-
-    public function deleteWhatsappLinks(Request $request)
-    {
-        if($request->id != null) {
-            $tobeDeleted = WhatsappLink::find($request->id);
-            $tobeDeleted->delete();
-
-            return redirect('admin/')->with('information', 'Link verwijderd');
-        } else {
-            return redirect('admin/');
-        }
-    }
     public function storeIntro(Request $request)
     {
         $adminSetting = AdminSetting::where('settingName', 'intro')->first();
