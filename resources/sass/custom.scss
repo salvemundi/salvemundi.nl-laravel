@@ -12,9 +12,9 @@
 
 .overlap {
   background-color: white;
-  top: 800px;
+  top: 750px;
   position: relative;
-  margin-bottom: 800px;
+  margin-bottom: 750px;
   padding: 50px;
   width: 100% !important;
 }
@@ -140,6 +140,28 @@
   width: 100%;
   position: fixed;
   z-index: 0;
+}
+
+.overlayVideo:before {
+  content:"";
+  position: absolute;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  z-index:1;
+  // background: $salveMundi-boxShadow;
+  background:linear-gradient(to right,rgba(156, 139, 253, 0.493),rgba(214, 124, 250, 0.582));
+}
+
+.overlayVideo {
+  left: 0%;
+  top: 0%;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .dropbtn {
@@ -782,4 +804,13 @@ html {
 a, a:hover{
   text-decoration: none !important;
   color: black;
+}
+
+.imgIndex{
+  width: 80%;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.6)
+}
+
+.card{
+  width: 100% !important;
 }
