@@ -1,11 +1,3 @@
-{{--
-<div id="TopNavbar">
-    <a href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-</div>
---}}
-
 <nav id="TopNavbar" class="navbar navbar-expand-md ">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -81,7 +73,9 @@
     </div>
 </nav>
 {{-- <img class="navImg" src="/images/headerLogoSamu.jpg"> --}}
-<video class="navImg" autoplay muted loop disablePictureInPicture id="vid">
-    <source src="{{asset('/images/rickroll.mp4')}}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<div class="overlayVideo">
+    <video class="navImg" autoplay muted loop disablePictureInPicture id="vid">
+        <source src="{{asset('/images/Intro2019.mp4')}}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+</div>

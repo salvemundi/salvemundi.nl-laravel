@@ -83,6 +83,7 @@
                 <th data-field="inschrijving">Inschrijving</th>
                 <th data-field="paymentStatus">Betalings status</th>
                 <th data-field="price">Totaal prijs</th>
+                <th data-field="creationDate">Datum</th>
             </tr>
             </thead>
             <tbody>
@@ -92,6 +93,7 @@
                         <td data-value="inschrijving">{{$transaction->product->name}}</td>
                         <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
                         <td data-value="beschrijving">{{"€ ".$transaction->product->amount}}</td>
+                        <td data-value="creationDate">{{ $transaction->created_at->format('d/m/Y') }}</td>
                     </tr>
                 @endforeach
             </tbody>

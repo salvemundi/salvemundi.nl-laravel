@@ -20,6 +20,9 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin">Dashboard</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/admin/leden">Leden</a>
                 </li>
                 <li class="nav-item">

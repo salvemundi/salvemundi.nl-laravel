@@ -21,10 +21,10 @@
         <div class="col-xs-6 col-md-3">
           <h6>Commissies</h6>
           <ul class="footer-links">
-            <li><a href="/user#Bestuur">Bestuur</a></li>
+            <li><a href="/commissies#Bestuur">Bestuur</a></li>
             @foreach ($Commissies as $commissie)
                 @if (str_contains($commissie->DisplayName, 'commissie'))
-                    <li><a href="/user#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a></li>
+                    <li><a href="/commissies#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a></li>
                 @endif
             @endforeach
           </ul>
