@@ -53,6 +53,7 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences'])->middleware('azure.auth');
 Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');
+Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController::class,'cancelSubscription'])->middleware('azure.auth');
 
 // Activiteiten page
 
