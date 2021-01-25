@@ -12,10 +12,8 @@
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <div class="dropdown">
-                    <a href="/commissies" class="navLink">
-                        <button class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
-                    </a>
-                    <div class="dropdown-content">
+                    <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
+                    <div id="dropdown" class="dropdown-content">
                         <a href="/commissies#Bestuur">Bestuur</a>
                         @foreach ($Commissies as $commissie)
                             @if (str_contains($commissie->DisplayName, 'commissie'))
