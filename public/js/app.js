@@ -52921,6 +52921,13 @@ window.onclick = function (event) {
       }
     }
   }
+}; // activities form submit
+
+
+window.onload = function () {
+  document.getElementById("linkActivity").onclick = function () {
+    document.getElementById("formActivity").submit();
+  };
 };
 
 /***/ }),
