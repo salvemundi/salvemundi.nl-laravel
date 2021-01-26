@@ -58,6 +58,7 @@ Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController
 // Activiteiten page
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
+Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup'])->middleware('azure.auth');
 
 // News page
 

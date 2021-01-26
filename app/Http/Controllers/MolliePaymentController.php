@@ -47,6 +47,10 @@ class MolliePaymentController extends Controller
         } else{
             $createPayment = MolliePaymentController::preparePayment($productIndex);
             $getProductObject = Product::where('index', $productIndex)->first();
+            if($getProductObject == null)
+            {
+                $product = Product::find($productIndex);
+            }
             $transaction = new Transaction();
             $transaction->transactionId = $createPayment->id;
             $transaction->product()->associate($getProductObject);
@@ -61,6 +65,10 @@ class MolliePaymentController extends Controller
     private static function preparePayment($productIndex, $userObject = null)
     {
         $product = Product::where('index', $productIndex)->first();
+        if($product == null)
+        {
+            $product = Product::find($productIndex);
+        }
         if($userObject != null)
         {
             return $userObject->newSubscription('main','registration')->create();
