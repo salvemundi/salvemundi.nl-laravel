@@ -14,11 +14,7 @@
                                 @if(session('id') != null)
                                     <div class="col-md-12">
                                         <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
-                                        <form id="formActivity" method="POST" action="/activiteiten/signup">
-                                            @csrf
-                                            <input type="hidden" name="productId" value="{{ $activiteit->id }}">
-                                            <a id="linkActivity" href="#" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
-                                        </form>
+                                        <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
                                     </div>
                                 @endif
                             </div>

@@ -27,6 +27,7 @@ class ActivitiesController extends Controller
 
         $products = new Product;
         $products->name = $request->input('name');
+        $products->formsLink = $request->input('link');
         $products->amount = $request->input('price');
         $products->description = $request->input('description');
         $products->save();
@@ -45,7 +46,6 @@ class ActivitiesController extends Controller
         if($request->id != null) {
             $tobeDeleted = Product::find($request->id);
             $tobeDeleted->delete();
-
             return redirect('admin/activiteiten')->with('information', 'Activiteit verwijderd');
         } else {
             return redirect('admin/activiteiten');
@@ -58,7 +58,7 @@ class ActivitiesController extends Controller
         $getUser = AzureUser::where('AzureID', session('id'))->first();
         if($getProduct->amount > 0) {
             Log::info('Product is not free');
-            return MolliePaymentController::processRegistration($getUser,$getProduct->id);
+            return MolliePaymentController::processRegistration($getUser,$getProduct->id,'myAccount');
         } else {
             Log::info('Product is free');
             $newTransaction = new Transaction;

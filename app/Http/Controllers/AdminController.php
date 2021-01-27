@@ -42,7 +42,7 @@ class AdminController extends Controller
         $OpenPaymentsCount = 0;
         foreach(User::all() as $user)
         {
-            if($user->subscribed($name, $plan->key))
+            if(!$user->subscribed($name, $plan->key))
             {
                 $OpenPaymentsCount += 1;
             }
