@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
             $newUser = new User;
@@ -45,8 +45,12 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            $createPayment = MolliePaymentController::preparePayment($productIndex);
+            $createPayment = MolliePaymentController::preparePayment($productIndex, null, $route);
             $getProductObject = Product::where('index', $productIndex)->first();
+            if($getProductObject == null)
+            {
+                $product = Product::find($productIndex);
+            }
             $transaction = new Transaction();
             $transaction->transactionId = $createPayment->id;
             $transaction->product()->associate($getProductObject);
@@ -58,12 +62,21 @@ class MolliePaymentController extends Controller
         }
         return redirect('/');
     }
-    private static function preparePayment($productIndex, $userObject = null)
+    private static function preparePayment($productIndex, $userObject = null, $route = null)
     {
         $product = Product::where('index', $productIndex)->first();
+        if($product == null)
+        {
+            $product = Product::find($productIndex);
+        }
         if($userObject != null)
         {
             return $userObject->newSubscription('main','registration')->create();
+        }
+        if($route == null) {
+            $route = route('home');
+        } else {
+            $route = route($route);
         }
         // redirect customer to Mollie checkout page
         $formattedPrice = number_format($product->amount, 2, '.', '');
@@ -74,7 +87,7 @@ class MolliePaymentController extends Controller
                 "value" => "$priceToString"
             ],
             "description" => "$product->description",
-            "redirectUrl" => route('intro'),
+            "redirectUrl" => $route,
             "webhookUrl" => route('webhooks.mollie'),
         ]);
     }

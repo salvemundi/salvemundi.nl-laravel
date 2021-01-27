@@ -12,6 +12,7 @@ class Transaction extends Model
 {
     use HasFactory;
     protected $table = 'transaction';
+    protected $fillable = ['formsLink'];
     public function introRelation(): HasOne
     {
         return $this->hasOne
