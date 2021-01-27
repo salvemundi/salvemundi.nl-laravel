@@ -55,8 +55,13 @@
             <h2 class="h2">Activiteit aanmaken</h2>
 
             <div class="form-group">
-                <label for="voornaam">Activiteit naam</label>
+                <label for="name">Activiteit naam</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Naam...">
+            </div>
+
+            <div class="form-group">
+                <label for="link">Activiteit naam</label>
+                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="link" name="link" placeholder="Forms link...">
             </div>
 
             <div class="form-group">
