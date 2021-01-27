@@ -113,6 +113,10 @@ html {
   text-decoration: none;
 }
 
+.dropbtn:focus {
+  outline: none;
+}
+
 .affix-dropdown {
   background-color: #663265 !important;
   transition: 0.6s;
@@ -143,16 +147,22 @@ html {
   transition: 0.2s ease-in-out;
 }
 
-.dropdown-content a:hover {
+.show {
+  display: block;
+}
+
+.dropdown-content a:active {
   background-color: rgba(255, 255, 255, 0.3);
   transition: 0.3s ease-in-out;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:active .dropdown-content,
+.dropdown:focus {
   display: block;
   transition: 0.3s ease-in-out;
 }
 
+.dropdown:active .dropbtn,
 .dropdown:hover .dropbtn {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
@@ -421,6 +431,10 @@ html {
 /* Cards end */
 
 /* Myaccount navbar begin */
+
+.myAccountBtn {
+  margin-left: 10px;
+}
 
 .myAccount {
   position: relative;
