@@ -53,7 +53,7 @@
             @csrf
             <br>
             <h2 class="h2">Activiteit aanmaken</h2>
-
+            <p>Als de prijs 0.00 is dan wordt de activiteit als gratis geregistreerd.</p>
             <div class="form-group">
                 <label for="name">Activiteit naam</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Naam...">
