@@ -1,29 +1,57 @@
 @extends('layouts.appmin')
 @section('content')
 <div class="adminOverlap">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="stati svdark">
-                <div><p>Aantal Leden</p></div>
-                <i style="display: flex" class="fas fa-users"> <p class="dashboard-font">{{ $userCount }}</p></i>
+    <div class="mijnSlider">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/admin/leden">
+                    <div class="stati svdark">
+                        <div><p><h3>Aantal Leden</h3></p></div>
+                        <i style="display: flex" class="fas fa-users"> <p class="dashboard-font">{{ $userCount }}</p></i>
+                    </div>
+                </a>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stati svdark">
-                <div><p>Aantal intro inschrijvingen</p></div>
-                <i style="display: flex" class="fas fa-list"> <p class="dashboard-font">{{ $introCount }}</p> </i>
+            <div class="col-md-6">
+                <a href="/admin/intro">
+                    <div class="stati svdark">
+                        <div><p><h3>Aantal intro inschrijvingen</h3></p></div>
+                        <i style="display: flex" class="fas fa-list"> <p class="dashboard-font">{{ $introCount }}</p> </i>
+                    </div>
+                </a>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stati svdark">
-                <div><p>Aantal Leden</p></div>
-                <i style="display: flex" class="fas fa-users"> <p class="dashboard-font">324</p> </i>
+            @if($whatsappLinks != null)
+                <div class="col-md-6">
+                    <a href="/admin/whatsapp">
+                        <div class="stati svdark">
+                            <div><p><h3>Laatste whatsapp link</h3></p></div>
+                            <i style="display: flex" class="fab fa-whatsapp"> <p class="dashboard-font">{{ $whatsappLinks->updated_at->format('d/m/Y') }}</p> </i>
+                        </div>
+                    </a>
+                </div>
+            @endif
+            <div class="col-md-6">
+                <a href="/admin/sponsors">
+                    <div class="stati svdark">
+                        <div><p><h3>Aantal sponsoren</h3></p></div>
+                        <i style="display: flex" class="fas fa-hand-holding-usd"> <p class="dashboard-font">{{ $sponsorsCount }}</p> </i>
+                    </div>
+                </a>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stati svdark">
-                <div><p>Aantal Leden</p></div>
-                <i style="display: flex" class="fas fa-users"> <p class="dashboard-font">324</p> </i>
+            <div class="col-md-6">
+                <a href="/admin/transactie">
+                    <div class="stati svdark">
+                        <div><p><h3>Aantal transacties</h3></p></div>
+                        <i style="display: flex" class="fas fa-money-bill-wave"> <p class="dashboard-font">{{ $transactionCount}}</p> </i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/admin/leden">
+                    <div class="stati svdark">
+                        <div><p><h3>Aantal leden die moeten betalen</h3></p></div>
+                        <i style="display: flex" class="fas fa-users"> <p class="dashboard-font">{{ $OpenPaymentsCount }}</p> </i>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -37,79 +65,4 @@
 </script>
 
 {{-- <script src="extensions/resizable/bootstrap-table-resizable.js"></script> --}}
-    <div class="row adminOverlap center">
-            @if(session()->has('information'))
-                <div class="alert alert-primary">
-                    {{ session()->get('information') }}
-                </div>
-            @endif
-        <div class="col-md-12 center">
-
-            <div class="table-responsive center" >
-
-                <table
-                       id="table"
-                       data-toggle="table"
-                       data-search="true"
-                       data-sortable="true"
-                       data-pagination="true"
-                       data-show-columns="true">
-                    <thead>
-                        <tr class="tr-class-1">
-                            <th data-field="title" data-sortable="true" data-width="250">Groep naam</th>
-                            <th data-field="content" data-sortable="true">Link</th>
-                            <th data-field="imgPath" data-sortable="true" data-width="250">Beschrijving</th>
-                            <th data-field="delete" data-sortable="false">Verwijderen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($whatsappLinks as $whatsappLink)
-                                <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                    <td data-value="{{ $whatsappLink->name }}">{{ $whatsappLink->name }}</td>
-                                    <td data-value="{{ $whatsappLink->link }}">{{ $whatsappLink->link }}</td>
-                                    <td data-value="{{ $whatsappLink->description }}">{{ $whatsappLink->description }}</td>
-                                    <td data-value="{{ $whatsappLink->id }}"><form method="post" action="/admin/whatsappLinks/delete">@csrf<input type="hidden" name="id" value="{{ $whatsappLink->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
-                                </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row center adminOverlap">
-    <div id="contact" class="col-md-6">
-        @if(session()->has('message'))
-        <div class="alert alert-primary">
-            {{ session()->get('message') }}
-        </div>
-        @endif
-        <form action="/admin/whatsappLinks/store" method="post">
-            @csrf
-            <br>
-            <h2 class="h2">WhatsApp link aanmaken</h2>
-
-            <div class="form-group">
-                <label for="Achternaam">Groep naam</label>
-                <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Naam...">
-            </div>
-
-            <div class="form-group">
-                <label for="voornaam">Link</label>
-                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="link" name="link" placeholder="Link...">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Beschrijving</label>
-                <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
-            </div>
-
-            <div class="form-group">
-                <br>
-                <input class="btn btn-primary" type="submit" value="Versturen">
-            </div>
-        </form>
-    </div>
-</div>
 @endsection

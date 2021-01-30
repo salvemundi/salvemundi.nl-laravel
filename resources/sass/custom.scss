@@ -29,7 +29,7 @@ html {
   position: relative;
   margin-bottom: 750px;
   padding: 50px;
-  width: 100% !important;
+  //width: 100% !important;
 }
 
 .grid {
@@ -115,6 +115,9 @@ html {
   padding: 0.5rem 1rem;
   text-decoration: none;
 }
+.dropbtn:focus {
+  outline: none;
+}
 
 .affix-dropdown {
   background-color: $salveMundi-primary !important;
@@ -130,7 +133,7 @@ html {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: $salveMundi-boxShadow;
   min-width: 180px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
@@ -145,18 +148,20 @@ html {
   color: white;
   transition: 0.2s ease-in-out;
 }
-
-.dropdown-content a:hover {
+.show {
+  display: block;
+}
+.dropdown-content a:active {
   background-color: rgba(255, 255, 255, 0.3);
   transition: 0.3s ease-in-out;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:active .dropdown-content,.dropdown:focus {
   display: block;
   transition: 0.3s ease-in-out;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:active .dropbtn, .dropdown:hover .dropbtn {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   transition: 0.3s ease-in-out;
@@ -406,6 +411,12 @@ html {
   flex-direction: row;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
   margin: 10px;
+  transition: all .2s ease-in-out;
+  overflow: hidden;
+}
+
+.indexCard {
+  height: 260px;
 }
 
 .group {
@@ -424,9 +435,17 @@ html {
   border-radius: 10px;
 }
 
+.indexCard:hover{
+  transform: scale(1.1); 
+}
+
 /* Cards end */
 
 /* Myaccount navbar begin */
+
+.myAccountBtn{
+  margin-left: 10px;
+}
 
 .myAccount {
   position: relative;

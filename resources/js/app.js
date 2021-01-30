@@ -4,11 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+window.$ = window.jQuery = require('jquery'); // <-- main, not 'slim'
+require('jquery-ui');
+window.Popper = require('popper.js');
+require('bootstrap');
+
 require('bootstrap-table');
+require('bootstrap-tooltip');
 require('slick-carousel');
 // require('');
-
 window.Vue = require('vue');
 
 /**
@@ -75,3 +79,32 @@ $(function() {
 });
 // vid=document.getElementById("vid")
 // vid.disablePictureInPicture = true
+window.myFunction = function myFunction() {
+    document.getElementById("dropdown").classList.toggle("show");
+  }
+
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+
+
+// activities form submit
+window.onload = function(){
+  document.getElementById("linkActivity").onclick = function() {
+    document.getElementById("formActivity").submit();
+  }
+}
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

@@ -50,13 +50,15 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 
 // MyAccount page
 
-Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth');
+Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth')->name('myAccount');
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences'])->middleware('azure.auth');
 Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');
+Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController::class,'cancelSubscription'])->middleware('azure.auth');
 
 // Activiteiten page
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
+Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup'])->middleware('azure.auth');
 
 // News page
 
@@ -78,6 +80,8 @@ Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexA
 Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
-Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\AdminController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
-Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\AdminController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
+Route::get('/admin/whatsapp', [App\Http\Controllers\WhatsAppController::class, 'index'])->middleware('admin.auth');
+Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
+Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
 Route::post('/admin/intro/store', [App\Http\Controllers\AdminController::class, 'storeIntro'])->middleware('admin.auth');
+Route::get('/admin/transactie', [App\Http\Controllers\AdminController::class, 'indexTransaction'])->middleware('admin.auth');

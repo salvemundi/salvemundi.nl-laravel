@@ -62,19 +62,27 @@
 
     <div id="inschrijvingen" class="tabcontent">
         <h1>Transacties</h1>
-        <form method="post" action="/mijnAccount/pay">
-            @csrf
-            <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
-            <input type="hidden" name="lastName" value="{{ $user->LastName }}">
-            <input type="hidden" name="insertion" value="{{ $user->insertion }}">
-            <input type="hidden" name="email" value="{{ $user->email }}">
-            <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
-            @if($subscriptionActive == 0)
-                <p><b>Contributie deelname: </b></b><button type="submit" class="btn btn-secondary">Non actief</button></p>
+            <form method="post" action="/mijnAccount/pay">
+                @csrf
+                <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
+                <input type="hidden" name="lastName" value="{{ $user->LastName }}">
+                <input type="hidden" name="insertion" value="{{ $user->insertion }}">
+                <input type="hidden" name="email" value="{{ $user->email }}">
+                <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
+                @if($subscriptionActive == 0)
+                    <p>
+                        <b>Contributie deelname: </b><button type="submit" class="myAccountBtn btn btn-secondary">Non actief</button></p></form>
             @else
-                <p><b>Contributie deelname: </b><button type="button" class="btn btn-success" disabled>Actief</button></b></p>
+                <div style="float:left; display:inline;">
+                    <p><b>Contributie deelname: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+                </div>
+                <div style="float:left; display:inline;">
+                    <form method="post" action="/mijnAccount/cancel">
+                        <input type="hidden" name="userId" value="{{ session('id') }}">
+                        <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
+                    </form>
+                </div>
             @endif
-        </form>
         <table id="table"
                data-toggle="table">
             <thead>
