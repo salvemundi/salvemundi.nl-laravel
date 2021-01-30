@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row">
                 @foreach ($activiteiten as $activiteit)
-                    <div class="card" id="{{$activiteit->name}}">
+                    <div class="card activityCard" id="{{$activiteit->name}}">
                         <div class="card-body">
                             <h4 class="card-title center">{{$activiteit->name}}</h4>
                             <p class="card-text" style="white-space: pre-line">{{$activiteit->description}}</p>
