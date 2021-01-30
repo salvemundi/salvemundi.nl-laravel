@@ -106,7 +106,7 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\salvemundi.nl-laravel\resources\js\scrollonload.js */"./resources/js/scrollonload.js");
+module.exports = __webpack_require__(/*! C:\Users\Quint\Documents\Projects\salvemundi.nl-laravel\resources\js\scrollonload.js */"./resources/js/scrollonload.js");
 
 
 /***/ })
