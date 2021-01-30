@@ -51,23 +51,23 @@ class ActivitiesController extends Controller
             return redirect('admin/activiteiten');
         }
     }
-
-    public function signup(Request $request)
-    {
-        $getProduct = Product::find($request->input('productId'));
-        $getUser = AzureUser::where('AzureID', session('id'))->first();
-        if($getProduct->amount > 0) {
-            Log::info('Product is not free');
-            return MolliePaymentController::processRegistration($getUser,$getProduct->id,'myAccount');
-        } else {
-            Log::info('Product is free');
-            $newTransaction = new Transaction;
-            $newTransaction->product()->associate($getProduct);
-            $newTransaction->save();
-            $newTransaction->contribution()->attach($getUser);
-            $newTransaction->paymentStatus = paymentStatus::paid;
-            $newTransaction->save();
-            return redirect('/activiteiten')->with('message','Je inschrijving was succesvol.');
-        }
-    }
+// Signup method incase board wants payment for activity via mollie
+//     public function signup(Request $request)
+//     {
+//         $getProduct = Product::find($request->input('productId'));
+//         $getUser = AzureUser::where('AzureID', session('id'))->first();
+//         if($getProduct->amount > 0) {
+//             Log::info('Product is not free');
+//             return MolliePaymentController::processRegistration($getUser,$getProduct->id,'myAccount');
+//         } else {
+//             Log::info('Product is free');
+//             $newTransaction = new Transaction;
+//             $newTransaction->product()->associate($getProduct);
+//             $newTransaction->save();
+//             $newTransaction->contribution()->attach($getUser);
+//             $newTransaction->paymentStatus = paymentStatus::paid;
+//             $newTransaction->save();
+//             return redirect('/activiteiten')->with('message','Je inschrijving was succesvol.');
+//         }
+//     }
 }

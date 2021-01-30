@@ -95,11 +95,13 @@ class AdminController extends Controller
         if($request->input('cbx'))
         {
             $adminSetting->settingValue = 1;
+            $message = 'De intro inschrijving staat nu aan';
         } else {
             $adminSetting->settingValue = 0;
+            $message = 'De intro inschrijving staat nu uit';
         }
         $adminSetting->save();
-        return redirect('/admin/intro');
+        return redirect('/admin/intro')->with('message', $message);
     }
 
     public function indexTransaction(){
