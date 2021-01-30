@@ -12,16 +12,22 @@ class NewsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             'content' => 'required',
         ]);
         $news = new News;
-        $path = $request->file('photo')->storeAs(
-            'public/news', $request->input('title').".png"
-        );
+        if($request->file('photo') != null)
+        {
+            $path = $request->file('photo')->storeAs(
+                'public/news', $request->input('title').".png"
+            );
+        }
         $news->title = $request->input('title');
         $news->content = $request->input('content');
-        $news->imgPath = 'news/'.$request->input('title').".png";
+        if($request->file('photo') != null)
+        {
+            $news->imgPath = 'news/'.$request->input('title').".png";
+        }
         $news->save();
         return redirect('admin/nieuws')->with('message', 'Nieuws is toegevoegd');
     }
