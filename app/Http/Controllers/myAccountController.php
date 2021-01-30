@@ -43,11 +43,13 @@ class myAccountController extends Controller
         if($request->input('cbx'))
         {
             $user->visibility = 1;
+            $message = 'Je bent nu te zien op de website';
         } else {
             $user->visibility = 0;
+            $message = 'Je bent nu niet meer te zien op de website';
         }
         $user->save();
-        return redirect('/mijnAccount');
+        return redirect('/mijnAccount')->with('message', $message);
     }
 
 
