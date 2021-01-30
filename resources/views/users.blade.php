@@ -14,8 +14,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $groupsBestuur->DisplayName }}</h4>
-                            <p class="card-text">{{ $groupsBestuur->Description }} <br> E-mail: <a
-                                    href="mailto:{{ $groupsBestuur->email }}">{{ $groupsBestuur->email }}</a></p>
+                            <div class="col-md-12">
+                                <p class="card-text">{{ $groupsBestuur->Description }} <br> E-mail: <a
+                                        href="mailto:{{ $groupsBestuur->email }}">{{ $groupsBestuur->email }}</a>
+                                        <a class="float-right" href="/vorigBestuur">Naar vorig bestuur</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>

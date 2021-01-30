@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-<div class="row center adminOverlap">
+<div class="row center adminOverlap mijnSlider">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">
