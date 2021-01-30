@@ -70,7 +70,7 @@
             @foreach ($newsData as $nieuws)
                 <div class="col-sm-4">
                     <a class="" href="/nieuws#{{$nieuws->title}}">
-                        <div class="card indexCard">
+                        <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">
                                 <h5 class="card-title" >{{$nieuws->title}}</h5>
                                 <p class="card-text" style="white-space: pre-line">{{Str::limit($nieuws->content, 300)}}</p>
