@@ -49,14 +49,14 @@
         <div class="row">
             @foreach ($activitiesData as $activity)
                 <div class="col-sm-4">
-                    <div class="card">
-                        <a class="link" href="/activiteiten#{{$activity->name}}">
-                        <div class="card-body">
-                            <h5 class="card-title" >{{$activity->name}}</h5>
-                            <p class="card-text" style="white-space: pre-line">{{Str::limit($activity->description, 300)}}</p>
+                    <a class="" href="/activiteiten#{{$activity->name}}">
+                        <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
+                            <div class="card-body">
+                                <h5 class="card-title" >{{$activity->name}}</h5>
+                                <p class="card-text" style="white-space: pre-line">{{Str::limit($activity->description, 300)}}</p>
+                            </div>
                         </div>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>
@@ -69,14 +69,14 @@
         <div class="row">
             @foreach ($newsData as $nieuws)
                 <div class="col-sm-4">
-                    <div class="card">
-                        <a class="link" href="/nieuws#{{$nieuws->title}}">
-                        <div class="card-body">
-                            <h5 class="card-title" >{{$nieuws->title}}</h5>
-                            <p class="card-text" style="white-space: pre-line">{{Str::limit($nieuws->content, 300)}}</p>
+                    <a class="" href="/nieuws#{{$nieuws->title}}">
+                        <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
+                            <div class="card-body">
+                                <h5 class="card-title" >{{$nieuws->title}}</h5>
+                                <p class="card-text" style="white-space: pre-line">{{Str::limit($nieuws->content, 300)}}</p>
+                            </div>
                         </div>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>
