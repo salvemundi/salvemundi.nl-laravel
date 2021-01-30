@@ -7,7 +7,7 @@
 --}}
 
 <nav id="TopNavbar" class="navbarAdmin navbar navbar-expand-md shadow-sm">
-    <div class="container">
+    <div class="container navAdminWidth">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
         </a>
@@ -42,6 +42,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/whatsapp">Whatsapp</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products">Producten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products">Oud bestuur</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->

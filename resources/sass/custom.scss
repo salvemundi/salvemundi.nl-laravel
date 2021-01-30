@@ -85,6 +85,10 @@ html {
   z-index: 0;
 }
 
+.navAdminWidth {
+  max-width: 1740px !important;
+}
+
 .overlayVideo:before {
   content: "";
   position: absolute;
