@@ -14,8 +14,13 @@
             <div class="col-md-6">
                 <a href="/admin/intro">
                     <div class="stati svdark">
+                        @if($introSetting->settingValue  == 1)
                         <div><p><h3>Aantal intro inschrijvingen</h3></p></div>
                         <i style="display: flex" class="fas fa-list"> <p class="dashboard-font">{{ $introCount }}</p> </i>
+                        @else
+                        <div><p><h6><b>De intro inschrijving staat uit</b></h6></p></div>
+                        <i style="display: flex" class="fas fa-list"> <p class="dashboard-font">{{ $introCount }}</p> </i>
+                        @endif
                     </div>
                 </a>
             </div>
