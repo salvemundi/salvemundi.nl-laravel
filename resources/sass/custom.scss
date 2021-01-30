@@ -30,6 +30,7 @@ html {
   margin-bottom: 750px;
   padding: 50px;
   //width: 100% !important;
+  z-index: 3;
 }
 
 .grid {
@@ -107,7 +108,7 @@ html {
   width: 100%;
   overflow: hidden;
   position: absolute;
-  z-index: -1;
+  //z-index: -1;
 }
 
 .dropbtn {
