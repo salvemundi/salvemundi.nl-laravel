@@ -48,7 +48,7 @@
         </a>
         <div class="row">
             @foreach ($activitiesData as $activity)
-                <div class="col-sm-4">
+                <div class="col-md-6">
                     <a class="" href="/activiteiten#{{$activity->name}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">
