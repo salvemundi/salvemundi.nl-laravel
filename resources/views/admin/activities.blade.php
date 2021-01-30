@@ -60,7 +60,7 @@
             </div>
 
             <div class="form-group">
-                <label for="link">Activiteit naam</label>
+                <label for="link">Microsft forms link</label>
                 <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="link" name="link" placeholder="Forms link...">
             </div>
 
