@@ -2,6 +2,13 @@
 @section('content')
 
     <div class="adminOverlap">
+        <div class="mijnSlider" style="padding-top: 20px;">
+            @if(session()->has('message'))
+                <div class="alert alert-primary">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">

@@ -45,7 +45,15 @@
             <svg width="12px" height="10px" viewbox="0 0 12 10">
               <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Ik wil op de website komen als ik bij een commissie hoor.</span></label>
-            <br><br>
+            <br>
+            <div class="left" style="width: 25%;">
+            @if(session()->has('message'))
+                <div class="alert alert-primary">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            </div>
+            <br>
             <p><b>Naam:</b> {{ $user->FirstName }} </p>
             <p><b>Achternaam:</b> {{ $user->LastName }} </p>
             <p><b>Email:</b> {{ $user->email }} </p>

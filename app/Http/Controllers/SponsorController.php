@@ -11,6 +11,8 @@ class SponsorController extends Controller
     {
         $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'reference' => 'required',
+            'name' => 'required',
         ]);
         $newSponsor = new Sponsor();
         $path = $request->file('photo')->storeAs(
