@@ -4,11 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+window.$ = window.jQuery = require('jquery'); // <-- main, not 'slim'
+require('jquery-ui');
+window.Popper = require('popper.js');
+require('bootstrap');
+
 require('bootstrap-table');
+require('bootstrap-tooltip');
 require('slick-carousel');
 // require('');
-
 window.Vue = require('vue');
 
 /**
@@ -100,3 +104,7 @@ window.onload = function(){
     document.getElementById("formActivity").submit();
   }
 }
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
