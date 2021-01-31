@@ -62,13 +62,10 @@
         <br>
         <h2 class="h2">File toevoegen</h2>
 
-        <div class="test">
             <br>
             <label for="year">Jaar</label>
             <input class="form-control{{ $errors->has('year') ? ' is-invalid' : '' }}" value="{{ old('year') }}" type="text" id="year" name="year" placeholder="Jaar...">
-        </div>
 
-        <div class="test">
             <br>
             <label for="filePath">File (pdf)</label>
             <div class="input-group mb-3 test">
@@ -82,12 +79,9 @@
                     <input style="border: hidden;" id="txtFileName" type="text" readonly="readonly" />
                 </div>
             </div>
-        </div>
 
-        <div class="test">
             <br>
             <input class="btn btn-primary" type="submit" value="Toevoegen">
-        </div>
     </form>
 </div>
 </div>
