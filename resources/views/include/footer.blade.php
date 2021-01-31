@@ -14,7 +14,6 @@
             <ul class="footer-links">
               <li><a  href="mailto:info@salvemundi.nl">info@salvemundi.nl</a></li>
               <li><a href="tel:06654863954">06-654863954</a></li>
-              <li><a href="#">Over ons</a></li>
             </ul>
           </div>
 
@@ -35,6 +34,7 @@
           <ul class="footer-links">
             <li><i class="fa fa-instagram"></i> <a href="https://www.instagram.com/sv.salvemundi/" target="_blank">Instagram</a></li>
             <li><i class="fa fa-facebook"></i> <a href="https://nl-nl.facebook.com/sv.salvemundi/" target="_blank">Facebook</a></li>
+            <li><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/company/salve-mundi/" target="_blank">LinkedIn</a></li>
           </ul>
         </div>
       </div>

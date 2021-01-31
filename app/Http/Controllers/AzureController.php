@@ -82,13 +82,13 @@ class AzureController extends Controller
     {
         $graph = AzureController::connectToAzure();
 
-        $fetchedUser = $graph->createRequest("GET",'/users/'.$userId)
-            ->setReturnType(Model\User::class)
-            ->execute();
-        if($fetchedUser == null){
+        try {
+            $fetchedUser = $graph->createRequest("GET", '/users/' . $userId)
+                ->setReturnType(Model\User::class)
+                ->execute();
+        } catch (GraphException $e) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }
