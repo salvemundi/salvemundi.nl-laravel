@@ -45,6 +45,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/nieuws">Nieuws</a>
                 </li>
+                @if (session('id') != null)
+                <li class="nav-item">
+                    <a class="nav-link" href="/financien">Financiën</a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="https://shop.spreadshirt.nl/salvemundi/">Merch</a>
                 </li>
