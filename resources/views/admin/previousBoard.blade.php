@@ -56,19 +56,14 @@
         <br>
         <h2 class="h2">Bestuur toevoegen</h2>
 
-        <div class="test">
             <br>
             <label for="name">Jaar</label>
             <input class="form-control{{ $errors->has('year') ? ' is-invalid' : '' }}" value="{{ old('year') }}" type="text" id="year" name="year" placeholder="Jaar...">
-        </div>
 
-        <div class="test">
             <br>
             <label for="reference">Bestuur</label>
             <textarea class="form-control{{ $errors->has('bestuur') ? ' is-invalid' : '' }}" value="{{ old('bestuur') }}" type="text" id="bestuur" name="bestuur" placeholder="Bestuur..."></textarea>
-        </div>
 
-        <div class="test">
             <br>
             <label for="photo">Foto (optioneel)</label>
             <div class="input-group mb-3 test">
@@ -82,7 +77,6 @@
                     <input style="border: hidden;" id="txtFileName" type="text" readonly="readonly" />
                 </div>
             </div>
-        </div>
 
         <div class="test">
             <br>

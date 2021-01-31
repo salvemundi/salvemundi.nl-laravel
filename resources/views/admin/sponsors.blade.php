@@ -57,19 +57,14 @@
         <br>
         <h2 class="h2">Sponsor toevoegen</h2>
 
-        <div class="test">
             <br>
             <label for="name">Naam</label>
             <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" type="text" id="name" name="name" placeholder="Naam...">
-        </div>
 
-        <div class="test">
             <br>
             <label for="reference">Referentie / Website</label>
             <input class="form-control{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}" type="text" id="reference" name="reference" placeholder="Referentie / Website...">
-        </div>
 
-        <div class="test">
             <br>
             <label for="photo">Foto</label>
             <div class="input-group mb-3 test">
@@ -83,12 +78,9 @@
                     <input style="border: hidden;" id="txtFileName" type="text" readonly="readonly" />
                 </div>
             </div>
-        </div>
 
-        <div class="test">
             <br>
             <input class="btn btn-primary" type="submit" value="Toevoegen">
-        </div>
     </form>
 </div>
 </div>
