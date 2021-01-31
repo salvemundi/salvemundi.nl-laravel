@@ -62,6 +62,7 @@ class MolliePaymentController extends Controller
         }
         return redirect('/');
     }
+
     private static function preparePayment($productIndex, $userObject = null, $route = null)
     {
         $product = Product::where('index', $productIndex)->first();
@@ -133,6 +134,7 @@ class MolliePaymentController extends Controller
     {
         return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
     }
+
     public function cancelSubscription(Request $request)
     {
         $userId = $request->input('userId');

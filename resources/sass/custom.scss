@@ -818,6 +818,13 @@ html {
   }
 }
 
+@media only screen and (max-width: 1330.98px) {
+  .overlap {
+    top: 670px;
+    margin-bottom: 670px;
+  }
+}
+
 @media only screen and (max-width: 1199.98px) {
   .overlap {
     top: 400px;
@@ -845,7 +852,6 @@ html {
     margin-bottom: 260px;
   }
 }
-
 
 @media only screen and (max-width: 524.98px) {
   .overlap {
