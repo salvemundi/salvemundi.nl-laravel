@@ -99,3 +99,6 @@ Route::post('/admin/oud-bestuur/delete', [App\Http\Controllers\PreviousBoardCont
 Route::get('/admin/financien', [App\Http\Controllers\FinanceController::class, 'indexAdmin'])->middleware('admin.auth');
 Route::post('/admin/finance/store', [App\Http\Controllers\FinanceController::class, 'store'])->name('Finance')->middleware('admin.auth');
 Route::post('/admin/finance/delete', [App\Http\Controllers\FinanceController::class, 'delete'])->middleware('admin.auth');
+Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index'])->middleware('admin.auth');
+Route::post('/admin/products/edit',[App\Http\Controllers\ProductController::class, 'editPage'])->middleware('admin.auth');
+Route::post('/admin/products/edit/store', [App\Http\Controllers\ProductController::class, 'store'])->middleware('admin.auth');
