@@ -10,7 +10,8 @@ a:hover {
 
 .imgIndex {
   width: 80%;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6)
+  transform: scale(0.95);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 html {
@@ -30,6 +31,7 @@ html {
   margin-bottom: 750px;
   padding: 50px;
   //width: 100% !important;
+  z-index: 3;
 }
 
 .grid {
@@ -85,6 +87,10 @@ html {
   z-index: 0;
 }
 
+.navAdminWidth {
+  max-width: 1740px !important;
+}
+
 .overlayVideo:before {
   content: "";
   position: absolute;
@@ -103,7 +109,7 @@ html {
   width: 100%;
   overflow: hidden;
   position: absolute;
-  z-index: -1;
+  //z-index: -1;
 }
 
 .dropbtn {
@@ -439,6 +445,9 @@ html {
   transform: scale(1.1); 
 }
 
+.activityCard {
+  width: 100%;
+}
 /* Cards end */
 
 /* Myaccount navbar begin */
@@ -809,6 +818,13 @@ html {
   }
 }
 
+@media only screen and (max-width: 1330.98px) {
+  .overlap {
+    top: 670px;
+    margin-bottom: 670px;
+  }
+}
+
 @media only screen and (max-width: 1199.98px) {
   .overlap {
     top: 400px;
@@ -836,7 +852,6 @@ html {
     margin-bottom: 260px;
   }
 }
-
 
 @media only screen and (max-width: 524.98px) {
   .overlap {

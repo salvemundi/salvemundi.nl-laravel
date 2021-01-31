@@ -38,7 +38,30 @@
             <p>Naast deze activiteiten verzorgd Salve Mundi ook de introductie van FHICT van top tot teen.
         </div>
         <div class="col-md-6">
-            <img class="imgIndex" src="images/SaMuFotos/DSC07676.jpg">
+            <div class="imgSlider"  data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/DSC07676.jpg">
+                </div>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/DSC07654.jpg">
+                </div>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/DSC07719.jpg">
+                </div>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/IMG_0032.jpg">
+                </div>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/IMG_0215.jpg">
+                </div>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/IMG_0582.jpg">
+                </div>
+                <div>
+                    <img class="imgIndex" src="images/SaMuFotos/IMG_0413.jpg">
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -48,7 +71,7 @@
         </a>
         <div class="row">
             @foreach ($activitiesData as $activity)
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <a class="" href="/activiteiten#{{$activity->name}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">

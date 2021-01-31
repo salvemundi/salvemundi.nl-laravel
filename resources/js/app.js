@@ -76,6 +76,15 @@ $(function() {
         nextArrow: '<button type="button" unselectable="on" class="slick-right"></button>',
         prevArrow: '<button type="button" unselectable="on" class="slick-left"></button>',
     });
+    $('.imgSlider').slick({
+      dots: false,
+      infinite: true,
+      autoplay: true,
+      speed: 500,
+      fade: true,
+      arrows: false,
+      cssEase: 'linear'
+    });
 });
 // vid=document.getElementById("vid")
 // vid.disablePictureInPicture = true

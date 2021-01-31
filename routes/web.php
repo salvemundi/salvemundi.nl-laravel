@@ -68,6 +68,10 @@ Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::
 
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
+// Finance page
+
+Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
@@ -89,3 +93,12 @@ Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppControll
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
 Route::post('/admin/intro/store', [App\Http\Controllers\AdminController::class, 'storeIntro'])->middleware('admin.auth');
 Route::get('/admin/transactie', [App\Http\Controllers\AdminController::class, 'indexTransaction'])->middleware('admin.auth');
+Route::get('/admin/oud-bestuur', [App\Http\Controllers\PreviousBoardController::class, 'indexAdmin'])->middleware('admin.auth');
+Route::post('/admin/oud-bestuur/store', [App\Http\Controllers\PreviousBoardController::class, 'addBestuur'])->middleware('admin.auth');
+Route::post('/admin/oud-bestuur/delete', [App\Http\Controllers\PreviousBoardController::class, 'delete'])->middleware('admin.auth');
+Route::get('/admin/financien', [App\Http\Controllers\FinanceController::class, 'indexAdmin'])->middleware('admin.auth');
+Route::post('/admin/finance/store', [App\Http\Controllers\FinanceController::class, 'store'])->name('Finance')->middleware('admin.auth');
+Route::post('/admin/finance/delete', [App\Http\Controllers\FinanceController::class, 'delete'])->middleware('admin.auth');
+Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index'])->middleware('admin.auth');
+Route::post('/admin/products/edit',[App\Http\Controllers\ProductController::class, 'editPage'])->middleware('admin.auth');
+Route::post('/admin/products/edit/store', [App\Http\Controllers\ProductController::class, 'store'])->middleware('admin.auth');

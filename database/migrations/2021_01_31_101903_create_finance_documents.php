@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateProductsTable extends Migration
+class CreateFinanceDocuments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class UpdateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function ($table) {
-            $table->string('formsLink')->nullable();
+        Schema::create('finance_documents', function (Blueprint $table) {
+            $table->id();
+            $table->text('filePath');
+            $table->integer('year');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class UpdateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function ($table) {
-            $table->dropColumn('formsLink');
-        });
+        Schema::dropIfExists('finance_documents');
     }
 }
