@@ -14,7 +14,6 @@
             <ul class="footer-links">
               <li><a  href="mailto:info@salvemundi.nl">info@salvemundi.nl</a></li>
               <li><a href="tel:06654863954">06-654863954</a></li>
-              <li><a href="#">Over ons</a></li>
             </ul>
           </div>
 

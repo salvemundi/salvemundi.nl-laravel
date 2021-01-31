@@ -72,7 +72,7 @@
 
             <div class="form-group">
                 <br>
-                <label for="photo">Foto</label>
+                <label for="photo">Foto (optioneel)</label>
                 <div class="input-group mb-3 test">
                     <div class="input-group-prepend">
                         <div class="custom-file" style="width: 80px;">

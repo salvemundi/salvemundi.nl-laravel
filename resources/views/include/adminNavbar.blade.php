@@ -43,6 +43,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/whatsapp">Whatsapp</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/oud-bestuur">Oud bestuur</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
