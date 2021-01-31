@@ -35,6 +35,7 @@
           <ul class="footer-links">
             <li><i class="fa fa-instagram"></i> <a href="https://www.instagram.com/sv.salvemundi/" target="_blank">Instagram</a></li>
             <li><i class="fa fa-facebook"></i> <a href="https://nl-nl.facebook.com/sv.salvemundi/" target="_blank">Facebook</a></li>
+            <li><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/company/salve-mundi/" target="_blank">LinkedIn</a></li>
           </ul>
         </div>
       </div>
