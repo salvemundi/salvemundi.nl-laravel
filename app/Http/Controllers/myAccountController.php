@@ -51,6 +51,4 @@ class myAccountController extends Controller
         $user->save();
         return redirect('/mijnAccount')->with('message', $message);
     }
-
-
 }
