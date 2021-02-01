@@ -44,6 +44,6 @@ class SendMailInschrijving extends Mailable
     {
         return $this
                 ->subject("Inschrijving SalveMundi")
-                ->markdown('inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass]);
+                ->markdown('mail/inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass]);
     }
 }
