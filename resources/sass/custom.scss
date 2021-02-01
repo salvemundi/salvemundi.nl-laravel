@@ -136,10 +136,14 @@ html {
   display: inline-block;
 }
 
+.dropdownText {
+  text-shadow: 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: $salveMundi-boxShadow;
+  background-color: $salveMundi-boxShadowWhite;
   min-width: 180px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
