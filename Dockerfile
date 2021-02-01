@@ -43,8 +43,8 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 # Copy existing application directory permissions
-RUN chmod +x ./docker-start.sh
 COPY --chown=www:www . /var/www
+RUN chmod +x ./docker-start.sh
 
 # Change current user to www
 USER www
