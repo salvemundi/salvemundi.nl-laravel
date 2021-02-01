@@ -45,7 +45,7 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
-<div class="adminOverlap center">
+<div class="adminOverlap center mijnSlider">
 <div id="contact" class="col-md-6">
     @if(session()->has('message'))
         <div class="alert alert-primary">
