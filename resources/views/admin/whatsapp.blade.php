@@ -8,7 +8,7 @@
     @endif
     <div class="col-md-12 center">
 
-        <div class="table-responsive center">
+        <div class="table-responsive center centerTable">
 
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                 data-show-columns="true">
@@ -72,7 +72,7 @@
 
             <div class="form-group">
                 <br>
-                <input class="btn btn-primary" type="submit" value="Versturen">
+                <input class="btn btn-primary" type="submit" value="Toevoegen">
             </div>
         </form>
     </div>
