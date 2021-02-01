@@ -116,4 +116,25 @@ window.onload = function(){
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
+});
+
+var testDiv = `<br> <div class="input-group mb-3 test">
+<div class="input-group mb-3 test">
+    <div class="input-group-prepend">
+        <div class="custom-file" style="width: 80px;">
+            <div class="custom-file" style="width: 80px;">
+                <label class="input-group-text form-control" id="inputGroupFileAddon01" for="photo">Browse </label>
+                <input type="file" onchange="CopyMe(this, 'txtFileName');" class="custom-file-input" style="height: 0px;" id="photo" name="photo" aria-describedby="inputGroupFileAddon01"> `+`
+            </div>
+        </div>
+        <div class="custom-file form-control">
+            <input style="border: hidden;" id="txtFileName" type="text" readonly="readonly" />
+        </div>
+    </div>
+  </div>
+</div>`;
+
+myClickOnUrHand = function ()
+{
+  document.getElementById("demo").innerHTML = testDiv;
+};
