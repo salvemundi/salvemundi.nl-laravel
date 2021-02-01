@@ -15,6 +15,11 @@ Leuk dat je hebt gekozen om deel te zijn van onze studie vereniging Salve Mundi.
 De betaling is gelukt.<br>
     Je gebruikersnaam voor office is: {{ $firstName.".".$lastName."@lid.salvemundi.nl" }}<br>
     Je wachtwoord is: {{ $pass }}
+    hieronder staan de linkjes voor de whatsapp groepen. Die kan je joinen als je wilt. <br>
+    @foreach ($whatsappLink as $whatsapp)
+        {{$whatsapp->name}}: {{$whatsapp->link}} <br>
+    @endforeach <br>
+    Als de linkjes niet werken kun je inloggen op de website en onder mijn account de actuele linkjes vinden.
 @elseif ($paymentStatus == 3)
 Uw inschrijving is niet gelukt.
 De betaling is niet gelukt.
@@ -28,5 +33,5 @@ De betaling is verlopen.
 <br>
 
 Veel liefs,<br>
-De Intro-commissie van Salve Mundi<br>
+Het bestuur van Salve Mundi<br>
 @endcomponent
