@@ -54,23 +54,13 @@ class myAccountController extends Controller
             $message = 'Je bent nu niet meer te zien op de website';
         }
 
-        if($user->ImgPath == 'images/SalveMundi-Vector.svg')
-        {
-            $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
-            $user->ImgPath = 'users/'.$user->AzureID;
-            $user->save();
-            if(!AzureController::updateProfilePhoto($user)){
-                return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
-            }
+
+        $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
+        $user->ImgPath = 'users/'.$user->AzureID.'.jpg';
+        if(!AzureController::updateProfilePhoto($user)){
+            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
         }
-        else
-        {
-            $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
-            $user->ImgPath = 'users/'.$user->AzureID.'.jpg';
-            if(!AzureController::updateProfilePhoto($user)){
-                return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
-            }
-        }
+
 
         $user->save();
         $message = 'Je foto is bewerkt';
