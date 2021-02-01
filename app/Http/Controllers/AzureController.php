@@ -13,7 +13,7 @@ use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
-
+use Microsoft\Graph\Model\Image;
 class AzureController extends Controller
 {
     public static function connectToAzure(): Graph
@@ -87,6 +87,19 @@ class AzureController extends Controller
             $fetchedUser = $graph->createRequest("GET", '/users/' . $userId)
                 ->setReturnType(Model\User::class)
                 ->execute();
+        } catch (GraphException $e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function updateProfilePhoto($userObject)
+    {
+        $graph = AzureController::connectToAzure();
+        try {
+            $fetchedUser = $graph->createRequest("PATCH", '/users/' . $userObject->AzureID . '/photo/\$value')
+                ->addHeaders(array("Content-Type" => "image/png"))
+                ->upload('storage/'.$userObject->ImgPath);
         } catch (GraphException $e) {
             return false;
         }

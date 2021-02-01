@@ -34,7 +34,7 @@
     </nav>
     <div id="gegevens" class="tabcontent">
         <h2>Jouw gegevens:</h2>
-        <form method="post" action="mijnAccount/store">
+        <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
             @csrf
             @if($user->visibility == 1)
             <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
@@ -63,6 +63,11 @@
             {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
             <br>
             <br>
+
+            <a class="btn btn-primary" onclick="myClickOnUrHand()">Foto bewerken</a>
+            <br>
+            <p id="demo"></p>
+
             <input type="hidden" name="user_id" id="user_id" value="{{  $user->id  }}">
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
@@ -160,5 +165,9 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+    function CopyMe(oFileInput, sTargetID) {
+        document.getElementById(sTargetID).value = oFileInput.value;
+    }
     </script>
 @endsection
