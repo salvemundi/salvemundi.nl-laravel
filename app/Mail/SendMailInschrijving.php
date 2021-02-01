@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\WhatsappLink;
 
 class SendMailInschrijving extends Mailable
 {
@@ -42,8 +43,9 @@ class SendMailInschrijving extends Mailable
      */
     public function build(): SendMailInschrijving
     {
+        $whatsappLink = WhatsappLink::all();
         return $this
                 ->subject("Inschrijving SalveMundi")
-                ->markdown('mail/inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass]);
+                ->markdown('mail/inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass, 'whatsappLink' => $whatsappLink]);
     }
 }
