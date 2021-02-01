@@ -74,7 +74,8 @@ class AzureController extends Controller
         $userObject = User::where('email', $userEmail)->first();
         $userObject->AzureID = $newUserID;
         $userObject->save();
-
+        Mail::to($registration->email)
+            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass));
         return $randomPass;
     }
 
