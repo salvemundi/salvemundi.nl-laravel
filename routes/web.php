@@ -52,6 +52,10 @@ Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::cla
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
+// Merch
+
+Route::get('/merch', function() {return view('merch');})->name('merch');
+
 // MyAccount page
 
 Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'index'])->middleware('azure.auth')->name('myAccount');

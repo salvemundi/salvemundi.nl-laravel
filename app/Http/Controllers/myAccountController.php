@@ -60,13 +60,13 @@ class myAccountController extends Controller
         if($request->file('photo') != null){
             $request->file('photo')->storeAs('public/users/',$user->AzureID);
             $user->ImgPath = 'users/'.$user->AzureID;
+            $message = 'Je foto is bewerkt';
+            if(!AzureController::updateProfilePhoto($user)){
+                return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+            }
         }
-        if(!AzureController::updateProfilePhoto($user)){
-            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
-        }
-
         $user->save();
-        $message = 'Je foto is bewerkt';
+        $message = 'Je instellingen zijn bijgewerkt.';
 
         return redirect('/mijnAccount')->with('message', $message);
     }
