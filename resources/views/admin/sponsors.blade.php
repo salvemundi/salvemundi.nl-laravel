@@ -1,66 +1,11 @@
-{{-- @extends('layouts.appmin')
+@extends('layouts.appmin')
 @section('content')
-
-<div class="adminOverlap">
-
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <div class="table-responsive">
-
-                <table
-                       id="table"
-                       data-toggle="table"
-                       data-search="true"
-                       data-sortable="true"
-                       data-pagination="true"
-                       data-show-columns="true">
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     function CopyMe(oFileInput, sTargetID) {
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
-<div class="adminOverlap center mijnSlider">
-<div id="contact" class="col-md-6">
-    @if(session()->has('message'))
-        <div class="alert alert-primary">
-            {{ session()->get('message') }}
-        </div>
-    @endif
-    <form action="/admin/sponsors/add/store" method="post" enctype="multipart/form-data">
-        @csrf
-        <br>
-            <label for="photo">Foto</label>
-            <div class="input-group mb-3 test">
-                <div class="input-group-prepend">
-                    <div class="custom-file" style="width: 80px;">
-                        <label class="input-group-text form-control" id="inputGroupFileAddon01" for="photo">Browse </label>
-                        <input type="file" onchange="CopyMe(this, 'txtFileName');" class="custom-file-input" style="height: 0px;" id="photo" name="photo" aria-describedby="inputGroupFileAddon01">
-                    </div>
-                </div>
-                <div class="custom-file form-control">
-                    <input style="border: hidden;" id="txtFileName" type="text" readonly="readonly" />
-                </div>
-            </div>
-
-            <br>
-            <input class="btn btn-primary" type="submit" value="Toevoegen">
-    </form>
-</div>
-</div>
-@endsection --}}
-
-
-@extends('layouts.appmin')
-@section('content')
-<div class="row adminOverlap mijnSlider center">
+<div class="row widthFix adminOverlap mijnSlider center">
     @if(session()->has('information'))
     <div class="alert alert-primary">
         {{ session()->get('information') }}
@@ -94,9 +39,8 @@
         </div>
     </div>
 </div>
-</div>
 
-<div class="row center adminOverlap mijnSlider">
+<div class="row widthFix center adminOverlap mijnSlider">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">
@@ -116,11 +60,6 @@
             <div class="form-group">
                 <label for="reference">Referentie / Website</label>
                 <input class="form-control{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}" type="text" id="reference" name="reference" placeholder="Referentie / Website...">
-            </div>
-
-            <div class="form-group">
-                <label for="Achternaam">Prijs</label>
-                <input type="number" min="0" step=".01" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" value="{{ old('price') }}" id="price" name="price" placeholder="Prijs...">
             </div>
 
             <label for="photo">Foto</label>
