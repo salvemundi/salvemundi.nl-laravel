@@ -6,6 +6,7 @@ use App\Models\AzureUser;
 use App\Models\WhatsappLink;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Rules;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -33,7 +34,8 @@ class myAccountController extends Controller
             return abort(401);
         } else {
             $whatsappLinks = WhatsappLink::all();
-            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment]);
+            $rules = Rules::all();
+            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules]);
         }
     }
 
