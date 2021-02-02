@@ -5,7 +5,7 @@
 <script src="js/scrollonload.js"></script>
 <div class="overlap" id="navlink">
     <h2>Mijn account</h2>
-    <p>Zier hier jou account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
+    <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
     <nav class='myAccount' >
         @if ($authorized == 1)
         <a href="/admin">
