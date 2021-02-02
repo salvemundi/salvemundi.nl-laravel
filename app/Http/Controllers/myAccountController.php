@@ -42,7 +42,7 @@ class myAccountController extends Controller
     public function savePreferences(Request $request)
     {
         $request->validate([
-            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
         ]);
 
         $user = AzureUser::find($request->input('user_id'));
@@ -55,18 +55,18 @@ class myAccountController extends Controller
             $user->visibility = 0;
             $message = 'Je bent nu niet meer te zien op de website';
         }
+        $user->save();
 
         if($request->file('photo') != null){
-            $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
-            $user->ImgPath = 'users/'.$user->AzureID.'.jpg';
+            $request->file('photo')->storeAs('public/users/',$user->AzureID);
+            $user->ImgPath = 'users/'.$user->AzureID;
+            $message = 'Je foto is bewerkt';
+            if(!AzureController::updateProfilePhoto($user)){
+                return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+            }
         }
-        if(!AzureController::updateProfilePhoto($user)){
-            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
-        }
-
-
         $user->save();
-        $message = 'Je foto is bewerkt';
+        $message = 'Je instellingen zijn bijgewerkt.';
 
         return redirect('/mijnAccount')->with('message', $message);
     }
