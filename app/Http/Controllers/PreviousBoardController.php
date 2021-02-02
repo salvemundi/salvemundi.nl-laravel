@@ -24,17 +24,21 @@ class PreviousBoardController extends Controller
         $request->validate([
             'fotoPath' => '|image|mimes:jpeg,png,jpg,svg|max:2048',
             'bestuur' => 'required',
-            'year' => 'required',
+            'year' => 'required|max:10|regex:/(^[0-9]+$)+/',
         ]);
         $newBestuur = new PreviousBoard();
-        $path = $request->file('fotoPath')->storeAs(
-            'public/images/previousBoardPictures', $request->input('year').".png"
-        );
+        if ($request->file('fotoPath') != null)
+        {
+            $path = $request->file('fotoPath')->storeAs(
+                'public/images/previousBoardPictures', $request->input('year').".png"
+            );
+            $newBestuur->fotoPath = 'images/previousBoardPictures/'.$request->input('year').".png";
+        }
+
         $newBestuur->bestuur = $request->input('bestuur');
         $newBestuur->year = $request->input('year');
-        $newBestuur->fotoPath = 'images/previousBoardPictures/'.$request->input('year').".png";
         $newBestuur->save();
-        return redirect('admin/oud-bestuur/');
+        return redirect('admin/oud-bestuur/')->with('message', 'Oud bestuur toegevoegd');
     }
 
     public function delete(Request $request)
@@ -43,7 +47,7 @@ class PreviousBoardController extends Controller
             $tobeDeleted = PreviousBoard::find($request->id);
             $tobeDeleted->delete();
 
-            return redirect('admin/oud-bestuur');
+            return redirect('admin/oud-bestuur')->with('information', 'Oud bestuur verwijderd');
         } else {
             return redirect('admin/oud-bestuur');
         }

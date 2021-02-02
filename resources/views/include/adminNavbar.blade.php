@@ -47,7 +47,10 @@
                     <a class="nav-link" href="/admin/products">Producten</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/products">Oud bestuur</a>
+                    <a class="nav-link" href="/admin/oud-bestuur">Oud bestuur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/financien">Financiën</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->

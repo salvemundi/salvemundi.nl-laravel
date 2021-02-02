@@ -11,7 +11,7 @@ use Session;
 use DB;
 use App\Enums\paymentType;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Storage;
 class myAccountController extends Controller
 {
     public function index(){
@@ -39,7 +39,12 @@ class myAccountController extends Controller
 
     public function savePreferences(Request $request)
     {
+        $request->validate([
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
         $user = AzureUser::find($request->input('user_id'));
+
         if($request->input('cbx'))
         {
             $user->visibility = 1;
@@ -48,7 +53,18 @@ class myAccountController extends Controller
             $user->visibility = 0;
             $message = 'Je bent nu niet meer te zien op de website';
         }
+
+
+        $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
+        $user->ImgPath = 'users/'.$user->AzureID.'.jpg';
+        if(!AzureController::updateProfilePhoto($user)){
+            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+        }
+
+
         $user->save();
+        $message = 'Je foto is bewerkt';
+
         return redirect('/mijnAccount')->with('message', $message);
     }
 }
