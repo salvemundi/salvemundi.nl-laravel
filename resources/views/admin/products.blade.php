@@ -3,7 +3,7 @@
 
 <div class="adminOverlap">
 
-    <div class="row center">
+    <div class="row widthFix center">
 
         <div class="col-md-9">
 
@@ -38,7 +38,7 @@
                                     @else
                                     <td>Verwijderen niet mogelijk</td>
                                     @endif
-                                    <td data-value="{{ $product->id }}"><form method="post" action="/admin/products/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $product->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
+                                    <td data-value="{{ $product->id }}"><form method="get" action="/admin/products/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $product->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                                 </tr>
                         @endforeach
                     </tbody>
