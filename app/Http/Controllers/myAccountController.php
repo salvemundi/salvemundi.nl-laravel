@@ -56,9 +56,10 @@ class myAccountController extends Controller
             $message = 'Je bent nu niet meer te zien op de website';
         }
 
-
-        $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
-        $user->ImgPath = 'users/'.$user->AzureID.'.jpg';
+        if($request->file('photo') != null){
+            $request->file('photo')->storeAs('public/users/',$user->AzureID.'.jpg');
+            $user->ImgPath = 'users/'.$user->AzureID.'.jpg';
+        }
         if(!AzureController::updateProfilePhoto($user)){
             return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
         }
