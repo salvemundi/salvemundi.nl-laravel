@@ -14,21 +14,19 @@
                 data-show-columns="true">
                 <thead>
                     <tr class="tr-class-1">
-                        <th data-field="name" data-sortable="true" data-width="250">Groep naam</th>
+                        <th data-field="name" data-sortable="true" data-width="250">naam</th>
                         <th data-field="link" data-sortable="true">Link</th>
-                        <th data-field="description" data-sortable="true" data-width="250">Beschrijving</th>
                         <th data-field="delete" data-sortable="false">Verwijderen</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($whatsappLinks as $whatsappLink)
+                    @foreach ($rules as $rule)
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                        <td data-value="{{ $whatsappLink->name }}">{{ $whatsappLink->name }}</td>
-                        <td data-value="{{ $whatsappLink->link }}">{{ $whatsappLink->link }}</td>
-                        <td data-value="{{ $whatsappLink->description }}">{{ $whatsappLink->description }}</td>
-                        <td data-value="{{ $whatsappLink->id }}">
-                            <form method="post" action="/admin/whatsappLinks/delete">@csrf<input type="hidden" name="id"
-                                    value="{{ $whatsappLink->id }}"><button type="submit"
+                        <td data-value="{{ $rule->name }}">{{ $rule->name }}</td>
+                        <td data-value="{{ $rule->link }}">{{ $rule->link }}</td>
+                        <td data-value="{{ $rule->id }}">
+                            <form method="post" action="/admin/rules/delete">@csrf<input type="hidden" name="id"
+                                    value="{{ $rule->id }}"><button type="submit"
                                     class="btn btn-danger">Verwijderen</button></form>
                         </td>
                     </tr>
@@ -47,13 +45,13 @@
             {{ session()->get('message') }}
         </div>
         @endif
-        <form action="/admin/whatsappLinks/store" method="post">
+        <form action="/admin/rules/store" method="post">
             @csrf
             <br>
-            <h2 class="h2">WhatsApp toevoegen</h2>
+            <h2 class="h2">Regels link toevoegen</h2>
 
             <div class="form-group">
-                <label for="Achternaam">Groep naam</label>
+                <label for="Achternaam">Naam</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}"
                     id="name" name="name" placeholder="Naam...">
             </div>
@@ -62,12 +60,6 @@
                 <label for="voornaam">Link</label>
                 <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}"
                     id="link" name="link" placeholder="Link...">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Beschrijving</label>
-                <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                    name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
             </div>
 
             <div class="form-group">

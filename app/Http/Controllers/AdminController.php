@@ -56,6 +56,7 @@ class AdminController extends Controller
             return $query->where('paymentStatus', PaymentStatus::paid);
         })->get();
         $IntroSetting = AdminSetting::where('settingName','intro')->first();
+
         return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting]);
     }
 

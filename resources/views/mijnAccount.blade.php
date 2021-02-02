@@ -5,7 +5,7 @@
 <script src="js/scrollonload.js"></script>
 <div class="overlap" id="navlink">
     <h2>Mijn account</h2>
-    <p>Zier hier jou account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
+    <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
     <nav class='myAccount' >
         @if ($authorized == 1)
         <a href="/admin">
@@ -148,6 +148,25 @@
 
     <div id="regels" class="tabcontent">
         <h1>Regels</h1>
+        <p>Dit zijn de regels binnnen Salve Mundi</p>
+        <table id="table"
+               data-toggle="table"
+               data-show-columns="true">
+            <thead>
+                <tr>
+                    <th data-field="naam">naam</th>
+                    <th data-field="link">link</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($rules as $rule)
+                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                        <td data-value="naam">{{$rule->name}}</td>
+                        <td data-value="link"><a href="{{$rule->link}}">{{$rule->link}}</a></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
     <script>

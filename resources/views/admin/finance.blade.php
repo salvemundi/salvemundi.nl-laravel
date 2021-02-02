@@ -5,7 +5,7 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
-<div class="row adminOverlap mijnSlider center">
+<div class="row widthFix adminOverlap mijnSlider center">
     @if(session()->has('information'))
     <div class="alert alert-primary">
         {{ session()->get('information') }}
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<div class="row center adminOverlap mijnSlider">
+<div class="row widthFix center adminOverlap mijnSlider">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">

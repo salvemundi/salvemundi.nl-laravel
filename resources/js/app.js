@@ -66,8 +66,9 @@ $(window).scroll(function() {
 
 $(function() {
     $('.slider').slick({
-        slidesToShow: 1,
+        slidesToShow: 5,
         autoplay: true,
+        speed: 500,
         slidesToScroll: 1,
         dots: true,
         infinite: true,
@@ -75,6 +76,28 @@ $(function() {
         arrows: true,
         nextArrow: '<button type="button" unselectable="on" class="slick-right"></button>',
         prevArrow: '<button type="button" unselectable="on" class="slick-left"></button>',
+        responsive: [
+          {
+              breakpoint: 1024,
+              settings:{
+                slidesToShow: 4,
+              }
+          },
+          {
+              breakpoint: 800,
+              settings: {
+                  slidesToShow: 3,
+                  arrows: false,
+              }
+          },
+          {
+            breakpoint: 500,
+            settings: {
+                slidesToShow: 2,
+                arrows: false,
+            }
+        }
+      ]
     });
     $('.imgSlider').slick({
       dots: false,
