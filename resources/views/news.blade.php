@@ -2,6 +2,7 @@
 @section('content')
 
 <div class="overlap">
+@if($newsCount > 0)
 <div class="container-fluid">
         <div class="row center">
             @foreach ($news as $nieuws)
@@ -38,6 +39,11 @@
             @endif
             @endforeach
         </div>
+        @else
+        <div class="center">
+            Er zijn geen activiteiten beschikbaar.
+        </div>
+        @endif
     </div>
 </div>
 

@@ -69,6 +69,7 @@
         </div>
     </div>
 
+@if ($activitiesCount > 0)
     <div class="mijnSlider">
         <a href="/activiteiten">
             <h1 class="center groot"><b>Activiteiten</b></h1>
@@ -88,7 +89,8 @@
             @endforeach
         </div>
     </div>
-
+@endif
+@if($newsCount > 0)
     <div class="mijnSlider">
         <a href="/nieuws">
             <h1 class="center groot"><b>Nieuws</b></h1>
@@ -108,7 +110,8 @@
             @endforeach
         </div>
     </div>
-
+@endif
+@if($sponsorsCount > 0)
     <div class="mijnSlider">
         <h1 class="center groot"><b>Onze sponsoren</b></h1>
         <div class="slider" data-slick='{"slidesToScroll": 1}'>
@@ -117,6 +120,7 @@
             @endforeach
         </div>
     </div>
+@endif
 </div>
 
 @endsection
