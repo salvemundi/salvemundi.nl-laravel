@@ -17,8 +17,11 @@ class HomeController extends Controller
   {
     $viewData = $this->loadViewData();
     $sponsorsData = Sponsor::all();
+    $sponsorsCount = Sponsor::all()->count();
     $newsData = News::latest()->take(3)->get();
+    $newsCount = News::all()->count();
     $activitiesData = Product::latest()->where('index', null)->take(3)->get();
-    return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData, 'newsData' => $newsData, 'activitiesData' => $activitiesData]);
+    $activitiesCount = Product::where('index', null)->count();
+    return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData, 'newsData' => $newsData, 'activitiesData' => $activitiesData, 'sponsorsCount' => $sponsorsCount, 'newsCount' => $newsCount, 'activitiesCount' => $activitiesCount]);
   }
 }
