@@ -115,11 +115,7 @@ class AdminController extends Controller
 
     public function groupIndex(Request $request)
     {
-        if($request->input('id') == null){
-            $groupUser = AzureUser::where('AzureID',session('id'))->first();
-        } else {
-            $groupUser = AzureUser::find($request->input('id'));
-        }
+        $groupUser = AzureUser::find($request->input('id'));
         $id = $groupUser->id;
         $groupUsers = $groupUser->commission()->get();
         $groups = Commissie::with('users')->whereDoesntHave('users', function($query) use ($id) {
@@ -131,29 +127,27 @@ class AdminController extends Controller
     public function groupStore(Request $request)
     {
         $groupUser = AzureUser::find($request->input('userId'));
-        $groupUsers = $groupUser->commission()->get();
         $groupObject = Commissie::find($request->input('groupId'));
         $groupUser->commission()->attach($groupObject);
         if(AzureController::addUserToGroup($groupUser, $groupObject))
         {
-            return redirect('/admin/leden')->with('message', 'Lid is toegevoegd aan de commissie');
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Lid is toegevoegd aan de commissie');
             //return $this->groupIndex($request)->with('message', 'Lid is toegevoegd aan de commissie');
         }
         else{
-            return redirect('/admin/leden')->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
         }
     }
 
     public function groupDelete(Request $request)
     {
         $groupUser = AzureUser::find($request->input('userId'));
-        $groupUsers = $groupUser->commission()->get();
         $groupObject = Commissie::find($request->input('groupId'));
         $groupUser->commission()->detach($groupObject);
         if(AzureController::removeUserFromGroup($groupUser, $groupObject)) {
-            return redirect('/admin/leden')->with('message', 'Lid is verwijderd van de commissie');
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Lid is verwijderd van de commissie');
         } else {
-            return redirect('/admin/leden')->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
         }
     }
 }
