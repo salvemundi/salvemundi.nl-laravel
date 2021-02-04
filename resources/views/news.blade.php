@@ -46,11 +46,10 @@
 </div> --}}
 
 <div class="overlap mijnSlider">
-    <div class="center"></div>
     @foreach($news as $article)
     @if($article->imgPath == null)
     <div class="col-md-12" id="{{ $article->title }}">
-        <div class="card ">
+        <div class="card center">
             <div class="card-body">
                 <h4><p class="card-text">{{ $article->title }}</p></h4>
                 <p class="card-text" style="white-space: pre-line">{{ $article->content }}</p>
@@ -62,7 +61,7 @@
     </div>
     @else
     <div class="col-md-12" id="{{ $article->title }}">
-        <div class="card cardNews">
+        <div class="card cardNews center">
             {!! '<img class="pfPhotoNews" src="storage/'.$article->imgPath.'" />' !!}
             <div class="card-body">
                 <h4><p class="card-text">{{ $article->title }}</p></h4>

@@ -813,16 +813,25 @@ html {
   .card {
     flex-direction: column;
   }
+}
 
+@media only screen and (max-width: 1409.98px) {
   .cardNews {
     flex-direction: unset !important;
   }
 }
 
+// @media only screen and (max-width: 1199.98px) {
+//   .card {
+//     flex-direction: unset !important;
+//   }
+// }
+
 @media only screen and (max-width: 1199.98px) {
-  .card {
+  .cardNews {
     flex-direction: column !important;
   }
+
   .pfPhotoNews {
     width: 100%;
     height: auto;
@@ -867,7 +876,6 @@ html {
 
 @media only screen and (max-width: 367.98px) {
   .mijnSlider {
-    padding-left: 0% !important;
     padding-right: 0% !important;
   }
 }
