@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('content')
 
 <div class="overlap">
@@ -25,5 +25,53 @@
             </div>
         </div>
     </div>
+</div>
+@endsection --}}
+
+
+@extends('layouts.app')
+@section('content')
+
+<div class="overlap mijnSlider">
+    @foreach($activiteiten as $activiteit)
+    @if($activiteit->imgPath == null)
+    <div class="col-md-12" id="{{ $activiteit->name }}">
+        <div class="card center">
+            <div class="card-body">
+                <h4><p class="card-text">{{ $activiteit->name }}</p></h4>
+                <p class="card-text" style="white-space: pre-line">{{ $activiteit->description }}</p>
+                <div class="row">
+                    @if(session('id') != null)
+                        <div class="col-md-12">
+                            <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
+                            <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    @else
+    <div class="col-md-12" id="{{ $activiteit->name }}">
+        <div class="card cardNews center">
+            {!! '<img class="pfPhotoNews" src="storage/'.$activiteit->imgPath.'" />' !!}
+            <div class="card-body">
+                <h4><p class="card-text">{{ $activiteit->name }}</p></h4>
+                <p class="card-text">{{ $activiteit->description }}</p>
+                <div class="row">
+                    @if(session('id') != null)
+                        <div class="col-md-12">
+                            <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
+                            <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    @endif
+    @endforeach
 </div>
 @endsection

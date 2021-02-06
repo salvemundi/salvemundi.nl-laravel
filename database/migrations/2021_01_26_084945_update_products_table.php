@@ -15,6 +15,7 @@ class UpdateProductsTable extends Migration
     {
         Schema::table('products', function ($table) {
             $table->string('formsLink')->nullable();
+            $table->string('imgPath')->nullable();
         });
     }
 
