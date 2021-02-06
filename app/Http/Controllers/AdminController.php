@@ -68,7 +68,7 @@ class AdminController extends Controller
             $groups = AzureUser::where('AzureID', $userid)->first();
 
             foreach ($groups->commission as $group) {
-                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc') {
+                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
                     return 1;
                 }
             }
@@ -78,7 +78,7 @@ class AdminController extends Controller
                 $groups = AzureUser::where('AzureID', session('id'))->first();
 
                 foreach ($groups->commission as $group) {
-                    if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc') {
+                    if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
                         return 1;
                     }
                 }
