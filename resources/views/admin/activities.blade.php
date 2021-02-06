@@ -32,8 +32,8 @@
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                             <td data-value="{{ $activity->name }}">{{$activity->name}}</td>
                             <td data-value="{{ $activity->amount }}">{{$activity->amount}}</td>
-                            <td data-value="{{ $activity->description }}">{{$activity->description}}</td>
-                            <td data-value="{{ $activity->formsLink }}">{{$activity->formsLink}}</td>
+                            <td data-value="{{ $activity->description }}">{{Illuminate\Support\Str::limit($activity->description, 100)}}</td>
+                            <td data-value="{{ $activity->formsLink }}">{{Illuminate\Support\Str::limit($activity->formsLink, 20)}}</td>
                             <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
                             <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                         </tr>
