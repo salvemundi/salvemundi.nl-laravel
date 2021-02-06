@@ -1,50 +1,34 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="overlap">
-@if($newsCount > 0)
-<div class="container-fluid">
-        <div class="row center">
-            @foreach ($news as $nieuws)
-            @if($nieuws->imgPath == null)
-                <div class="card" id="{{$nieuws->title}}">
-                    <div class="card-body">
-                        <h4 class="card-title center"><b>{{$nieuws->title}}</b></h4>
-                        <p class="card-text">{{$nieuws->content}}</p>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($nieuws->created_at))}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @else
-                <div class="col-md-6">
-                    <div class="card" id="{{$nieuws->title}}">
-                        <div class="row">
-                            {!! '<img class="pfPhoto card-img-top" src="storage/'.$nieuws->imgPath.'" />' !!}
-                        </div>
-                        <div class="row">
-                            <div class="card-body">
-                                <h4 class="card-title center"><b>{{$nieuws->title}}</b></h4>
-                                <p class="card-text">{{$nieuws->content}}</p>
-                                <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($nieuws->created_at))}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                </div>
+<div class="overlap mijnSlider">
+    @foreach($news as $article)
+    @if($article->imgPath == null)
+    <div class="col-md-12" id="{{ $article->title }}">
+        <div class="card center">
+            <div class="card-body">
+                <h4><p class="card-text">{{ $article->title }}</p></h4>
+                <p class="card-text" style="white-space: pre-line">{{ $article->content }}</p>
+                <p class="card-text textCard text-muted">Geplaatst op
+                    {{date('d-m-Y', strtotime($article->created_at))}}
             </div>
-                <br>
-            @endif
-            @endforeach
         </div>
-        @else
-        <div class="center">
-            Er zijn geen activiteiten beschikbaar.
-        </div>
-        @endif
+        <br>
     </div>
+    @else
+    <div class="col-md-12" id="{{ $article->title }}">
+        <div class="card cardNews center">
+            {!! '<img class="pfPhotoNews" src="storage/'.$article->imgPath.'" />' !!}
+            <div class="card-body">
+                <h4><p class="card-text">{{ $article->title }}</p></h4>
+                <p class="card-text">{{ $article->content }}</p>
+                <p class="card-text textCard text-muted">Geplaatst op
+                    {{date('d-m-Y', strtotime($article->created_at))}}
+            </div>
+        </div>
+        <br>
+    </div>
+    @endif
+    @endforeach
 </div>
-
 @endsection
