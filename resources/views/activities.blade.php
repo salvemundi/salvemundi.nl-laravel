@@ -33,6 +33,7 @@
 @section('content')
 
 <div class="overlap mijnSlider">
+@if(!$activiteiten->isEmpty())
     @foreach($activiteiten as $activiteit)
     @if($activiteit->imgPath == null)
     <div class="col-md-12" id="{{ $activiteit->name }}">
@@ -58,7 +59,7 @@
             {!! '<img class="pfPhotoNews" src="storage/'.$activiteit->imgPath.'" />' !!}
             <div class="card-body">
                 <h4><p class="card-text">{{ $activiteit->name }}</p></h4>
-                <p class="card-text">{{ $activiteit->description }}</p>
+                <p class="card-text" style="white-space: pre-line">{{ $activiteit->description }}</p>
                 <div class="row">
                     @if(session('id') != null)
                         <div class="col-md-12">
@@ -73,5 +74,8 @@
     </div>
     @endif
     @endforeach
+@else
+    <h2 class="center"> Er zijn geen activiteiten gevonden </h2>
+@endif
 </div>
 @endsection
