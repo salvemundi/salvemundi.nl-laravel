@@ -32,11 +32,11 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="overlap mijnSlider">
+<div class="overlap mijnSlider center">
 @if(!$activiteiten->isEmpty())
     @foreach($activiteiten as $activiteit)
     @if($activiteit->imgPath == null)
-    <div class="col-md-12" id="{{ $activiteit->name }}">
+    <div class="col-md-8" id="{{ $activiteit->name }}">
         <div class="card center">
             <div class="card-body">
                 <h4><p class="card-text">{{ $activiteit->name }}</p></h4>
@@ -54,8 +54,8 @@
         <br>
     </div>
     @else
-    <div class="col-md-12" id="{{ $activiteit->name }}">
-        <div class="card cardNews center">
+    <div class="col-md-8" id="{{ $activiteit->name }}">
+        <div class="cardNews center">
             {!! '<img class="pfPhotoNews" src="storage/'.$activiteit->imgPath.'" />' !!}
             <div class="card-body">
                 <h4><p class="card-text">{{ $activiteit->name }}</p></h4>
