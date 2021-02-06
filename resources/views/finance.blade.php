@@ -4,11 +4,12 @@
 <div class="overlap">
     <div class ="center">
         @if($financeDocument != null)
-            <embed
-            src="{{ 'storage/'.$financeDocument->filePath }}"
+            <object
+            data="{{ 'storage/'.$financeDocument->filePath }}"
+            type="application/pdf"
             style="width:80%; height:1000px;"
-            frameborder="0"
-            >
+            frameborder="0">
+        </object>
         @else
             <h2> er zijn geen bestanden gevonden</h2>
         @endif

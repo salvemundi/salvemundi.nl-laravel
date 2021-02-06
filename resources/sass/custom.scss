@@ -437,23 +437,23 @@ html {
   overflow: hidden;
 }
 
-// .cardNews {
-//   border-radius: 10px;
-//   flex-direction: row;
-//   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
-//   margin: 10px;
-//   transition: all .2s ease-in-out;
-//   overflow: hidden;
+.cardNews {
+  border-radius: 10px;
+  //flex-direction: row;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
+  margin: 10px;
+  transition: all .2s ease-in-out;
+  overflow: hidden;
 
-//   position: relative;
-//   display: flex;
-//   flex-direction: column;
-//   min-width: 0;
-//   word-wrap: break-word;
-//   background-color: #fff;
-//   background-clip: border-box;
-//   border: 1px solid rgba(0, 0, 0, 0.125);
-// }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
 
 .indexCard {
   height: 260px;
@@ -476,7 +476,7 @@ html {
 }
 
 .pfPhotoNews {
-  width: 15%;
+  width: 100%;
   height: auto;
 }
 
@@ -815,11 +815,11 @@ html {
   }
 }
 
-@media only screen and (max-width: 1409.98px) {
-  .cardNews {
-    flex-direction: unset !important;
-  }
-}
+// @media only screen and (max-width: 1409.98px) {
+//   .cardNews {
+//     //flex-direction: unset !important;
+//   }
+// }
 
 // @media only screen and (max-width: 1199.98px) {
 //   .card {
