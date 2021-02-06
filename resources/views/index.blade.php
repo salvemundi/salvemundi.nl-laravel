@@ -97,7 +97,7 @@
         </a>
         <div class="row">
             @foreach ($newsData as $nieuws)
-                <div class="col-sm-4">
+                <div class="col-md-4">
                     <a class="" href="/nieuws#{{$nieuws->title}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">
