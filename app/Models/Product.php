@@ -11,6 +11,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
+    protected $fillable = ['imgPath'];
 
     public function transactions(): HasMany
     {

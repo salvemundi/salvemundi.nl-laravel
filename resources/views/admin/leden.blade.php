@@ -1,4 +1,4 @@
-@extends('layouts.appmin')
+n@extends('layouts.appmin')
 @section('content')
 <script>
     function CopyMe(oFileInput, sTargetID) {

@@ -1,49 +1,5 @@
 @extends('layouts.app')
 @section('content')
-{{-- <div class="overlap">
-    <div class="mijnSlider">
-        <h1 class="center">Commissies</h1>
-        <p class="center">
-            test
-        </p><br>
-        <div class="container-fluid">
-            <div class="row">
-                @foreach($news as $nieuws)
-                @if ($nieuws->imgPath == null)
-                <div class="col-md-6" id="{{ $nieuws->title }}">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">{{ $nieuws->title  }}</h4>
-                            <p class="card-text">{{ $nieuws->content }}</p>
-                                <p class="card-text textCard text-muted">Geplaatst op
-                                    {{date('d-m-Y', strtotime($nieuws->created_at))}}
-                        </div>
-                    </div>
-                </div>
-                @endif
-                @endforeach
-            </div>
-            <br>
-            <div class="row">
-                @foreach($news as $nieuws)
-                @if ($nieuws->imgPath != null)
-                <div class="col-md-6" id="{{ $nieuws->title }}">
-                    <div class="card">
-                        {!! '<img class="pfPhoto" src="storage/'.$nieuws->imgPath.'" />' !!}
-                        <div class="card-body">
-                            <h4 class="card-title">{{ $nieuws->title  }}</h4>
-                            <p class="card-text">{{ $nieuws->content }}</p>
-                                <p class="card-text textCard text-muted">Geplaatst op
-                                    {{date('d-m-Y', strtotime($nieuws->created_at))}}
-                        </div>
-                    </div>
-                </div>
-                @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 <div class="overlap mijnSlider">
     @foreach($news as $article)
@@ -75,6 +31,4 @@
     @endif
     @endforeach
 </div>
-
-
 @endsection
