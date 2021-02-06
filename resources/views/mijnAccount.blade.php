@@ -105,10 +105,12 @@
                 <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
                 @if($subscriptionActive == 0)
                     <p>
-                        <b>Contributie deelname: </b><button type="submit" class="myAccountBtn btn btn-secondary">Non actief</button></p></form>
+                        <b>Lidmaatschap: </b>
+                        <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
+                    </p></form>
             @else
                 <div style="float:left; display:inline;">
-                    <p><b>Contributie deelname: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+                    <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
                 </div>
                 <div style="float:left; display:inline;">
                     <form method="post" action="/mijnAccount/cancel">
