@@ -8,14 +8,16 @@ use App\Models\Intro;
 use App\Models\Sponsor;
 use App\Models\Transaction;
 use App\Models\WhatsappLink;
+use App\Models\User;
+use App\Models\AdminSetting;
+use App\Http\Controllers\AzureController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
-use App\Models\User;
-use App\Enums\paymentType;
 
+use App\Enums\paymentType;
 use App\Enums\paymentStatus;
-use App\Models\AdminSetting;
+
 
 class AdminController extends Controller
 {
@@ -109,5 +111,43 @@ class AdminController extends Controller
     public function indexTransaction(){
         $transaction = Transaction::all();
         return view('admin/transaction', ['transactions' => $transaction]);
+    }
+
+    public function groupIndex(Request $request)
+    {
+        $groupUser = AzureUser::find($request->input('id'));
+        $id = $groupUser->id;
+        $groupUsers = $groupUser->commission()->get();
+        $groups = Commissie::with('users')->whereDoesntHave('users', function($query) use ($id) {
+            $query->where('users.id', $id);
+        })->get();
+        return view('admin/ledenGroups', ['groupUser' => $groupUsers, 'groups' => $groups, 'userName' => $groupUser]);
+    }
+
+    public function groupStore(Request $request)
+    {
+        $groupUser = AzureUser::find($request->input('userId'));
+        $groupObject = Commissie::find($request->input('groupId'));
+        $groupUser->commission()->attach($groupObject);
+        if(AzureController::addUserToGroup($groupUser, $groupObject))
+        {
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Lid is toegevoegd aan de commissie');
+            //return $this->groupIndex($request)->with('message', 'Lid is toegevoegd aan de commissie');
+        }
+        else{
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
+        }
+    }
+
+    public function groupDelete(Request $request)
+    {
+        $groupUser = AzureUser::find($request->input('userId'));
+        $groupObject = Commissie::find($request->input('groupId'));
+        $groupUser->commission()->detach($groupObject);
+        if(AzureController::removeUserFromGroup($groupUser, $groupObject)) {
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Lid is verwijderd van de commissie');
+        } else {
+            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
+        }
     }
 }

@@ -20,12 +20,6 @@
                                 <a class="dropdownText" href="/commissies#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
                             @endif
                         @endforeach
-                      {{-- <a href="/user#Studie commissie">Studie-commissie</a>
-                      <a href="/user#Activiteiten commissie">Activiteiten-commissie</a>
-                      <a href="/user#Media commissie">Media-commissie</a>
-                      <a href="/user#Feest Commissie">Feest-commissie</a>
-                      <a href="/user#Kamp commissie">Kamp-commissie</a>
-                      <a href="/user#Kas commissie">Kas-commissie</a> --}}
                     </div>
                 </div>
                 </li>
@@ -51,7 +45,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="https://shop.spreadshirt.nl/salvemundi/">Merch</a>
+                    <a class="nav-link" href="/merch">Merch</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
