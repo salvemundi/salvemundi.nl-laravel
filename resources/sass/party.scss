@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /*You can use any kind of background here.*/
+  background: transparent;
+}
+
+canvas {
+  display: block;
+  position: relative;
+  z-index: 14;
+  pointer-events: none;
+}
+
+#content {
+  width: 100%;
+  position: absolute;
+}
+
+.buttonContainer {
+  display: inline-block;
+}
