@@ -57,6 +57,10 @@ class myAccountController extends Controller
         }
         $user->save();
 
+        $user->birthday = $request->input('birthday');
+        $user->birthday = date("Y-m-d", strtotime($user->birthday));
+        $user->save();
+
         if($request->file('photo') != null){
             $request->file('photo')->storeAs('public/users/',$user->AzureID);
             $user->ImgPath = 'users/'.$user->AzureID;
@@ -65,6 +69,7 @@ class myAccountController extends Controller
                 return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
             }
         }
+
         $user->save();
         $message = 'Je instellingen zijn bijgewerkt.';
 

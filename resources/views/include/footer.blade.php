@@ -50,3 +50,5 @@
       </div>
     </div>
 </footer>
+</div>
+<canvas id="canvas"></canvas>
