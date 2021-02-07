@@ -36,13 +36,14 @@ class AzureController extends Controller
         return $graph;
     }
 
-    public static function createAzureUser($registration,$transaction = null)
+    public static function createAzureUser($registration,$transaction)
     {
         if($registration == null)
         {
             Log::error('WHERE IS MY OBJECT');
         }
         $randomPass = Str::random(40);
+        $userObject = $registration->user();
         $graph = AzureController::connectToAzure();
         if($registration->insertion != null)
         {
@@ -55,7 +56,7 @@ class AzureController extends Controller
             'surname' => $registration->lastName,
             'mailNickname' => $registration->firstName,
             'mobilePhone' => $registration->phoneNumber,
-            'userPrincipalName' => $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl",
+            'userPrincipalName' => $userObject->email,
             'passwordProfile' => [
                 'forceChangePasswordNextSignIn' => true,
                 'password' => $randomPass,
@@ -70,7 +71,7 @@ class AzureController extends Controller
             ->execute();
         $newUserID = $createUser->getId();
         Log::info('New user id:'.$newUserID);
-        $userEmail = $registration->firstName.".".$registration->lastName."@lid.salvemundi.nl";
+        $userEmail = $userObject->email;
         $userObject = User::where('email', $userEmail)->first();
         $userObject->AzureID = $newUserID;
         $userObject->save();
