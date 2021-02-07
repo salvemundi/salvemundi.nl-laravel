@@ -80,6 +80,15 @@
             <p><b>Email:</b> {{ $user->email }} </p>
             <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
 
+            <div class="form-group">
+                @if($user->birthday == null)
+                    <label for="birthday">Verjaardag</label>
+                    <input type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" value="{{ old('birthday') }}" id="birthday" name="birthday" placeholder="Verjaardag...">
+                @else
+                    <p><b>Verjaardag:</b> {{date('d-m-Y', strtotime($user->birthday))}}</p>
+                @endif
+            </div>
+
             <p><b>Profiel foto:</b></p>
             {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
             <br>
@@ -88,6 +97,7 @@
             <a class="btn btn-primary" onclick="myClickOnUrHand()">Foto bewerken</a>
             <br>
             <p id="demo"></p>
+
 
             <input type="hidden" name="user_id" id="user_id" value="{{  $user->id  }}">
             <button type="submit" class="btn btn-primary">Opslaan</button>

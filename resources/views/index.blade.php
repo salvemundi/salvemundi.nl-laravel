@@ -6,9 +6,8 @@
 <div class="overlap">
     <div class="mijnSlider">
         @if(session('userName'))
-
             <h4>Welkom <b>{{ session('userName') }}!</h4></b>
-
+            gefeliciteerd
         @endif
 
         <h2 class="h2">Over ons</h2> <br>
