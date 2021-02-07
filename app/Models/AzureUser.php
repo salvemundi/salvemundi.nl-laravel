@@ -10,7 +10,7 @@ class AzureUser extends Model
 {
     use HasFactory;
     protected $table = 'users';
-
+    protected $fillable = ['birthday'];
 //    public function register(): HasOne
 //    {
 //        return $this->hasOne
