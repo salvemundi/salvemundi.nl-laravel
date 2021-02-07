@@ -45,6 +45,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birthday'
     ];
 
     public function mollieCustomerFields(): array
