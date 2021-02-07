@@ -25,13 +25,23 @@ class MolliePaymentController extends Controller
     public static function processRegistration($orderObject, $productIndex, $route = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
+            $checkIfUserExists = User::where([
+                ['FirstName', $orderObject->firstName],
+                ['LastName', $orderObject->lastName]
+                ])->first();
+
             $newUser = new User;
             //$newUser->AzureID = $fetchedUser->getId();
             $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
             $newUser->FirstName = $orderObject->firstName;
             $newUser->LastName = $orderObject->lastName;
             $newUser->phoneNumber = $orderObject->phoneNumber;
-            $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
+            if($checkIfUserExists == null){
+                $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
+            } else {
+                $birthDayDay = date("d", strtotime($orderObject->birthday));
+                $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+            }
             $newUser->ImgPath = "images/SalveMundi-Vector.svg";
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
