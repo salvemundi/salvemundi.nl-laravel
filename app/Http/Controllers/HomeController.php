@@ -9,6 +9,8 @@ use App\Models\Sponsor;
 use App\Models\News;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\AzureUser;
 
 
 class HomeController extends Controller
@@ -22,6 +24,22 @@ class HomeController extends Controller
     $newsCount = News::all()->count();
     $activitiesData = Product::latest()->where('index', null)->take(3)->get();
     $activitiesCount = Product::where('index', null)->count();
-    return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData, 'newsData' => $newsData, 'activitiesData' => $activitiesData, 'sponsorsCount' => $sponsorsCount, 'newsCount' => $newsCount, 'activitiesCount' => $activitiesCount]);
+
+
+    if(session('id') != null)
+    {
+      $user = AzureUser::where('AzureID', session('id'))->first();
+      //dd(Carbon::now()->toDateString());
+      if ((string)date("m-d", strtotime($user->birthday)) == (string)date("m-d", strtotime(Carbon::now()->toDateString())))
+      {
+        $bday = true;
+      }
+      else
+      {
+        $bday = false;
+      }
+    }
+
+    return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData, 'newsData' => $newsData, 'activitiesData' => $activitiesData, 'sponsorsCount' => $sponsorsCount, 'newsCount' => $newsCount, 'activitiesCount' => $activitiesCount , 'bday' => $bday]);
   }
 }
