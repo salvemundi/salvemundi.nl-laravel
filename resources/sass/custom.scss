@@ -445,6 +445,7 @@ html {
 }
 
 .cardNews {
+  width: 50%;
   border-radius: 10px;
   //flex-direction: row;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
@@ -483,8 +484,8 @@ html {
 }
 
 .pfPhotoNews {
-  width: 100%;
-  height: auto;
+  width: 50%;
+  height: 800px;
 }
 
 .indexCard:hover{
