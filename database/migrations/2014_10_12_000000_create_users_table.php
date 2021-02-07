@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('PhoneNumber')->nullable();
             $table->string('email')->nullable();
             $table->string('ImgPath')->nullable();
+            $table->date('birthday')->nullable();
             $table->integer('visibility')->default(1);
             $table->string('mollie_customer_id')->nullable();
             $table->string('mollie_mandate_id')->nullable();
