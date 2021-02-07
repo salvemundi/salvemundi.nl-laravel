@@ -22,7 +22,7 @@
                 {{ session()->get('information') }}
             </div>
             @endif
-            <div class="col-md-12 center">
+            <div class="center">
 
                 <div class="table-responsive center centerTable">
 
@@ -59,7 +59,7 @@
                 {{ session()->get('information') }}
             </div>
             @endif
-            <div class="col-md-12 center">
+            <div class="center">
 
                 <div class="table-responsive center centerTable">
 
