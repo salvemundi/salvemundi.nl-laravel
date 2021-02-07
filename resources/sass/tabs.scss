@@ -9,5 +9,8 @@
   display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }

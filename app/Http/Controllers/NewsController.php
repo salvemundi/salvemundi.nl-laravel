@@ -35,7 +35,8 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::all();
-        return view('/news', ['news' => $news]);
+        $newsCount = News::all()->count();
+        return view('/news', ['news' => $news, 'newsCount' => $newsCount]);
     }
 
     public function indexAdmin()

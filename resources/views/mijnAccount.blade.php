@@ -5,8 +5,8 @@
 <script src="js/scrollonload.js"></script>
 <div class="overlap" id="navlink">
     <h2>Mijn account</h2>
-    <p>Zier hier jou account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
-    <nav class='myAccount' >
+    <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
+    {{-- <nav class='myAccount' >
         @if ($authorized == 1)
         <a href="/admin">
             <i class="fas fa-user-cog"></i>
@@ -31,8 +31,29 @@
             <b>Regels</b>
         </a>
         <span></span>
-    </nav>
-    <div id="gegevens" class="tabcontent">
+    </nav> --}}
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        @if ($authorized == 1)
+            <li class="nav-item">
+                <a class="nav-link" id="admin-tab" href="/admin" ><i class="fas fa-user-cog"></i> Admin</a>
+            </li>
+        @endif
+        <li class="nav-item">
+          <a class="nav-link active" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab" aria-controls="gegevens" aria-selected="true"><i class="fas fa-user"></i> Gegevens</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab" aria-controls="incshrijvingen" aria-selected="false"><i class="fa fa-credit-card"></i> Transacties</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="whatsapp-tab" data-toggle="tab" href="#whatsapp" role="tab" aria-controls="whatsapp" aria-selected="false"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="regels-tab" data-toggle="tab" href="#regels" role="tab" aria-controls="regels" aria-selected="false"><i class="fas fa-heart"></i> Regels</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+    <div id="gegevens" class="tabcontent tab-pane fade show active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
         <h2>Jouw gegevens:</h2>
         <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
             @csrf
@@ -73,7 +94,7 @@
         </form>
     </div>
 
-    <div id="inschrijvingen" class="tabcontent">
+    <div id="inschrijvingen" class="tabcontent" role="tabpanel" aria-labelledby="inschrijvingen-tab">
         <h1>Transacties</h1>
             <form method="post" action="/mijnAccount/pay">
                 @csrf
@@ -84,10 +105,12 @@
                 <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
                 @if($subscriptionActive == 0)
                     <p>
-                        <b>Contributie deelname: </b><button type="submit" class="myAccountBtn btn btn-secondary">Non actief</button></p></form>
+                        <b>Lidmaatschap: </b>
+                        <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
+                    </p></form>
             @else
                 <div style="float:left; display:inline;">
-                    <p><b>Contributie deelname: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+                    <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
                 </div>
                 <div style="float:left; display:inline;">
                     <form method="post" action="/mijnAccount/cancel">
@@ -121,7 +144,7 @@
         </table>
     </div>
 
-    <div id="whatsapp" class="tabcontent">
+    <div id="whatsapp" class="tabcontent" role="tabpanel" aria-labelledby="whatsapp-tab">
         <h1>Whatsapp</h1>
         <p>Op vrijwillige basis mag je deelnemen aan onze whatsapp groepen.</p>
         <table id="table"
@@ -146,25 +169,45 @@
         </table>
     </div>
 
-    <div id="regels" class="tabcontent">
+    <div id="regels" class="tabcontent" role="tabpanel" aria-labelledby="regels-tab">
         <h1>Regels</h1>
+        <p>Dit zijn de regels binnnen Salve Mundi</p>
+        <table id="table"
+               data-toggle="table"
+               data-show-columns="true">
+            <thead>
+                <tr>
+                    <th data-field="naam">naam</th>
+                    <th data-field="link">link</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($rules as $rule)
+                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                        <td data-value="naam">{{$rule->name}}</td>
+                        <td data-value="link"><a href="{{$rule->link}}">{{$rule->link}}</a></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
+</div>
     <script>
-        openTab(event, 'gegevens');
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
+        // openTab(event, 'gegevens');
+        // function openTab(evt, tabName) {
+        //     var i, tabcontent, tablinks;
+        //     tabcontent = document.getElementsByClassName("tabcontent");
+        //     for (i = 0; i < tabcontent.length; i++) {
+        //         tabcontent[i].style.display = "none";
+        //     }
+        //     tablinks = document.getElementsByClassName("tablinks");
+        //     for (i = 0; i < tablinks.length; i++) {
+        //         tablinks[i].className = tablinks[i].className.replace(" active", "");
+        //     }
+        //     document.getElementById(tabName).style.display = "block";
+        //     evt.currentTarget.className += " active";
+        // }
 
     function CopyMe(oFileInput, sTargetID) {
         document.getElementById(sTargetID).value = oFileInput.value;

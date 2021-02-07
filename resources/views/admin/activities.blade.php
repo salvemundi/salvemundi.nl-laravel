@@ -5,7 +5,7 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
-<div class="row adminOverlap mijnSlider center">
+<div class="row widthFix adminOverlap mijnSlider center">
     @if(session()->has('information'))
     <div class="alert alert-primary">
         {{ session()->get('information') }}
@@ -22,6 +22,8 @@
                         <th data-field="name" data-sortable="true">Activiteit naam</th>
                         <th data-field="price" data-sortable="true">Prijs</th>
                         <th data-field="description" data-sortable="true">Beschrijving</th>
+                        <th data-field="link" data-sortable="true">Forms link</th>
+                        <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
                         <th data-field="delete" data-sortable="false">Verwijderen</th>
                     </tr>
                 </thead>
@@ -30,7 +32,9 @@
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                             <td data-value="{{ $activity->name }}">{{$activity->name}}</td>
                             <td data-value="{{ $activity->amount }}">{{$activity->amount}}</td>
-                            <td data-value="{{ $activity->description }}">{{$activity->description}}</td>
+                            <td data-value="{{ $activity->description }}">{{Illuminate\Support\Str::limit($activity->description, 100)}}</td>
+                            <td data-value="{{ $activity->formsLink }}">{{Illuminate\Support\Str::limit($activity->formsLink, 20)}}</td>
+                            <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
                             <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                         </tr>
                     @endforeach
@@ -40,17 +44,17 @@
     </div>
 </div>
 
-<div class="row center adminOverlap mijnSlider">
+<div class="row widthFix center adminOverlap mijnSlider">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">
             {{ session()->get('message') }}
         </div>
         @endif
-        <form action="/admin/activities/store" method="post">
+        <form action="/admin/activities/store" method="post" enctype="multipart/form-data">
             @csrf
             <br>
-            <h2 class="h2">Activiteit aanmaken</h2>
+            <h2 class="h2">Activiteit toevoegen</h2>
             <p>Als de prijs 0.00 is dan wordt de activiteit als gratis geregistreerd.</p>
 
             <div class="form-group">
@@ -71,6 +75,19 @@
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Beschrijving</label>
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
+            </div>
+
+            <label for="photo">Foto (optioneel)</label>
+            <div class="input-group mb-3 test">
+                <div class="input-group-prepend">
+                    <div class="custom-file" style="width: 80px;">
+                        <label class="input-group-text form-control" id="inputGroupFileAddon01" for="photo">Browse </label>
+                        <input type="file" onchange="CopyMe(this, 'imgPath');" class="custom-file-input" style="height: 0px;" id="photo" name="photo" aria-describedby="inputGroupFileAddon01">
+                    </div>
+                </div>
+                <div class="custom-file form-control">
+                    <input style="border: hidden;" id="imgPath" name="imgPath" type="text" readonly="readonly" />
+                </div>
             </div>
 
             <div class="form-group">

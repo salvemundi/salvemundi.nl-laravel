@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateProductsTable extends Migration
+class CreateRulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class UpdateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function ($table) {
-            $table->string('formsLink')->nullable();
-            $table->string('imgPath')->nullable();
+        Schema::create('rules', function (Blueprint $table) {
+            $table->id();
+            $table->text('name');
+            $table->text('link');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class UpdateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function ($table) {
-            $table->dropColumn('formsLink');
-        });
+        Schema::dropIfExists('rules');
     }
 }

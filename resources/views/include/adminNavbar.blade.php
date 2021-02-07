@@ -52,6 +52,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/financien">Financiën</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/rules">Regels</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">

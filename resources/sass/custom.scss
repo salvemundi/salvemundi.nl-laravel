@@ -40,6 +40,10 @@ html {
   grid-gap: 20px;
 }
 
+.widthFix {
+  width: 100% !important;
+}
+
 /* End main CSS page */
 
 /* Begin navbar */
@@ -192,7 +196,14 @@ html {
 #hamburgerMenu {
   color: white;
 }
-
+@media only screen and (max-width: 767px){
+  .show {
+    background-color: $salveMundi-light;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 75%;
+  }
+}
 .navLink:hover,
 .navLink:link {
   text-decoration: none;
@@ -433,6 +444,25 @@ html {
   overflow: hidden;
 }
 
+.cardNews {
+  width: 50%;
+  border-radius: 10px;
+  //flex-direction: row;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
+  margin: 10px;
+  transition: all .2s ease-in-out;
+  overflow: hidden;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
 .indexCard {
   height: 260px;
 }
@@ -453,8 +483,13 @@ html {
   border-radius: 10px;
 }
 
+.pfPhotoNews {
+  width: 50%;
+  height: 800px;
+}
+
 .indexCard:hover{
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
 .activityCard {
@@ -788,6 +823,29 @@ html {
   }
 }
 
+// @media only screen and (max-width: 1409.98px) {
+//   .cardNews {
+//     //flex-direction: unset !important;
+//   }
+// }
+
+// @media only screen and (max-width: 1199.98px) {
+//   .card {
+//     flex-direction: unset !important;
+//   }
+// }
+
+@media only screen and (max-width: 1199.98px) {
+  .cardNews {
+    flex-direction: column !important;
+  }
+
+  .pfPhotoNews {
+    width: 100%;
+    height: auto;
+  }
+}
+
 @media only screen and (max-width: 505.98px) {
   .card {
     width: 300px;
@@ -830,6 +888,8 @@ html {
     padding-right: 0% !important;
   }
 }
+
+
 
 @media only screen and (max-width: 1330.98px) {
   .overlap {

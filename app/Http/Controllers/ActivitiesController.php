@@ -22,14 +22,24 @@ class ActivitiesController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
 
         $products = new Product;
+        if($request->file('photo') != null)
+        {
+            $path = $request->file('photo')->storeAs(
+                'public/activities', $request->input('name').".png"
+            );
+            $products->imgPath = 'activities/'.$request->input('name').".png";
+        }
+
         $products->name = $request->input('name');
         $products->formsLink = $request->input('link');
         $products->amount = $request->input('price');
         $products->description = $request->input('description');
+        //dd($products);
         $products->save();
 
         return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');

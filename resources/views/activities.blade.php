@@ -1,29 +1,46 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="overlap">
-    <div class="mijnSlider">
-        <div class="container-fluid">
-            <div class="row">
-                @foreach ($activiteiten as $activiteit)
-                    <div class="card activityCard" id="{{$activiteit->name}}">
-                        <div class="card-body">
-                            <h4 class="card-title center">{{$activiteit->name}}</h4>
-                            <p class="card-text" style="white-space: pre-line">{{$activiteit->description}}</p>
-                            <div class="row">
-                                @if(session('id') != null)
-                                    <div class="col-md-12">
-                                        <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
-                                        <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
-                                    </div>
-                                @endif
+    <div class="row center">
+        @if(!$activiteiten->isEmpty())
+        @foreach($activiteiten as $activiteit)
+        @if($activiteit->imgPath == null)
+            <div class="cardNews">
+                <div class="card-body">
+                    <p class="card-title">{{ $activiteit->name }}</p>
+                    <p class="card-text" style="white-space: pre-line">{{ $activiteit->description }}</p>
+                    <div class="row">
+                        @if(session('id') != null)
+                            <div class="col-md-12">
+                                <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
+                                <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
                             </div>
-                        </div>
+                        @endif
                     </div>
-                    <br>
-                @endforeach
+                </div>
+            </div>
+        @else
+        <div class="cardNews">
+            {!! '<img class="img-fluid" src="storage/'.$activiteit->imgPath.'" />' !!}
+            <div class="card-body">
+                <p class="card-title">{{ $activiteit->name }}</p>
+                <p class="card-text" style="white-space: pre-line">{{ $activiteit->description }}</p>
+                <div class="row">
+                    @if(session('id') != null)
+                        <div class="col-md-12">
+                            <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
+                            <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
+        @endif
+        @endforeach
+        @else
+            <h2 class="center"> Er zijn geen activiteiten gevonden </h2>
+        @endif
     </div>
 </div>
+
 @endsection
