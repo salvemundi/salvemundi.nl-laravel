@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 
 <!--
@@ -29,6 +27,7 @@
     <!-- Scripts -->
 
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/party.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -40,6 +39,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tabs.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/party.css') }}" rel="stylesheet">
 
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
@@ -55,7 +55,6 @@
     <link rel="icon" href="{{ asset('images/favicons/favicon.ico') }}">
     <link rel="icon" sizes="32x32" href="{{ asset('images/favicons/favicon-32x32.png') }}">
     <link rel="icon" sizes="16x16" href="{{ asset('images/favicons/favicon-16x16.png') }}">
-    
 </head>
 <body>
     <div id="app">
