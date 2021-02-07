@@ -51,4 +51,9 @@
     </div>
 </footer>
 </div>
-<canvas id="canvas"></canvas>
+
+@isset($bday)
+  @if ($bday == true)
+    <canvas id="canvas"></canvas>
+  @endif
+@endisset
