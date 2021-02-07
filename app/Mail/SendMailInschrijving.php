@@ -17,6 +17,7 @@ class SendMailInschrijving extends Mailable
     private $insertion;
     private $paymentStatus;
     private $pass;
+    private $email;
 
     /**
      * Create a new message instance.
@@ -27,13 +28,14 @@ class SendMailInschrijving extends Mailable
      * @param $paymentStatus
      * @param $pass
      */
-    public function __construct($firstName, $lastName, $insertion, $paymentStatus, $pass)
+    public function __construct($firstName, $lastName, $insertion, $paymentStatus, $pass, $email = null)
     {
         $this->givenName = $firstName;
         $this->surName = $lastName;
         $this->insertion = $insertion;
         $this->paymentStatus = $paymentStatus;
         $this->pass = $pass;
+        $this->email = $email;
     }
 
     /**
@@ -46,6 +48,6 @@ class SendMailInschrijving extends Mailable
         $whatsappLink = WhatsappLink::all();
         return $this
                 ->subject("Inschrijving SalveMundi")
-                ->markdown('mail/inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass, 'whatsappLink' => $whatsappLink]);
+                ->markdown('mail/inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass, 'whatsappLink' => $whatsappLink,'email' => $this->email]);
     }
 }
