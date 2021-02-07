@@ -43,7 +43,7 @@ class AzureController extends Controller
             Log::error('WHERE IS MY OBJECT');
         }
         $randomPass = Str::random(40);
-        $userObject = $registration->user();
+        $userObject = $registration->user()->first();
         $graph = AzureController::connectToAzure();
         if($registration->insertion != null)
         {
@@ -76,7 +76,7 @@ class AzureController extends Controller
         $userObject->AzureID = $newUserID;
         $userObject->save();
         Mail::to($registration->email)
-            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass));
+            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass, $userEmail));
         return $randomPass;
     }
 
