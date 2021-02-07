@@ -10,6 +10,7 @@ use App\Models\Rules;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Carbon\Carbon;
 use App\Enums\paymentType;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -57,11 +58,19 @@ class myAccountController extends Controller
         }
         $user->save();
 
-        $user->birthday = $request->input('birthday');
-        $user->birthday = date("Y-m-d", strtotime($user->birthday));
+        if ($user->birthday != null)
+        {
+            $user->birthday = date("Y-m-d", strtotime($user->birthday));
+        }
+        else
+        {
+            $user->birthday = $request->input('birthday');
+            $user->birthday = date("Y-m-d", strtotime($user->birthday));
+        }
         $user->save();
 
-        if($request->file('photo') != null){
+        if($request->file('photo') != null)
+        {
             $request->file('photo')->storeAs('public/users/',$user->AzureID);
             $user->ImgPath = 'users/'.$user->AzureID;
             $message = 'Je foto is bewerkt';
