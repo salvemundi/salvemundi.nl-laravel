@@ -50,3 +50,10 @@
       </div>
     </div>
 </footer>
+</div>
+
+@isset($bday)
+  @if ($bday == true)
+    <canvas id="canvas"></canvas>
+  @endif
+@endisset

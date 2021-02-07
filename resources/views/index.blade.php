@@ -1,20 +1,16 @@
 @extends('layouts.app')
-
 @section('content')
 
-
-<div class="overlap">
+<div id="content">
+<div class="overlap" style="z-index: 16;">
     <div class="mijnSlider">
         @if(session('userName'))
-
             <h4>Welkom <b>{{ session('userName') }}!</h4></b>
-
         @endif
 
         <h2 class="h2">Over ons</h2> <br>
         <p>Salve Mundi is de Studievereniging van Fontys Hogenscholen ICT, opgericht in 2017 door Mohammed Mighiss en Luuk Hendriks. Het is Latijn voor "Hello World", een typische zin die menig programmeur maar al te goed kent.</p>
         <p>De vereniging organiseert veel activiteiten, zowel studie bemiddelend als voor de lol, of een combinatie van de twee. Denk hierbij aan: <br></p>
-
         <div class="row">
             <div class="col-md-6">
                 <li>Lezingen</li>
@@ -124,3 +120,4 @@
 </div>
 
 @endsection
+
