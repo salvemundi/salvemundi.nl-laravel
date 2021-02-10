@@ -58,11 +58,7 @@ class myAccountController extends Controller
         }
         $user->save();
 
-        if ($user->birthday != null)
-        {
-            $user->birthday = date("Y-m-d", strtotime($user->birthday));
-        }
-        else
+        if($request->input('birthday') != null)
         {
             $user->birthday = $request->input('birthday');
             $user->birthday = date("Y-m-d", strtotime($user->birthday));
