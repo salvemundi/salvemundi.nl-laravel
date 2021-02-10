@@ -54,6 +54,6 @@
 
 @isset($bday)
   @if ($bday == true)
-    <canvas id="canvas"></canvas>
+    <canvas class="widthFix" id="canvas"></canvas>
   @endif
 @endisset
