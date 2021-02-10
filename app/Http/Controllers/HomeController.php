@@ -38,6 +38,8 @@ class HomeController extends Controller
       {
         $bday = false;
       }
+    } else {
+      $bday = false;
     }
     else
     {
