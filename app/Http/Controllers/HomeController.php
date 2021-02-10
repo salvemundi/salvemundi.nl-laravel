@@ -39,7 +39,10 @@ class HomeController extends Controller
         $bday = false;
       }
     }
-
+    else
+    {
+      $bday = false;
+    }
     return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData, 'newsData' => $newsData, 'activitiesData' => $activitiesData, 'sponsorsCount' => $sponsorsCount, 'newsCount' => $newsCount, 'activitiesCount' => $activitiesCount , 'bday' => $bday]);
   }
 }
