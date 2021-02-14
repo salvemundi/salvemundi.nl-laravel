@@ -33,6 +33,8 @@ I have made a Dockerfile that you will have to build first. Before starting up d
 
 If you are on a unix (Macos / Pretty much any linux distro) like system. You can use the [Taskfile](https://taskfile.dev).
 
+Running `$ task d:up` is all you need to do to get it up and running.
+
 Commands:
 - `$ task w:prep`
     - Prepare dev environment (composer install, npm run)
