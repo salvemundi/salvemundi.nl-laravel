@@ -5,13 +5,22 @@ In order to get started:
 Install [NPM/NodeJS](https://nodejs.org/en/) and [Composer](https://getcomposer.org/download/)
 
 Set up a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this.
-Create a database, and add a user that has full access to that database. Keep in mind that If you are using XAMPP's php,
-You'll need to download an older version. Reason being php 7.4 is required and this project does not support php 8.0 yet.
+Create a database, and add a user that has full access to that database. PHP-8.0 is officially supported.
 
 Create an env file. The example env file should get you along the way.
 
 If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/).
-I have made a Dockerfile that you will have to build first. However, you can just do: `docker compose up -d`.
+I have made a Dockerfile that you will have to build first. Before starting up docker, make sure that the database host is set to `db` in your .env file.
+
+Afterwards you can just do: `chmod +X docker-start.sh && docker-compose up -d`.
+
+If for some reason you are using windows, make sure the `docker-start.sh` file is executable.
+When still getting permission denied errors for `docker-start.sh` then you may also set the permission correctly inside of the docker-container.
+- `docker exec -it <container id> bash`
+- `chmod +X docker-start.sh`
+
+You can find the container id by running `docker ps`.
+
 That will startup the project, however this may take a while due to database seeding.
 
 We are using [Microsoft Graph](https://docs.microsoft.com/en-us/graph/), therefore we have API tokens.
