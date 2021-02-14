@@ -59,6 +59,8 @@ When still getting permission denied errors for `docker-start.sh` then you may a
 - `$ docker exec -it app bash`
 - `$ chmod +X docker-start.sh`
 
+After that is done `$ docker-compose up -d` can be ran and should work fine from here on. If not, please also read the [Api](#Api's) segment.
+
 That will startup the project, however this may take a while due to database seeding.
 
 
