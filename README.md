@@ -1,3 +1,5 @@
+![CI](https://github.com/salvemundi/salvemundi.nl-laravel/workflows/CI/badge.svg)
+
 # salvemundi.nl-laravel
 
 In order to get started:
