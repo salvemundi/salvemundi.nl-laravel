@@ -34,7 +34,7 @@ In order to start up the project run the following inside the project root direc
 6. `php artisan db:seed`
 7. `php artisan serve`
 
-If you are using docker, step 5,6 & 7 can be ignored.
+If you are using docker, step 4,5,6 & 7 can be ignored.
 
 Thanks for reading!
 
