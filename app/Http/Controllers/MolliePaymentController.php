@@ -43,6 +43,7 @@ class MolliePaymentController extends Controller
                 $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
             }
             $newUser->ImgPath = "images/SalveMundi-Vector.svg";
+            $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
