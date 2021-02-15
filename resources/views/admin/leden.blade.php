@@ -26,6 +26,7 @@
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
+                        <th data-field="date" data-sortable="true">Geboorte datum</th>
                         <th data-field="commissie" data-sortable="true">Toevoegen aan commissie</th>
                     </tr>
                 </thead>
@@ -35,6 +36,11 @@
                             <td data-value="{{ $user->FirstName }}">{{$user->FirstName}}</td>
                             <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
+                            @if($user->birthday == null)
+                                <td data-value="{{ $user->birthday }}">Geboorte datum niet ingevuld</td>
+                            @else
+                                <td data-value="{{ $user->birthday }}">{{ date("d-m-Y", strtotime($user->birthday)) }}</td>
+                            @endif
                             <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/groepen"><input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
                         </tr>
                     @endforeach
