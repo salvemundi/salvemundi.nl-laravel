@@ -1,0 +1,34 @@
+version: "3"
+
+silent: true
+
+tasks:
+  d:up:
+    deps: [w:prep]
+    desc: Startup docker containers
+    cmds:
+      - chmod +x docker-start.sh
+      - docker-compose up -d
+  d:down:
+    desc: Shutdown docker containers
+    cmds:
+      - docker-compose down
+  d:build:
+    desc: (re)-build Docker image
+    cmds:
+      - docker build . --no-cache
+  w:prep:
+    desc: Prepare dev environment (composer install, npm run, etc.)
+    cmds:
+      - composer install
+      - npm install
+      - npm run dev
+  w:db:migrate:
+    desc: Run pending migrations
+    cmds:
+      - docker exec -it app php artisan migrate
+  w:db:reset:
+    desc: Reset database
+    cmds:
+      - docker exec -it app php artisan migrate:fresh
+      - docker exec -it app php artisan db:seed

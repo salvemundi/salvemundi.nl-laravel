@@ -5,7 +5,11 @@
 <div class="overlap" style="z-index: 16;">
     <div class="mijnSlider">
         @if(session('userName'))
+        @if($bday == true)
+            <h4>Gefeliciteerd <b>{{ session('userName') }}!!</h4></b>
+        @else
             <h4>Welkom <b>{{ session('userName') }}!</h4></b>
+        @endif
         @endif
 
         <h2 class="h2">Over ons</h2> <br>
@@ -120,4 +124,3 @@
 </div>
 
 @endsection
-
