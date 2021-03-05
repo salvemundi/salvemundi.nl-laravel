@@ -17,6 +17,21 @@
             {{ session()->get('information') }}
         </div>
     @endif
+        <div class="w-100 mt-2" id="showprogress" style="display: none;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progresstinatie" style="width: 100%" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        <div style="margin-top: 15px; margin-left: 15px">
+            <div class="alert alert-success success" style="display: none;" role="alert">
+                De database is ge-synchroniseerd met Azure!
+            </div>
+
+            <form id="ajaxform">
+                <button class="btn btn-primary save-data" data-toggle="tooltip" data-placement="right" title="Dit kan enkele minuten duren...">Sync met Azure</button>
+            </form>
+        </div>
+
     <div class="col-md-12">
         <div class="table-responsive centerTable">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
@@ -27,7 +42,7 @@
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
                         <th data-field="date" data-sortable="true">Geboorte datum</th>
-                        <th data-field="commissie" data-sortable="true">Toevoegen aan commissie</th>
+                        <th data-field="commissie" data-sortable="true">Commissie beheer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,4 +64,26 @@
         </div>
     </div>
 </div>
+<script>
+    $(".save-data").click(function(event){
+        event.preventDefault();
+        document.getElementById("showprogress").style.display = "inline";
+        let _token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            url: "{{ route('admin.sync') }}",
+            type: "POST",
+            data: {
+                _token: _token
+            },
+            success: function (response) {
+                console.log(response);
+                if (response) {
+                    $('.success').show()
+                    document.getElementById("showprogress").style.display = "none";
+                    $("#ajaxform")[0].reset();
+                }
+            },
+        });
+    });
+</script>
 @endsection
