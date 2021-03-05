@@ -45,13 +45,15 @@ class AzureSync implements ShouldQueue
         //
         // Get Users from Azure
         //
+        DB::table('groups_relation')->truncate();
         Log::info('RE-SYNCING WITH AZURE');
 
         $userArray = $graph->createRequest("GET", '/users/?$top=900')
             ->setReturnType(Model\User::class)
             ->execute();
         foreach ($userArray as $users) {
-            if(!User::where('AzureID', $users->getId())->first()) {
+            $checkUser = User::where('AzureID', $users->getId())->first();
+            if(!$checkUser) {
                 $newUser = new User;
                 $newUser->AzureID = $users->getId();
                 $newUser->DisplayName = $users->getDisplayName();
@@ -60,6 +62,11 @@ class AzureSync implements ShouldQueue
                 $newUser->PhoneNumber = "";
                 $newUser->email = $users->getMail();
                 $newUser->save();
+            } else {
+                if($checkUser->email != $users->getMail()){
+                    $checkUser->email = $users->getMail();
+                    $checkUser->save();
+                }
             }
         }
         Log::info('Users fetched');
@@ -86,7 +93,7 @@ class AzureSync implements ShouldQueue
         //
         // Set relation between groups and users.
         //
-        DB::table('groups_relation')->truncate();
+
         $grouparray = DB::table('groups')->select('id', 'AzureID')->get();
         foreach($grouparray as $groupids)
         {
