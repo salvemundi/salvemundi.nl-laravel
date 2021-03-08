@@ -112,3 +112,4 @@ Route::post('/admin/rules/delete', [App\Http\Controllers\RulesController::class,
 Route::get('/admin/leden/groepen', [App\Http\Controllers\AdminController::class, 'groupIndex'])->middleware('admin.auth');
 Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController::class, 'groupStore'])->middleware('admin.auth');
 Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete'])->middleware('admin.auth');
+Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync')->middleware('admin.auth');
