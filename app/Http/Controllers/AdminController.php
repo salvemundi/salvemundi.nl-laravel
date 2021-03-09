@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\AzureSync;
 use App\Models\AzureUser;
 use App\Models\Commissie;
 use App\Models\Intro;
@@ -14,7 +15,7 @@ use App\Http\Controllers\AzureController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
-
+use Illuminate\Support\Facades\Log;
 use App\Enums\paymentType;
 use App\Enums\paymentStatus;
 
@@ -31,7 +32,12 @@ class AdminController extends Controller
     {
         return view('admin/leden',['users' => User::all()]);
     }
-
+    public function Sync(Request $request)
+    {
+        $response = array();
+        echo $response['status'] = 'success';
+        AzureSync::dispatch();
+    }
     public function dashboard()
     {
         $getAllUsers = AzureUser::all()->count();
