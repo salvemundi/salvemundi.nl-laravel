@@ -38,16 +38,33 @@ class IntroController extends Controller
             $userIntro->firstName = $request->input('firstName');
             $userIntro->insertion = $request->input('insertion');
             $userIntro->lastName = $request->input('lastName');
-            $userIntro->birthday = $request->input('birthday');
             $userIntro->email = $request->input('email');
-            $userIntro->phoneNumber = $request->input('phoneNumber');
-            $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
+            if(!$request->input('birthday') == ""){
+                $userIntro->birthday = $request->input('birthday');
+                $userIntro->firstNameParent = $request->input('firstNameParent');
+                $userIntro->lastNameParent = $request->input('lastNameParent');
+                $userIntro->addressParent = $request->input('addressParent');
+                $userIntro->phoneNumberParent = $request->input('phoneNumberParent');
+                $userIntro->phoneNumber = $request->input('phoneNumber');
+                $userIntro->medicalIssues = $request->input('medicalIssues');
+                $userIntro->specials = $request->input('specials');
+                $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
+                //dd($userIntro);
+                $userIntro->save();
+                return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
+
+            }
             $userIntro->save();
-            return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
+            return view('intro');
         } else {
             return redirect('/');
         }
         //return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
+    }
+
+    public function confirmview()
+    {
+        return view('introConfirm');
     }
 
     public static function postProcessPayment($paymentObject)
