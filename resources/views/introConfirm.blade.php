@@ -5,9 +5,9 @@
 
 <div class="overlap">
     <div class="row center">
-        {{-- @if($introSetting->settingValue == 0)
+        @if($introSetting->settingValue == 0)
             <script>window.location = "/";</script>
-        @else --}}
+        @else
             <div id="contact" class="col-md-6">
                 {{-- @if(session()->has('message'))
                 <div class="alert alert-primary">
@@ -77,12 +77,13 @@
 
                         <br>
                         <label for="specials">Andere bijzonderheden</label>
-                        <input class="form-control" type="textarea" id="specials" name="specials" placeholder="bijzonderheden...">
+                        <textarea class="form-control" type="textarea" id="specials" name="specials" placeholder="bijzonderheden...">
 
                         <br>
                         <input class="btn btn-primary" type="submit" value="Versturen">
                 </form>
             </div>
+        @endif
     </div>
 </div>
 

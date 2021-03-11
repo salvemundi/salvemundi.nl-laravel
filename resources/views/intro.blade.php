@@ -20,7 +20,7 @@
                         {{ $message ?? '' }}
                     </div>
                 @endif
-                <form action="/intro/store" method="post">
+                <form action="/introData/store" method="post">
                     @csrf
                     <br>
                     <h2 class="h2">Aanmelden voor de intro</h2>
