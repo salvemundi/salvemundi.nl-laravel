@@ -73,11 +73,11 @@
 
                         <br>
                         <label for="medicalIssues">Allergieën/ medicijnen</label>
-                        <input class="form-control" type="text" id="medicalIssues" name="medicalIssues" placeholder="Allergieën/ medicijnen...">
+                        <input class="form-control" value="{{ old('medicalIssues') }}" type="text" id="medicalIssues" name="medicalIssues" placeholder="Allergieën/ medicijnen...">
 
                         <br>
                         <label for="specials">Andere bijzonderheden</label>
-                        <textarea class="form-control" type="textarea" id="specials" name="specials" placeholder="bijzonderheden...">
+                        <textarea class="form-control" value="{{{ old('specials') }}}" type="textarea" id="specials" name="specials" placeholder="bijzonderheden..."></textarea>
 
                         <br>
                         <input class="btn btn-primary" type="submit" value="Versturen">

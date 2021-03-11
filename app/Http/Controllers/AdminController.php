@@ -41,7 +41,9 @@ class AdminController extends Controller
     public function dashboard()
     {
         $getAllUsers = AzureUser::all()->count();
-        $getAllIntroSignups = Intro::all()->count();
+        $getAllIntroSignups = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
+            return $query->where('paymentStatus', PaymentStatus::paid);
+        })->count();
         $whatsappLinks = WhatsappLink::latest()->first();
         $sponsorsCount = Sponsor::all()->count();
         $transactionCount = Transaction::all()->count();

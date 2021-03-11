@@ -10,6 +10,8 @@ use App\Models\IntroData;
 use App\Enums\paymentType;
 use App\Models\AdminSetting;
 use Illuminate\Support\Facades\Mail;
+use App\Exports\introInschrijving;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IntroController extends Controller
 {
@@ -32,7 +34,7 @@ class IntroController extends Controller
             'firstNameParent' => 'max:32',
             'lastNameParent' => 'max:45',
             'addressParent' => 'max:65',
-            'phoneNumberParent' => 'max:10|regex:/(^[0-9]+$)+/',
+            'phoneNumberParent' => 'max:10',
             ]);
             if(Intro::where('email',$request->input('email'))->first())
             {
@@ -107,5 +109,16 @@ class IntroController extends Controller
         } else {
             return redirect('/');
         }
+    }
+
+    // function indexExcel()
+    // {
+    //  $customer_data = DB::table('tbl_customer')->get();
+    //  return view('export_excel')->with('customer_data', $customer_data);
+    // }
+
+    function excel()
+    {
+        return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
     }
 }
