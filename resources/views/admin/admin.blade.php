@@ -19,7 +19,7 @@
                         <i style="display: flex" class="fas fa-list"> <p class="dashboard-font">{{ $introCount }}</p> </i>
                         @else
                         <div><p><h6><b>De intro inschrijving staat uit</b></h6></p></div>
-                        <i style="display: flex" class="fas fa-list"> <p class="dashboard-font">{{ $introCount }}</p> </i>
+                        <i style="display: flex" class="fas fa-list"> <p class="dashboard-font"></p> </i>
                         @endif
                     </div>
                 </a>

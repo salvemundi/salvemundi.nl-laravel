@@ -23,6 +23,10 @@
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
                         <th data-field="paymentStatus" data-sortable="true">Betalings Status</th>
+                        <th data-field="phoneNumber" data-sortable="true">Telefoonnummer</th>
+                        <th data-field="birthday" data-sortable="true">verjaardag</th>
+                        <th data-field="medicalIssues" data-sortable="true">Allergieën/ medicijnen</th>
+                        <th data-field="specials" data-sortable="true">andere bijzonderheden</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +36,10 @@
                             <td data-value="{{ $user->lastName }}">{{$user->lastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->payment->paymentStatus }}">{{ \App\Enums\paymentStatus::fromValue($user->payment->paymentStatus)->key }}</td>
+                            <td data-value="{{ $user->phoneNumber }}">{{$user->phoneNumber}}</td>
+                            <td data-value="{{ $user->birthday }}">{{$user->birthday}}</td>
+                            <td data-value="{{ $user->medicalIssues }}">{{$user->medicalIssues}}</td>
+                            <td data-value="{{ $user->specials }}">{{$user->specials}}</td>
                         </tr>
                     @endforeach
                 </tbody>
