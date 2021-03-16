@@ -30,7 +30,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
-            cd /var/www/salvemundi.nl-laravel
+            cd /var/www/salvemundi.nl
             php artisan down
             git fetch
             git checkout Online-branch
