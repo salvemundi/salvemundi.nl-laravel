@@ -51,13 +51,13 @@
             <h2 class="h2">Regels link toevoegen</h2>
 
             <div class="form-group">
-                <label for="Achternaam">Naam</label>
+                <label for="Achternaam">Naam*</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}"
                     id="name" name="name" placeholder="Naam...">
             </div>
 
             <div class="form-group">
-                <label for="voornaam">Link</label>
+                <label for="voornaam">Link*</label>
                 <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}"
                     id="link" name="link" placeholder="Link...">
             </div>

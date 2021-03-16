@@ -78,6 +78,11 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
 
+// Privacy zooi
+Route::get('/privacy', function () {
+    return view("privacyZooi");
+});
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
@@ -108,6 +113,7 @@ Route::post('/admin/finance/delete', [App\Http\Controllers\FinanceController::cl
 Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index'])->middleware('admin.auth');
 Route::get('/admin/products/edit',[App\Http\Controllers\ProductController::class, 'editPage'])->middleware('admin.auth');
 Route::post('/admin/products/edit/store', [App\Http\Controllers\ProductController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/products/delete', [App\Http\Controllers\ProductController::class, 'delete'])->middleware('admin.auth');
 Route::get('/admin/rules', [App\Http\Controllers\RulesController::class, 'index'])->middleware('admin.auth');
 Route::post('/admin/rules/store',[App\Http\Controllers\RulesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/rules/delete', [App\Http\Controllers\RulesController::class, 'delete'])->middleware('admin.auth');

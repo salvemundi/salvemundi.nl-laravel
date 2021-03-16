@@ -36,4 +36,15 @@ class ProductController extends Controller
         $productObject->save();
         return redirect('/admin/products');
     }
+
+    public function delete(Request $request)
+    {
+        if($request->id != null) {
+            $tobeDeleted = Product::find($request->id);
+            $tobeDeleted->delete();
+            return redirect('admin/products')->with('information', 'Product verwijderd');
+        } else {
+            return redirect('admin/products');
+        }
+    }
 }
