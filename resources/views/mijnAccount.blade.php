@@ -80,6 +80,23 @@
             <p><b>Email:</b> {{ $user->email }} </p>
             <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
 
+            @if($subscriptionActive == 0)
+                    <p>
+                        <b>Lidmaatschap: </b>
+                        <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
+                    </p></form>
+            @else
+                <div style="float:left; display:inline;">
+                    <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+                </div>
+                <div style="float:left; display:inline;">
+                    <form method="post" action="/mijnAccount/cancel">
+                        <input type="hidden" name="userId" value="{{ session('id') }}">
+                        <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
+                    </form>
+                </div>
+            @endif
+
             <div class="form-group">
                 @if($user->birthday == null)
                     <label for="birthday">Verjaardag</label>
