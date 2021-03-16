@@ -6,9 +6,12 @@ use App\Mail\SendMailIntro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Intro;
+use App\Models\IntroData;
 use App\Enums\paymentType;
 use App\Models\AdminSetting;
 use Illuminate\Support\Facades\Mail;
+use App\Exports\introInschrijving;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IntroController extends Controller
 {
@@ -28,6 +31,10 @@ class IntroController extends Controller
             'birthday' => 'required','date_format:"l, j F Y"',
             'email' => 'required|email|max:65',
             'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
+            'firstNameParent' => 'max:32',
+            'lastNameParent' => 'max:45',
+            'addressParent' => 'max:65',
+            'phoneNumberParent' => 'max:10',
             ]);
             if(Intro::where('email',$request->input('email'))->first())
             {
@@ -74,5 +81,44 @@ class IntroController extends Controller
         Mail::to($introObject->email)
             ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $paymentObject->paymentStatus));
         //$introObject->delete();
+    }
+
+    public function storeData(Request $request)
+    {
+        $AdminSetting = AdminSetting::where('settingName','intro')->first();
+        if($AdminSetting->settingValue == 1){
+            $request->validate([
+            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+            'insertion' => 'max:32',
+            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+            'email' => 'required|email|max:65',
+            ]);
+            if(IntroData::where('email',$request->input('email'))->first())
+            {
+                return view('intro',['message' => 'Een gebruiker met deze e-mail heeft zich al ingeschreven']);
+            }
+            $userIntro = new IntroData;
+
+            $userIntro->firstName = $request->input('firstName');
+            $userIntro->insertion = $request->input('insertion');
+            $userIntro->lastName = $request->input('lastName');
+            $userIntro->email = $request->input('email');
+            $userIntro->save();
+            // dd($userIntro);
+            return view('intro');
+        } else {
+            return redirect('/');
+        }
+    }
+
+    // function indexExcel()
+    // {
+    //  $customer_data = DB::table('tbl_customer')->get();
+    //  return view('export_excel')->with('customer_data', $customer_data);
+    // }
+
+    function excel()
+    {
+        return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
     }
 }

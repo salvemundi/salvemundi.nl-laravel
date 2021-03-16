@@ -58,7 +58,7 @@
             <p>Als de prijs 0.00 is dan wordt de activiteit als gratis geregistreerd.</p>
 
             <div class="form-group">
-                <label for="name">Activiteit naam</label>
+                <label for="name">Activiteit naam*</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Naam...">
             </div>
 
@@ -68,7 +68,7 @@
             </div>
 
             <div class="form-group">
-                <label for="Achternaam">Prijs</label>
+                <label for="Achternaam">Prijs*</label>
                 <input type="number" min="0" step=".01" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" value="{{ old('price') }}" id="price" name="price" placeholder="Prijs...">
             </div>
 
@@ -77,7 +77,7 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
             </div>
 
-            <label for="photo">Foto (optioneel)</label>
+            <label for="photo">Foto</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
                     <div class="custom-file" style="width: 80px;">

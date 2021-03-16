@@ -53,16 +53,16 @@
             <h2 class="h2">Sponsor toevoegen</h2>
 
             <div class="form-group">
-                <label for="name">Naam</label>
+                <label for="name">Naam*</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" type="text" id="name" name="name" placeholder="Naam...">
             </div>
 
             <div class="form-group">
-                <label for="reference">Referentie / Website</label>
+                <label for="reference">Referentie / Website*</label>
                 <input class="form-control{{ $errors->has('reference') ? ' is-invalid' : '' }}" value="{{ old('reference') }}" type="text" id="reference" name="reference" placeholder="Referentie / Website...">
             </div>
 
-            <label for="photo">Foto</label>
+            <label for="photo">Foto*</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
                     <div class="custom-file" style="width: 80px;">

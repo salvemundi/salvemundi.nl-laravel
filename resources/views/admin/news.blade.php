@@ -53,16 +53,16 @@
             <h2 class="h2">Nieuws toevoegen</h2>
 
             <div class="form-group">
-                <label for="voornaam">Titel</label>
+                <label for="voornaam">Titel*</label>
                 <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" value="{{ old('title') }}" id="title" name="title" placeholder="Titel...">
             </div>
 
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Inhoud</label>
+                <label for="exampleFormControlTextarea1">Inhoud*</label>
                 <textarea type="textarea" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" placeholder="Inhoud...">{{{ old('content') }}}</textarea>
             </div>
 
-            <label for="photo">Foto (optioneel)</label>
+            <label for="photo">Foto</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
                     <div class="custom-file" style="width: 80px;">

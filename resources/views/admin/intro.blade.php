@@ -12,9 +12,7 @@
     </div>
     @endif
     <div class="col-md-12 center">
-
         <div class="table-responsive center centerTable">
-
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                 data-show-columns="true">
                 <thead>
@@ -23,6 +21,10 @@
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
                         <th data-field="paymentStatus" data-sortable="true">Betalings Status</th>
+                        <th data-field="phoneNumber" data-sortable="true">Telefoonnummer</th>
+                        <th data-field="birthday" data-sortable="true">verjaardag</th>
+                        <th data-field="medicalIssues" data-sortable="true">Allergieën/ medicijnen</th>
+                        <th data-field="specials" data-sortable="true">andere bijzonderheden</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +34,10 @@
                             <td data-value="{{ $user->lastName }}">{{$user->lastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->payment->paymentStatus }}">{{ \App\Enums\paymentStatus::fromValue($user->payment->paymentStatus)->key }}</td>
+                            <td data-value="{{ $user->phoneNumber }}">{{$user->phoneNumber}}</td>
+                            <td data-value="{{ $user->birthday }}">{{$user->birthday}}</td>
+                            <td data-value="{{ $user->medicalIssues }}">{{$user->medicalIssues}}</td>
+                            <td data-value="{{ $user->specials }}">{{$user->specials}}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -51,6 +57,7 @@
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Intro inschrijvingen aan / uit zetten.</span></label>
             <button type="submit" class="btn btn-primary btn-sm">Opslaan</button>
+            <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm    ">Export to Excel</a>
         </form>
     </div>
 </div>

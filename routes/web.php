@@ -43,6 +43,8 @@ Route::get('/vorigBestuur', [App\Http\Controllers\PreviousBoardController::class
 Route::get('/intro', [App\Http\Controllers\IntroController::class, 'index'])->name('intro');
 Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store']);
 Route::get('/introconfirm', [App\Http\Controllers\IntroController::class, 'confirmview'])->name('intro.confirm');
+Route::post('/introData/store', [App\Http\Controllers\IntroController::class, 'storeData']);
+
 // Signup for SalveMundi page
 
 Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'index'])->name('inschrijven')->middleware('signUp.auth');
@@ -76,6 +78,11 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
 
+// Privacy zooi
+Route::get('/privacy', function () {
+    return view("privacyZooi");
+});
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
@@ -106,6 +113,7 @@ Route::post('/admin/finance/delete', [App\Http\Controllers\FinanceController::cl
 Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index'])->middleware('admin.auth');
 Route::get('/admin/products/edit',[App\Http\Controllers\ProductController::class, 'editPage'])->middleware('admin.auth');
 Route::post('/admin/products/edit/store', [App\Http\Controllers\ProductController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/products/delete', [App\Http\Controllers\ProductController::class, 'delete'])->middleware('admin.auth');
 Route::get('/admin/rules', [App\Http\Controllers\RulesController::class, 'index'])->middleware('admin.auth');
 Route::post('/admin/rules/store',[App\Http\Controllers\RulesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/rules/delete', [App\Http\Controllers\RulesController::class, 'delete'])->middleware('admin.auth');
@@ -113,3 +121,5 @@ Route::get('/admin/leden/groepen', [App\Http\Controllers\AdminController::class,
 Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController::class, 'groupStore'])->middleware('admin.auth');
 Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete'])->middleware('admin.auth');
 Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync')->middleware('admin.auth');
+Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel']);
+Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excel');
