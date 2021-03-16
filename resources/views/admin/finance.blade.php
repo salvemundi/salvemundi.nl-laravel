@@ -51,11 +51,11 @@
             <h2 class="h2">File toevoegen</h2>
 
             <div class="form-group">
-                <label for="year">Jaar</label>
+                <label for="year">Jaar*</label>
                 <input class="form-control{{ $errors->has('year') ? ' is-invalid' : '' }}" value="{{ old('year') }}" type="text" id="year" name="year" placeholder="Jaar...">
             </div>
 
-            <label for="filePath">File (pdf)</label>
+            <label for="filePath">File (pdf)*</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
                     <div class="custom-file" style="width: 80px;">

@@ -53,19 +53,19 @@
             <h2 class="h2">WhatsApp toevoegen</h2>
 
             <div class="form-group">
-                <label for="Achternaam">Groep naam</label>
+                <label for="Achternaam">Groep naam*</label>
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}"
                     id="name" name="name" placeholder="Naam...">
             </div>
 
             <div class="form-group">
-                <label for="voornaam">Link</label>
+                <label for="voornaam">Link*</label>
                 <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}"
                     id="link" name="link" placeholder="Link...">
             </div>
 
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Beschrijving</label>
+                <label for="exampleFormControlTextarea1">Beschrijving*</label>
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
                     name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
             </div>
