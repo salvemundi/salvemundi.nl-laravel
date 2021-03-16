@@ -38,7 +38,7 @@ jobs:
             git clean -f
             git pull
             composer install
-            npm install -- progress false
+            npm install --progress false
             npm run production --progress false
             php artisan config:cache
             php artisan config:clear
