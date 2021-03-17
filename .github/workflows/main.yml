@@ -30,7 +30,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
-            cd /var/www/salvemundi.nl-laravel
+            cd /var/www/salvemundi.nl
             php artisan down
             git fetch
             git checkout Online-branch
@@ -38,7 +38,7 @@ jobs:
             git clean -f
             git pull
             composer install
-            npm install -- progress false
+            npm install --progress false
             npm run production --progress false
             php artisan config:cache
             php artisan config:clear
