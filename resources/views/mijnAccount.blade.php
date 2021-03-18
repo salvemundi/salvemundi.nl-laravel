@@ -26,7 +26,7 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-    <div id="gegevens" class="tabcontent tab-pane fade show active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
+    <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
         <h2>Jouw gegevens:</h2>
        <form action="/mijnAccount/pay" method="post">
         @csrf
