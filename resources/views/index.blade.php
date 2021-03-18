@@ -11,7 +11,7 @@
             <h4>Welkom <b>{{ session('userName') }}!</h4></b>
         @endif
         @endif
-
+        <br>
         <h2 class="h2">Over ons</h2> <br>
         <p>Salve Mundi is de Studievereniging van Fontys Hogenscholen ICT, opgericht in 2017 door Mohammed Mighiss en Luuk Hendriks. Het is Latijn voor "Hello World", een typische zin die menig programmeur maar al te goed kent.</p>
         <p>De vereniging organiseert veel activiteiten, zowel studie bemiddelend als voor de lol, of een combinatie van de twee. Denk hierbij aan: <br></p>

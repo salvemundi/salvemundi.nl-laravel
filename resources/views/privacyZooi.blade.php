@@ -2,7 +2,7 @@
 @section('content')
 <div class="overlap myslider">
     <p style="white-space: pre-line">
-        Salve Mundi, gevestigd aan Driebladhof, Nuenen, is verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in deze privacyverklaring.
+        Salve Mundi, is verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in deze privacyverklaring.
 
         Contactgegevens:
         https://salvemundi.nl
