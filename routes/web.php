@@ -78,6 +78,11 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
 
+// Privacy zooi
+Route::get('/privacy', function () {
+    return view("privacyZooi");
+});
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
@@ -97,7 +102,7 @@ Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexA
 Route::get('/admin/whatsapp', [App\Http\Controllers\WhatsAppController::class, 'index'])->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
-Route::post('/admin/intro/store', [App\Http\Controllers\AdminController::class, 'storeIntro'])->middleware('admin.auth');
+Route::post('/admin/intro/store', [App\Http\Controllers\AdminopController::class, 'storeIntro'])->middleware('admin.auth');
 Route::get('/admin/transactie', [App\Http\Controllers\AdminController::class, 'indexTransaction'])->middleware('admin.auth');
 Route::get('/admin/oud-bestuur', [App\Http\Controllers\PreviousBoardController::class, 'indexAdmin'])->middleware('admin.auth');
 Route::post('/admin/oud-bestuur/store', [App\Http\Controllers\PreviousBoardController::class, 'addBestuur'])->middleware('admin.auth');
@@ -108,6 +113,7 @@ Route::post('/admin/finance/delete', [App\Http\Controllers\FinanceController::cl
 Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index'])->middleware('admin.auth');
 Route::get('/admin/products/edit',[App\Http\Controllers\ProductController::class, 'editPage'])->middleware('admin.auth');
 Route::post('/admin/products/edit/store', [App\Http\Controllers\ProductController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/products/delete', [App\Http\Controllers\ProductController::class, 'delete'])->middleware('admin.auth');
 Route::get('/admin/rules', [App\Http\Controllers\RulesController::class, 'index'])->middleware('admin.auth');
 Route::post('/admin/rules/store',[App\Http\Controllers\RulesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/rules/delete', [App\Http\Controllers\RulesController::class, 'delete'])->middleware('admin.auth');
@@ -115,3 +121,5 @@ Route::get('/admin/leden/groepen', [App\Http\Controllers\AdminController::class,
 Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController::class, 'groupStore'])->middleware('admin.auth');
 Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete'])->middleware('admin.auth');
 Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync')->middleware('admin.auth');
+Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin.auth');
+Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excel')->middleware('admin.auth');;

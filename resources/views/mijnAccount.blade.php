@@ -6,33 +6,6 @@
 <div class="overlap" id="navlink">
     <h2>Mijn account</h2>
     <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
-    {{-- <nav class='myAccount' >
-        @if ($authorized == 1)
-        <a href="/admin">
-            <i class="fas fa-user-cog"></i>
-            <b>Admin</b>
-        </a>
-        @endif
-        <a class="tablinks" onclick="openTab(event, 'gegevens')" href="#navlink">
-            <i class="fas fa-user"></i>
-            <b>Gegevens</b>
-        </a>
-        <a class="tablinks" onclick="openTab(event, 'inschrijvingen')" href="#navlink">
-            <i class="fa fa-credit-card"></i>
-            <b>Inschrijvingen</b>
-        </a>
-        <a class="tablinks" onclick="openTab(event, 'whatsapp')" href="#navlink">
-            <i class="fab fa-whatsapp"></i>
-            <b>Whatsapp</b>
-
-        </a>
-        <a class="tablinks" onclick="openTab(event, 'regels')" href="#navlink">
-            <i class="fas fa-heart"></i>
-            <b>Regels</b>
-        </a>
-        <span></span>
-    </nav> --}}
-
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         @if ($authorized == 1)
             <li class="nav-item">
@@ -55,6 +28,26 @@
     <div class="tab-content" id="myTabContent">
     <div id="gegevens" class="tabcontent tab-pane fade show active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
         <h2>Jouw gegevens:</h2>
+       <form action="/mijnAccount/pay" method="post">
+        @csrf
+        @if($subscriptionActive == 0)
+        <p>
+            <b>Lidmaatschap: </b>
+            <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
+        </p></form>
+        @else
+            <div style="float:left; display:inline;">
+                <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+            </div>
+            <div style="float:left; display:inline;">
+                <form method="post" action="/mijnAccount/cancel">
+                    <input type="hidden" name="userId" value="{{ session('id') }}">
+                    <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
+                </form>
+            </div>
+        @endif
+
+        </form>
         <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
             @csrf
             @if($user->visibility == 1)
@@ -118,17 +111,17 @@
                         <b>Lidmaatschap: </b>
                         <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
                     </p></form>
-            @else
-                <div style="float:left; display:inline;">
-                    <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
-                </div>
-                <div style="float:left; display:inline;">
-                    <form method="post" action="/mijnAccount/cancel">
-                        <input type="hidden" name="userId" value="{{ session('id') }}">
-                        <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
-                    </form>
-                </div>
-            @endif
+                @else
+                    <div style="float:left; display:inline;">
+                        <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+                    </div>
+                    <div style="float:left; display:inline;">
+                        <form method="post" action="/mijnAccount/cancel">
+                            <input type="hidden" name="userId" value="{{ session('id') }}">
+                            <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
+                        </form>
+                    </div>
+                @endif
         <table id="table"
                data-toggle="table">
             <thead>
@@ -204,21 +197,6 @@
 </div>
 </div>
     <script>
-        // openTab(event, 'gegevens');
-        // function openTab(evt, tabName) {
-        //     var i, tabcontent, tablinks;
-        //     tabcontent = document.getElementsByClassName("tabcontent");
-        //     for (i = 0; i < tabcontent.length; i++) {
-        //         tabcontent[i].style.display = "none";
-        //     }
-        //     tablinks = document.getElementsByClassName("tablinks");
-        //     for (i = 0; i < tablinks.length; i++) {
-        //         tablinks[i].className = tablinks[i].className.replace(" active", "");
-        //     }
-        //     document.getElementById(tabName).style.display = "block";
-        //     evt.currentTarget.className += " active";
-        // }
-
     function CopyMe(oFileInput, sTargetID) {
         document.getElementById(sTargetID).value = oFileInput.value;
     }

@@ -53,16 +53,16 @@
             <h2 class="h2">Bestuur toevoegen</h2>
 
             <div class="form-group">
-                <label for="name">Jaar</label>
+                <label for="name">Jaar*</label>
                 <input class="form-control{{ $errors->has('year') ? ' is-invalid' : '' }}" value="{{ old('year') }}" type="number" id="year" name="year" placeholder="Jaar...">
             </div>
 
             <div class="form-group">
-                <label for="reference">Bestuur</label>
+                <label for="reference">Bestuur*</label>
                 <textarea class="form-control{{ $errors->has('bestuur') ? ' is-invalid' : '' }}" value="{{ old('bestuur') }}" type="text" id="bestuur" name="bestuur" placeholder="Bestuur..."></textarea>
             </div>
 
-            <label for="photo">Foto (optioneel)</label>
+            <label for="photo">Foto</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
                     <div class="custom-file" style="width: 80px;">

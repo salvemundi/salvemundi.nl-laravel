@@ -26,7 +26,7 @@
                     <h2 class="h2">Aanmelden voor de intro</h2>
 
                         <br>
-                        <label for="voornaam">Voornaam</label>
+                        <label for="voornaam">Voornaam*</label>
                         <input class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" value="{{ old('firstName') }}" type="text" id="firstName" name="firstName" placeholder="Voornaam...">
 
                         <br>
@@ -34,11 +34,11 @@
                         <input class="form-control{{ $errors->has('insertion') ? ' is-invalid' : '' }}" value="{{ old('insertion') }}" type="text" id="insertion" name="insertion" placeholder="Tussenvoegsel...">
 
                         <br>
-                        <label for="Achternaam">Achternaam</label>
+                        <label for="Achternaam">Achternaam*</label>
                         <input class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" value="{{ old('lastName') }}" type="text" id="lastName" name="lastName" placeholder="Achternaam...">
 
                         <br>
-                        <label for="Email">E-mail</label>
+                        <label for="Email">E-mail*</label>
                         <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" type="email" id="email" name="email" placeholder="E-mail...">
 
                         <br>
