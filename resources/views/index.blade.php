@@ -4,6 +4,17 @@
 <div id="content">
 <div class="overlap" style="z-index: 16;">
     <div class="mijnSlider">
+        @if(session()->has('message'))
+        <div class="alert alert-primary">
+            {{ session()->get('message') }}
+        </div>
+        @endif
+
+        @if($message ?? '' != null)
+            <div class="alert alert-primary">
+                {{ $message ?? '' }}
+            </div>
+        @endif
         @if(session('userName'))
         @if($bday == true)
             <h4>Gefeliciteerd <b>{{ session('userName') }}!!</h4></b>
