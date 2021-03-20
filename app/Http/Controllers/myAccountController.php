@@ -25,9 +25,10 @@ class myAccountController extends Controller
         $planCommissieLid = paymentType::fromValue(1);
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
+        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
 
         Log::info($userObject->subscribed($name,$plan->key));
-        if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($name,$planCommissieLid->key))
+        if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
         {
             $status = 1;
         }
