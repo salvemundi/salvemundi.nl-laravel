@@ -14,7 +14,7 @@ class Commissie extends Model
     {
         return $this->belongsToMany
         (
-            AzureUser::class,
+            User::class,
             'groups_relation',
             'group_id',
             'user_id'

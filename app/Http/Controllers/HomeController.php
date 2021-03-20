@@ -10,7 +10,7 @@ use App\Models\News;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\AzureUser;
+use App\Models\User;
 
 
 class HomeController extends Controller
@@ -25,10 +25,9 @@ class HomeController extends Controller
     $activitiesData = Product::latest()->where('index', null)->take(3)->get();
     $activitiesCount = Product::where('index', null)->count();
 
-
     if(session('id') != null)
     {
-      $user = AzureUser::where('AzureID', session('id'))->first();
+      $user = User::where('AzureID', session('id'))->first();
       //dd(Carbon::now()->toDateString());
       if ((string)date("m-d", strtotime($user->birthday)) == (string)date("m-d", strtotime(Carbon::now()->toDateString())))
       {

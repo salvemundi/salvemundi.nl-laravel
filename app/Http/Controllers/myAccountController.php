@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AzureUser;
 use App\Models\WhatsappLink;
 use App\Models\Transaction;
 use App\Models\User;
@@ -19,15 +18,16 @@ class myAccountController extends Controller
     public function index(){
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
-        $getUser = AzureUser::where('AzureID', session('id'))->first();
+        $getUser = User::where('AzureID', session('id'))->first();
         $adminAuthorization = AdminController::authorizeUser(session('id'));
         $status = 0;
 
-        $plan = paymentType::fromValue(3);
+        $planCommissieLid = paymentType::fromValue(1);
+        $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
 
         Log::info($userObject->subscribed($name,$plan->key));
-        if($userObject->subscribed($name,$plan->key))
+        if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($name,$planCommissieLid->key))
         {
             $status = 1;
         }
@@ -46,7 +46,7 @@ class myAccountController extends Controller
             'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
         ]);
 
-        $user = AzureUser::find($request->input('user_id'));
+        $user = User::find($request->input('user_id'));
 
         if($request->input('cbx'))
         {
