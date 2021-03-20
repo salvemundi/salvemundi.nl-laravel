@@ -29,7 +29,7 @@
     <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
         <h2>Jouw gegevens:</h2>
 
-        @if($subscriptionActive == 1)
+        @if($subscriptionActive == 0)
         <form action="/mijnAccount/pay" method="post">
             @csrf
         <p>
