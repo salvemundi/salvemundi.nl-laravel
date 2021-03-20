@@ -81,7 +81,9 @@ class MolliePaymentController extends Controller
         }
         if($userObject != null)
         {
-            return $userObject->newSubscription('main','registration')->create();
+            $plan = paymentType::fromValue(2);
+            $name = ucfirst($plan) . ' membership';
+            return $userObject->newSubscription($name,'contribution')->create();
         }
         if($route == null) {
             $route = route('home');
