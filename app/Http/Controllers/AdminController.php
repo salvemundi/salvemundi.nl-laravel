@@ -46,12 +46,14 @@ class AdminController extends Controller
         $whatsappLinks = WhatsappLink::latest()->first();
         $sponsorsCount = Sponsor::all()->count();
         $transactionCount = Transaction::all()->count();
-        $plan = paymentType::fromValue(3);
+        $plan = paymentType::fromValue(2);
+        $planCommissieLid = paymentType::fromValue(1);
         $name = ucfirst($plan) . ' membership';
+        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
         $OpenPaymentsCount = 0;
         foreach(User::all() as $user)
         {
-            if(!$user->subscribed($name, $plan->key))
+            if(!$user->subscribed($name, $plan->key) || !$user->subscribed($nameCommissieLid, $planCommissieLid->key))
             {
                 $OpenPaymentsCount += 1;
             }
