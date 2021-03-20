@@ -8,6 +8,7 @@
             <li><a href="https://goo.gl/maps/dnv849aVPd8DyXqa8" target="https://goo.gl/maps/dnv849aVPd8DyXqa8">Rachelsmolen 1</li></a>
             <li><a href="https://goo.gl/maps/dnv849aVPd8DyXqa8" target="https://goo.gl/maps/dnv849aVPd8DyXqa8">5612 MA Eindhoven</li></a>
             <li>KvK nr. 70280606</li>
+            <li><a href="/privacy">privacy voorwaarden</li></a>
           </ul>
         </div>
 

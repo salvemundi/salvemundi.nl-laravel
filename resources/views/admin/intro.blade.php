@@ -57,7 +57,7 @@
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Intro inschrijvingen aan / uit zetten.</span></label>
             <button type="submit" class="btn btn-primary btn-sm">Opslaan</button>
-            <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm    ">Export to Excel</a>
+            <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
         </form>
     </div>
 </div>

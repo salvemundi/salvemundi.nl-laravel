@@ -1,16 +1,16 @@
 @import "variables";
-.cbx {
+.cbx, .cdx {
   margin: auto;
   -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
 }
-.cbx span {
+.cbx span, .cdx span{
   display: inline-block;
   vertical-align: middle;
   transform: translate3d(0, 0, 0);
 }
-.cbx span:first-child {
+.cbx span:first-child, .cdx span:first-child {
   position: relative;
   width: 18px;
   height: 18px;
@@ -20,7 +20,7 @@
   border: 1px solid $salveMundi-primary;
   transition: all 0.2s ease;
 }
-.cbx span:first-child svg {
+.cbx span:first-child svg, .cdx span:first-child svg {
   position: absolute;
   top: 3px;
   left: 2px;
@@ -35,7 +35,7 @@
   transition-delay: 0.1s;
   transform: translate3d(0, 0, 0);
 }
-.cbx span:first-child:before {
+.cbx span:first-child:before, .cdx span:first-child:before {
   content: "";
   width: 100%;
   height: 100%;
@@ -45,22 +45,24 @@
   opacity: 1;
   border-radius: 50%;
 }
-.cbx span:last-child {
+.cbx span:last-child, .cdx span:last-child {
   padding-left: 8px;
 }
-.cbx:hover span:first-child {
+.cbx:hover span:first-child, .cdx:hover span:first-child {
   border-color: $salveMundi-primary;
 }
 
-.inp-cbx:checked + .cbx span:first-child {
+.inp-cbx:checked + .cbx span:first-child,
+  .inp-cdx:checked + .cdx span:first-child  {
   background: $salveMundi-dark;
   border-color: $salveMundi-primary;
   animation: wave 0.4s ease;
 }
-.inp-cbx:checked + .cbx span:first-child svg {
+.inp-cbx:checked + .cbx span:first-child svg, .inp-cdx:checked + .cdx span:first-child svg {
   stroke-dashoffset: 0;
 }
-.inp-cbx:checked + .cbx span:first-child:before {
+.inp-cbx:checked + .cbx span:first-child:before, .inp-cdx:checked + .cdx span:first-child:before {
+
   transform: scale(3.5);
   opacity: 0;
   transition: all 0.6s ease;
