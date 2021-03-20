@@ -11,8 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class paymentType extends Enum
 {
-    const default      = 0;
-    const intro        = 1;
-    const registration = 2;
-    const contribution = 3;
+    const intro        = 0;
+    const contributionCommissie = 1;
+    const contribution = 2;
 }

@@ -14,7 +14,6 @@ use Laravel\Cashier\Order\Order;
 use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
-use App\Models\AzureUser;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
 
@@ -31,7 +30,6 @@ class MolliePaymentController extends Controller
                 ])->first();
 
             $newUser = new User;
-            //$newUser->AzureID = $fetchedUser->getId();
             $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
             $newUser->FirstName = $orderObject->firstName;
             $newUser->LastName = $orderObject->lastName;
@@ -60,7 +58,7 @@ class MolliePaymentController extends Controller
             $getProductObject = Product::where('index', $productIndex)->first();
             if($getProductObject == null)
             {
-                $product = Product::find($productIndex);
+                $getProductObject = Product::find($productIndex);
             }
             $transaction = new Transaction();
             $transaction->transactionId = $createPayment->id;
@@ -112,19 +110,17 @@ class MolliePaymentController extends Controller
     private static function createSubscription($plan,$id)
     {
         $user = User::where('AzureID',$id)->first();
-        $azureUser = AzureUser::where('AzureID',$id)->first();
         $plan = paymentType::fromValue($plan);
         $name = ucfirst($plan) . ' membership';
         Log::info($plan);
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
-
             $result = $user->newSubscription($name, $plan->key)->create();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
-            $transaction->contribution()->attach($azureUser);
+            $transaction->contribution()->attach($user);
             $transaction->save();
 
             if(is_a($result, RedirectToCheckoutResponse::class)) {
@@ -143,7 +139,12 @@ class MolliePaymentController extends Controller
      */
     public static function handleContributionPaymentFirstTime(Request $request)
     {
-        return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+        $user = User::where('AzureID',session('id'))->first();
+        if($user->commission != null) {
+            return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
+        } else {
+            return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+        }
     }
 
     public function cancelSubscription(Request $request)

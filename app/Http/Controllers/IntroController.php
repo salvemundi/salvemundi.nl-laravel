@@ -35,10 +35,12 @@ class IntroController extends Controller
             'lastNameParent' => 'max:45',
             'addressParent' => 'max:65',
             'phoneNumberParent' => 'max:10',
+            'checkbox' =>'accepted',
+            'checkboxCorona' =>'accepted'
             ]);
             if(Intro::where('email',$request->input('email'))->first())
             {
-                return view('intro',['message' => 'Een gebruiker met deze e-mail heeft zich al ingeschreven']);
+                return redirect('introconfirm')->with('message', 'Een gebruiker met deze e-mail heeft zich al ingeschreven');
             }
             $userIntro = new Intro;
 
@@ -59,16 +61,14 @@ class IntroController extends Controller
                 //dd($userIntro);
                 $userIntro->save();
                 return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
-
             }
             $userIntro->save();
-            return view('intro');
+            return redirect('introconfirm')->with('message', 'Je hebt je ingeschreven voor de intro!');
         } else {
             return redirect('/');
         }
         //return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
     }
-
     public function confirmview()
     {
         return view('introConfirm');

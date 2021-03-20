@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\paymentType;
 use App\Mail\SendMailInschrijving;
 use App\Mail\SendMailInschrijvingTransactie;
-use App\Models\AzureUser;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;

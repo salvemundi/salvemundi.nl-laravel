@@ -26,11 +26,12 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-    <div id="gegevens" class="tabcontent tab-pane fade show active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
+    <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
         <h2>Jouw gegevens:</h2>
-       <form action="/mijnAccount/pay" method="post">
-        @csrf
-        @if($subscriptionActive == 0)
+
+        @if($subscriptionActive == 1)
+        <form action="/mijnAccount/pay" method="post">
+            @csrf
         <p>
             <b>Lidmaatschap: </b>
             <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
@@ -45,9 +46,12 @@
                     <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                 </form>
             </div>
+            <br>
+            <br>
+            <br>
         @endif
 
-        </form>
+
         <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
             @csrf
             @if($user->visibility == 1)
