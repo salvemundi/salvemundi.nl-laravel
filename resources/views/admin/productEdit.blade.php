@@ -19,7 +19,7 @@
                 <label for="name">Naam</label>
             @if($product->index != null)
                 <input
-                    disabled
+                    readonly="readonly"
                     class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                     value="{{ $product->name }}" type="text" id="name" name="name" placeholder="Naam...">
             @else
