@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -73,4 +75,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function payment(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Transaction::class,
+            'userpayment',
+            'user_id',
+            'payment_id'
+        );
+    }
+
+    public function commission(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Commissie::class,
+            'groups_relation',
+            'user_id',
+            'group_id'
+        );
+    }
 }

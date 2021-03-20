@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\AzureAuth;
-use App\Models\AzureUser;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Microsoft\Graph\Graph;
@@ -95,7 +94,7 @@ class AuthController extends Controller
 
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
-          $AzureUser = AzureUser::where('AzureID',$user->getId())->first();
+          $AzureUser = User::where('AzureID',$user->getId())->first();
           $AzureUser->api_token = hash('sha256', $accessToken);
           $AzureUser->save();
           return redirect('/');

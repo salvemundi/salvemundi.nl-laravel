@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AzureUser;
 use App\Models\Commissie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

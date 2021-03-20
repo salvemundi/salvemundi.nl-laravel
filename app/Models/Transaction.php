@@ -37,7 +37,7 @@ class Transaction extends Model
     {
         return $this->belongsToMany
         (
-            AzureUser::class,
+            User::class,
             'userpayment',
             'payment_id',
             'user_id'
