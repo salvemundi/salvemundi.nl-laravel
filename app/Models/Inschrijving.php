@@ -11,16 +11,6 @@ class Inschrijving extends Model
     use HasFactory;
     protected $table = 'register';
     protected $fillable = ['birthday'];
-//    public function azure(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-//    {
-//        return $this->belongsTo
-//        (
-//            AzureUser::class,
-//            'officeID',
-//            'id',
-//            'users'
-//        );
-//    }
 
     public function payment(): BelongsTo
     {

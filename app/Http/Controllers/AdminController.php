@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\AzureSync;
-use App\Models\AzureUser;
 use App\Models\Commissie;
 use App\Models\Intro;
 use App\Models\Sponsor;
@@ -40,7 +39,7 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
-        $getAllUsers = AzureUser::all()->count();
+        $getAllUsers = User::all()->count();
         $getAllIntroSignups = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
             return $query->where('paymentStatus', PaymentStatus::paid);
         })->count();
@@ -73,7 +72,7 @@ class AdminController extends Controller
     public static function authorizeUser($userid): int
     {
         if($userid != null) {
-            $groups = AzureUser::where('AzureID', $userid)->first();
+            $groups = User::where('AzureID', $userid)->first();
 
             foreach ($groups->commission as $group) {
                 if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
@@ -83,7 +82,7 @@ class AdminController extends Controller
             return 0;
         } else {
             if(session('id') != null){
-                $groups = AzureUser::where('AzureID', session('id'))->first();
+                $groups = User::where('AzureID', session('id'))->first();
 
                 foreach ($groups->commission as $group) {
                     if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
@@ -123,7 +122,7 @@ class AdminController extends Controller
 
     public function groupIndex(Request $request)
     {
-        $groupUser = AzureUser::find($request->input('id'));
+        $groupUser = User::find($request->input('id'));
         $id = $groupUser->id;
         $groupUsers = $groupUser->commission()->get();
         $groups = Commissie::with('users')->whereDoesntHave('users', function($query) use ($id) {
@@ -134,7 +133,7 @@ class AdminController extends Controller
 
     public function groupStore(Request $request)
     {
-        $groupUser = AzureUser::find($request->input('userId'));
+        $groupUser = User::find($request->input('userId'));
         $groupObject = Commissie::find($request->input('groupId'));
         $groupUser->commission()->attach($groupObject);
         if(AzureController::addUserToGroup($groupUser, $groupObject))
@@ -149,7 +148,7 @@ class AdminController extends Controller
 
     public function groupDelete(Request $request)
     {
-        $groupUser = AzureUser::find($request->input('userId'));
+        $groupUser = User::find($request->input('userId'));
         $groupObject = Commissie::find($request->input('groupId'));
         $groupUser->commission()->detach($groupObject);
         if(AzureController::removeUserFromGroup($groupUser, $groupObject)) {
