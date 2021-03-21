@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\paymentType;
 use App\Mail\SendMailInschrijving;
 use App\Mail\SendMailInschrijvingTransactie;
-use App\Models\AzureUser;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -29,19 +28,19 @@ class InschrijfController extends Controller
             'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
         ]);
 
-            $inschrijving = new Inschrijving;
-            $inschrijving->firstName = $request->input('firstName');
-            $inschrijving->insertion = $request->input('insertion');
-            $inschrijving->lastName = $request->input('lastName');
-            if($request->input('birthday') != null)
-            {
-                $inschrijving->birthday = $request->input('birthday');
-                $inschrijving->birthday = date("Y-m-d", strtotime($inschrijving->birthday));
-            }
-            $inschrijving->email = $request->input('email');
-            $inschrijving->phoneNumber = $request->input('phoneNumber');
-            $inschrijving->save();
-            return MolliePaymentController::processRegistration($inschrijving, paymentType::contribution);
+        $inschrijving = new Inschrijving;
+        $inschrijving->firstName = $request->input('firstName');
+        $inschrijving->insertion = $request->input('insertion');
+        $inschrijving->lastName = $request->input('lastName');
+        if($request->input('birthday') != null)
+        {
+            $inschrijving->birthday = $request->input('birthday');
+            $inschrijving->birthday = date("Y-m-d", strtotime($inschrijving->birthday));
+        }
+        $inschrijving->email = $request->input('email');
+        $inschrijving->phoneNumber = $request->input('phoneNumber');
+        $inschrijving->save();
+        return MolliePaymentController::processRegistration($inschrijving, paymentType::contribution);
     }
 
     public static function processPayment($orderObject)

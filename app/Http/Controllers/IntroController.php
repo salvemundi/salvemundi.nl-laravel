@@ -69,7 +69,6 @@ class IntroController extends Controller
         }
         //return $this->preparePayment($userIntro->id)->with('message', 'Er is een E-mail naar u verstuurd met de betalingsstatus.');
     }
-
     public function confirmview()
     {
         return view('introConfirm');
