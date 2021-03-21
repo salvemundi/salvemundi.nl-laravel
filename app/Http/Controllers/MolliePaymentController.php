@@ -50,6 +50,8 @@ class MolliePaymentController extends Controller
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
+            $newUser->payment()->attach($transaction);
+            $newUser->save();
             $orderObject->payment()->associate($transaction);
             $orderObject->save();
             return $createPayment;
@@ -81,7 +83,9 @@ class MolliePaymentController extends Controller
         }
         if($userObject != null)
         {
-            return $userObject->newSubscription('main','registration')->create();
+            $plan = paymentType::fromValue(2);
+            $name = ucfirst($plan) . ' membership';
+            return $userObject->newSubscription($name,'contribution')->create();
         }
         if($route == null) {
             $route = route('home');
@@ -140,7 +144,7 @@ class MolliePaymentController extends Controller
     public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = User::where('AzureID',session('id'))->first();
-        if($user->commission != null) {
+        if($user->commission()->exists()) {
             return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
         } else {
             return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
