@@ -57,6 +57,21 @@
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Intro inschrijvingen aan / uit zetten.</span></label>
             <button type="submit" class="btn btn-primary btn-sm">Opslaan</button>
+        </form> &nbsp; &nbsp;
+        <form method="POST" action="intro/storeConfirm">
+            @csrf
+            @if($introConfirmSetting->settingValue == 1)
+                <input class="inp-cdx" id="cdx" name="cdx" type="checkbox" checked style="display: none"/>
+            @elseif($introConfirmSetting->settingValue == 0)
+                <input class="inp-cdx" id="cdx" name="cdx" type="checkbox" style="display: none"/>
+            @endif
+            <label class="cdx" for="cdx"><span>
+            <svg width="12px" height="10px" viewbox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg></span><span>Intro inschrijvingen met betaling aan / uit zetten.</span></label>
+            <button type="submit" class="btn btn-primary btn-sm">Opslaan</button>
+
+            &nbsp;
             <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
         </form>
     </div>
