@@ -5,7 +5,7 @@
 
 <div class="overlap">
     <div class="row center">
-        @if($introSetting->settingValue == 0)
+        @if($introSetting->settingValue == 0 || $introConfirmSetting->settingValue == 0)
             <script>window.location = "/";</script>
         @else
             <div id="contact" class="col-md-6">
@@ -62,15 +62,15 @@
                         <div id="ShowIfAbove18" style="display: none;">
                             <br>
                             <label for="VoornaamVoogd">Voornaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" placeholder="Voornaam ouder/verzorger...">
+                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" placeholder="Voornaam contactpersoon...">
 
                             <br>
                             <label for="AchternaamVoogd">Achternaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" placeholder="Achternaam ouder/verzorger...">
+                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" placeholder="Achternaam contactpersoon...">
 
                             <br>
                             <label for="TelefoonnummerVoogd">Telefoonnummer contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberParent" name="phoneNumberParent" placeholder="Telefoonnummer ouder/verzorger...">
+                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberParent" name="phoneNumberParent" placeholder="Telefoonnummer contactpersoon...">
                         </div>
 
                         <br>

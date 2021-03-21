@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            view()->share(['Commissies'=> Commissie::all(),'introSetting' => AdminSetting::where('settingName','intro')->first()]);
+            view()->share(['Commissies'=> Commissie::all(),'introSetting' => AdminSetting::where('settingName','intro')->first(),'introConfirmSetting' => AdminSetting::where('settingName','introConfirm')->first()]);
         }
         catch (\Exception $e)
         {
