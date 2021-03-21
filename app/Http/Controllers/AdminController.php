@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\AzureSync;
 use App\Models\Commissie;
 use App\Models\Intro;
+use App\Models\IntroData;
 use App\Models\Sponsor;
 use App\Models\Transaction;
 use App\Models\WhatsappLink;
@@ -68,8 +69,8 @@ class AdminController extends Controller
         })->get();
         $IntroSetting = AdminSetting::where('settingName','intro')->first();
         $IntroConfirmSetting = AdminSetting::where('settingName','introConfirm')->first();
-
-        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting]);
+        $introSignup = IntroData::all();
+        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup]);
     }
 
     public static function authorizeUser($userid): int

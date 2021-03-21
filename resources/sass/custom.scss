@@ -1,6 +1,9 @@
 @import "variables";
 
 /* Begin main CSS page */
+::selection {
+  background: $salveMundi-link;
+}
 
 a,
 a:hover {
@@ -700,7 +703,6 @@ html {
 }
 
 .sponsor {
-  width: 100%;
   height: 150px;
   padding: 5px;
 }
@@ -789,7 +791,12 @@ html {
 /* Begin media query's  */
 
 @media only screen and (max-width: 549.98px) {
+  .sponsor {
+    width: 100%;
+  }
+}
 
+@media only screen and (max-width: 549.98px) {
   .textCard,
   .card-text {
     font-size: 12px;
