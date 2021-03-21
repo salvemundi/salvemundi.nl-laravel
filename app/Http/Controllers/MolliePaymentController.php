@@ -50,6 +50,8 @@ class MolliePaymentController extends Controller
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
+            $newUser->payment()->attach($transaction);
+            $newUser->save();
             $orderObject->payment()->associate($transaction);
             $orderObject->save();
             return $createPayment;
