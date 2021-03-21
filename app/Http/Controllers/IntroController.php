@@ -80,7 +80,6 @@ class IntroController extends Controller
         Log::info($introObject);
         Mail::to($introObject->email)
             ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $paymentObject->paymentStatus));
-        //$introObject->delete();
     }
 
     public function storeData(Request $request)
@@ -105,18 +104,11 @@ class IntroController extends Controller
             $userIntro->email = $request->input('email');
             $userIntro->save();
             // dd($userIntro);
-            return view('intro');
+            return view('intro',['message' => 'Je inschrijving is gelukt. Houd je mail in de gaten!']);
         } else {
             return redirect('/');
         }
     }
-
-    // function indexExcel()
-    // {
-    //  $customer_data = DB::table('tbl_customer')->get();
-    //  return view('export_excel')->with('customer_data', $customer_data);
-    // }
-
     function excel()
     {
         return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
