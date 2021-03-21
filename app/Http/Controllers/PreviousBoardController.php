@@ -10,7 +10,9 @@ class PreviousBoardController extends Controller
     public function index()
     {
         $previousBoard = PreviousBoard::orderBy('year', 'DESC')->get();
-        return view('previousBoard',['previousBoard' => $previousBoard]);
+        $bestuur = PreviousBoard::all()->count();
+        // dd($bestuur)
+        return view('previousBoard',['previousBoard' => $previousBoard, 'bestuur' => $bestuur]);
     }
 
     public function indexAdmin()

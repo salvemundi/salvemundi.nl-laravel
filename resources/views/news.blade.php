@@ -7,7 +7,7 @@
         @if($article->imgPath == null)
             <div class="cardNews">
                 <div class="card-body">
-                    <h4><b><p class="card-title">{{ $article->title }}</p></b></h4>
+                    <h4><b><p class="card-title" id="{{ $article->title }}">{{ $article->title }}</p></b></h4>
                     <p class="card-text" style="white-space: pre-line">{{ $article->content }}</p>
                     <div class="row">
                         @if(session('id') != null)
@@ -22,7 +22,7 @@
         <div class="cardNews">
             {!! '<img class="img-fluid" src="storage/'.$article->imgPath.'" />' !!}
             <div class="card-body">
-                <h4><b><p class="card-title">{{ $article->title }}</p></b></h4>
+                <h4><b><p class="card-title" id="{{ $article->title }}">{{ $article->title }}</p></b></h4>
                 <p class="card-text" style="white-space: pre-line">{{ $article->content }}</p>
                 <div class="row">
                     @if(session('id') != null)
