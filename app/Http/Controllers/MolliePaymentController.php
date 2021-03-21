@@ -144,7 +144,7 @@ class MolliePaymentController extends Controller
     public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = User::where('AzureID',session('id'))->first();
-        if($user->commission()->exists()) {
+        if($user->commission()->exists() == true) {
             return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
         } else {
             return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
