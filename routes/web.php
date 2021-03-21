@@ -79,7 +79,7 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
 
 // Privacy zooi
-Route::get('/privacy', function () {
+Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
