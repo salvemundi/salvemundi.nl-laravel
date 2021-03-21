@@ -19,7 +19,8 @@ De betaling is gelukt.<br>
         Je gebruikersnaam voor office is: {{ $email }}<br>
     @endif
     Je wachtwoord is: {{ $pass }}
-    hieronder staan de linkjes voor de whatsapp groepen. Die kan je joinen als je wilt. <br>
+    Het kan een aantal minuten duren voordat je kan inloggen op onze site.
+    Hieronder staan de linkjes voor de whatsapp groepen. Die kan je joinen als je wil. <br>
     @foreach ($whatsappLink as $whatsapp)
         {{$whatsapp->name}}: {{$whatsapp->link}} <br>
     @endforeach <br>

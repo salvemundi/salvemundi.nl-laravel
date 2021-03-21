@@ -17,5 +17,8 @@ class AdminSettings extends Seeder
         $setting1 = new AdminSetting();
         $setting1->settingName = 'intro';
         $setting1->save();
+        $setting2 = new AdminSetting();
+        $setting2->settingName = 'introConfirm';
+        $setting2->save();
     }
 }
