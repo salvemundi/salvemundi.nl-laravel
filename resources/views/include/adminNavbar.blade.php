@@ -12,7 +12,7 @@
             <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -38,7 +38,7 @@
                     <a class="nav-link" href="/admin/nieuws">Nieuws</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/sponsors">Sponsoren</a>
+                    <a class="nav-link" href="/admin/sponsors">Partners</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/whatsapp">Whatsapp</a>
@@ -60,18 +60,18 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                @if(session('userName') != null)
-                    <li class="nav-item">
-                        <a class="nav-link" href="/mijnAccount">Mijn account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
-                    </li>
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
-                    </li>
-                @endif
+                    @if(session('userName') != null)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/mijnAccount">Mijn account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
+                        </li>
+                    @endif
                 @endguest
             </ul>
         </div>

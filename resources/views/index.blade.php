@@ -124,7 +124,7 @@
 @endif
 @if($sponsorsCount > 0)
     <div class="mijnSlider">
-        <h1 class="center groot"><b>Onze sponsoren</b></h1>
+        <h1 class="center groot"><b>Onze partners</b></h1>
         <div class="slider" data-slick='{"slidesToScroll": 1}'>
             @foreach($sponsorsData as $sponsor)
                 <div><h3><a target="_blank" href="{{ $sponsor->reference }}"><img class="sponsor" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3></div>

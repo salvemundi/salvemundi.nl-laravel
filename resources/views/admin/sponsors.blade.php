@@ -50,7 +50,7 @@
         <form action="/admin/sponsors/add/store" method="post" enctype="multipart/form-data">
             @csrf
             <br>
-            <h2 class="h2">Sponsor toevoegen</h2>
+            <h2 class="h2">Partner toevoegen</h2>
 
             <div class="form-group">
                 <label for="name">Naam*</label>
