@@ -1,25 +1,26 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="overlap">
-<div class="container-fluid">
-        <div class="row center">
-            @foreach ($previousBoard as $bestuur)
-                <div class="col-md-7">
-                    <div class="card" id="{{$bestuur->yaer}}">
-                        @if($bestuur->fotoPath != null)
-                            <div class="row">
-                                {!! '<img class="pfPhoto" src="storage/'.$bestuur->fotoPath.'" />' !!}
-                            </div>
-                        @endif
-                        <div class="card-body">
-                            <h4 class="card-title center"><b>{{$bestuur->year}}</b></h4>
-                            <p class="card-text" style="white-space: pre-line">{{$bestuur->bestuur}}</p>
-                        </div>
+    <div class="row center">
+        @foreach($previousBoard as $bestuur)
+            @if($bestuur->fotoPath == null)
+                <div class="cardNews">
+                    <div class="card-body">
+                        <h4><b><p class="card-title">{{ $bestuur->year }}</p></b></h4>
+                        <p class="card-text" style="white-space: pre-line">{{ $bestuur->bestuur }}</p>
                     </div>
                 </div>
-            @endforeach
-        </div>
+            @else
+            <div class="cardNews">
+                {!! '<img class="img-fluid" src="storage/'.$bestuur->fotoPath.'" />' !!}
+                <div class="card-body">
+                    <h4><b><p class="card-title">{{ $bestuur->year }}</p></b></h4>
+                    <p class="card-text" style="white-space: pre-line">{{ $bestuur->bestuur }}</p>
+                </div>
+            </div>
+            @endif
+        @endforeach
     </div>
 </div>
+
 @endsection
