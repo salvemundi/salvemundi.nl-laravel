@@ -67,8 +67,9 @@ class AdminController extends Controller
             return $query->where('paymentStatus', PaymentStatus::paid);
         })->get();
         $IntroSetting = AdminSetting::where('settingName','intro')->first();
+        $IntroConfirmSetting = AdminSetting::where('settingName','introConfirm')->first();
 
-        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting]);
+        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting]);
     }
 
     public static function authorizeUser($userid): int
@@ -114,7 +115,21 @@ class AdminController extends Controller
             $message = 'De intro inschrijving staat nu uit';
         }
         $adminSetting->save();
-        return redirect('/admin/intro')->with('message', $message);
+        return redirect('/admin/intro')->with('information', $message);
+    }
+
+    public function storeIntroConfirm(Request $request){
+        $adminConfirmSetting = AdminSetting::where('settingName', 'introConfirm')->first();
+        if($request->input('cdx'))
+        {
+            $adminConfirmSetting->settingValue = 1;
+            $message = 'De intro inschrijving met betaling staat nu aan';
+        } else {
+            $adminConfirmSetting->settingValue = 0;
+            $message = 'De intro inschrijving met betaling staat nu uit';
+        }
+        $adminConfirmSetting->save();
+        return redirect('/admin/intro')->with('information', $message);
     }
 
     public function indexTransaction(){

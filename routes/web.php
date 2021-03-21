@@ -103,6 +103,7 @@ Route::get('/admin/whatsapp', [App\Http\Controllers\WhatsAppController::class, '
 Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
 Route::post('/admin/intro/store', [App\Http\Controllers\AdminController::class, 'storeIntro'])->middleware('admin.auth');
+Route::post('/admin/intro/storeConfirm', [App\Http\Controllers\AdminController::class, 'storeIntroConfirm'])->middleware('admin.auth');
 Route::get('/admin/transactie', [App\Http\Controllers\AdminController::class, 'indexTransaction'])->middleware('admin.auth');
 Route::get('/admin/oud-bestuur', [App\Http\Controllers\PreviousBoardController::class, 'indexAdmin'])->middleware('admin.auth');
 Route::post('/admin/oud-bestuur/store', [App\Http\Controllers\PreviousBoardController::class, 'addBestuur'])->middleware('admin.auth');
