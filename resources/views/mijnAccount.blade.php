@@ -2,122 +2,143 @@
 
 @section('content')
 
-<script src="js/scrollonload.js"></script>
-<div class="overlap" id="navlink">
-    <h2>Mijn account</h2>
-    <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        @if ($authorized == 1)
-            <li class="nav-item">
-                <a class="nav-link" id="admin-tab" href="/admin" ><i class="fas fa-user-cog"></i> Admin</a>
-            </li>
-        @endif
-        <li class="nav-item">
-          <a class="nav-link active" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab" aria-controls="gegevens" aria-selected="true"><i class="fas fa-user"></i> Gegevens</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab" aria-controls="incshrijvingen" aria-selected="false"><i class="fa fa-credit-card"></i> Transacties</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="whatsapp-tab" data-toggle="tab" href="#whatsapp" role="tab" aria-controls="whatsapp" aria-selected="false"><i class="fab fa-whatsapp"></i> Whatsapp</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="regels-tab" data-toggle="tab" href="#regels" role="tab" aria-controls="regels" aria-selected="false"><i class="fas fa-heart"></i> Regels</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-    <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent" aria-labelledby="gegevens-tab" class="tabcontent">
-        <h2>Jouw gegevens:</h2>
-
-        @if($subscriptionActive == 0)
-        <form action="/mijnAccount/pay" method="post">
-            @csrf
-        <p>
-            <b>Lidmaatschap: </b>
-            <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
-        </p></form>
-        @else
-            <div style="float:left; display:inline;">
-                <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
-            </div>
-            <div style="float:left; display:inline;">
-                <form method="post" action="/mijnAccount/cancel">
-                    <input type="hidden" name="userId" value="{{ session('id') }}">
-                    <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
-                </form>
-            </div>
-            <br>
-            <br>
-            <br>
-        @endif
-
-
-        <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
-            @csrf
-            @if($user->visibility == 1)
-            <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
-            @elseif($user->visibility == 0)
-                <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" style="display: none"/>
+    <script src="js/scrollonload.js"></script>
+    <div class="overlap" id="navlink">
+        <h2>Mijn account</h2>
+        <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            @if ($authorized == 1)
+                <li class="nav-item">
+                    <a class="nav-link" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
+                </li>
             @endif
-            <label class="cbx" for="cbx"><span>
+            <li class="nav-item">
+                <a class="nav-link active" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab"
+                   aria-controls="gegevens" aria-selected="true"><i class="fas fa-user"></i> Gegevens</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab"
+                   aria-controls="incshrijvingen" aria-selected="false"><i class="fa fa-credit-card"></i>
+                    Transacties</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="whatsapp-tab" data-toggle="tab" href="#whatsapp" role="tab"
+                   aria-controls="whatsapp" aria-selected="false"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="regels-tab" data-toggle="tab" href="#regels" role="tab" aria-controls="regels"
+                   aria-selected="false"><i class="fas fa-heart"></i> Regels</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent"
+                 aria-labelledby="gegevens-tab" class="tabcontent">
+                <h2>Jouw gegevens:</h2>
+
+                @if($subscriptionActive == 0)
+                    <form action="/mijnAccount/pay" method="post">
+                        @csrf
+                        <p>
+                            <b>Lidmaatschap: </b>
+                            <button type="submit" class="myAccountBtn btn btn-secondary" data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">
+                                Non actief
+                            </button>
+                        </p>
+                    </form>
+                @else
+                    <div style="float:left; display:inline;">
+                        <p><b>Lidmaatschap: </b>
+                            <button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button>
+                        </p>
+                    </div>
+                    <div style="float:left; display:inline;">
+                        <form method="post" action="/mijnAccount/cancel">
+                            <input type="hidden" name="userId" value="{{ session('id') }}">
+                            <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                @endif
+
+
+                <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
+                    @csrf
+                    @if($user->visibility == 1)
+                        <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
+                    @elseif($user->visibility == 0)
+                        <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" style="display: none"/>
+                    @endif
+                    <label class="cbx" for="cbx"><span>
             <svg width="12px" height="10px" viewbox="0 0 12 10">
               <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Ik wil op de website komen als ik bij een commissie hoor.</span></label>
-            <br>
-            <div class="left" style="width: 25%;">
-            @if(session()->has('message'))
-                <div class="alert alert-primary">
-                    {{ session()->get('message') }}
-                </div>
-            @endif
+                    <br>
+                    <div class="left" style="width: 25%;">
+                        @if(session()->has('message'))
+                            <div class="alert alert-primary">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+                    </div>
+                    <br>
+                    <p><b>Naam:</b> {{ $user->FirstName }} </p>
+                    <p><b>Achternaam:</b> {{ $user->LastName }} </p>
+                    <p><b>Email:</b> {{ $user->email }} </p>
+                    <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
+
+                    <div class="form-group">
+                        @if($user->birthday == null)
+                            <label for="birthday">Geboortedatum</label>
+                            <input type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
+                                   value="{{ old('birthday') }}" id="birthday" name="birthday"
+                                   placeholder="Verjaardag...">
+                        @else
+                            <p><b>Verjaardag:</b> {{date('d-m-Y', strtotime($user->birthday))}}</p>
+                        @endif
+                    </div>
+
+                    <p><b>Profiel foto:</b></p>
+                    {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
+                    <br>
+                    <br>
+
+                    <a class="btn btn-primary" onclick="myClickOnUrHand()">Foto bewerken</a>
+                    <br>
+                    <p id="demo"></p>
+
+
+                    <input type="hidden" name="user_id" id="user_id" value="{{  $user->id  }}">
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </form>
             </div>
-            <br>
-            <p><b>Naam:</b> {{ $user->FirstName }} </p>
-            <p><b>Achternaam:</b> {{ $user->LastName }} </p>
-            <p><b>Email:</b> {{ $user->email }} </p>
-            <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
 
-            <div class="form-group">
-                @if($user->birthday == null)
-                    <label for="birthday">Verjaardag</label>
-                    <input type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" value="{{ old('birthday') }}" id="birthday" name="birthday" placeholder="Verjaardag...">
-                @else
-                    <p><b>Verjaardag:</b> {{date('d-m-Y', strtotime($user->birthday))}}</p>
-                @endif
-            </div>
-
-            <p><b>Profiel foto:</b></p>
-            {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
-            <br>
-            <br>
-
-            <a class="btn btn-primary" onclick="myClickOnUrHand()">Foto bewerken</a>
-            <br>
-            <p id="demo"></p>
-
-
-            <input type="hidden" name="user_id" id="user_id" value="{{  $user->id  }}">
-            <button type="submit" class="btn btn-primary">Opslaan</button>
-        </form>
-    </div>
-
-    <div id="inschrijvingen" class="tabcontent" role="tabpanel" aria-labelledby="inschrijvingen-tab">
-        <h1>Transacties</h1>
-            <form method="post" action="/mijnAccount/pay">
-                @csrf
-                <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
-                <input type="hidden" name="lastName" value="{{ $user->LastName }}">
-                <input type="hidden" name="insertion" value="{{ $user->insertion }}">
-                <input type="hidden" name="email" value="{{ $user->email }}">
-                <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
-                @if($subscriptionActive == 0)
-                    <p>
-                        <b>Lidmaatschap: </b>
-                        <button type="submit" class="myAccountBtn btn btn-secondary"  data-toggle="tooltip" data-placement="top" title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">Non actief</button>
-                    </p></form>
+            <div id="inschrijvingen" class="tabcontent" role="tabpanel" aria-labelledby="inschrijvingen-tab">
+                <h1>Transacties</h1>
+                <form method="post" action="/mijnAccount/pay">
+                    @csrf
+                    <input type="hidden" name="firstName" value="{{ $user->FirstName }}">
+                    <input type="hidden" name="lastName" value="{{ $user->LastName }}">
+                    <input type="hidden" name="insertion" value="{{ $user->insertion }}">
+                    <input type="hidden" name="email" value="{{ $user->email }}">
+                    <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
+                    @if($subscriptionActive == 0)
+                        <p>
+                            <b>Lidmaatschap: </b>
+                            <button type="submit" class="myAccountBtn btn btn-secondary" data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">
+                                Non actief
+                            </button>
+                        </p></form>
                 @else
                     <div style="float:left; display:inline;">
-                        <p><b>Lidmaatschap: </b><button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button></p>
+                        <p><b>Lidmaatschap: </b>
+                            <button type="button" class="myAccountBtn btn btn-success" disabled>Actief</button>
+                        </p>
                     </div>
                     <div style="float:left; display:inline;">
                         <form method="post" action="/mijnAccount/cancel">
@@ -126,83 +147,83 @@
                         </form>
                     </div>
                 @endif
-        <table id="table"
-               data-toggle="table">
-            <thead>
-            <tr>
-                <th data-field="toegekend">Toegekend aan</th>
-                <th data-field="inschrijving">Inschrijving</th>
-                <th data-field="paymentStatus">Betalings status</th>
-                <th data-field="price">Totaal prijs</th>
-                <th data-field="creationDate">Datum</th>
-            </tr>
-            </thead>
-            <tbody>
-                @foreach($transactions as $transaction)
-                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                        <td data-value="toegekend"><a href="{{$user->FirstName}}">{{$user->FirstName}}</a></td>
-                        <td data-value="inschrijving">{{$transaction->product->name}}</td>
-                        <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
-                        <td data-value="beschrijving">{{"€ ".$transaction->product->amount}}</td>
-                        <td data-value="creationDate">{{ $transaction->created_at->format('d/m/Y') }}</td>
+                <table id="table"
+                       data-toggle="table">
+                    <thead>
+                    <tr>
+                        <th data-field="toegekend">Toegekend aan</th>
+                        <th data-field="inschrijving">Inschrijving</th>
+                        <th data-field="paymentStatus">Betalings status</th>
+                        <th data-field="price">Totaal prijs</th>
+                        <th data-field="creationDate">Datum</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                    </thead>
+                    <tbody>
+                    @foreach($transactions as $transaction)
+                        <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                            <td data-value="toegekend"><a href="{{$user->FirstName}}">{{$user->FirstName}}</a></td>
+                            <td data-value="inschrijving">{{$transaction->product->name}}</td>
+                            <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
+                            <td data-value="beschrijving">{{"€ ".$transaction->product->amount}}</td>
+                            <td data-value="creationDate">{{ $transaction->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
 
-    <div id="whatsapp" class="tabcontent" role="tabpanel" aria-labelledby="whatsapp-tab">
-        <h1>Whatsapp</h1>
-        <p>Op vrijwillige basis mag je deelnemen aan onze whatsapp groepen.</p>
-        <table id="table"
-               data-toggle="table"
-               data-show-columns="true">
-            <thead>
-                <tr>
-                    <th data-field="link">Link</th>
-                    <th data-field="naam">Naam</th>
-                    <th data-field="beschrijving">Beschrijving</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($whatsapplink as $whatsapp)
-                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                        <td data-value="link"><a href="{{$whatsapp->link}}">{{$whatsapp->link}}</a></td>
-                        <td data-value="naam">{{$whatsapp->name}}</td>
-                        <td data-value="beschrijving">{{$whatsapp->description}}</td>
+            <div id="whatsapp" class="tabcontent" role="tabpanel" aria-labelledby="whatsapp-tab">
+                <h1>Whatsapp</h1>
+                <p>Op vrijwillige basis mag je deelnemen aan onze whatsapp groepen.</p>
+                <table id="table"
+                       data-toggle="table"
+                       data-show-columns="true">
+                    <thead>
+                    <tr>
+                        <th data-field="link">Link</th>
+                        <th data-field="naam">Naam</th>
+                        <th data-field="beschrijving">Beschrijving</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                    </thead>
+                    <tbody>
+                    @foreach($whatsapplink as $whatsapp)
+                        <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                            <td data-value="link"><a href="{{$whatsapp->link}}">{{$whatsapp->link}}</a></td>
+                            <td data-value="naam">{{$whatsapp->name}}</td>
+                            <td data-value="beschrijving">{{$whatsapp->description}}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
 
-    <div id="regels" class="tabcontent" role="tabpanel" aria-labelledby="regels-tab">
-        <h1>Regels</h1>
-        <p>Dit zijn de regels binnnen Salve Mundi</p>
-        <table id="table"
-               data-toggle="table"
-               data-show-columns="true">
-            <thead>
-                <tr>
-                    <th data-field="naam">naam</th>
-                    <th data-field="link">link</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($rules as $rule)
-                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                        <td data-value="naam">{{$rule->name}}</td>
-                        <td data-value="link"><a href="{{$rule->link}}">{{$rule->link}}</a></td>
+            <div id="regels" class="tabcontent" role="tabpanel" aria-labelledby="regels-tab">
+                <h1>Regels</h1>
+                <p>Dit zijn de regels binnnen Salve Mundi</p>
+                <table id="table"
+                       data-toggle="table"
+                       data-show-columns="true">
+                    <thead>
+                    <tr>
+                        <th data-field="naam">naam</th>
+                        <th data-field="link">link</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                    @foreach($rules as $rule)
+                        <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                            <td data-value="naam">{{$rule->name}}</td>
+                            <td data-value="link"><a href="{{$rule->link}}">{{$rule->link}}</a></td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-</div>
     <script>
-    function CopyMe(oFileInput, sTargetID) {
-        document.getElementById(sTargetID).value = oFileInput.value;
-    }
+        function CopyMe(oFileInput, sTargetID) {
+            document.getElementById(sTargetID).value = oFileInput.value;
+        }
     </script>
 @endsection

@@ -96,7 +96,14 @@ $(function() {
                 slidesToShow: 2,
                 arrows: false,
             }
-        }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+              slidesToShow: 1,
+              arrows: false,
+          }
+      }
       ]
     });
     $('.imgSlider').slick({
