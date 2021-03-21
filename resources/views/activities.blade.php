@@ -7,7 +7,7 @@
         @if($activiteit->imgPath == null)
             <div class="cardNews">
                 <div class="card-body">
-                    <h4><b><p class="card-title">{{ $activiteit->name }}</p></h4></b>
+                    <h4><b><p class="card-title" id="{{ $activiteit->name }}">{{ $activiteit->name }}</p></h4></b>
                     <p class="card-text" style="white-space: pre-line">{{ $activiteit->description }}</p>
                     <div class="row">
                         @if(session('id') != null)
@@ -23,7 +23,7 @@
         <div class="cardNews">
             {!! '<img class="img-fluid" src="storage/'.$activiteit->imgPath.'" />' !!}
             <div class="card-body">
-                <h4><b><p class="card-title">{{ $activiteit->name }}</p></h4></b>
+                <h4><b><p class="card-title" id="{{ $activiteit->name }}">{{ $activiteit->name }}</p></h4></b>
                 <p class="card-text" style="white-space: pre-line">{{ $activiteit->description }}</p>
                 <div class="row">
                     @if(session('id') != null)
