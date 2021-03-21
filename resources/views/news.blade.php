@@ -13,7 +13,6 @@
                         @if(session('id') != null)
                             <div class="col-md-12">
                                 <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($article->created_at))}}
-                                <a href="{{ $article->formsLink }}" class="btn btn-primary buttonarticleen float-right">Inschrijven @if($article->amount > 0)€{{$article->amount}}@endif</a></p>
                             </div>
                         @endif
                     </div>
@@ -29,7 +28,6 @@
                     @if(session('id') != null)
                         <div class="col-md-12">
                             <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($article->created_at))}}
-                            <a href="{{ $article->formsLink }}" class="btn btn-primary buttonarticleen float-right">Inschrijven @if($article->amount > 0)€{{$article->amount}}@endif</a></p>
                         </div>
                     @endif
                 </div>
