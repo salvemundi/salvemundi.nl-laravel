@@ -13,6 +13,7 @@ use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
+use Illuminate\Http\Request;
 use Microsoft\Graph\Model\Image;
 class AzureController extends Controller
 {
@@ -139,5 +140,20 @@ class AzureController extends Controller
             return false;
         }
         return true;
+    }
+
+    public static function DeleteUser(Request $request)
+    {
+        $userObject = User::where('id', $request->input('id'))->first();
+        $graph = AzureController::connectToAzure();
+        $userObject->delete();
+        try{
+            $graphRequest = $graph->createRequest("DELETE", '/users/'.$userObject->AzureID)
+                ->execute();
+        }
+        catch(GraphException $e){
+            return redirect('removeLeden')->with('message', 'Het verwijderen is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
+        }
+        return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' Is gelukt!');
     }
 }
