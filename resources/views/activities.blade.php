@@ -13,7 +13,9 @@
                         @if(session('id') != null)
                             <div class="col-md-12">
                                 <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
-                                <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                                @if($activiteit->formsLink != null)
+                                    <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                                @endif
                             </div>
                         @endif
                     </div>
@@ -29,7 +31,9 @@
                     @if(session('id') != null)
                         <div class="col-md-12">
                             <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
-                            <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                            @if($activiteit->formsLink != null)
+                                <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven @if($activiteit->amount > 0)€{{$activiteit->amount}}@endif</a></p>
+                            @endif
                         </div>
                     @endif
                 </div>

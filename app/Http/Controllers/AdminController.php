@@ -18,7 +18,7 @@ use DB;
 use Illuminate\Support\Facades\Log;
 use App\Enums\paymentType;
 use App\Enums\paymentStatus;
-
+use Illuminate\Support\Collection;
 
 class AdminController extends Controller
 {
@@ -174,5 +174,28 @@ class AdminController extends Controller
         } else {
             return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
         }
+    }
+
+    public function viewRemoveLeden()
+    {
+        $userCollectionPaid = Collection::make();
+        $userCollectionUnPaid = Collection::make();
+        $userObjectList = User::all();
+        foreach($userObjectList as $userObject)
+        {
+            $adminAuthorization = AdminController::authorizeUser(session('id'));
+            $planCommissieLid = paymentType::fromValue(1);
+            $plan = paymentType::fromValue(2);
+            $name = ucfirst($plan) . ' membership';
+            $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+            Log::info($userObject->subscribed($name,$plan->key));
+            if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
+            {
+                $userCollectionPaid->push($userObject);
+            } else{
+               $userCollectionUnPaid->push($userObject);
+            }
+        }
+        return view('admin/removeLeden',['usersPaid' => $userCollectionPaid, 'usersUnPaid' => $userCollectionUnPaid]);
     }
 }
