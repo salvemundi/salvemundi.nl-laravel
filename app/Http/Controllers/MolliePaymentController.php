@@ -130,9 +130,9 @@ class MolliePaymentController extends Controller
             if(is_a($result, RedirectToCheckoutResponse::class)) {
                 return $result;
             }
-            return back()->with('status', 'Welcome to the ' . $plan . ' plan');
+            return back()->with('message', 'Welcome to the ' . $plan . ' plan');
         }
-        return back()->with('status', 'You are already on the ' . $plan . ' plan');
+        return back()->with('message', 'You are already on the ' . $plan . ' plan');
     }
 
     /**

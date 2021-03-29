@@ -48,7 +48,6 @@ class myAccountController extends Controller
         ]);
 
         $user = User::find($request->input('user_id'));
-
         if($request->input('cbx'))
         {
             $user->visibility = 1;

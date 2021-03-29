@@ -24,6 +24,7 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
+            'redirect_url' => 'required',
         ]);
         $productObject = Product::find($request->input('id'));
 
@@ -33,6 +34,7 @@ class ProductController extends Controller
         }
         $productObject->amount = $request->input('price');
         $productObject->description = $request->input('description');
+        $productObject->redirect_url = $request->input('redirect_url');
         $productObject->save();
         return redirect('/admin/products');
     }
