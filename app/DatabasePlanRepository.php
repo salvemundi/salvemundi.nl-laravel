@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use App\Models\Plan;
+use Laravel\Cashier\Exceptions\PlanNotFoundException;
 use Laravel\Cashier\Plan\Contracts\PlanRepository;
 
 class DatabasePlanRepository implements PlanRepository
@@ -17,6 +18,7 @@ class DatabasePlanRepository implements PlanRepository
     /**
      * @param string $name
      * @return \Laravel\Cashier\Plan\Contracts\Plan
+     * @throws PlanNotFoundException
      */
     public static function findOrFail(string $name)
     {
