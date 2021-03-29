@@ -141,7 +141,7 @@ class Plan extends Model implements PlanImplements
      */
     public function firstPaymentRedirectUrl()
     {
-        return route('inschrijven');
+        return route('home');
     }
 
     /**
