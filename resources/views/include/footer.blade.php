@@ -9,7 +9,7 @@
             <li><a href="https://goo.gl/maps/dnv849aVPd8DyXqa8" target="https://goo.gl/maps/dnv849aVPd8DyXqa8">5612 MA Eindhoven</li></a>
             <li>KvK nr. 70280606</li>
             <li><a href="/responsible-disclosure">Responsible Disclosure</li></a>
-            <li><a href="{{ asset('storage/Files/privacy.pdf') }}" download>Download privacy voorwaarden</a></li>
+            <li><a href="{{ asset('storage/Files/privacy.pdf') }}" download>Download privacyvoorwaarden</a></li>
             <li><a href="{{ asset('storage/Files/Huisregelement.pdf') }}" download>Download huisregelement</a></li>
             <li><a href="{{ asset('storage/Files/Statuten-vereniging-Salve-Mundi.pdf') }}" download>Download statuten</a></li>
           </ul>
