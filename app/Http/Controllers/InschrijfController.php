@@ -6,6 +6,7 @@ use App\Enums\paymentType;
 use App\Mail\SendMailInschrijving;
 use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Inschrijving;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
@@ -46,7 +47,12 @@ class InschrijfController extends Controller
     public static function processPayment($orderObject)
     {
         $registerObject = $orderObject->registerRelation;
-        if(AzureController::fetchSpecificUser($registerObject->user->AzureID)){
+        try
+        {
+            AzureController::fetchSpecificUser($registerObject->user->AzureID);
+        }
+        catch(Exception $e)
+        {
             AzureController::createAzureUser($registerObject, $orderObject);
         }
     }
