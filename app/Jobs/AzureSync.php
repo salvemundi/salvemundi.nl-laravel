@@ -75,7 +75,8 @@ class AzureSync implements ShouldQueue
             ->setReturnType(Model\Group::class)
             ->execute();
         foreach ($grouparray as $groups) {
-            if(!Commissie::where('AzureID', $groups->getId())->first()) {
+            $CommissieQuery = Commissie::where('AzureID', $groups->getId())->first();
+            if(!$CommissieQuery) {
                 if (Str::contains($groups->getDisplayName(), ['|| Salve Mundi'])) {
                     $commissieName = str_replace(" || Salve Mundi", "", $groups->getDisplayName());
                     DB::table('groups')->insert(
@@ -87,6 +88,11 @@ class AzureSync implements ShouldQueue
                         )
                     );
                 }
+            } else {
+                $commissieName = str_replace(" || Salve Mundi", "", $groups->getDisplayName());
+                $CommissieQuery->Description = $groups->getDescription();
+                $CommissieQuery->DisplayName = $commissieName;
+                $CommissieQuery->save();
             }
         }
         Log::info('Groups fetched');

@@ -3,6 +3,7 @@
 /* Begin main CSS page */
 ::selection {
   background: $salveMundi-link;
+  color: white;
 }
 
 a,
@@ -90,7 +91,8 @@ html {
 
 .navImg {
   width: 100%;
-  position: fixed;
+  height: auto;
+  position: relative;
   z-index: 0;
 }
 

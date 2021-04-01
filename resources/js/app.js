@@ -74,11 +74,12 @@ $(function() {
         infinite: true,
         cssEase: 'linear',
         arrows: true,
+        //variableWidth: true,
         nextArrow: '<button type="button" unselectable="on" class="slick-right"></button>',
         prevArrow: '<button type="button" unselectable="on" class="slick-left"></button>',
         responsive: [
           {
-              breakpoint: 1024,
+              breakpoint: 1754,
               settings:{
                 slidesToShow: 4,
               }

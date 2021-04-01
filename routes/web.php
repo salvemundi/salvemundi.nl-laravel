@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\HomeController;
-
-use App\Http\Resources\User as UserResource;
-use App\Models\User;
-
-//Auth::routes();
-
 // Main page.
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
@@ -79,7 +72,7 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
 
 // Privacy zooi
-Route::get('/privacy', function () {
+Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
@@ -124,3 +117,5 @@ Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController
 Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync')->middleware('admin.auth');
 Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin.auth');
 Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excel')->middleware('admin.auth');
+Route::get('/admin/removeLeden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden'])->middleware('admin.auth');
+Route::post('/admin/removeLeden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->middleware('admin.auth')->name('removeLeden');
