@@ -27,6 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Deploy website
+        uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
             php artisan down
@@ -43,3 +44,9 @@ jobs:
             php artisan route:cache
             php artisan migrate --force
             php artisan up
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.USER_PASS }}
+          port: ${{ secrets.SERVER_PORT }}
+          privatekey: ${{ secrets.DEPLOYMENT_KEY }}
+          tryKeyboard: true
