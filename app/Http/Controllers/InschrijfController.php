@@ -47,11 +47,8 @@ class InschrijfController extends Controller
     public static function processPayment($orderObject)
     {
         $registerObject = $orderObject->registerRelation;
-        try
-        {
-            AzureController::fetchSpecificUser($registerObject->user->AzureID);
-        }
-        catch(Exception $e)
+
+        if(Azurecontroller::fetchSpecificUser($registerObject->user->AzureID))
         {
             AzureController::createAzureUser($registerObject, $orderObject);
         }
