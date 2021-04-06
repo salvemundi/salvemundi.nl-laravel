@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Http\Controllers\AzureController;
 
 class InschrijfController extends Controller
 {
