@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,28 +26,19 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Deploy website
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: |
-            cd /var/www/salvemundi.nl
-            php artisan down
-            git fetch
-            git checkout Online-branch
-            git reset --hard
-            git clean -f
-            git pull
-            composer install
-            npm install --progress false
-            npm run production --progress false
-            php artisan config:cache
-            php artisan config:clear
-            php artisan route:cache
-            php artisan migrate --force
-            php artisan up
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.USER_PASS }}
-          port: ${{ secrets.SERVER_PORT }}
-          privatekey: ${{ secrets.DEPLOYMENT_KEY }}
-          tryKeyboard: true
+      - name: Deploying website
+        run: |
+          php artisan down
+          git fetch
+          git checkout Online-branch
+          git reset --hard
+          git clean -f
+          git pull
+          composer install
+          npm install --progress false
+          npm run production --progress false
+          php artisan config:cache
+          php artisan config:clear
+          php artisan route:cache
+          php artisan migrate --force
+          php artisan up
