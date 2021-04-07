@@ -36,8 +36,8 @@
                     <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" type="email" id="email" name="email" placeholder="E-mail...">
 
                     <br>
-                    <label for="Telefoonnummer">Telefoon nummer</label>
-                    <input class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}" value="{{ old('phoneNumber') }}" type="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder="Telefoon nummer...">
+                    <label for="Telefoonnummer">Telefoonnummer</label>
+                    <input class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}" value="{{ old('phoneNumber') }}" type="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder="Telefoonnummer...">
 
                     <br>
                     <input class="btn btn-primary" type="submit" value="Versturen">
