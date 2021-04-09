@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12" id="{{ $groupsBestuur->DisplayName }}">
-                    <div class="card">
+                    <div class="commissie card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $groupsBestuur->DisplayName }}</h4>
                             <div class="col-md-12">
@@ -28,7 +28,7 @@
                 @foreach($groupsBestuur->users as $users)
                 @if($users->visibility == 1)
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card user">
                         {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
                         <div class="card-body">
                             <p class="card-text">{{ $users->DisplayName }} <br> {{ $users->email }}</p>
@@ -43,7 +43,7 @@
             <div class="row">
                 @foreach($groups as $group)
                 <div class="col-md-12" id="{{ $group->DisplayName }}">
-                    <div class="card">
+                    <div class="card commissie">
                         <div class="card-body">
                             <h4 class="card-title">{{ $group->DisplayName }}</h4>
                             <p class="card-text">{{ $group->Description }}</p>
@@ -57,7 +57,7 @@
                 @foreach($group->users as $user)
                 @if($user->visibility == 1)
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card user">
                         {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
                         <div class="card-body">
                             <p class="card-text">{{ $user->DisplayName }} <br> {{ $user->email }}</p>
