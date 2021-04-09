@@ -486,8 +486,8 @@ html {
 }
 
 .pfPhoto {
-  width: 240px;
-  height: 240px;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
 }
 
@@ -792,46 +792,56 @@ html {
 
 /* Begin media query's  */
 
-@media only screen and (max-width: 549.98px) {
-  .sponsor {
-    width: 100%;
-  }
-}
+// @media only screen and (max-width: 549.98px) {
+//   .sponsor {
+//     width: 100%;
+//   }
+// }
 
-@media only screen and (max-width: 549.98px) {
-  .textCard,
-  .card-text {
-    font-size: 12px;
-  }
-}
+// @media only screen and (max-width: 549.98px) {
+//   .textCard,
+//   .card-text {
+//     font-size: 12px;
+//   }
+// }
 
-@media only screen and (max-width: 468.98px) {
+// @media only screen and (max-width: 468.98px) {
 
-  .textCard,
-  .card-text {
-    font-size: 10px;
-  }
-}
+//   .textCard,
+//   .card-text {
+//     font-size: 10px;
+//   }
+// }
 
-@media only screen and (max-width: 409.98px) {
+// @media only screen and (max-width: 409.98px) {
 
-  .textCard,
-  .card-text {
-    font-size: 8px;
-  }
-}
+//   .textCard,
+//   .card-text {
+//     font-size: 8px;
+//   }
+// }
 
-@media only screen and (max-width: 349.98px) {
+// @media only screen and (max-width: 349.98px) {
 
-  .textCard,
-  .card-text {
-    font-size: 7px;
-  }
-}
+//   .textCard,
+//   .card-text {
+//     font-size: 7px;
+//   }
+// }
 
-@media only screen and (max-width: 1409.98px) {
+@media only screen and (max-width: 1540px) {
   .card {
     flex-direction: column;
+    margin: auto;
+    //width: 240px;
+  }
+  .commissie {
+    width: max-content !important;
+    flex-direction: row !important;
+    width: auto !important;
+  }
+  .user {
+    width: fit-content !important;
   }
 }
 
@@ -847,59 +857,59 @@ html {
 //   }
 // }
 
-@media only screen and (max-width: 1199.98px) {
-  .cardNews {
-    flex-direction: column !important;
-  }
+// @media only screen and (max-width: 1199.98px) {
+//   .cardNews {
+//     flex-direction: column !important;
+//   }
 
-  .pfPhotoNews {
-    width: 100%;
-    height: auto;
-  }
-}
+//   .pfPhotoNews {
+//     width: 100%;
+//     height: auto;
+//   }
+// }
 
-@media only screen and (max-width: 505.98px) {
-  .card {
-    width: 300px;
-  }
-}
+// @media only screen and (max-width: 505.98px) {
+//   .card {
+//     width: 300px;
+//   }
+// }
 
-@media only screen and (max-width: 424.98px) {
-  .card {
-    width: 235px;
-  }
-}
+// @media only screen and (max-width: 424.98px) {
+//   .card {
+//     width: 235px;
+//   }
+// }
 
-@media only screen and (max-width: 319.98px) {
-  .card {
-    width: 200px;
-  }
-}
+// @media only screen and (max-width: 319.98px) {
+//   .card {
+//     width: 200px;
+//   }
+// }
 
-@media only screen and (max-width: 767.98px) {
-  .card {
-    flex-direction: unset;
-  }
+// @media only screen and (max-width: 767.98px) {
+//   .card {
+//     flex-direction: unset;
+//   }
 
-  .pfPhoto {
-    width: 20% !important;
-    height: auto;
-  }
-}
+//   .pfPhoto {
+//     width: 20% !important;
+//     height: auto;
+//   }
+// }
 
-@media only screen and (max-width: 835.98px) {
-  .pfPhoto {
-    width: 215px;
-    height: auto;
-  }
-}
+// @media only screen and (max-width: 835.98px) {
+//   .pfPhoto {
+//     width: 215px;
+//     height: auto;
+//   }
+// }
 
-@media only screen and (max-width: 367.98px) {
-  .mijnSlider {
-    padding-left: 0% !important;
-    padding-right: 0% !important;
-  }
-}
+// @media only screen and (max-width: 367.98px) {
+//   .mijnSlider {
+//     padding-left: 0% !important;
+//     padding-right: 0% !important;
+//   }
+// }
 
 
 
