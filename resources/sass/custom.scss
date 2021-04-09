@@ -830,11 +830,6 @@ html {
 // }
 
 @media only screen and (max-width: 1540px) {
-  .card {
-    flex-direction: column;
-    margin: auto;
-    //width: 240px;
-  }
   .commissie {
     flex-direction: row !important;
     width: fit-content !important;
@@ -844,6 +839,8 @@ html {
     width: fit-content !important;
     font-size: xx-small;
     text-align: center;
+    flex-direction: column;
+    margin: auto;
   }
 }
 
