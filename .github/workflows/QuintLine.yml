@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [main]
+    branches: [QuintLine-branch]
   pull_request:
-    branches: [main]
+    branches: [QuintLine-branch]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -45,9 +45,9 @@ jobs:
             php artisan route:cache
             php artisan migrate --force
             php artisan up
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.QUINTLINE_HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.USER_PASS }}
-          port: ${{ secrets.SERVER_PORT }}
+          port: ${{ secrets.QUINTLINE_PORT }}
           privatekey: ${{ secrets.DEPLOYMENT_KEY }}
           tryKeyboard: true
