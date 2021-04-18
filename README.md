@@ -1,6 +1,8 @@
-![CI](https://github.com/salvemundi/salvemundi.nl-laravel/workflows/CI/badge.svg)
+
+![alt text](./storage/app/public/images/SalveMundi-Vector.svg)
 
 ## salvemundi.nl-laravel
+![CI](https://github.com/salvemundi/salvemundi.nl-laravel/workflows/CI/badge.svg)
 
 In order to get started:
 
@@ -86,5 +88,3 @@ P.S please don't commit sensitive/personal data into this public repo :)
 Thanks for reading!
 
 Made by: IT-Commission Salve Mundi
-
-![alt text](./storage/app/public/images/SalveMundi-Vector.svg)
