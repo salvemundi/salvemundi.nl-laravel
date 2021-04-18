@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Http\Controllers\AzureController;
 
 class InschrijfController extends Controller
 {
@@ -47,11 +48,8 @@ class InschrijfController extends Controller
     public static function processPayment($orderObject)
     {
         $registerObject = $orderObject->registerRelation;
-        try
-        {
-            AzureController::fetchSpecificUser($registerObject->user->AzureID);
-        }
-        catch(Exception $e)
+
+        if(Azurecontroller::fetchSpecificUser($registerObject->user->AzureID))
         {
             AzureController::createAzureUser($registerObject, $orderObject);
         }
