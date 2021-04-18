@@ -486,8 +486,8 @@ html {
 }
 
 .pfPhoto {
-  width: 300px;
-  height: 300px;
+  width: 190px;
+  height: 190px;
   border-radius: 10px;
 }
 
@@ -836,12 +836,14 @@ html {
     //width: 240px;
   }
   .commissie {
-    width: max-content !important;
     flex-direction: row !important;
-    width: auto !important;
+    width: fit-content !important;
+    margin: auto !important;
   }
   .user {
     width: fit-content !important;
+    font-size: xx-small;
+    text-align: center;
   }
 }
 
