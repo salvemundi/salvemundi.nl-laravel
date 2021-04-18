@@ -8,6 +8,14 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
+    public function editNews(Request $request){
+        $request->validate([
+            'id' => ['required'],
+        ]);
+
+        return view('admin/newsEdit', ['news' => News::find($request->input('id'))]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -15,21 +23,42 @@ class NewsController extends Controller
             'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             'content' => 'required',
         ]);
-        $news = new News;
-        if($request->file('photo') != null)
+        if($request->input('id') == null)
         {
-            $path = $request->file('photo')->storeAs(
-                'public/news', $request->input('title').".png"
-            );
+            $news = new News;
+            if($request->file('photo') != null)
+            {
+                $path = $request->file('photo')->storeAs(
+                    'public/news', $request->input('title').".png"
+                );
+            }
+            $news->title = $request->input('title');
+            $news->content = $request->input('content');
+            if($request->file('photo') != null)
+            {
+                $news->imgPath = 'news/'.$request->input('title').".png";
+            }
+            $news->save();
+            return redirect('admin/nieuws')->with('message', 'Nieuws is toegevoegd');
         }
-        $news->title = $request->input('title');
-        $news->content = $request->input('content');
-        if($request->file('photo') != null)
+        else
         {
-            $news->imgPath = 'news/'.$request->input('title').".png";
+            $newsObject = News::find($request->input('id'));
+            if($request->file('photo') != null)
+            {
+                $path = $request->file('photo')->storeAs(
+                    'public/news', $request->input('title').".png"
+                );
+            }
+            $newsObject->title = $request->input('title');
+            $newsObject->content = $request->input('content');
+            if($request->file('photo') != null)
+            {
+                $newsObject->imgPath = 'news/'.$request->input('title').".png";
+            }
+            $newsObject->save();
+            return redirect('admin/nieuws')->with('message', 'Nieuws is bijgwerkt');
         }
-        $news->save();
-        return redirect('admin/nieuws')->with('message', 'Nieuws is toegevoegd');
     }
 
     public function index()

@@ -24,6 +24,7 @@
                         <th data-field="description" data-sortable="true">Beschrijving</th>
                         <th data-field="link" data-sortable="true">Forms link</th>
                         <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
+                        <th data-field="edit" data-sortable="false">Bewerken</th>
                         <th data-field="delete" data-sortable="false">Verwijderen</th>
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@
                             <td data-value="{{ $activity->description }}">{{Illuminate\Support\Str::limit($activity->description, 100)}}</td>
                             <td data-value="{{ $activity->formsLink }}">{{Illuminate\Support\Str::limit($activity->formsLink, 20)}}</td>
                             <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
+                            <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                             <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                         </tr>
                     @endforeach

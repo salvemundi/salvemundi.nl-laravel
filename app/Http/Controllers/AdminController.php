@@ -196,6 +196,6 @@ class AdminController extends Controller
                $userCollectionUnPaid->push($userObject);
             }
         }
-        return view('admin/removeLeden',['usersPaid' => $userCollectionPaid, 'usersUnPaid' => $userCollectionUnPaid]);
+        return view('admin/leden',['usersPaid' => $userCollectionPaid, 'usersUnPaid' => $userCollectionUnPaid]);
     }
 }
