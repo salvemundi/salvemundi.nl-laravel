@@ -10,6 +10,13 @@ use App\Enums\paymentStatus;
 
 class ActivitiesController extends Controller
 {
+    public function editActivities(Request $request){
+        $request->validate([
+            'id' => ['required'],
+        ]);
+        return view('admin/activitiesEdit', ['activities' => Product::find($request->input('id'))]);
+    }
+
     public function index()
     {
         $activities = Product::where('index', null)->get();
@@ -25,23 +32,44 @@ class ActivitiesController extends Controller
             'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
 
-        $products = new Product;
-        if($request->file('photo') != null)
+        if($request->input('id') == null)
         {
-            $path = $request->file('photo')->storeAs(
-                'public/activities', $request->input('name').".png"
-            );
-            $products->imgPath = 'activities/'.$request->input('name').".png";
+            $products = new Product;
+            if($request->file('photo') != null)
+            {
+                $path = $request->file('photo')->storeAs(
+                    'public/activities', $request->input('name').".png"
+                );
+                $products->imgPath = 'activities/'.$request->input('name').".png";
+            }
+
+            $products->name = $request->input('name');
+            $products->formsLink = $request->input('link');
+            $products->amount = $request->input('price');
+            $products->description = $request->input('description');
+            //dd($products);
+            $products->save();
+            return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
         }
+        else
+        {
+            $productObject = Product::find($request->input('id'));
+            if($request->file('photo') != null)
+            {
+                $path = $request->file('photo')->storeAs(
+                    'public/activities', $request->input('name').".png"
+                );
+                $productObject->imgPath = 'activities/'.$request->input('name').".png";
+            }
 
-        $products->name = $request->input('name');
-        $products->formsLink = $request->input('link');
-        $products->amount = $request->input('price');
-        $products->description = $request->input('description');
-        //dd($products);
-        $products->save();
-
-        return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
+            $productObject->name = $request->input('name');
+            $productObject->formsLink = $request->input('link');
+            $productObject->amount = $request->input('price');
+            $productObject->description = $request->input('description');
+            //dd($products);
+            $productObject->save();
+            return redirect('admin/activiteiten')->with('message', 'Activiteit is bijgewerkt');
+        }
     }
 
     public function run()
