@@ -22,6 +22,7 @@
                         <th data-field="title" data-sortable="true" data-width="250">Titel</th>
                         <th data-field="content" data-sortable="true">Inhoud</th>
                         <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
+                        <th data-field="update" data-sortable="false">Bewerken</th>
                         <th data-field="delete" data-sortable="false">Verwijderen</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@
                             <td data-value="{{ $nieuws->title }}">{{$nieuws->title}}</td>
                             <td data-value="{{ $nieuws->content }}">{{$nieuws->content}}</td>
                             <td data-value="{{ $nieuws->imgPath }}">{{$nieuws->imgPath}}</td>
+                            <td data-value="{{ $nieuws->id }}"><form method="post" action="/admin/news/edit">@csrf<input type="hidden" name="id" value="{{ $nieuws->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                             <td data-value="{{ $nieuws->id }}"><form method="post" action="/admin/news/delete">@csrf<input type="hidden" name="id" value="{{ $nieuws->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                         </tr>
                     @endforeach
