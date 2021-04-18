@@ -75,36 +75,54 @@ $(function() {
         cssEase: 'linear',
         arrows: true,
         //variableWidth: true,
+        //centerMode: true,
         nextArrow: '<button type="button" unselectable="on" class="slick-right"></button>',
         prevArrow: '<button type="button" unselectable="on" class="slick-left"></button>',
         responsive: [
           {
-              breakpoint: 1754,
-              settings:{
-                slidesToShow: 4,
-              }
-          },
-          {
-              breakpoint: 800,
-              settings: {
-                  slidesToShow: 3,
-                  arrows: false,
-              }
-          },
-          {
-            breakpoint: 500,
+            breakpoint: 1800,
             settings: {
-                slidesToShow: 2,
-                arrows: false,
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+              arrows: true
             }
-        },
-        {
-          breakpoint: 320,
-          settings: {
+          },
+          {
+            breakpoint: 1477,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+              arrows: true
+            }
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+              arrows: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
               slidesToShow: 1,
-              arrows: false,
+              slidesToScroll: 1
+            }
           }
-      }
       ]
     });
     $('.imgSlider').slick({
