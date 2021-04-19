@@ -54,7 +54,7 @@ class AdminController extends Controller
         $OpenPaymentsCount = 0;
         foreach(User::all() as $user)
         {
-            if(!$user->subscribed($name, $plan->key) || !$user->subscribed($nameCommissieLid, $planCommissieLid->key))
+            if(!$user->subscribed($name, $plan->key) && !$user->subscribed($nameCommissieLid, $planCommissieLid->key))
             {
                 $OpenPaymentsCount += 1;
             }
@@ -193,7 +193,7 @@ class AdminController extends Controller
             {
                 $userCollectionPaid->push($userObject);
             } else{
-               $userCollectionUnPaid->push($userObject);
+                $userCollectionUnPaid->push($userObject);
             }
         }
         return view('admin/leden',['usersPaid' => $userCollectionPaid, 'usersUnPaid' => $userCollectionUnPaid]);
