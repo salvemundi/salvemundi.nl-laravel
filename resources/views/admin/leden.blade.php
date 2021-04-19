@@ -27,7 +27,7 @@
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
-                        <th data-field="removeLeden" data-sortable="true">Leden verwijderen</th>
+                        <th data-field="removeLeden" data-sortable="true">Commissies</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
                             <td data-value="{{ $user->FirstName }}">{{$user->FirstName}}</td>
                             <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
-                            <td data-value="{{ $user->id }}"><form method="post" action="/admin/removeLeden/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
+                            <td data-value="{{ $user->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
                         </tr>
                     @endforeach
                 </tbody>
