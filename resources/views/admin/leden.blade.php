@@ -27,7 +27,8 @@
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
-                        <th data-field="removeLeden" data-sortable="true">Commissies</th>
+                        <th data-field="commissie" data-sortable="true">Commissies</th>
+                        <th data-field="removeLeden" data-sortable="true">Verwijderen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +38,32 @@
                             <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
+                            <td data-value="{{ $user->id }}"><button type="button" data-toggle="modal" data-target="#deleteModal1{{ $user->id }}" class="btn btn-danger">Verwijderen</button></td>
                         </tr>
+                        <div class="modal fade" id="deleteModal1{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> wilt verwijderen?
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                                        <form method="post" action="/admin/removeLeden/delete">
+                                            @csrf
+                                            <input type="hidden" name="id" id="id" value="{{ $user->id }}">
+                                            <button type="button" class="btn btn-danger">Verwijder</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>
