@@ -111,7 +111,7 @@ class MolliePaymentController extends Controller
         return view('intro');
     }
 
-    private static function createSubscription($plan,$id)
+    private static function createSubscription($plan,$id,$coupon = null)
     {
         $user = User::where('AzureID',$id)->first();
         $plan = paymentType::fromValue($plan);
@@ -120,6 +120,9 @@ class MolliePaymentController extends Controller
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
+            if($coupon != null && $coupon != "") {
+                $result = $user->newSubscription($name, $plan->key)->withCoupon($coupon)->create();
+            }
             $result = $user->newSubscription($name, $plan->key)->create();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
@@ -145,9 +148,9 @@ class MolliePaymentController extends Controller
     {
         $user = User::where('AzureID',session('id'))->first();
         if($user->commission()->exists() == true) {
-            return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
+            return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'),$request->input('coupon'));
         } else {
-            return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+            return MolliePaymentController::createSubscription(paymentType::contribution, session('id'),$request->input('coupon'));
         }
     }
 
