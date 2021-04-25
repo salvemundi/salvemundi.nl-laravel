@@ -27,7 +27,7 @@ return [
     'coupons' => [
 
         /** The coupon code. Must be unique (case insensitive). */
-        '18-euro-korting' => [
+        env("COUPON_18_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -47,7 +47,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '15-euro-korting' => [
+        env("COUPON_15_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -67,7 +67,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '10-euro-korting' => [
+        env("COUPON_10_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -87,7 +87,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '8-euro-korting' => [
+        env("COUPON_8_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -107,7 +107,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '7-euro-korting' => [
+        env("COUPON_7_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -127,7 +127,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '5-euro-korting' => [
+        env("COUPON_5_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -147,7 +147,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '4-euro-korting' => [
+        env("COUPON_4_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
@@ -167,7 +167,7 @@ return [
                 'allow_surplus' => false,
             ],
         ],
-        '3-euro-korting' => [
+        env("COUPON_3_EURO") => [
 
             /**
              * The class responsible for validating and applying the coupon discount.
