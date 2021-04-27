@@ -27,7 +27,7 @@
                     @foreach ($transactions as $transaction)
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                             <td data-value="{{ $transaction->transactionId }}">{{$transaction->transactionId}}</td>
-                            <td data-value="{{ $transaction->paymentStatus }}">{{$transaction->paymentStatus}}</td>
+                            <td data-value="{{ $transaction->paymentStatus }}">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
                         </tr>
                     @endforeach
                 </tbody>
