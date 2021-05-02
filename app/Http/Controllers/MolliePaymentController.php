@@ -16,6 +16,7 @@ use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Exceptions;
 
 /// I AM NOT PROUD OF THIS CONTROLLER, IF YOU CAN DO IT BETTER PLEASE PR :)
 
@@ -148,10 +149,19 @@ class MolliePaymentController extends Controller
     public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = User::where('AzureID',session('id'))->first();
-        if($user->commission()->exists() == true) {
-            return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'),$request->input('coupon'));
-        } else {
-            return MolliePaymentController::createSubscription(paymentType::contribution, session('id'),$request->input('coupon'));
+        try {
+            if ($user->commission()->exists() == true) {
+                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'), $request->input('coupon'));
+            } else {
+                return MolliePaymentController::createSubscription(paymentType::contribution, session('id'), $request->input('coupon'));
+            }
+        }
+        catch (\Exception $e){
+            if ($user->commission()->exists() == true) {
+                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
+            } else {
+                return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+            }
         }
     }
 
