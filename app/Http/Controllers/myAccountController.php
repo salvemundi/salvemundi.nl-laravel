@@ -43,6 +43,7 @@ class myAccountController extends Controller
     public function deletePicture(){
         $loggedInUser = User::find(session('id'));
         $loggedInUser->ImgPath = "images/SalveMundi-Vector.svg";
+        $loggedInUser->save();
         if(!AzureController::updateProfilePhoto($loggedInUser)){
             return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
         }
