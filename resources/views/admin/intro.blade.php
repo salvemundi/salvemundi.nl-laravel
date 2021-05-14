@@ -117,6 +117,8 @@
 
                     &nbsp;
                     <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
+                    &nbsp;
+                    <a href="mailto:?bcc={{ implode(',', $emails) }}" class="btn btn-primary btn-sm">Maak mail voor mensen die niet betaald hebben</a>
                 </form>
             </div>
         </div>
