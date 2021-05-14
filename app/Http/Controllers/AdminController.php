@@ -70,7 +70,8 @@ class AdminController extends Controller
         $IntroSetting = AdminSetting::where('settingName','intro')->first();
         $IntroConfirmSetting = AdminSetting::where('settingName','introConfirm')->first();
         $introSignup = IntroData::all();
-        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup]);
+        $emails = IntroController::sendMail();
+        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emails' => $emails]);
     }
 
     public static function authorizeUser($userid): int

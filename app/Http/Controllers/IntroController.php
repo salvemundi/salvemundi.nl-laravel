@@ -12,6 +12,7 @@ use App\Models\AdminSetting;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\introInschrijving;
 use Maatwebsite\Excel\Facades\Excel;
+use Collective\Html;
 
 class IntroController extends Controller
 {
@@ -112,5 +113,21 @@ class IntroController extends Controller
     function excel()
     {
         return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
+    }
+
+    public static function sendMail()
+    {
+        $People = IntroData::All();
+        $PaidPeople = Intro::All();
+        $emails = [];
+        foreach($People as $person)
+        {
+            if(!$PaidPeople->contains('email', $person->email))
+            {
+                array_push($emails, $person->email);
+            }
+        }
+        //dd($emails);
+        return $emails;
     }
 }
