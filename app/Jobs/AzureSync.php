@@ -47,10 +47,10 @@ class AzureSync implements ShouldQueue
         //
         DB::table('groups_relation')->truncate();
         Log::info('RE-SYNCING WITH AZURE');
-
         $userArray = $graph->createRequest("GET", '/users/?$top=900')
             ->setReturnType(Model\User::class)
             ->execute();
+        $userIDArray = collect();
         foreach ($userArray as $users) {
             $checkUser = User::where('AzureID', $users->getId())->first();
             if(!$checkUser) {
@@ -68,7 +68,10 @@ class AzureSync implements ShouldQueue
                     $checkUser->save();
                 }
             }
+            $userIDArray->push($users->getID());
         }
+        Log::info($userIDArray->count());
+        User::whereNotIn('AzureID', $userIDArray)->delete();
         Log::info('Users fetched');
         // Fetch all groups
         $grouparray = $graph->createRequest("GET", '/groups')
