@@ -60,7 +60,6 @@
                     </div>
                     <div style="float:left; display:inline;">
                         <form method="post" action="/mijnAccount/cancel">
-                            <input type="hidden" name="userId" value="{{ session('id') }}">
                             <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                         </form>
                     </div>
