@@ -77,6 +77,9 @@ Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
+// agenda
+Route::get('/agenda', function() {return view('agenda');})->name('agenda');
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
