@@ -97,7 +97,7 @@
                             </svg></span><span>Ik accepteer de <a href="https://salvemundi.sharepoint.com/:w:/s/intro/EXzZOiOEO2ZOhJ4fwuH_7ZABXJ4n0VX7MRtonF4l1daSyQ" target="blank" style="text-decoration: underline !important;">algemene voorwaarden</a>*</span></label>
                             <br>
                             <br>
-                            Tijdens de intro zullen er corona sneltesten afgemonen worden
+                            Tijdens de intro zullen er corona sneltesten afgenomen worden
                         <br>
                         <input class="inp-cdx" id="cdx" name="checkboxCorona" type="checkbox" style="display: none"/>
                         <label class="cdx{{ $errors->has('checkboxCorona') ? ' is-invalid' : '' }}" value="{{old('checkboxCorona') }}" for="cdx"><span>

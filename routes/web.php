@@ -47,6 +47,10 @@ Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::cla
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
+// Declaratie
+
+Route::get('/declaratie', function() {return redirect("https://forms.office.com/r/kN2T95wzRm");})->name('declaratie');
+
 // Merch
 
 Route::get('/merch', function() {return view('merch');})->name('merch');
@@ -57,6 +61,7 @@ Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'in
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences'])->middleware('azure.auth');
 Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');
 Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController::class,'cancelSubscription'])->middleware('azure.auth');
+Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\myAccountController::class,'deletePicture'])->middleware('azure.auth');
 
 // Activiteiten page
 

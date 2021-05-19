@@ -16,6 +16,7 @@ use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Inschrijving;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Exceptions;
 
 /// I AM NOT PROUD OF THIS CONTROLLER, IF YOU CAN DO IT BETTER PLEASE PR :)
 
@@ -111,7 +112,7 @@ class MolliePaymentController extends Controller
         return view('intro');
     }
 
-    private static function createSubscription($plan,$id)
+    private static function createSubscription($plan,$id,$coupon = null)
     {
         $user = User::where('AzureID',$id)->first();
         $plan = paymentType::fromValue($plan);
@@ -120,7 +121,11 @@ class MolliePaymentController extends Controller
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
-            $result = $user->newSubscription($name, $plan->key)->create();
+            if($coupon != null || $coupon != "") {
+                $result = $user->newSubscription($name, $plan->key)->withCoupon($coupon)->create();
+            } else {
+                $result = $user->newSubscription($name, $plan->key)->create();
+            }
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
@@ -144,16 +149,25 @@ class MolliePaymentController extends Controller
     public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = User::where('AzureID',session('id'))->first();
-        if($user->commission()->exists() == true) {
-            return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
-        } else {
-            return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+        try {
+            if ($user->commission()->exists() == true) {
+                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'), $request->input('coupon'));
+            } else {
+                return MolliePaymentController::createSubscription(paymentType::contribution, session('id'), $request->input('coupon'));
+            }
+        }
+        catch (\Exception $e){
+            if ($user->commission()->exists() == true) {
+                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
+            } else {
+                return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+            }
         }
     }
 
     public function cancelSubscription(Request $request)
     {
-        $userId = $request->input('userId');
+        $userId = session('id');
         $userObject = User::where('AzureID', $userId);
         $plan = paymentType::fromValue(3);
         $name = ucfirst($plan) . ' membership';
