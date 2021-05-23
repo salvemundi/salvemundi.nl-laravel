@@ -93,10 +93,10 @@
                             <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
-                            <td data-value="{{ $user->id }}"><button type="button" data-toggle="modal" data-target="#deleteModal{{ $user->id }}" class="btn btn-danger">Verwijderen</button></td>
+                            <td data-value="{{ $user->AzureID }}"><button type="button" data-toggle="modal" data-target="#deleteModal{{ $user->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
                             <td data-value="{{ $user->id }}"><button type="button" data-toggle="modal" data-target="#disableModal{{ $user->id }}" class="btn btn-secondary">Bijwerken</button></td>
                         </tr>
-                        <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal{{ $user->AzureID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
