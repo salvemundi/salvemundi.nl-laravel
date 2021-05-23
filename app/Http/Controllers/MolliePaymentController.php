@@ -167,7 +167,7 @@ class MolliePaymentController extends Controller
 
     public function cancelSubscription(Request $request)
     {
-        $userId = $request->input('userId');
+        $userId = session('id');
         $userObject = User::where('AzureID', $userId);
         $plan = paymentType::fromValue(3);
         $name = ucfirst($plan) . ' membership';
