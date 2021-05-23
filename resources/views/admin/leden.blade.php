@@ -81,6 +81,7 @@
                         <th data-field="email" data-sortable="true">E-mail</th>
                         <th data-field="commissieLeden" data-sortable="true">Commissies</th>
                         <th data-field="removeLeden" data-sortable="true">Leden verwijderen</th>
+                        <th data-field="disableLeden" data-sortable="true">Leden disablen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,6 +92,7 @@
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
                             <td data-value="{{ $user->id }}"><button type="button" data-toggle="modal" data-target="#deleteModal{{ $user->id }}" class="btn btn-danger">Verwijderen</button></td>
+                            <td data-value="{{ $user->id }}"><button type="button" data-toggle="modal" data-target="#disableModal{{ $user->id }}" class="btn btn-secondary">Bijwerken</button></td>
                         </tr>
                         <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -116,6 +118,40 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="modal fade" id="disableModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> op non actief wil zetten?
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                                        <form method="post" action="/admin/leden/disable">
+                                            @csrf
+                                            <input type="hidden" name="id" id="id" value="{{ $user->id }}">
+                                            <input type="hidden" name="mode" id="mode" value="false">
+                                            <button type="submit" class="btn btn-danger">Disable</button>
+                                        </form>
+                                        <form method="post" action="/admin/leden/disable">
+                                            @csrf
+                                            <input type="hidden" name="id" id="id" value="{{ $user->id }}">
+                                            <input type="hidden" name="mode" id="mode" value="true">
+                                            <button type="submit" class="btn btn-success">Enable</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     @endforeach
                 </tbody>
             </table>

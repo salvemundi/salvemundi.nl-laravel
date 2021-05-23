@@ -128,9 +128,6 @@ class AzureController extends Controller
 
     public static function removeUserFromGroup($userObject, $groupObject)
     {
-        $data = [
-            "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
-        ];
         $graph = AzureController::connectToAzure();
         try{
             $graphRequest = $graph->createRequest("DELETE", '/groups/'.$groupObject->AzureID.'/members/'.$userObject->AzureID.'/$ref')
@@ -155,5 +152,36 @@ class AzureController extends Controller
             return redirect('removeLeden')->with('message', 'Het verwijderen is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
         }
         return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' Is gelukt!');
+    }
+    public static function accountEnabled(Request $request)
+    {
+        $graph = AzureController::connectToAzure();
+
+        $userObject = User::where('id', $request->input('id'))->first();
+        if($request->input("mode") == "true")
+        {
+            $data = [
+                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
+                "accountEnabled" => true,
+            ];
+        }
+        else
+        {
+            $data = [
+                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
+                "accountEnabled" => false,
+            ];
+        }
+
+        try {
+            $graphRequest = $graph->createRequest("PATCH","/users/".$userObject->AzureID)
+                ->addHeaders(array("Content-Type" => "application/json"))
+                ->attachBody(json_encode($data))
+                ->execute();
+            return redirect("admin/leden");
+        } catch (GraphException $e){
+            return redirect("admin/leden");
+        }
+
     }
 }
