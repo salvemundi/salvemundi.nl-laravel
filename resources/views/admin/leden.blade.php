@@ -124,13 +124,13 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Account van {{ $user->FirstName }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> op non actief wil zetten?
+                                        Verander account status van <b>{{ $user->FirstName." ".$user->LastName}}</b>.
                                     </div>
                                     <div class="modal-footer">
 
@@ -139,13 +139,13 @@
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user->id }}">
                                             <input type="hidden" name="mode" id="mode" value="false">
-                                            <button type="submit" class="btn btn-danger">Disable</button>
+                                            <button type="submit" class="btn btn-danger">Non actief</button>
                                         </form>
                                         <form method="post" action="/admin/leden/disable">
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user->id }}">
                                             <input type="hidden" name="mode" id="mode" value="true">
-                                            <button type="submit" class="btn btn-success">Enable</button>
+                                            <button type="submit" class="btn btn-success">Actief</button>
                                         </form>
                                     </div>
                                 </div>
