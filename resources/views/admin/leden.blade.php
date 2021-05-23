@@ -32,15 +32,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($usersPaid as $user)
+                    @foreach ($usersPaid as $user2)
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                            <td data-value="{{ $user->FirstName }}">{{$user->FirstName}}</td>
-                            <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
-                            <td data-value="{{ $user->email }}">{{$user->email}}</td>
-                            <td data-value="{{ $user->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
-                            <td data-value="{{ $user->id }}"><button type="button" data-toggle="modal" data-target="#deleteModal1{{ $user->id }}" class="btn btn-danger">Verwijderen</button></td>
+                            <td data-value="{{ $user2->FirstName }}">{{$user2->FirstName}}</td>
+                            <td data-value="{{ $user2->LastName }}">{{$user2->LastName}}</td>
+                            <td data-value="{{ $user2->email }}">{{$user2->email}}</td>
+                            <td data-value="{{ $user2->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user2->id }}"><button class="btn btn-primary">Commissies</button></form></td>
+                            <td data-value="{{ $user2->id }}"><button type="button" data-toggle="modal" data-target="#deleteModal1{{ $user2->id }}" class="btn btn-danger">Verwijderen</button></td>
                         </tr>
-                        <div class="modal fade" id="deleteModal1{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal1{{ $user2->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -50,7 +50,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> wilt verwijderen?
+                                        Weet je zeker dat je de gebruiker <b>{{ $user2->FirstName." ".$user2->LastName}}</b> wilt verwijderen?
                                     </div>
                                     <div class="modal-footer">
 
