@@ -76,7 +76,6 @@
                 data-show-columns="true">
                 <thead>
                     <tr class="tr-class-1">
-                        <th data-field="id" data-sortable="true">id</th>
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
@@ -88,7 +87,6 @@
                 <tbody>
                     @foreach ($usersUnPaid as $user)
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                            <td data-value="{{ $user->id }}">{{$user->id}}</td>
                             <td data-value="{{ $user->FirstName }}">{{$user->FirstName}}</td>
                             <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
@@ -106,7 +104,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> met id: {{ $user->id }} wil verwijderen?
+                                        Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> wil verwijderen?
                                     </div>
                                     <div class="modal-footer">
 
