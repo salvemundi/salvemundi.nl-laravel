@@ -71,6 +71,8 @@
     </div>
     <div class="col-md-12">
         <h2>Niet betaald</h2>
+        <a data-toggle="modal" data-target="#disableAllModal" class="btn-warning btn">Verander account status voor alle niet betaalde leden</a>
+{{--        <a data-toggle="modal" data-target="#deleteAllModal" class="btn-danger btn specialDelete">Verwijder alle accounts van niet betaalde leden</a>--}}
         <div class="table-responsive centerTable">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                 data-show-columns="true">
@@ -158,6 +160,65 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="disableAllModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Waarschuwing</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Dit werkt de activatie status van alle accounts die niet betaalt hebben bij!
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                <form method="post" action="/admin/leden/disableall">
+                    @csrf
+                    <input type="hidden" name="mode" id="mode" value="false">
+                    <button type="submit" class="btn btn-danger">Non actief</button>
+                </form>
+                <form method="post" action="/admin/leden/disableall">
+                    @csrf
+                    <input type="hidden" name="mode" id="mode" value="true">
+                    <button type="submit" class="btn btn-success">Actief</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deleteAllModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Dit verwijdert alle leden die niet betaalt hebben uit azure en deze actie kan niet ongedaan worden!
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                <form method="post" action="/admin/leden/disableall">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Verwijder alle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script>
     $(".save-data").click(function(event){

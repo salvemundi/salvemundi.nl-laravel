@@ -153,28 +153,27 @@ class AzureController extends Controller
         }
         return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' Is gelukt!');
     }
-    public static function accountEnabled(Request $request)
+
+    public static function accountEnabled(bool $mode, User $user)
     {
         $graph = AzureController::connectToAzure();
-
-        $userObject = User::where('id', $request->input('id'))->first();
-        if($request->input("mode") == "true")
+        if($mode)
         {
             $data = [
-                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
+                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$user->AzureID,
                 "accountEnabled" => true,
             ];
         }
         else
         {
             $data = [
-                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
+                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$user->AzureID,
                 "accountEnabled" => false,
             ];
         }
 
         try {
-            $graphRequest = $graph->createRequest("PATCH","/users/".$userObject->AzureID)
+            $graphRequest = $graph->createRequest("PATCH","/users/".$user->AzureID)
                 ->addHeaders(array("Content-Type" => "application/json"))
                 ->attachBody(json_encode($data))
                 ->execute();
@@ -182,6 +181,5 @@ class AzureController extends Controller
         } catch (GraphException $e){
             return redirect("admin/leden");
         }
-
     }
 }
