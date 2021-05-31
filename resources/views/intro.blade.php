@@ -30,6 +30,9 @@
                     <p>
                         De introductie duurt 5 dagen. Vanuit de slaaplocatie worden tijdens de introductie touringcars ingezet om alle studenten bij de evenementen te krijgen. Slapen zal gebeuren in slaapzalen en legertenten. Naast het slapen, is er een grote evenementenzaal met bar waar zowel alcohol (18+) als frisdrank verkocht zal worden door middel van consumptiebonnen. De locatie bevindt zich bij een bosrand en een mooi open veld. Genoeg ruimte voor activiteiten dus!
                     </p>
+                    <p>
+                        Voor overige vragen neem per mail contact op met: <a  href="mailto:intro@salvemundi.nl">intro@salvemundi.nl</a>
+                    </p>
                         <br>
                         <label for="voornaam">Voornaam*</label>
                         <input class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" value="{{ old('firstName') }}" type="text" id="firstName" name="firstName" placeholder="Voornaam...">
