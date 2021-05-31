@@ -18,6 +18,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "laravelcollective/html": "^6.2",
         "league/oauth2-client": "^2.6",
         "maatwebsite/excel": "^3.1",
         "microsoft/microsoft-graph": "^1.23",
