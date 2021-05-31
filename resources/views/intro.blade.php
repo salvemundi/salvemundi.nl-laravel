@@ -23,7 +23,7 @@
                 <form action="/introData/store" method="post">
                     @csrf
                     <br>
-                    <h2 class="h2">Aanmelden voor de intro</h2>
+                    <h2 class="h2">Salve Mundi Introductie</h2>
                     <p>
                         Salvemundi organiseert jaarlijks een introductieweek: De FHICT-introductie. Het is een week vol avontuur en teambuilding in Eindhoven. Zo leer je ook de stad beter kennen. Salve Mundi is druk bezig geweest om dit allemaal mogelijk te maken voor de nieuwe studenten. Er wordt rekening gehouden met verschillende scenario's en daarom is de kans dat de introductie dit jaar door gaat extra groot! De introductie vindt plaats van maandag 23 augustus tot en met vrijdag 27 augustus. Houd na het inschrijven je mail in de gaten voor updates, je zult later namelijk een mail ontvangen met daarin de betalings details en aanvullende informatie!
                     </p>
@@ -33,6 +33,7 @@
                     <p>
                         Voor overige vragen neem per mail contact op met: <a  href="mailto:intro@salvemundi.nl">intro@salvemundi.nl</a>
                     </p>
+                    <h2 class="h2">Aanmelden voor de intro</h2>
                         <br>
                         <label for="voornaam">Voornaam*</label>
                         <input class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" value="{{ old('firstName') }}" type="text" id="firstName" name="firstName" placeholder="Voornaam...">
