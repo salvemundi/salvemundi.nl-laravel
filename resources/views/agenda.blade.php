@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<script src="js/scrollonload.js"></script>
 <div class="overlap">
     <p><h1 class="center"> We hebben geen agenda meer dankzij deze geweldig mooie nieuwe website</h1> <br>
         <h3 class="center">dus hier heb je een rickroll </h3><br>

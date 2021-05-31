@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="mijnSlider">
 
