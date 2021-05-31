@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div id="myShop">
         <a href="https://shop.spreadshirt.nl/salvemundi">salvemundi

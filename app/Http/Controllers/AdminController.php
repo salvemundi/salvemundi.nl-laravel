@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\AzureController;
 use App\Jobs\AzureSync;
+use App\Jobs\DisableAzure;
+use App\Jobs\EnableAzure;
 use App\Models\Commissie;
 use App\Models\Intro;
 use App\Models\IntroData;
@@ -11,7 +14,6 @@ use App\Models\Transaction;
 use App\Models\WhatsappLink;
 use App\Models\User;
 use App\Models\AdminSetting;
-use App\Http\Controllers\AzureController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
@@ -198,5 +200,38 @@ class AdminController extends Controller
             }
         }
         return view('admin/leden',['usersPaid' => $userCollectionPaid, 'usersUnPaid' => $userCollectionUnPaid]);
+    }
+    public function disableAzureAcc(Request $request) {
+        $user = User::find($request->input("id"));
+        if($request->input("mode") == true) {
+            AzureController::accountEnabled(true, $user);
+        } else{
+            AzureController::accountEnabled(false, $user);
+        }
+    }
+    public function DisableAllAzureAcc(Request $request){
+        $userCollectionPaid = Collection::make();
+        $userCollectionUnPaid = Collection::make();
+        $userObjectList = User::all();
+        foreach($userObjectList as $userObject)
+        {
+            $planCommissieLid = paymentType::fromValue(1);
+            $plan = paymentType::fromValue(2);
+            $name = ucfirst($plan) . ' membership';
+            $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+            Log::info($userObject->subscribed($name,$plan->key));
+            if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
+            {
+                $userCollectionPaid->push($userObject);
+            } else{
+                $userCollectionUnPaid->push($userObject);
+            }
+        }
+        if($request->input("mode") == "true"){
+            EnableAzure::dispatch($userCollectionUnPaid);
+        } else {
+            DisableAzure::dispatch($userCollectionUnPaid);
+        }
+        return redirect('/admin/leden');
     }
 }

@@ -417,7 +417,13 @@ html {
 /* End footer */
 
 /* Begin intro signup */
+.btn-warning{
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+.specialDelete {
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 
+}
 .btn-primary {
   background: $salveMundi-primary !important;
   border-color: $salveMundi-primary !important;
