@@ -27,6 +27,7 @@
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
+                        <th data-field="phone" data-sortable="true">telefoon</th>
                         <th data-field="commissie" data-sortable="true">Commissies</th>
                         <th data-field="removeLeden" data-sortable="true">Verwijderen</th>
                     </tr>
@@ -37,6 +38,7 @@
                             <td data-value="{{ $user2->FirstName }}">{{$user2->FirstName}}</td>
                             <td data-value="{{ $user2->LastName }}">{{$user2->LastName}}</td>
                             <td data-value="{{ $user2->email }}">{{$user2->email}}</td>
+                            <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                             <td data-value="{{ $user2->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user2->id }}"><button class="btn btn-primary">Commissies</button></form></td>
                             <td data-value="{{ $user2->AzureID }}"><button type="button" data-toggle="modal" data-target="#deleteModal1{{ $user2->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
                         </tr>
@@ -81,6 +83,7 @@
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
+                        <th data-field="phone" data-sortable="true">telefoon</th>
                         <th data-field="commissieLeden" data-sortable="true">Commissies</th>
                         <th data-field="removeLeden" data-sortable="true">Leden verwijderen</th>
                         <th data-field="disableLeden" data-sortable="true">Leden disablen</th>
@@ -92,6 +95,7 @@
                             <td data-value="{{ $user->FirstName }}">{{$user->FirstName}}</td>
                             <td data-value="{{ $user->LastName }}">{{$user->LastName}}</td>
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
+                            <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                             <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
                             <td data-value="{{ $user->AzureID }}"><button type="button" data-toggle="modal" data-target="#deleteModal{{ $user->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
                             <td data-value="{{ $user->AzureID }}"><button type="button" data-toggle="modal" data-target="#disableModal{{ $user->AzureID }}" class="btn btn-secondary">Bijwerken</button></td>
@@ -153,7 +157,6 @@
                                 </div>
                             </div>
                         </div>
-
                     @endforeach
                 </tbody>
             </table>
