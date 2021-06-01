@@ -76,7 +76,7 @@ class AzureSync implements ShouldQueue
             $userIDArray->push($users->getID());
         }
         Log::info($userIDArray->count());
-        User::whereNotIn('AzureID', $userIDArray)->forceDelete();
+        ##User::whereNotIn('AzureID', $userIDArray)->forceDelete();
         Log::info('Users fetched');
         // Fetch all groups
         $grouparray = $graph->createRequest("GET", '/groups')
