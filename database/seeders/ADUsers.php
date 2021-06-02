@@ -44,7 +44,7 @@ class ADUsers extends Seeder
             $newUser->DisplayName = $users->getDisplayName();
             $newUser->FirstName = $users->getGivenName();
             $newUser->LastName = $users->getSurname();
-            $newUser->PhoneNumber = "";
+            $newUser->PhoneNumber = $users->getMobilePhone();
             $newUser->email = $users->getMail();
             $newUser->save();
         }

@@ -203,11 +203,12 @@ class AdminController extends Controller
     }
     public function disableAzureAcc(Request $request) {
         $user = User::find($request->input("id"));
-        if($request->input("mode") == true) {
+        if($request->input("mode") == "true") {
             AzureController::accountEnabled(true, $user);
         } else{
             AzureController::accountEnabled(false, $user);
         }
+        return redirect("/admin/leden");
     }
     public function DisableAllAzureAcc(Request $request){
         $userCollectionPaid = Collection::make();
