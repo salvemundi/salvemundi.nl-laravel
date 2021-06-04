@@ -86,6 +86,9 @@ class AdminController extends Controller
                     return 1;
                 }
             }
+            if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0"){
+                return 1;
+            }
             return 0;
         } else {
             if(session('id') != null){
@@ -95,6 +98,9 @@ class AdminController extends Controller
                     if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
                         return 1;
                     }
+                }
+                if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0"){
+                    return 1;
                 }
                 return 0;
             }
