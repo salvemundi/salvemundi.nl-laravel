@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\AzureController;
 use App\Jobs\AzureSync;
+use App\Jobs\DisableAzure;
+use App\Jobs\EnableAzure;
 use App\Models\Commissie;
 use App\Models\Intro;
 use App\Models\IntroData;
@@ -11,7 +14,6 @@ use App\Models\Transaction;
 use App\Models\WhatsappLink;
 use App\Models\User;
 use App\Models\AdminSetting;
-use App\Http\Controllers\AzureController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use DB;
@@ -84,6 +86,9 @@ class AdminController extends Controller
                     return 1;
                 }
             }
+            if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0"){
+                return 1;
+            }
             return 0;
         } else {
             if(session('id') != null){
@@ -93,6 +98,9 @@ class AdminController extends Controller
                     if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
                         return 1;
                     }
+                }
+                if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0"){
+                    return 1;
                 }
                 return 0;
             }
@@ -198,5 +206,39 @@ class AdminController extends Controller
             }
         }
         return view('admin/leden',['usersPaid' => $userCollectionPaid, 'usersUnPaid' => $userCollectionUnPaid]);
+    }
+    public function disableAzureAcc(Request $request) {
+        $user = User::find($request->input("id"));
+        if($request->input("mode") == "true") {
+            AzureController::accountEnabled(true, $user);
+        } else{
+            AzureController::accountEnabled(false, $user);
+        }
+        return redirect("/admin/leden");
+    }
+    public function DisableAllAzureAcc(Request $request){
+        $userCollectionPaid = Collection::make();
+        $userCollectionUnPaid = Collection::make();
+        $userObjectList = User::all();
+        foreach($userObjectList as $userObject)
+        {
+            $planCommissieLid = paymentType::fromValue(1);
+            $plan = paymentType::fromValue(2);
+            $name = ucfirst($plan) . ' membership';
+            $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+            Log::info($userObject->subscribed($name,$plan->key));
+            if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
+            {
+                $userCollectionPaid->push($userObject);
+            } else{
+                $userCollectionUnPaid->push($userObject);
+            }
+        }
+        if($request->input("mode") == "true"){
+            EnableAzure::dispatch($userCollectionUnPaid);
+        } else {
+            DisableAzure::dispatch($userCollectionUnPaid);
+        }
+        return redirect('/admin/leden');
     }
 }

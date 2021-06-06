@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="row center">
         @if($introSetting->settingValue == 0 || $introConfirmSetting->settingValue == 0)

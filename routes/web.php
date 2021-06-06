@@ -81,11 +81,16 @@ Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
+// agenda
+Route::get('/agenda', function() {return view('agenda');})->name('agenda');
+
 // Admin Panel
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
-Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->middleware('admin.auth');
-Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin.auth');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-intro.auth');
+Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
+Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");
+Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser')->middleware('admin.auth');
+Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin-intro.auth');
 Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->middleware('admin.auth')->name('admin.sponsors');
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');
 Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');})->middleware('admin.auth');

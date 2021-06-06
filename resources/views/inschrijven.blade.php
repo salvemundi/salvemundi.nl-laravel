@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="row center">
         <div id="contact" class="col-md-6">
