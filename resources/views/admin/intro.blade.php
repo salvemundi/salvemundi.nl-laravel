@@ -123,7 +123,8 @@
                     &nbsp;
                     <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
                     &nbsp;
-                    <a href="mailto:?bcc={{ implode(',', $emails) }}" class="btn btn-primary btn-sm">Maak mail voor mensen die niet betaald hebben</a>
+                    <a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="btn btn-primary btn-sm">Maak mail voor 1e jaars die niet betaald hebben</a>
+                    <a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="btn btn-primary btn-sm">Maak mail voor 2e jaars die niet betaald hebben</a>
                 </form>
             </div>
         </div>
