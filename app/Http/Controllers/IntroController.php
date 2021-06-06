@@ -117,9 +117,25 @@ class IntroController extends Controller
         return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
     }
 
-    public static function sendMail()
+    public static function sendMailFirstYear()
     {
-        $People = IntroData::All();
+        $People = IntroData::Where('studentYear', 0)->get();
+        $PaidPeople = Intro::All();
+        $emails = [];
+        foreach($People as $person)
+        {
+            if(!$PaidPeople->contains('email', $person->email))
+            {
+                array_push($emails, $person->email);
+            }
+        }
+        //dd($emails);
+        return $emails;
+    }
+
+    public static function sendMailSecondYear()
+    {
+        $People = IntroData::Where('studentYear', 1)->get();
         $PaidPeople = Intro::All();
         $emails = [];
         foreach($People as $person)
