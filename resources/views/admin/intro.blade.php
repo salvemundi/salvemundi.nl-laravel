@@ -16,11 +16,11 @@
             <li class="nav-item">
 {{--                <a class="nav-link active" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab"--}}
 {{--                   aria-controls="inschrijvingen" aria-selected="true"><i class="fa fa-credit-card"></i> Betaald</a>--}}
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#inschrijvingen" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fa fa-credit-card"></i> Betaald</button>
+                <button class="nav-link tabber" id="contact-tab" data-bs-toggle="tab" data-bs-target="#inschrijvingen" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fa fa-credit-card"></i> Betaald</button>
 
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</button>
+                <button class="nav-link tabber" id="contact-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</button>
 {{--                <a class="nav-link" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab"--}}
 {{--                   aria-controls="gegevens" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</a>--}}
             </li>

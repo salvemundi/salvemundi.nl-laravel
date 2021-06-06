@@ -76,6 +76,12 @@ html {
 
 /* Begin navbar */
 
+.tabber {
+  color: black !important;
+}
+.nav-link:hover {
+  color: white;
+}
 .navbar,
 .navbarAdmin {
   background-color: rgba(0, 0, 0, 0) !important;

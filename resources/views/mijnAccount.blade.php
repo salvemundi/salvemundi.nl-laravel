@@ -3,27 +3,27 @@
 @section('content')
 
     <script src="js/scrollonload.js"></script>
-    <div class="overlap" id="navlink">
+    <div class="overlap" id="navlink" style="color: black;">
         <h2>Mijn account</h2>
         <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             @if ($authorized == 1)
                 <li class="nav-item">
-                    <a class="nav-link" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
+                    <a class="nav-link tabber" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
                 </li>
             @endif
             <li class="nav-item">
-                <button class="nav-link" id="gegevens-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Gegevens</button>
+                <button class="nav-link tabber" id="gegevens-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Gegevens</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="inschrijvingen-tab" data-bs-toggle="tab" data-bs-target="#inschrijvingen" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fa fa-credit-card"></i>
+                <button class="nav-link tabber" id="inschrijvingen-tab" data-bs-toggle="tab" data-bs-target="#inschrijvingen" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fa fa-credit-card"></i>
                     Transacties</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="whatsapp-tab" data-bs-toggle="tab" data-bs-target="#whatsapp" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fab fa-whatsapp"></i> Whatsapp</button>
+                <button class="nav-link tabber" id="whatsapp-tab" data-bs-toggle="tab" data-bs-target="#whatsapp" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fab fa-whatsapp"></i> Whatsapp</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="regels-tab" data-bs-toggle="tab" data-bs-target="#regels" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-heart"></i> Regels</button>
+                <button class="nav-link tabber" id="regels-tab" data-bs-toggle="tab" data-bs-target="#regels" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-heart"></i> Regels</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
