@@ -33,7 +33,10 @@ html {
   top: 750px;
   position: relative;
   margin-bottom: 750px;
-  padding: 50px;
+  padding: 50px;.form-check-input:checked {
+    background-color: #3490dc;
+    border-color: #3490dc;
+}
   //width: 100% !important;
   z-index: 3;
 }
@@ -46,6 +49,27 @@ html {
 
 .widthFix {
   width: 100% !important;
+}
+
+
+
+/* This is the checked state */
+.custom-radio .custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+  background-color: #902fff;  /* green */
+  /* this bg image SVG is just a white circle, you can replace it with any valid SVG code */
+  border-radius: 50%;
+}
+
+/* active state i.e. displayed while the mouse is being pressed down */
+.custom-radio .custom-control-input:active ~ .custom-control-label::before {
+  color: #fff;
+  background-color: #a600ff; /* red */
+}
+
+/* the shadow; displayed while the element is in focus */
+.custom-radio .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0 #fff, 0 0 0 0.25rem rgba(178, 123, 255, 0.25); /* pink, 25% opacity */
 }
 
 /* End main CSS page */
@@ -418,21 +442,34 @@ html {
 
 /* Begin intro signup */
 .btn-warning{
+  color: black !important;
   box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 }
 .specialDelete {
   box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 
 }
-.btn-primary {
-  background: $salveMundi-primary !important;
-  border-color: $salveMundi-primary !important;
-
+.btn {
+  color: white;
   &:hover {
-    background: $salveMundi-dark !important;
+    color: white;
   }
 
   &:focus {
+    color: white;
+  }
+}
+.btn-primary {
+  background: $salveMundi-primary !important;
+  border-color: $salveMundi-primary !important;
+  color: white;
+  &:hover {
+    background: $salveMundi-dark !important;
+    color: white;
+  }
+
+  &:focus {
+    color: white;
     box-shadow: 0 0 0 0.2rem $salveMundi-boxShadow !important;
   }
 }
