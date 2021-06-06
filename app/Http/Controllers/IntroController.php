@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\IntroStudentYear;
 use App\Mail\SendMailIntro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -95,7 +96,7 @@ class IntroController extends Controller
             ]);
             if(IntroData::where('email',$request->input('email'))->first())
             {
-                return view('intro',['message' => 'Een gebruiker met deze e-mail heeft zich al ingeschreven']);
+                return redirect('/intro')->with('message', 'Een gebruiker met deze e-mail heeft zich al ingeschreven');
             }
             $userIntro = new IntroData;
 
@@ -103,9 +104,10 @@ class IntroController extends Controller
             $userIntro->insertion = $request->input('insertion');
             $userIntro->lastName = $request->input('lastName');
             $userIntro->email = $request->input('email');
+            $userIntro->studentYear = IntroStudentYear::coerce((int)$request->input('introYear'));
             $userIntro->save();
             // dd($userIntro);
-            return view('intro',['message' => 'Je inschrijving is gelukt. Houd je mail in de gaten!']);
+            return redirect('/intro')->with('message', 'Je inschrijving is gelukt. Houd je mail in de gaten!');
         } else {
             return redirect('/');
         }
