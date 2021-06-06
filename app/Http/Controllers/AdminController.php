@@ -72,8 +72,10 @@ class AdminController extends Controller
         $IntroSetting = AdminSetting::where('settingName','intro')->first();
         $IntroConfirmSetting = AdminSetting::where('settingName','introConfirm')->first();
         $introSignup = IntroData::all();
-        $emails = IntroController::sendMail();
-        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emails' => $emails]);
+        $emailsFirstYear = IntroController::sendMailFirstYear();
+        $emailsSecondYear = IntroController::sendMailSecondYear();
+        //dd($emailsFirstYear, $emailsSecondYear);
+        return view('admin/intro', ['introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emailsFirstYear' => $emailsFirstYear, 'emailsSecondYear' => $emailsSecondYear]);
     }
 
     public static function authorizeUser($userid): int
