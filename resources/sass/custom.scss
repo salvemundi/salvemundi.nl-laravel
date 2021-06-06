@@ -56,7 +56,7 @@ html {
 /* This is the checked state */
 .custom-radio .custom-control-input:checked~.custom-control-label::before,
 .custom-radio .custom-control-input:checked~.custom-control-label::after {
-  background-color: #902fff;  /* green */
+  background-color: $salveMundi-primary;  /* green */
   /* this bg image SVG is just a white circle, you can replace it with any valid SVG code */
   border-radius: 50%;
 }
@@ -64,7 +64,7 @@ html {
 /* active state i.e. displayed while the mouse is being pressed down */
 .custom-radio .custom-control-input:active ~ .custom-control-label::before {
   color: #fff;
-  background-color: #a600ff; /* red */
+  background-color: $salveMundi-link; /* red */
 }
 
 /* the shadow; displayed while the element is in focus */
