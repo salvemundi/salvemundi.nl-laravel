@@ -1,7 +1,7 @@
 version: "3"
 
 silent: true
-
+dotenv: ['.env']
 tasks:
   d:up:
     deps: [w:prep]
@@ -32,3 +32,7 @@ tasks:
     cmds:
       - docker exec -it app php artisan migrate:fresh
       - docker exec -it app php artisan db:seed
+  d:sql:
+    desc: Get into sql console
+    cmds:
+      - docker exec -it db mysql -u $DB_USERNAME --password=$DB_PASSWORD $DB_DATABASE

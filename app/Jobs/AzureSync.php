@@ -59,7 +59,8 @@ class AzureSync implements ShouldQueue
                 $newUser->DisplayName = $users->getDisplayName();
                 $newUser->FirstName = $users->getGivenName();
                 $newUser->LastName = $users->getSurname();
-                $newUser->PhoneNumber = "";
+                $newUser->PhoneNumber = $users->getMobilePhone();
+                Log::info($users->getMobilePhone());
                 $newUser->email = $users->getMail();
                 $newUser->save();
             } else {
@@ -67,11 +68,15 @@ class AzureSync implements ShouldQueue
                     $checkUser->email = $users->getMail();
                     $checkUser->save();
                 }
+                if($checkUser->PhoneNumber != $users->getMobilePhone()){
+                    $checkUser->PhoneNumber = $users->getMobilePhone();
+                    $checkUser->save();
+                }
             }
             $userIDArray->push($users->getID());
         }
         Log::info($userIDArray->count());
-        User::whereNotIn('AzureID', $userIDArray)->forceDelete();
+        ##User::whereNotIn('AzureID', $userIDArray)->forceDelete();
         Log::info('Users fetched');
         // Fetch all groups
         $grouparray = $graph->createRequest("GET", '/groups')

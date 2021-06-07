@@ -14,12 +14,15 @@
     <div style="display:inline">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab"
-                   aria-controls="inschrijvingen" aria-selected="true"><i class="fa fa-credit-card"></i> Betaald</a>
+{{--                <a class="nav-link active" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab"--}}
+{{--                   aria-controls="inschrijvingen" aria-selected="true"><i class="fa fa-credit-card"></i> Betaald</a>--}}
+                <button class="nav-link tabber" id="contact-tab" data-bs-toggle="tab" data-bs-target="#inschrijvingen" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fa fa-credit-card"></i> Betaald</button>
+
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab"
-                   aria-controls="gegevens" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</a>
+                <button class="nav-link tabber" id="contact-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</button>
+{{--                <a class="nav-link" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab"--}}
+{{--                   aria-controls="gegevens" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</a>--}}
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -70,6 +73,7 @@
                                 <th data-field="firstName" data-sortable="true">Voornaam</th>
                                 <th data-field="lastName" data-sortable="true">Achternaam</th>
                                 <th data-field="email" data-sortable="true">E-mail</th>
+                                <th data-field="year" data-sortable="true">Jaar</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -78,6 +82,7 @@
                                     <td data-value="{{ $user->firstname }}">{{$user->firstname}}</td>
                                     <td data-value="{{ $user->lastname }}">{{$user->lastname}}</td>
                                     <td data-value="{{ $user->email }}">{{$user->email}}</td>
+                                    <td data-value="{{ $user->studentYear }}">{{ \App\Enums\IntroStudentYear::fromValue($user->studentYear)->key }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -118,7 +123,8 @@
                     &nbsp;
                     <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
                     &nbsp;
-                    <a href="mailto:?bcc={{ implode(',', $emails) }}" class="btn btn-primary btn-sm">Maak mail voor mensen die niet betaald hebben</a>
+                    <a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="btn btn-primary btn-sm">Maak mail voor 1e jaars die niet betaald hebben</a>
+                    <a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="btn btn-primary btn-sm">Maak mail voor 2e jaars die niet betaald hebben</a>
                 </form>
             </div>
         </div>
