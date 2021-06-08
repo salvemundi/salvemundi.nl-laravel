@@ -40,16 +40,14 @@
                             <td data-value="{{ $user2->email }}">{{$user2->email}}</td>
                             <td data-value="{{ $user2->PhoneNumber }}">{{$user2->PhoneNumber}}</td>
                             <td data-value="{{ $user2->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user2->id }}"><button class="btn btn-primary">Commissies</button></form></td>
-                            <td data-value="{{ $user2->AzureID }}"><button type="button" data-toggle="modal" data-target="#deleteModal1{{ $user2->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
+                            <td data-value="{{ $user2->AzureID }}"><button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal1{{ $user2->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
                         </tr>
                         <div class="modal fade" id="deleteModal1{{ $user2->AzureID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         Weet je zeker dat je de gebruiker <b>{{ $user2->FirstName." ".$user2->LastName}}</b> wilt verwijderen?
@@ -73,7 +71,7 @@
     </div>
     <div class="col-md-12">
         <h2>Niet betaald</h2>
-        <a data-toggle="modal" data-target="#disableAllModal" class="btn-warning btn">Verander account status voor alle niet betaalde leden</a>
+        <a data-bs-toggle="modal" data-bs-target="#disableAllModal" class="btn-warning btn">Verander account status voor alle niet betaalde leden</a>
 {{--        <a data-toggle="modal" data-target="#deleteAllModal" class="btn-danger btn specialDelete">Verwijder alle accounts van niet betaalde leden</a>--}}
         <div class="table-responsive centerTable">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
@@ -97,17 +95,15 @@
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                             <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
-                            <td data-value="{{ $user->AzureID }}"><button type="button" data-toggle="modal" data-target="#deleteModal{{ $user->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
-                            <td data-value="{{ $user->AzureID }}"><button type="button" data-toggle="modal" data-target="#disableModal{{ $user->AzureID }}" class="btn btn-secondary">Bijwerken</button></td>
+                            <td data-value="{{ $user->AzureID }}"><button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
+                            <td data-value="{{ $user->AzureID }}"><button type="button" data-bs-toggle="modal" data-bs-target="#disableModal{{ $user->AzureID }}" class="btn btn-secondary">Bijwerken</button></td>
                         </tr>
                         <div class="modal fade" id="deleteModal{{ $user->AzureID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> wil verwijderen?
@@ -131,9 +127,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Account van {{ $user->FirstName }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         Verander account status van <b>{{ $user->FirstName." ".$user->LastName}}</b>.
@@ -170,9 +164,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Waarschuwing</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body">
                 Dit werkt de activatie status van alle accounts die niet betaalt hebben bij!
@@ -201,9 +194,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Waarschuwing!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Dit verwijdert alle leden die niet betaalt hebben uit azure en deze actie kan niet ongedaan worden!
