@@ -53,8 +53,6 @@
                                         Weet je zeker dat je de gebruiker <b>{{ $user2->FirstName." ".$user2->LastName}}</b> wilt verwijderen?
                                     </div>
                                     <div class="modal-footer">
-
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
                                         <form method="post" action="/admin/removeLeden/delete">
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user2->id }}">
@@ -109,8 +107,6 @@
                                         Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> wil verwijderen?
                                     </div>
                                     <div class="modal-footer">
-
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
                                         <form method="post" action="/admin/removeLeden/delete">
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user->id }}">
@@ -133,8 +129,6 @@
                                         Verander account status van <b>{{ $user->FirstName." ".$user->LastName}}</b>.
                                     </div>
                                     <div class="modal-footer">
-
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
                                         <form method="post" action="/admin/leden/disable">
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user->id }}">
@@ -171,8 +165,6 @@
                 Dit werkt de activatie status van alle accounts die niet betaalt hebben bij!
             </div>
             <div class="modal-footer">
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
                 <form method="post" action="/admin/leden/disableall">
                     @csrf
                     <input type="hidden" name="mode" id="mode" value="false">
@@ -200,8 +192,6 @@
                 Dit verwijdert alle leden die niet betaalt hebben uit azure en deze actie kan niet ongedaan worden!
             </div>
             <div class="modal-footer">
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
                 <form method="post" action="/admin/leden/disableall">
                     @csrf
                     <button type="submit" class="btn btn-danger">Verwijder alle</button>
