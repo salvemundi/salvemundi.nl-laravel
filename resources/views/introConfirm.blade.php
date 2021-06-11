@@ -44,15 +44,15 @@
                         <div id="ShowIfBelow18" style="display: none;">
                             <br>
                             <label for="VoornaamVoogd">Voornaam ouder/verzorger*</label>
-                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" required placeholder="Voornaam ouder/verzorger...">
+                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" placeholder="Voornaam ouder/verzorger...">
 
                             <br>
                             <label for="AchternaamVoogd">Achternaam ouder/verzorger*</label>
-                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" required placeholder="Achternaam ouder/verzorger...">
+                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" placeholder="Achternaam ouder/verzorger...">
 
                             <br>
                             <label for="AdresVoogd">Adres ouder/verzorger*</label>
-                            <input class="form-control{{ $errors->has('adressParent') ? ' is-invalid' : '' }}" value="{{ old('adressParent') }}" type="text" id="addressParent" name="addressParent" required placeholder="Adres ouder/verzorger...">
+                            <input class="form-control{{ $errors->has('adressParent') ? ' is-invalid' : '' }}" value="{{ old('adressParent') }}" type="text" id="addressParent" name="addressParent" placeholder="Adres ouder/verzorger...">
 
                             <br>
                             <label for="TelefoonnummerVoogd">Telefoonnummer ouder/verzorger*</label>
@@ -62,15 +62,15 @@
                         <div id="ShowIfAbove18" style="display: none;">
                             <br>
                             <label for="VoornaamVoogd">Voornaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" required placeholder="Voornaam contactpersoon...">
+                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" placeholder="Voornaam contactpersoon...">
 
                             <br>
                             <label for="AchternaamVoogd">Achternaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" required placeholder="Achternaam contactpersoon...">
+                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" placeholder="Achternaam contactpersoon...">
 
                             <br>
                             <label for="TelefoonnummerVoogd">Telefoonnummer contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberParent" name="phoneNumberParent" required placeholder="Telefoonnummer contactpersoon...">
+                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberParent" name="phoneNumberParent" placeholder="Telefoonnummer contactpersoon...">
                         </div>
 
                         <br>
