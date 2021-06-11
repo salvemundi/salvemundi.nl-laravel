@@ -94,7 +94,7 @@
                         <label class="cbx{{ $errors->has('checkbox') ? ' is-invalid' : '' }}" value="{{old('checkbox') }}" for="cbx"><span>
                             <svg width="12px" height="10px" viewbox="0 0 12 10">
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg></span><span>Ik accepteer de <a href="https://salvemundi.sharepoint.com/:w:/s/intro/EXzZOiOEO2ZOhJ4fwuH_7ZABXJ4n0VX7MRtonF4l1daSyQ" target="blank" style="text-decoration: underline !important;">algemene voorwaarden</a>*</span></label>
+                            </svg></span><span>Ik accepteer de <a href="https://salvemundi.sharepoint.com/:w:/g/ESpPjIBFAeNKv-jFSsoIlpIBrihiqYzlV2MLsl4__TsohA?e=Ccn8mR" target="blank" style="text-decoration: underline !important;">algemene voorwaarden</a>*</span></label>
                             <br>
                             <br>
                             Tijdens de intro zullen er corona sneltesten afgenomen worden
