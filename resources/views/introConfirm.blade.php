@@ -24,7 +24,7 @@
                     @csrf
                     <br>
                     <h2 class="h2">Aanmelden voor de intro</h2>
-
+                    <p>Gegevens van je contactpersoon / ouders zijn verplicht. De betreffende invulvelden zul je zien na het invullen van je geboortedatum. Deze informatie wordt enkel in nood situaties gebruikt.</p>
                         <br>
                         <label for="voornaam">Voornaam*</label>
                         <input class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" value="{{ old('firstName') }}" type="text" id="firstName" name="firstName" placeholder="Voornaam...">
