@@ -33,10 +33,10 @@ class IntroController extends Controller
             'birthday' => 'required','date_format:"l, j F Y"',
             'email' => 'required|email|max:65',
             'phoneNumber' => 'required|max:10|regex:/(^[0-9]+$)+/',
-            'firstNameParent' => 'max:32',
-            'lastNameParent' => 'max:45',
+            'firstNameParent' => 'required|max:32',
+            'lastNameParent' => 'required|max:45',
             'addressParent' => 'max:65',
-            'phoneNumberParent' => 'max:10',
+            'phoneNumberParent' => 'required|max:10',
             'checkbox' =>'accepted',
             'checkboxCorona' =>'accepted'
             ]);
