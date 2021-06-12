@@ -62,15 +62,15 @@
                         <div id="ShowIfAbove18" style="display: none;">
                             <br>
                             <label for="VoornaamVoogd">Voornaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" placeholder="Voornaam contactpersoon...">
+                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameContact" name="firstNameContact" placeholder="Voornaam contactpersoon...">
 
                             <br>
                             <label for="AchternaamVoogd">Achternaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" placeholder="Achternaam contactpersoon...">
+                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameContact" name="lastNameContact" placeholder="Achternaam contactpersoon...">
 
                             <br>
                             <label for="TelefoonnummerVoogd">Telefoonnummer contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberParent" name="phoneNumberParent" placeholder="Telefoonnummer contactpersoon...">
+                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberContact" name="phoneNumberContact" placeholder="Telefoonnummer contactpersoon...">
                         </div>
 
                         <br>
