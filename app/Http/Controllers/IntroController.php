@@ -112,10 +112,10 @@ class IntroController extends Controller
         $AdminSetting = AdminSetting::where('settingName','intro')->first();
         if($AdminSetting->settingValue == 1){
             $request->validate([
-            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'insertion' => 'max:32',
-            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'email' => 'required|email|max:65',
+                'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+                'insertion' => 'max:32',
+                'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+                'email' => ['required','regex:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/','max:65'],
             ]);
             if(IntroData::where('email',$request->input('email'))->first())
             {
