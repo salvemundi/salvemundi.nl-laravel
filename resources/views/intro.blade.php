@@ -76,12 +76,12 @@
                         <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" type="email" id="email" name="email" placeholder="E-mail...">
                         <br>
 
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" value="{{App\Enums\IntroStudentYear::FirstYear()}}" name="introYear" checked class="custom-control-input">
+                        <div class="">
+                            <input type="radio" id="customRadio1" value="{{App\Enums\IntroStudentYear::FirstYear()}}" name="introYear" checked class="form-check-input">
                             <label class="custom-control-label" for="customRadio1">Ik ben aankomend student</label>
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" value="{{App\Enums\IntroStudentYear::SecondYear()}}" name="introYear" class="custom-control-input">
+                        <div class="">
+                            <input type="radio" id="customRadio2" value="{{App\Enums\IntroStudentYear::SecondYear()}}" name="introYear" class="form-check-input">
                             <label class="custom-control-label" for="customRadio2">Ik ben al student</label>
                         </div>
 

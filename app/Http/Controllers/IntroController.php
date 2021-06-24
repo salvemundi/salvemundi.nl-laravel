@@ -171,4 +171,22 @@ class IntroController extends Controller
         //dd($emails);
         return $emails;
     }
+    public static function sendMailPaid(){
+        $all = Intro::All();
+        $subset = $all->map(function ($user) {
+            return collect($user->toArray())
+                ->only(['email'])
+                ->all();
+        });
+        return $subset;
+    }
+    public static function sendMailNonPaid(){
+        $all = IntroData::All();
+        $subset = $all->map(function ($user) {
+            return collect($user->toArray())
+                ->only(['email'])
+                ->all();
+        });
+        return $subset;
+    }
 }
