@@ -173,10 +173,20 @@ class IntroController extends Controller
     }
     public static function sendMailPaid(){
         $all = Intro::All();
-        return collect($all)->only(['email']);
+        $emails = [];
+        foreach($all as $person)
+        {
+            array_push($emails, $person->email);
+        }
+        return $emails;
     }
     public static function sendMailNonPaid(){
         $all = IntroData::All();
-        return collect($all)->only(['email']);
+        $emails = [];
+        foreach($all as $person)
+        {
+            array_push($emails, $person->email);
+        }
+        return $emails;
     }
 }
