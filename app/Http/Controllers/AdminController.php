@@ -74,7 +74,7 @@ class AdminController extends Controller
         $introSignup = IntroData::all();
         $emailsFirstYear = IntroController::sendMailFirstYear();
         $emailsSecondYear = IntroController::sendMailSecondYear();
-        $emailNonPaid = IntroController::sendMailPaid();
+        $emailNonPaid = IntroController::sendMailNonPaid();
         $emailPaid = IntroController::sendMailPaid();
         //dd($emailsFirstYear, $emailsSecondYear);
         return view('admin/intro', ['emailNonPaid' => $emailNonPaid, 'emailPaid' => $emailPaid,'introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emailsFirstYear' => $emailsFirstYear, 'emailsSecondYear' => $emailsSecondYear]);
