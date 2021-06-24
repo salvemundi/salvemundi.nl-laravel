@@ -141,8 +141,8 @@
                             <li><a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="dropdown-item">Maak mail voor 1e jaars die niet betaald hebben</a></li>
                             <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail voor 2e jaars die niet betaald hebben</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail richting iedereen die betaald heeft</a></li>
-                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail richting iedereen die niet betaald heeft</a></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $emailNonPaid) }}" class="dropdown-item">Maak mail richting iedereen die betaald heeft</a></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $emailPaid) }}" class="dropdown-item">Maak mail richting iedereen die niet betaald heeft</a></li>
                         </ul>
                     </div>
                 </form>
