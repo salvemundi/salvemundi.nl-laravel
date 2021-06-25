@@ -76,8 +76,9 @@ class AdminController extends Controller
         $emailsSecondYear = IntroController::sendMailSecondYear();
         $emailNonPaid = IntroController::sendMailNonPaid();
         $emailPaid = IntroController::sendMailPaid();
+        $allEmails = IntroController::sendMailToAll();
         //dd($emailsFirstYear, $emailsSecondYear);
-        return view('admin/intro', ['emailNonPaid' => $emailNonPaid, 'emailPaid' => $emailPaid,'introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emailsFirstYear' => $emailsFirstYear, 'emailsSecondYear' => $emailsSecondYear]);
+        return view('admin/intro', ['allEmails' => $allEmails, 'emailNonPaid' => $emailNonPaid, 'emailPaid' => $emailPaid,'introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emailsFirstYear' => $emailsFirstYear, 'emailsSecondYear' => $emailsSecondYear]);
     }
 
     public static function authorizeUser($userid): int

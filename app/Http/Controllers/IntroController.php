@@ -189,4 +189,7 @@ class IntroController extends Controller
         }
         return $emails;
     }
+    public static function sendMailToAll(){
+        return array_merge(self::sendMailNonPaid(),self::sendMailPaid());
+    }
 }

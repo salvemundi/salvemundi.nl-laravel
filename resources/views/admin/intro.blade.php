@@ -143,6 +143,7 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a href="mailto:?bcc={{ implode(',', $emailNonPaid) }}" class="dropdown-item">Maak mail richting iedereen die betaald heeft</a></li>
                             <li><a href="mailto:?bcc={{ implode(',', $emailPaid) }}" class="dropdown-item">Maak mail richting iedereen die niet betaald heeft</a></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $allEmails) }}" class="dropdown-item">Maak mail richting iedereen</a></li>
                         </ul>
                     </div>
                 </form>
