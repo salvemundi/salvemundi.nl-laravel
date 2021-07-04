@@ -51,7 +51,7 @@ class IntroController extends Controller
             $userIntro->lastName = $request->input('lastName');
             $userIntro->email = $request->input('email');
             $userIntro->birthday = date("Y-m-d", strtotime($request->input('birthday')));
-
+            $userIntro->studentYear = IntroStudentYear::coerce((int)$request->input('introYear'));
 
             if(!$request->input('birthday') == ""){
                 $userIntro->birthday = $request->input('birthday');
@@ -82,7 +82,6 @@ class IntroController extends Controller
                 $userIntro->phoneNumber = $request->input('phoneNumber');
                 $userIntro->medicalIssues = $request->input('medicalIssues');
                 $userIntro->specials = $request->input('specials');
-
                 //dd($userIntro);
                 $userIntro->save();
                 return MolliePaymentController::processRegistration($userIntro, paymentType::intro);

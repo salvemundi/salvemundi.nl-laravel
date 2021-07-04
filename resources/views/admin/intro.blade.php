@@ -42,6 +42,7 @@
                                     <th data-field="birthday" data-sortable="true">verjaardag</th>
                                     <th data-field="medicalIssues" data-sortable="true">Allergieën/ medicijnen</th>
                                     <th data-field="specials" data-sortable="true">andere bijzonderheden</th>
+                                    <th data-field="year" data-sortable="true">Jaar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,6 +56,7 @@
                                         <td data-value="{{ $user->birthday }}">{{$user->birthday}}</td>
                                         <td data-value="{{ $user->medicalIssues }}">{{$user->medicalIssues}}</td>
                                         <td data-value="{{ $user->specials }}">{{$user->specials}}</td>
+                                        <td data-value="{{ $user->studentYear }}">{{ \App\Enums\IntroStudentYear::fromValue($user->studentYear)->key }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
