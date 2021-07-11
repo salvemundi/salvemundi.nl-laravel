@@ -104,8 +104,15 @@
                             <svg width="12px" height="10px" viewbox="0 0 12 10">
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                             </svg></span><span>Ik ga akkoord met het afnemen van een corona sneltest indien nodig*</span></label>
-                            <br>
-
+                            <br><br>
+                        <div class="">
+                            <input type="radio" id="customRadio1" value="{{App\Enums\IntroStudentYear::FirstYear()}}" name="introYear" checked class="form-check-input">
+                            <label class="custom-control-label" for="customRadio1">Ik ben aankomend student</label>
+                        </div>
+                        <div class="">
+                            <input type="radio" id="customRadio2" value="{{App\Enums\IntroStudentYear::SecondYear()}}" name="introYear" class="form-check-input">
+                            <label class="custom-control-label" for="customRadio2">Ik ben al student</label>
+                        </div>
                         <br>
                         <input class="btn btn-primary" type="submit" value="Versturen">
                 </form>

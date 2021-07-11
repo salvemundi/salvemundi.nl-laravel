@@ -9,7 +9,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav justify-content-lg-start">
             <li class="nav-item">
                 <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
@@ -49,7 +49,7 @@
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav w-50 d-flex justify-content-end">
                 <!-- Authentication Links -->
                 @guest
                 @if(session('userName') != null)

@@ -42,6 +42,7 @@
                                     <th data-field="birthday" data-sortable="true">verjaardag</th>
                                     <th data-field="medicalIssues" data-sortable="true">Allergieën/ medicijnen</th>
                                     <th data-field="specials" data-sortable="true">andere bijzonderheden</th>
+                                    <th data-field="year" data-sortable="true">Jaar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,6 +56,7 @@
                                         <td data-value="{{ $user->birthday }}">{{$user->birthday}}</td>
                                         <td data-value="{{ $user->medicalIssues }}">{{$user->medicalIssues}}</td>
                                         <td data-value="{{ $user->specials }}">{{$user->specials}}</td>
+                                        <td data-value="{{ $user->studentYear }}">{{ \App\Enums\IntroStudentYear::fromValue($user->studentYear)->key }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -122,9 +124,30 @@
 
                     &nbsp;
                     <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
-                    &nbsp;
-                    <a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="btn btn-primary btn-sm">Maak mail voor 1e jaars die niet betaald hebben</a>
-                    <a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="btn btn-primary btn-sm">Maak mail voor 2e jaars die niet betaald hebben</a>
+{{--                    <div class="dropdown">--}}
+{{--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                            Dropdown button--}}
+{{--                        </button>--}}
+{{--                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
+{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="dropdown-item">Maak mail voor 1e jaars die niet betaald hebben</a></li>--}}
+{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail voor 2e jaars die niet betaald hebben</a></li>--}}
+{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail richting iedereen die niet betaald heeft</a></li>--}}
+{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail richting iedereen die betaald heeft</a></li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mail
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="dropdown-item">Maak mail voor 1e jaars die niet betaald hebben</a></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail voor 2e jaars die niet betaald hebben</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $emailNonPaid) }}" class="dropdown-item">Maak mail richting iedereen die betaald heeft</a></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $emailPaid) }}" class="dropdown-item">Maak mail richting iedereen die niet betaald heeft</a></li>
+                            <li><a href="mailto:?bcc={{ implode(',', $allEmails) }}" class="dropdown-item">Maak mail richting iedereen</a></li>
+                        </ul>
+                    </div>
                 </form>
             </div>
         </div>
