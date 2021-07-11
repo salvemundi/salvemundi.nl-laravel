@@ -71,7 +71,10 @@ html {
 .custom-radio .custom-control-input:focus ~ .custom-control-label::before {
   box-shadow: 0 0 0 0 #fff, 0 0 0 0.25rem rgba(178, 123, 255, 0.25); /* pink, 25% opacity */
 }
-
+.form-check-input:checked {
+  background-color: $salveMundi-primary !important;
+  border-color: $salveMundi-light !important;
+}
 /* End main CSS page */
 
 /* Begin navbar */

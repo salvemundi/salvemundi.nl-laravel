@@ -24,7 +24,7 @@
                     @csrf
                     <br>
                     <h2 class="h2">Aanmelden voor de intro</h2>
-
+                    <p>Gegevens van je contactpersoon / ouders zijn verplicht. De betreffende invulvelden zul je zien na het invullen van je geboortedatum. Deze informatie wordt enkel in nood situaties gebruikt.</p>
                         <br>
                         <label for="voornaam">Voornaam*</label>
                         <input class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" value="{{ old('firstName') }}" type="text" id="firstName" name="firstName" placeholder="Voornaam...">
@@ -62,15 +62,15 @@
                         <div id="ShowIfAbove18" style="display: none;">
                             <br>
                             <label for="VoornaamVoogd">Voornaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameParent" name="firstNameParent" placeholder="Voornaam contactpersoon...">
+                            <input class="form-control{{ $errors->has('firstNameParent') ? ' is-invalid' : '' }}" value="{{ old('firstNameParent') }}" type="text" id="firstNameContact" name="firstNameContact" placeholder="Voornaam contactpersoon...">
 
                             <br>
                             <label for="AchternaamVoogd">Achternaam contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameParent" name="lastNameParent" placeholder="Achternaam contactpersoon...">
+                            <input class="form-control{{ $errors->has('lastNameParent') ? ' is-invalid' : '' }}" value="{{ old('lastNameParent') }}" type="text" id="lastNameContact" name="lastNameContact" placeholder="Achternaam contactpersoon...">
 
                             <br>
                             <label for="TelefoonnummerVoogd">Telefoonnummer contactpersoon*</label>
-                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberParent" name="phoneNumberParent" placeholder="Telefoonnummer contactpersoon...">
+                            <input class="form-control{{ $errors->has('phoneNumberParent') ? ' is-invalid' : '' }}" value="{{ old('phoneNumberParent') }}" type="text" id="phoneNumberContact" name="phoneNumberContact" placeholder="Telefoonnummer contactpersoon...">
                         </div>
 
                         <br>
@@ -94,7 +94,7 @@
                         <label class="cbx{{ $errors->has('checkbox') ? ' is-invalid' : '' }}" value="{{old('checkbox') }}" for="cbx"><span>
                             <svg width="12px" height="10px" viewbox="0 0 12 10">
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg></span><span>Ik accepteer de <a href="https://salvemundi.sharepoint.com/:w:/s/intro/EXzZOiOEO2ZOhJ4fwuH_7ZABXJ4n0VX7MRtonF4l1daSyQ" target="blank" style="text-decoration: underline !important;">algemene voorwaarden</a>*</span></label>
+                            </svg></span><span>Ik accepteer de <a href="https://salvemundi.sharepoint.com/:w:/g/ESpPjIBFAeNKv-jFSsoIlpIBrihiqYzlV2MLsl4__TsohA?e=Ccn8mR" target="blank" style="text-decoration: underline !important;">algemene voorwaarden</a>*</span></label>
                             <br>
                             <br>
                             Tijdens de intro zullen er corona sneltesten afgenomen worden
@@ -104,8 +104,15 @@
                             <svg width="12px" height="10px" viewbox="0 0 12 10">
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                             </svg></span><span>Ik ga akkoord met het afnemen van een corona sneltest indien nodig*</span></label>
-                            <br>
-
+                            <br><br>
+                        <div class="">
+                            <input type="radio" id="customRadio1" value="{{App\Enums\IntroStudentYear::FirstYear()}}" name="introYear" checked class="form-check-input">
+                            <label class="custom-control-label" for="customRadio1">Ik ben aankomend student</label>
+                        </div>
+                        <div class="">
+                            <input type="radio" id="customRadio2" value="{{App\Enums\IntroStudentYear::SecondYear()}}" name="introYear" class="form-check-input">
+                            <label class="custom-control-label" for="customRadio2">Ik ben al student</label>
+                        </div>
                         <br>
                         <input class="btn btn-primary" type="submit" value="Versturen">
                 </form>

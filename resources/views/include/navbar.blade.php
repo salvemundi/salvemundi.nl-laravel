@@ -3,13 +3,13 @@
         <a class="navbar-brand" href="{{ url('/') }}">
         <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav justify-content-lg-start">
             <li class="nav-item">
                 <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
@@ -49,7 +49,7 @@
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav w-50 d-flex justify-content-end">
                 <!-- Authentication Links -->
                 @guest
                 @if(session('userName') != null)

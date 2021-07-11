@@ -50,16 +50,38 @@ class IntroController extends Controller
             $userIntro->insertion = $request->input('insertion');
             $userIntro->lastName = $request->input('lastName');
             $userIntro->email = $request->input('email');
+            $userIntro->birthday = date("Y-m-d", strtotime($request->input('birthday')));
+            $userIntro->studentYear = IntroStudentYear::coerce((int)$request->input('introYear'));
+
             if(!$request->input('birthday') == ""){
                 $userIntro->birthday = $request->input('birthday');
-                $userIntro->firstNameParent = $request->input('firstNameParent');
-                $userIntro->lastNameParent = $request->input('lastNameParent');
-                $userIntro->addressParent = $request->input('addressParent');
-                $userIntro->phoneNumberParent = $request->input('phoneNumberParent');
+                Log::info($request->input('firstNameParent'));
+                Log::info($request->input('lastNameParent'));
+                Log::info($request->input('phoneNumberParent'));
+
+                $min = strtotime('+18 years', strtotime($request->input('birthday')));
+                if(time() < $min)  {
+                    if($request->input('firstNameParent') == "" || $request->input('lastNameParent') == "" || $request->input('phoneNumberParent') == "" || $request->input('addressParent') == "")
+                    {
+                        return redirect('introconfirm')->with('message', 'Je bent vergeten de contact gegevens van je ouders persoon in te vullen');
+                    }
+                    $userIntro->firstNameParent = $request->input('firstNameParent');
+                    $userIntro->lastNameParent = $request->input('lastNameParent');
+                    $userIntro->addressParent = $request->input('addressParent');
+                    $userIntro->phoneNumberParent = $request->input('phoneNumberParent');
+                } else {
+                    if($request->input('firstNameContact') == "" || $request->input('lastNameContact') == "" || $request->input('phoneNumberContact') == "")
+                    {
+                        return redirect('introconfirm')->with('message', 'Je bent vergeten de contact gegevens van je contact persoon in te vullen');
+                    }
+                    $userIntro->firstNameParent = $request->input('firstNameContact');
+                    $userIntro->lastNameParent = $request->input('lastNameContact');
+                    $userIntro->phoneNumberParent = $request->input('phoneNumberContact');
+                }
+
                 $userIntro->phoneNumber = $request->input('phoneNumber');
                 $userIntro->medicalIssues = $request->input('medicalIssues');
                 $userIntro->specials = $request->input('specials');
-                $userIntro->birthday = date("Y-m-d", strtotime($userIntro->birthday));
                 //dd($userIntro);
                 $userIntro->save();
                 return MolliePaymentController::processRegistration($userIntro, paymentType::intro);
@@ -89,10 +111,10 @@ class IntroController extends Controller
         $AdminSetting = AdminSetting::where('settingName','intro')->first();
         if($AdminSetting->settingValue == 1){
             $request->validate([
-            'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'insertion' => 'max:32',
-            'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
-            'email' => 'required|email|max:65',
+                'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+                'insertion' => 'max:32',
+                'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
+                'email' => ['required','regex:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/','max:65'],
             ]);
             if(IntroData::where('email',$request->input('email'))->first())
             {
@@ -147,5 +169,26 @@ class IntroController extends Controller
         }
         //dd($emails);
         return $emails;
+    }
+    public static function sendMailPaid(){
+        $all = Intro::All();
+        $emails = [];
+        foreach($all as $person)
+        {
+            array_push($emails, $person->email);
+        }
+        return $emails;
+    }
+    public static function sendMailNonPaid(){
+        $all = IntroData::All();
+        $emails = [];
+        foreach($all as $person)
+        {
+            array_push($emails, $person->email);
+        }
+        return $emails;
+    }
+    public static function sendMailToAll(){
+        return array_merge(self::sendMailNonPaid(),self::sendMailPaid());
     }
 }
