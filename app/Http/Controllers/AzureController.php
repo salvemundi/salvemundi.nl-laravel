@@ -142,6 +142,7 @@ class AzureController extends Controller
     public static function DeleteUser(Request $request)
     {
         $userObject = User::where('id', $request->input('id'))->first();
+        $userObject = User:find($request->input('id'));
         $graph = AzureController::connectToAzure();
         $userObject->delete();
         try{
@@ -149,9 +150,9 @@ class AzureController extends Controller
                 ->execute();
         }
         catch(\Exception $e){
-            return redirect('removeLeden')->with('message', 'Het verwijderen is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
+            return redirect('removeLeden')->with('message', 'Het verwijderen in azure is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
         }
-        return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' Is gelukt!');
+        return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' is gelukt!');
     }
 
     public static function accountEnabled(bool $mode, User $user)
