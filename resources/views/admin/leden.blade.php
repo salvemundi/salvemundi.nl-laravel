@@ -110,7 +110,7 @@
                                         <form method="post" action="/admin/removeLeden/delete">
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user->id }}">
-                                            <button type="button" class="btn btn-danger">Verwijder</button>
+                                            <button type="submit" class="btn btn-danger">Verwijder</button>
                                         </form>
                                     </div>
                                 </div>
