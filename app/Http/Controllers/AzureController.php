@@ -148,7 +148,7 @@ class AzureController extends Controller
             $graphRequest = $graph->createRequest("DELETE", '/users/'.$userObject->AzureID)
                 ->execute();
         }
-        catch(GraphException $e){
+        catch(\Exception $e){
             return redirect('removeLeden')->with('message', 'Het verwijderen is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
         }
         return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' Is gelukt!');
