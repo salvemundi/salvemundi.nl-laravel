@@ -107,7 +107,7 @@
                                         Weet je zeker dat je de gebruiker <b>{{ $user->FirstName." ".$user->LastName}}</b> wil verwijderen?
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="post" action="/admin/removeLeden/delete">
+                                        <form method="post" action="/admin/leden/delete">
                                             @csrf
                                             <input type="hidden" name="id" id="id" value="{{ $user->id }}">
                                             <button type="submit" class="btn btn-danger">Verwijder</button>
