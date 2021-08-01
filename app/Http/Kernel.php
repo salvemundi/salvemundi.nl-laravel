@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'admin-intro.auth' => \App\Http\Middleware\AdminIntroAuth::class,
         'azure.auth' => \App\Http\Middleware\AzureAuth::class,
         'signUp.auth' => \App\Http\Middleware\SignUpCheck::class,
+        'samu-api.auth' => \App\Http\Middleware\apiAuth::class,
     ];
 }
