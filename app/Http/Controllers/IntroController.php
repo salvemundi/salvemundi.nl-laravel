@@ -13,6 +13,7 @@ use App\Enums\paymentType;
 use App\Models\AdminSetting;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\introInschrijving;
+use App\Exports\introInschrijvingenNietBetaaldExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\Builder;
 use App\Enums\paymentStatus;
@@ -137,9 +138,15 @@ class IntroController extends Controller
             return redirect('/');
         }
     }
+
     function excel()
     {
         return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
+    }
+
+    function excelNietBetaald()
+    {
+        return Excel::download(new introInschrijvingenNietBetaaldExport, 'introInschrijvingenNietBetaald.xlsx');
     }
 
     public static function sendMailFirstYear()
