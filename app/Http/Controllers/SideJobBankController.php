@@ -29,13 +29,13 @@ class SideJobBankController extends Controller
         $viewVar['business'] = SideJobBank::where('studyProfile', Studyprofile::Business)->get();
         $viewVar['media'] = SideJobBank::where('studyProfile', Studyprofile::Media)->get();
 
-        return view('/sideJobBank', $viewVar);
+        return view('/sidejobbank', $viewVar);
     }
 
     public function indexAdmin()
     {
         $sideJobBank = SideJobBank::all();
-        return view('/admin/sideJobBank', ['sideJobBank' => $sideJobBank]);
+        return view('/admin/sidejobbank', ['sideJobBank' => $sideJobBank]);
     }
 
     public function store(Request $request)
