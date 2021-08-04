@@ -7,12 +7,16 @@ use App\Mail\SendMailIntro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Intro;
+use App\Models\User;
 use App\Models\IntroData;
 use App\Enums\paymentType;
 use App\Models\AdminSetting;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\introInschrijving;
+use App\Exports\introInschrijvingenNietBetaaldExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\Eloquent\Builder;
+use App\Enums\paymentStatus;
 use Collective\Html;
 
 class IntroController extends Controller
@@ -134,9 +138,15 @@ class IntroController extends Controller
             return redirect('/');
         }
     }
+
     function excel()
     {
         return Excel::download(new introInschrijving, 'introInschrijvingen.xlsx');
+    }
+
+    function excelNietBetaald()
+    {
+        return Excel::download(new introInschrijvingenNietBetaaldExport, 'introInschrijvingenNietBetaald.xlsx');
     }
 
     public static function sendMailFirstYear()
@@ -190,5 +200,13 @@ class IntroController extends Controller
     }
     public static function sendMailToAll(){
         return array_merge(self::sendMailNonPaid(),self::sendMailPaid());
+    }
+
+    public static function GetParticipants(Request $request){
+        $allIntro = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
+            return $query->where('paymentStatus', PaymentStatus::paid);
+        })->get();
+        // return explode(',',env('API_WHITELIST'));
+        return $allIntro;
     }
 }

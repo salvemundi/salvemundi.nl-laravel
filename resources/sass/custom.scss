@@ -51,7 +51,12 @@ html {
   width: 100% !important;
 }
 
-
+.grow:hover
+{
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
 
 /* This is the checked state */
 .custom-radio .custom-control-input:checked~.custom-control-label::before,
@@ -902,8 +907,10 @@ html {
     font-size: xx-small;
     text-align: center;
   }
+  .adminCard {
+    margin: 10px;
+  }
 }
-
 // @media only screen and (max-width: 1409.98px) {
 //   .cardNews {
 //     //flex-direction: unset !important;
