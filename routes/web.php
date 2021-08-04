@@ -84,6 +84,9 @@ Route::get('/responsible-disclosure', function () {
 // agenda
 Route::get('/agenda', function() {return view('agenda');})->name('agenda');
 
+//SideJobBank page
+Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index'] );
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-intro.auth');
@@ -105,6 +108,11 @@ Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 's
 Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
 Route::post('/admin/news/edit', [App\Http\Controllers\NewsController::class, 'editNews'])->middleware('admin.auth');
 Route::post('/admin/news/edit/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
+Route::get('/admin/bijbaanbank', [App\Http\Controllers\SideJobBankController::class, 'indexAdmin'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/store', [App\Http\Controllers\SideJobBankController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/delete', [App\Http\Controllers\SideJobBankController::class, 'deleteSideJobBank'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/edit', [App\Http\Controllers\SideJobBankController::class, 'editSideJobBank'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/edit/store', [App\Http\Controllers\SideJobBankController::class, 'store'])->middleware('admin.auth');
 Route::get('/admin/whatsapp', [App\Http\Controllers\WhatsAppController::class, 'index'])->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
