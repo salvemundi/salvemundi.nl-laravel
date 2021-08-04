@@ -105,13 +105,37 @@
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                             </svg></span><span>Ik ga akkoord met het afnemen van een corona sneltest indien nodig*</span></label>
                             <br><br>
-                        <div class="">
-                            <input type="radio" id="customRadio1" value="{{App\Enums\IntroStudentYear::FirstYear()}}" name="introYear" checked class="form-check-input">
-                            <label class="custom-control-label" for="customRadio1">Ik ben aankomend student</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="introYear" id="exampleRadios" value="{{App\Enums\IntroStudentYear::FirstYear()}}" checked>
+                            <label class="form-check-label" for="exampleRadios">
+                                Ik ben aankomend student
+                            </label>
                         </div>
-                        <div class="">
-                            <input type="radio" id="customRadio2" value="{{App\Enums\IntroStudentYear::SecondYear()}}" name="introYear" class="form-check-input">
-                            <label class="custom-control-label" for="customRadio2">Ik ben al student</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="introYear" id="exampleRadios2" value="{{App\Enums\IntroStudentYear::SecondYear()}}">
+                            <label class="form-check-label" for="exampleRadios2">
+                                Ik ben al student
+                            </label>
+                        </div>
+                        <br>
+                        <b><label for="transport">Kies je vervoer*</label></b> 
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="transport" id="exampleRadios4" value="{{App\Enums\Transport::camping()}}" checked>
+                            <label class="form-check-label" for="exampleRadios4">
+                                Camping
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="transport" id="exampleRadios3" value="{{App\Enums\Transport::bus()}}">
+                            <label class="form-check-label" for="exampleRadios3">
+                                Bus
+                            </label>
+                        </div>                                            
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="transport" id="exampleRadios5" value="{{App\Enums\Transport::own_transport()}}">
+                            <label class="form-check-label" for="exampleRadios5">
+                                Eigen vervoer
+                            </label>
                         </div>
                         <br>
                         <input class="btn btn-primary" type="submit" value="Versturen">
