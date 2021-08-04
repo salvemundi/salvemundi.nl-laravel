@@ -17,6 +17,7 @@ use App\Exports\introInschrijvingenNietBetaaldExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\Builder;
 use App\Enums\paymentStatus;
+use App\Enums\Transport;
 use Collective\Html;
 
 class IntroController extends Controller
@@ -56,6 +57,7 @@ class IntroController extends Controller
             $userIntro->email = $request->input('email');
             $userIntro->birthday = date("Y-m-d", strtotime($request->input('birthday')));
             $userIntro->studentYear = IntroStudentYear::coerce((int)$request->input('introYear'));
+            $userIntro->transport = Transport::coerce((int)$request->input('transport'));
 
             if(!$request->input('birthday') == ""){
                 $userIntro->birthday = $request->input('birthday');
