@@ -118,7 +118,18 @@
                             </label>
                         </div>
                         <br>
-                        <b><label for="transport">Kies je vervoer*</label></b> 
+                        <b><label for="transport">Kies je vervoer*</label></b>
+
+                        <p>
+                            Omdat er niet op onze locatie geslapen mag worden hebben wij bussen geregeld die s' ochtends van Eindhoven naar onze locatie rijden en s' avonds je weer terug naar eindhoven brengt.
+                        </p>
+                        <p>
+                            Veel van onze medestudenten zullen camperen op een nabijgelegen camping los van het evenement. Dit is op eigen risico en eigen verantwoording. Reserveren is alleen mogelijk via de telefoon als je aangeeft dat je voor de intro van Salve Mundi komt. Er zal geen actieve begeleiding of verzorging vanuit Salve Mundi plaats vinden op deze camping.
+                        </p>
+                        <p>
+                            Je kan natuurlijk ook je eigen vervoer regelen.
+                        </p>
+
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="transport" id="exampleRadios4" value="{{App\Enums\Transport::camping()}}" checked>
                             <label class="form-check-label" for="exampleRadios4">
@@ -130,7 +141,7 @@
                             <label class="form-check-label" for="exampleRadios3">
                                 Bus
                             </label>
-                        </div>                                            
+                        </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="transport" id="exampleRadios5" value="{{App\Enums\Transport::own_transport()}}">
                             <label class="form-check-label" for="exampleRadios5">
