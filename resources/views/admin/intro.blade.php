@@ -123,8 +123,8 @@
                     <button type="submit" class="btn btn-primary btn-sm">Opslaan</button>
 
                     &nbsp;
-                    <a href="{{ route('export_excel.excel')}}" class="btn btn-primary btn-sm">Export to Excel</a>
-                    <a href="{{ route('export_excel.excelNietBetaald')}}" class="btn btn-primary btn-sm">Export niet betaalde to Excel</a>
+                    <a href="{{ route('export_excel.excelBetaald')}}" class="btn btn-primary btn-sm">Export to Excel</a>
+                    <a href="{{ route('export_excel.excelIedereen')}}" class="btn btn-primary btn-sm">Export niet betaalde to Excel</a>
 {{--                    <div class="dropdown">--}}
 {{--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
 {{--                            Dropdown button--}}
