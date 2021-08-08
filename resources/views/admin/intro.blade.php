@@ -76,6 +76,7 @@
                                 <th data-field="lastName" data-sortable="true">Achternaam</th>
                                 <th data-field="email" data-sortable="true">E-mail</th>
                                 <th data-field="year" data-sortable="true">Jaar</th>
+                                <th data-field="created_at" data-sortable="true">Aangemeld op</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -85,6 +86,7 @@
                                     <td data-value="{{ $user->lastname }}">{{$user->lastname}}</td>
                                     <td data-value="{{ $user->email }}">{{$user->email}}</td>
                                     <td data-value="{{ $user->studentYear }}">{{ \App\Enums\IntroStudentYear::fromValue($user->studentYear)->key }}</td>
+                                    <td data-value="{{ $user->created_at }}">{{$user->created_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
