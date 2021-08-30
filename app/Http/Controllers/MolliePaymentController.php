@@ -22,7 +22,7 @@ use Laravel\Cashier\Exceptions;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex, $route = null): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
             $checkIfUserExists = User::where([
@@ -46,7 +46,11 @@ class MolliePaymentController extends Controller
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
-            $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
+            if($coupon != null){
+                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser, null, $coupon);
+            } else{
+                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
+            }
             $getProductObject = Product::where('index', paymentType::contribution)->first();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
@@ -75,7 +79,7 @@ class MolliePaymentController extends Controller
         return redirect('/');
     }
 
-    private static function preparePayment($productIndex, $userObject = null, $route = null)
+    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null)
     {
         $product = Product::where('index', $productIndex)->first();
         if($product == null)
@@ -86,7 +90,11 @@ class MolliePaymentController extends Controller
         {
             $plan = paymentType::fromValue(2);
             $name = ucfirst($plan) . ' membership';
-            return $userObject->newSubscription($name,'contribution')->create();
+            if ($coupon != null){
+                return $userObject->newSubscription($name,'contribution')->withCoupon($coupon)->create();
+            } else{
+                return $userObject->newSubscription($name,'contribution')->create();
+            }
         }
         if($route == null) {
             $route = route('home');
