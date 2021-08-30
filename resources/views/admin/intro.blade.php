@@ -50,7 +50,7 @@
                                 @foreach ($introObjects as $user)
                                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                                         <td data-value="{{ $user->firstName }}">{{$user->firstName}}</td>
-                                        <td data-value="{{ $user->insertion }}">{{$user->inserion}}</td>
+                                        <td data-value="{{ $user->insertion }}">{{$user->insertion}}</td>
                                         <td data-value="{{ $user->lastName }}">{{$user->lastName}}</td>
                                         <td data-value="{{ $user->email }}">{{$user->email}}</td>
                                         <td data-value="{{ $user->payment->paymentStatus }}">{{ \App\Enums\paymentStatus::fromValue($user->payment->paymentStatus)->key }}</td>
