@@ -5,7 +5,7 @@
 <script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="row center">
-        @if($introSetting->settingValue == 0 || $introConfirmSetting->settingValue == 0)
+        @if($introConfirmSetting->settingValue == 0)
             <script>window.location = "/";</script>
         @else
             <div id="contact" class="col-md-6">

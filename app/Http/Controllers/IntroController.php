@@ -29,7 +29,7 @@ class IntroController extends Controller
 
     public function store(Request $request)
     {
-        $AdminSetting = AdminSetting::where('settingName','intro')->first();
+        $AdminSetting = AdminSetting::where('settingName','introConfirm')->first();
         if($AdminSetting->settingValue == 1){
             $request->validate([
             'firstName' => ['required', 'max:32', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
