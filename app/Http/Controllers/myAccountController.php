@@ -40,6 +40,17 @@ class myAccountController extends Controller
             return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules]);
         }
     }
+    public function deletePicture(){
+        $loggedInUser = User::find(session('id'));
+        $loggedInUser->ImgPath = "images/SalveMundi-Vector.svg";
+        $loggedInUser->save();
+        if(!AzureController::updateProfilePhoto($loggedInUser)){
+            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+        }
+        $message = 'Je instellingen zijn bijgewerkt.';
+
+        return redirect('/mijnAccount')->with('message', $message);
+    }
 
     public function savePreferences(Request $request)
     {
@@ -69,7 +80,6 @@ class myAccountController extends Controller
         {
             $request->file('photo')->storeAs('public/users/',$user->AzureID);
             $user->ImgPath = 'users/'.$user->AzureID;
-            $message = 'Je foto is bewerkt';
             if(!AzureController::updateProfilePhoto($user)){
                 return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
             }

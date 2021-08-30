@@ -65,13 +65,10 @@
             <label for="photo">Foto</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
-                    <div class="custom-file" style="width: 80px;">
-                        <label class="input-group-text form-control" id="inputGroupFileAddon01" for="fotoPath">Browse </label>
-                        <input type="file" onchange="CopyMe(this, 'txtFileName');" class="custom-file-input" style="height: 0px;" id="fotoPath" name="fotoPath" aria-describedby="inputGroupFileAddon01">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload bestuurs foto</label>
+                        <input class="form-control" type="file" id="fotoPath" name="fotoPath">
                     </div>
-                </div>
-                <div class="custom-file form-control">
-                    <input style="border: hidden;" id="txtFileName" type="text" readonly="readonly" />
                 </div>
             </div>
 

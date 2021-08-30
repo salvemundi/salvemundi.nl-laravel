@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('samu-api.auth')->get('/participants', [App\Http\Controllers\IntroController::class, 'GetParticipants']);

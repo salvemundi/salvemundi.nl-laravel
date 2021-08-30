@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<script src="js/scrollonload.js"></script>
 <div class="overlap myslider">
 
     <h1>Responsible disclosure</h1>

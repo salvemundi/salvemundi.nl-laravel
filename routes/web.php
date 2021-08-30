@@ -47,6 +47,10 @@ Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::cla
 
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
+// Declaratie
+
+Route::get('/declaratie', function() {return redirect("https://forms.office.com/r/kN2T95wzRm");})->name('declaratie');
+
 // Merch
 
 Route::get('/merch', function() {return view('merch');})->name('merch');
@@ -57,6 +61,7 @@ Route::get('/mijnAccount', [App\Http\Controllers\myAccountController::class, 'in
 Route::post('/mijnAccount/store',[App\Http\Controllers\myAccountController::class, 'savePreferences'])->middleware('azure.auth');
 Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('azure.auth');
 Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController::class,'cancelSubscription'])->middleware('azure.auth');
+Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\myAccountController::class,'deletePicture'])->middleware('azure.auth');
 
 // Activiteiten page
 
@@ -76,11 +81,19 @@ Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
+// agenda
+Route::get('/agenda', function() {return view('agenda');})->name('agenda');
+
+//SideJobBank page
+Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index'] );
+
 // Admin Panel
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
-Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->middleware('admin.auth');
-Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin.auth');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-intro.auth');
+Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
+Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");
+Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser')->middleware('admin.auth');
+Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin-intro.auth');
 Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->middleware('admin.auth')->name('admin.sponsors');
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');
 Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');})->middleware('admin.auth');
@@ -95,6 +108,11 @@ Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 's
 Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
 Route::post('/admin/news/edit', [App\Http\Controllers\NewsController::class, 'editNews'])->middleware('admin.auth');
 Route::post('/admin/news/edit/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
+Route::get('/admin/bijbaanbank', [App\Http\Controllers\SideJobBankController::class, 'indexAdmin'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/store', [App\Http\Controllers\SideJobBankController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/delete', [App\Http\Controllers\SideJobBankController::class, 'deleteSideJobBank'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/edit', [App\Http\Controllers\SideJobBankController::class, 'editSideJobBank'])->middleware('admin.auth');
+Route::post('/admin/bijbaanbank/edit/store', [App\Http\Controllers\SideJobBankController::class, 'store'])->middleware('admin.auth');
 Route::get('/admin/whatsapp', [App\Http\Controllers\WhatsAppController::class, 'index'])->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
@@ -118,7 +136,12 @@ Route::get('/admin/leden/groepen', [App\Http\Controllers\AdminController::class,
 Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController::class, 'groupStore'])->middleware('admin.auth');
 Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete'])->middleware('admin.auth');
 Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync')->middleware('admin.auth');
-Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin.auth');
-Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excel')->middleware('admin.auth');
+
+Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin-intro.auth');
+Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excelBetaald')->middleware('admin-intro.auth');
+
+Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin-intro.auth');
+Route::get('/export_excel/excelNietBetaald', [App\Http\Controllers\IntroController::class, 'excelNietBetaald'])->name('export_excel.excelIedereen')->middleware('admin-intro.auth');
+
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden'])->middleware('admin.auth');
 Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->middleware('admin.auth')->name('removeLeden');

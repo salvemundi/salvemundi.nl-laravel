@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="row center">
         <div id="contact" class="col-md-6">
@@ -38,6 +38,10 @@
                     <br>
                     <label for="Telefoonnummer">Telefoonnummer</label>
                     <input class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}" value="{{ old('phoneNumber') }}" type="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder="Telefoonnummer...">
+
+                    <br>
+                    <label for="Coupon">Coupon</label>
+                    <input class="form-control{{ $errors->has('coupon') ? ' is-invalid' : '' }}" value="{{ old('coupon') }}" type="text" id="coupon" name="coupon" placeholder="Coupon...">
 
                     <br>
                     <input class="btn btn-primary" type="submit" value="Versturen">

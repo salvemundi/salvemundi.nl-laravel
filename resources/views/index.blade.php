@@ -45,7 +45,6 @@
 
                 <li> Jaarlijks op kamp </li>
                 <li> Game Nights (bordspellen & eSports) </li>
-                <li> Partnership met een grote hackathon </li>
                 <li> Uitjes naar bijvoorbeeld pretparken </li>
                 <br>
                 <p>Naast deze activiteiten verzorgt Salve Mundi ook de introductie van FHICT van top tot teen.
