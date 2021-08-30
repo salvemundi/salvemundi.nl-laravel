@@ -40,6 +40,10 @@
                     <input class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}" value="{{ old('phoneNumber') }}" type="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder="Telefoonnummer...">
 
                     <br>
+                    <label for="Coupon">Coupon</label>
+                    <input class="form-control{{ $errors->has('coupon') ? ' is-invalid' : '' }}" value="{{ old('coupon') }}" type="text" id="coupon" name="coupon" placeholder="Coupon...">
+
+                    <br>
                     <input class="btn btn-primary" type="submit" value="Versturen">
             </form>
         </div>
