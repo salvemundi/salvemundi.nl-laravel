@@ -73,7 +73,7 @@ class MolliePaymentController extends Controller
             $transaction->save();
 
             if($userObject != null){
-                $userObject->payment()->associate($transaction);
+                $userObject->payment()->attach($transaction);
                 $userObject->save();
             }
 
