@@ -59,6 +59,7 @@
                             <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                         </form>
                     </div>
+                    <p>Je account is geldig tot:{{$user->created_at->addYear()->format('d F Y') }}</p>
                     <br>
                     <br>
                     <br>
