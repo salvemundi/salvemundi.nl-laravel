@@ -14,7 +14,7 @@ class UpdateOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function ($table) {
-            $table->datetime('cycle_started_at');
+            $table->datetime('cycle_started_at')->nullable();
             $table->datetime('cycle_ends_at')->nullable();
         });
     }
