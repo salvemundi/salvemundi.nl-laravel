@@ -44,6 +44,7 @@
                             @if($activiteit->formsLink != null)
                                 @if($activiteit->amount > 0)
                                     <form method="POST" action="/activiteiten/signup">
+                                        @csrf
                                         <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                         <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Inschrijven € {{ $activiteit->amount }}</button>
