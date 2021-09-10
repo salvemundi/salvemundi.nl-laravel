@@ -61,7 +61,7 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            $createPayment = MolliePaymentController::preparePayment($productIndex, null, $route);
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route);
             $getProductObject = Product::where('index', $productIndex)->first();
             if($getProductObject == null)
             {
