@@ -74,18 +74,22 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 // Finance page
 
-Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
+Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'])->middleware('azure.auth');
+
+// Nieuwsbrief page
+
+Route::get('/nieuwsbrief',[App\Http\Controllers\NewsLetterController::class, 'index']);
 
 // Privacy zooi
 Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
-// agenda
+// Agenda
 Route::get('/agenda', function() {return view('agenda');})->name('agenda');
 
 //SideJobBank page
-Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index'] );
+Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index']);
 
 // Admin Panel
 
@@ -145,3 +149,7 @@ Route::get('/export_excel/excelNietBetaald', [App\Http\Controllers\IntroControll
 
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden'])->middleware('admin.auth');
 Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->middleware('admin.auth')->name('removeLeden');
+
+Route::get('/admin/newsletter', [App\Http\Controllers\NewsLetterController::class, 'indexAdmin'])->middleware('admin.auth');
+Route::post('/admin/newsletter/store', [App\Http\Controllers\NewsLetterController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/newsletter/delete', [App\Http\Controllers\NewsLetterController::class, 'delete'])->middleware('admin.auth');
