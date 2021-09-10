@@ -30,7 +30,7 @@
             <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent"
                  aria-labelledby="gegevens-tab" class="tabcontent">
                 <h2>Jouw gegevens:</h2>
-
+                <p>Je account is geldig tot:<b>{{$user->created_at->addYear()->format('d F Y') }}<b></p>
                 @if($subscriptionActive == 0)
                     <form action="/mijnAccount/pay" method="post">
                         @csrf
@@ -59,7 +59,6 @@
                             <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                         </form>
                     </div>
-                    <p>Je account is geldig tot:{{$user->created_at->addYear()->format('d F Y') }}</p>
                     <br>
                     <br>
                     <br>
