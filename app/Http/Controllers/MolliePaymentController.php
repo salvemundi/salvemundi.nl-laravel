@@ -77,8 +77,6 @@ class MolliePaymentController extends Controller
                 $userObject->save();
             }
 
-            $orderObject->payment()->associate($transaction);
-            $orderObject->save();
             return redirect()->away($createPayment->getCheckoutUrl(), 303);
         }
         return redirect('/');
