@@ -95,6 +95,6 @@ class ActivitiesController extends Controller
         $user = User::where('AzureId', $request->input('id'))->first();
         $activity = Product::find($request->input('activityId'));
 
-        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user);
+        return MolliePaymentController::processRegistration($activity, paymentType::activity, null, null, $user);
     }
 }
