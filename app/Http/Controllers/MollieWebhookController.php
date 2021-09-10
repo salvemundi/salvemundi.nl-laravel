@@ -33,9 +33,9 @@ class MollieWebhookController extends BaseWebhookController
         if ($payment->isPaid()) {
             if($order != null){
                 if ($order->paymentStatus != paymentStatus::paid) {
+                    $order->paymentStatus = paymentStatus::paid;
+                    $order->save();
                     if ($order->product->index == paymentType::intro) {
-                        $order->paymentStatus = paymentStatus::paid;
-                        $order->save();
                         IntroController::postProcessPayment($order);
                         return response(null, 200);
                     }

@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Product;
 use App\Models\Transaction;
-use App\Enums\paymentStatus;
+use App\Enums\paymentType;
+use App\Http\Controllers\MolliePaymentController;
+use App\Models\User;
 
 class ActivitiesController extends Controller
 {
@@ -87,5 +89,12 @@ class ActivitiesController extends Controller
         } else {
             return redirect('admin/activiteiten');
         }
+    }
+
+    public function signup(Request $request){
+        $user = User::where('AzureId', $request->input('id'))->first();
+        $activity = Product::find($request->input('activityId'));
+
+        MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user);
     }
 }

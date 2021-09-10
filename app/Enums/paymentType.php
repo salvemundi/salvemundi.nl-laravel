@@ -14,4 +14,5 @@ final class paymentType extends Enum
     const intro        = 0;
     const contributionCommissie = 1;
     const contribution = 2;
+    const activity = 3;
 }
