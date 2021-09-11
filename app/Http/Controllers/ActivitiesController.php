@@ -22,6 +22,8 @@ class ActivitiesController extends Controller
     public function index()
     {
         $activities = Product::where('index', null)->get();
+        $user = User::where('AzureId', session('id'))->first();
+        dd($user);
         return view('admin/activities', ['activities' => $activities]);
     }
 
