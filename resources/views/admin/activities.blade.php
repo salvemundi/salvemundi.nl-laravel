@@ -12,9 +12,7 @@
     </div>
     @endif
     <div class="col-md-12 center">
-        
         <div class="table-responsive center centerTable">
-            
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
             data-show-columns="true">
             <thead>
@@ -26,6 +24,7 @@
                     <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
                     <th data-field="edit" data-sortable="false">Bewerken</th>
                     <th data-field="delete" data-sortable="false">Verwijderen</th>
+                    <th data-field="signups" data-sortable="false">Inschrijvingen</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +37,7 @@
                     <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
+                    <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/signups">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Inschrijvingen</button></form></td>
                 </tr>
                 @endforeach
             </tbody>
