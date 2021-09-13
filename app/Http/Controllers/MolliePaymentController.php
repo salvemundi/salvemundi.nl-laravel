@@ -110,9 +110,9 @@ class MolliePaymentController extends Controller
         }
         // redirect customer to Mollie checkout page
         if($email == null || $email == "") {
-            $formattedPrice = number_format($product->amount_non_member, 2, '.', '');
-        } else {
             $formattedPrice = number_format($product->amount, 2, '.', '');
+        } else {
+            $formattedPrice = number_format($product->amount_non_member, 2, '.', '');
         }
         $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
