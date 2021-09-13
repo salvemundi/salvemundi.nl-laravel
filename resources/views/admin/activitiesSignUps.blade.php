@@ -32,6 +32,14 @@
                     <td data-value="{{ $user->birthday }}">{{date('d-m-Y', strtotime($user->birthday))}}</td>
                 </tr>
                 @endforeach
+                @foreach ($emails as $email)
+                <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                    <td data-value=""></td>
+                    <td data-value=""></td>
+                    <td data-value="{{ $email }}">{{ $email }}</td>
+                    <td data-value=""></td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

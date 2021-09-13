@@ -66,7 +66,7 @@ Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\myAccountControl
 // Activiteiten page
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
-Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup'])->middleware('azure.auth');
+Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
 
 // News page
 

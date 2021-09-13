@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\Product;
-use App\Models\Transaction;
 use App\Enums\paymentType;
+use App\Enums\paymentStatus;
 use App\Http\Controllers\MolliePaymentController;
 use App\Models\User;
 
@@ -28,14 +27,19 @@ class ActivitiesController extends Controller
     public function signupsActivity(Request $request){
         $activity = Product::find($request->input('id'));
         $arr = [];
+        $emails = [];
         foreach($activity->transactions as $user){
-            foreach($user->contribution as $uss){
-                array_push($arr,$uss);
+            if($user->paymentStatus == paymentStatus::paid) {
+                if($user->email != null || $user->email != ""){
+                    array_push($emails,$user->email);
+                }
+                foreach($user->contribution as $uss){
+                    array_push($arr,$uss);
+                }
             }
         }
 
-        return view('admin/activitiesSignUps',['users' => $arr]);
-
+        return view('admin/activitiesSignUps',['users' => $arr, 'emails' => $emails]);
     }
 
     public function store(Request $request)
@@ -61,6 +65,11 @@ class ActivitiesController extends Controller
             $products->name = $request->input('name');
             $products->formsLink = $request->input('link');
             $products->amount = $request->input('price');
+
+            if($request->input('price2') != null || $request->input('price2') != ""){
+                $products->amount_non_member = $request->input('price2');
+            }
+
             $products->description = $request->input('description');
             //dd($products);
             $products->save();
@@ -80,6 +89,9 @@ class ActivitiesController extends Controller
             $productObject->name = $request->input('name');
             $productObject->formsLink = $request->input('link');
             $productObject->amount = $request->input('price');
+            if($request->input('price2') != null || $request->input('price2') != ""){
+                $productObject->amount_non_member = $request->input('price2');
+            }
             $productObject->description = $request->input('description');
             //dd($products);
             $productObject->save();
@@ -105,9 +117,12 @@ class ActivitiesController extends Controller
     }
 
     public function signup(Request $request){
-        $user = User::where('AzureId', $request->input('id'))->first();
+        $user = null;
+        if(session('id') != null){
+            $user = User::where('AzureId', $request->input('id'))->first();
+        }
         $activity = Product::find($request->input('activityId'));
 
-        return MolliePaymentController::processRegistration($activity, paymentType::activity, null, null, $user);
+        return MolliePaymentController::processRegistration($activity, paymentType::activity, null, null, $user, $request->input('email'));
     }
 }
