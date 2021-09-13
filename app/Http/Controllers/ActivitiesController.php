@@ -28,9 +28,14 @@ class ActivitiesController extends Controller
     public function signupsActivity(Request $request){
         $activity = Product::find($request->input('id'));
         $arr = [];
-        foreach($activity->users as $user){
-            array_push($arr, $user);
+        foreach($activity->transactions as $user){
+            foreach($user->contribution as $uss){
+                array_push($arr,$uss);
+            }
         }
+
+        return view('admin/activitiesSignUps',['users' => $arr]);
+
     }
 
     public function store(Request $request)
