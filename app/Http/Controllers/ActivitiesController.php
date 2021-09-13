@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Enums\paymentType;
+use App\Enums\paymentStatus;
 use App\Http\Controllers\MolliePaymentController;
 use App\Models\User;
 
@@ -27,8 +28,10 @@ class ActivitiesController extends Controller
         $activity = Product::find($request->input('id'));
         $arr = [];
         foreach($activity->transactions as $user){
-            foreach($user->contribution as $uss){
-                array_push($arr,$uss);
+            if($user->paymentStatus == paymentStatus::paid) {
+                foreach($user->contribution as $uss){
+                    array_push($arr,$uss);
+                }
             }
         }
 
