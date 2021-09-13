@@ -27,15 +27,19 @@ class ActivitiesController extends Controller
     public function signupsActivity(Request $request){
         $activity = Product::find($request->input('id'));
         $arr = [];
+        $emails = [];
         foreach($activity->transactions as $user){
             if($user->paymentStatus == paymentStatus::paid) {
+                if($user->email != null || $user->email != ""){
+                    array_push($emails,$user->email);
+                }
                 foreach($user->contribution as $uss){
                     array_push($arr,$uss);
                 }
             }
         }
 
-        return view('admin/activitiesSignUps',['users' => $arr]);
+        return view('admin/activitiesSignUps',['users' => $arr, 'emails' => $emails]);
     }
 
     public function store(Request $request)
