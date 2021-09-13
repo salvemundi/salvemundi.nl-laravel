@@ -26,7 +26,7 @@
             <tbody>
                 @foreach ($users as $user)
                 <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                    <td data-value="{{ $user->FirstName }}">{{$user->FirstName." ".$user->LastName}}</td>
+                    <td data-value="{{ $user->DisplayName }}">{{$user->DisplayName}}</td>
                     <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                     <td data-value="{{ $user->email }}">{{ $user->email }}</td>
                     <td data-value="{{ $user->birthday }}">{{ $user->birthday }}</td>
