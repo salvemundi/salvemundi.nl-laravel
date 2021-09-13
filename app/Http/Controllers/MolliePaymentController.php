@@ -22,7 +22,7 @@ use Laravel\Cashier\Exceptions;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, $userObject = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
             $checkIfUserExists = User::where([
@@ -61,19 +61,22 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            $createPayment = MolliePaymentController::preparePayment($productIndex, null, $route);
-            $getProductObject = Product::where('index', $productIndex)->first();
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route);
+            $getProductObject = Product::find($orderObject->id);
             if($getProductObject == null)
             {
-                $getProductObject = Product::find($productIndex);
+                $getProductObject = Product::where('index', $productIndex)->first();
             }
             $transaction = new Transaction();
             $transaction->transactionId = $createPayment->id;
             $transaction->product()->associate($getProductObject);
             $transaction->save();
 
-            $orderObject->payment()->associate($transaction);
-            $orderObject->save();
+            if($userObject != null){
+                $userObject->payment()->attach($transaction);
+                $userObject->save();
+            }
+
             return redirect()->away($createPayment->getCheckoutUrl(), 303);
         }
         return redirect('/');

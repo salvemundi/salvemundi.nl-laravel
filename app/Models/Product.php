@@ -22,4 +22,8 @@ class Product extends Model
             'id'
         );
     }
+    public function users()
+    {
+        return $this->hasManyThrough(Transaction::class, User::class);
+    }
 }
