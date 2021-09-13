@@ -39,6 +39,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/nieuws">Nieuws</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nieuwsbrief">Nieuwsbrief</a>
+                </li>
                 @if (session('id') != null)
                 <li class="nav-item">
                     <a class="nav-link" href="/financien">Financiën</a>

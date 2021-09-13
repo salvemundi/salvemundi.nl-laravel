@@ -772,8 +772,36 @@ html {
 }
 
 .mijnSlider {
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (min-width: 576px) {
+  .mijnSlider{
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
+
+@media (min-width: 768px) {
+  .mijnSlider{
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}
+
+@media (min-width: 992px) {
+  .mijnSlider{
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mijnSlider{
+    padding-left: 4em;
+    padding-right: 4em;
+  }
 }
 
 .slick-left:before {
