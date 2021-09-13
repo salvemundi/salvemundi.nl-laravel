@@ -35,7 +35,7 @@ class SideJobBankController extends Controller
     public function indexAdmin()
     {
         $sideJobBank = SideJobBank::all();
-        return view('/admin/sidejobbank', ['sideJobBank' => $sideJobBank]);
+        return view('/admin/sideJobBank', ['sideJobBank' => $sideJobBank]);
     }
 
     public function store(Request $request)
