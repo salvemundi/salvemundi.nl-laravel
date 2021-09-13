@@ -85,6 +85,9 @@ class ActivitiesController extends Controller
             $productObject->name = $request->input('name');
             $productObject->formsLink = $request->input('link');
             $productObject->amount = $request->input('price');
+            if($request->input('price2') != null || $request->input('price2') != ""){
+                $productObject->amount_non_member = $request->input('price2');
+            }
             $productObject->description = $request->input('description');
             //dd($products);
             $productObject->save();

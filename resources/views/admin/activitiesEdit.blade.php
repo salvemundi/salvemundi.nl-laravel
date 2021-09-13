@@ -18,7 +18,7 @@
             @csrf
             <br>
             <input type="hidden" value="{{ $activities->id }}" name="id" id="id">
-            <h2 class="h2">Activiteit {{ $activities->name }}bewerken</h2>
+            <h2 class="h2">Activiteit {{ $activities->name }} bewerken</h2>
             <p>Als de prijs 0.00 is dan wordt de activiteit als gratis geregistreerd.</p>
 
             <div class="form-group">
