@@ -31,7 +31,7 @@
                             <div class="col-md-12">
                                 <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
                                     @if($activiteit->formsLink != null)
-                                        @if($activiteit->amount > 0)
+                                        @if($activiteit->amount_non_member > 0)
                                             <br>
                                             <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                                 Inschrijven
@@ -90,7 +90,7 @@
                     <div class="col-md-12">
                         <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}
                             @if($activiteit->formsLink != null)
-                                @if($activiteit->amount > 0)
+                                @if($activiteit->amount_non_member > 0)
                                     <br>
                                     <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                         Inschrijven
