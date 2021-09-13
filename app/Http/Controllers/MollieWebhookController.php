@@ -12,7 +12,7 @@ use Laravel\Cashier\Http\Controllers\BaseWebhookController;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
-
+use App\mail\SendMailActivitySignUp;
 
 class MollieWebhookController extends BaseWebhookController
 {
@@ -37,6 +37,12 @@ class MollieWebhookController extends BaseWebhookController
                     $order->save();
                     if ($order->product->index == paymentType::intro) {
                         IntroController::postProcessPayment($order);
+                        return response(null, 200);
+                    }
+                    // This is an activity \/
+                    if ($order->product->index == null) {
+                        Mail::to($order->email)
+                            ->send(new SendMailActivitySignUp($order->product->name));
                         return response(null, 200);
                     }
                 } else {
