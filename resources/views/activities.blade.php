@@ -53,9 +53,6 @@
                                                     </form>
                                                 </div>
                                             </div>
-
-                                        @else
-                                            <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven</a></p>
                                         @endif
                                 @endif
                             </div>
@@ -112,9 +109,6 @@
                                             </form>
                                         </div>
                                     </div>
-
-                                @else
-                                    <a href="{{ $activiteit->formsLink }}" class="btn btn-primary buttonActiviteiten float-right">Inschrijven</a></p>
                                 @endif
                         @endif
                     </div>
