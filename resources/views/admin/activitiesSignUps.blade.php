@@ -29,7 +29,7 @@
                     <td data-value="{{ $user->DisplayName }}">{{$user->DisplayName}}</td>
                     <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                     <td data-value="{{ $user->email }}">{{ $user->email }}</td>
-                    <td data-value="{{ $user->birthday }}">{{ $user->birthday }}</td>
+                    <td data-value="{{ $user->birthday }}">{{date('d-m-Y', strtotime($user->birthday))}}</td>
                 </tr>
                 @endforeach
             </tbody>
