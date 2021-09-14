@@ -11,14 +11,17 @@ class SendMailActivitySignUp extends Mailable
 {
     use Queueable, SerializesModels;
     private $activity;
+    private $productObject;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($activity)
+    public function __construct($activity, $productObject)
     {
         $this->activity = $activity;
+        $this->productObject = $productObject;
+
     }
 
     /**
@@ -30,6 +33,6 @@ class SendMailActivitySignUp extends Mailable
     {
         return $this
                 ->subject("Inschrijving ".$this->activity)
-                ->markdown('mail/inschrijfMailActiviteit',['activity'=> $this->activity]);
+                ->markdown('mail/inschrijfMailActiviteit',['activity'=> $this->activity, 'productObject' => $this->productObject]);
     }
 }
