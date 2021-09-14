@@ -13,7 +13,7 @@ class UpdateRegisterTable extends Migration
      */
     public function up()
     {
-        Schema::table('transaction', function ($table) {
+        Schema::table('register', function ($table) {
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
