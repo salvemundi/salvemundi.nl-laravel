@@ -14,7 +14,8 @@ class UpdateRegisterTable extends Migration
     public function up()
     {
         Schema::table('register', function ($table) {
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->dropForeign('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade')->change();
         });
     }
 
