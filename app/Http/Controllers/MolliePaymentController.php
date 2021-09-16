@@ -105,8 +105,6 @@ class MolliePaymentController extends Controller
         }
         if($route == null) {
             $route = route('home');
-        } else {
-            $route = route($route);
         }
         // redirect customer to Mollie checkout page
         if($email == null || $email == "") {
