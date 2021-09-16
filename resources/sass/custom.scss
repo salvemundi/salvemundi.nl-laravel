@@ -162,6 +162,12 @@ html {
   margin-bottom: -10px;
 }
 
+@media (min-width:1900px) {
+  .overlayVideo {
+    height: 60em;
+  }
+}
+
 .navImg {
   position: relative;
   width: 100%;
