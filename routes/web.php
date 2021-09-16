@@ -93,7 +93,7 @@ Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'i
 
 // Admin Panel
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-intro.auth');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
 Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");
 Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser')->middleware('admin.auth');
