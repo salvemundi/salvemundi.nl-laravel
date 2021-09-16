@@ -121,7 +121,7 @@ class MolliePaymentController extends Controller
                 "value" => "$priceToString"
             ],
             "description" => "$product->name",
-            "redirectUrl" => $route,
+            "redirectUrl" => "$route",
             "webhookUrl" => route('webhooks.mollie'),
         ]);
     }

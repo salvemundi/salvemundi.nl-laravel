@@ -123,7 +123,7 @@ class ActivitiesController extends Controller
         }
         $activity = Product::find($request->input('activityId'));
 
-        return MolliePaymentController::processRegistration($activity, paymentType::activity, '/activiteiten/link?productId='.$activity->id, null, $user, $request->input('email'));
+        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'));
     }
     public function redirect(Request $request)
     {
