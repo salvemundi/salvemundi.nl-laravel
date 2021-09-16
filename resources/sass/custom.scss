@@ -13,7 +13,7 @@ a:hover {
 }
 
 .imgIndex {
-  width: 80%;
+  width: 100%;
   transform: scale(0.95);
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -30,15 +30,44 @@ html {
 
 .overlap {
   background-color: white;
-  top: 750px;
-  position: relative;
-  margin-bottom: 750px;
-  padding: 50px;.form-check-input:checked {
-    background-color: #3490dc;
-    border-color: #3490dc;
-}
-  //width: 100% !important;
+  padding-top: 3em;
+  padding-left: 2em;
+  padding-right: 2em;
+  margin-bottom: 15px;
   z-index: 3;
+}
+
+@media (min-width: 576px) {
+  .overlap{
+    padding-left: 5em;
+    padding-right: 5em;
+  }
+}
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .overlap{
+    padding-left: 7em;
+    padding-right: 7em;
+  }
+}
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .overlap{
+    padding-left: 12em;
+    padding-right: 12em;
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .overlap{
+    padding-left: 20em;
+    padding-right: 20em;
+  }
+}
+
+.form-check-input:checked {
+  background-color: #3490dc;
+  border-color: #3490dc;
 }
 
 .grid {
@@ -127,36 +156,20 @@ html {
   padding-right: 1rem;
 }
 
+.overlayVideo {
+  background-image: linear-gradient(rgba(156, 139, 253, 0.493), rgba(214, 124, 250, 0.582));
+  z-index: 1;
+  margin-bottom: -10px;
+}
+
 .navImg {
-  width: 100%;
-  height: auto;
   position: relative;
-  z-index: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 .navAdminWidth {
   max-width: 1740px !important;
-}
-
-.overlayVideo:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
-  background: linear-gradient(to right, rgba(156, 139, 253, 0.493), rgba(214, 124, 250, 0.582));
-}
-
-.overlayVideo {
-  left: 0%;
-  top: 0%;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
-  //z-index: -1;
 }
 
 .dropbtn {
@@ -505,13 +518,18 @@ html {
 
 /* Cards begin*/
 
-.card {
-  border-radius: 10px;
-  flex-direction: row;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
-  margin: 10px;
-  transition: all .2s ease-in-out;
-  overflow: hidden;
+// .card {
+//   border-radius: 10px;
+//   flex-direction: row;
+//   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
+//   margin: 10px;
+//   transition: all .2s ease-in-out;
+//   overflow: hidden;
+// }
+
+.imgActivity {
+  min-height: 50%;
+  max-height: 60%;
 }
 
 .cardNews {
@@ -771,39 +789,6 @@ html {
   padding: 5px;
 }
 
-.mijnSlider {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-@media (min-width: 576px) {
-  .mijnSlider{
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-}
-
-@media (min-width: 768px) {
-  .mijnSlider{
-    padding-left: 2em;
-    padding-right: 2em;
-  }
-}
-
-@media (min-width: 992px) {
-  .mijnSlider{
-    padding-left: 3em;
-    padding-right: 3em;
-  }
-}
-
-@media (min-width: 1200px) {
-  .mijnSlider{
-    padding-left: 4em;
-    padding-right: 4em;
-  }
-}
-
 .slick-left:before {
   color: $salveMundi-primary !important;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
@@ -882,43 +867,6 @@ html {
 
 /* Begin media query's  */
 
-// @media only screen and (max-width: 549.98px) {
-//   .sponsor {
-//     width: 100%;
-//   }
-// }
-
-// @media only screen and (max-width: 549.98px) {
-//   .textCard,
-//   .card-text {
-//     font-size: 12px;
-//   }
-// }
-
-// @media only screen and (max-width: 468.98px) {
-
-//   .textCard,
-//   .card-text {
-//     font-size: 10px;
-//   }
-// }
-
-// @media only screen and (max-width: 409.98px) {
-
-//   .textCard,
-//   .card-text {
-//     font-size: 8px;
-//   }
-// }
-
-// @media only screen and (max-width: 349.98px) {
-
-//   .textCard,
-//   .card-text {
-//     font-size: 7px;
-//   }
-// }
-
 @media only screen and (max-width: 1540px) {
   .commissie {
     flex-direction: row !important;
@@ -936,148 +884,11 @@ html {
     margin: 10px;
   }
 }
-// @media only screen and (max-width: 1409.98px) {
-//   .cardNews {
-//     //flex-direction: unset !important;
-//   }
-// }
 
-// @media only screen and (max-width: 1199.98px) {
-//   .card {
-//     flex-direction: unset !important;
-//   }
-// }
-
-// @media only screen and (max-width: 1199.98px) {
-//   .cardNews {
-//     flex-direction: column !important;
-//   }
-
-//   .pfPhotoNews {
-//     width: 100%;
-//     height: auto;
-//   }
-// }
-
-// @media only screen and (max-width: 505.98px) {
-//   .card {
-//     width: 300px;
-//   }
-// }
-
-// @media only screen and (max-width: 424.98px) {
-//   .card {
-//     width: 235px;
-//   }
-// }
-
-// @media only screen and (max-width: 319.98px) {
-//   .card {
-//     width: 200px;
-//   }
-// }
-
-// @media only screen and (max-width: 767.98px) {
-//   .card {
-//     flex-direction: unset;
-//   }
-
-//   .pfPhoto {
-//     width: 20% !important;
-//     height: auto;
-//   }
-// }
-
-// @media only screen and (max-width: 835.98px) {
-//   .pfPhoto {
-//     width: 215px;
-//     height: auto;
-//   }
-// }
-
-// @media only screen and (max-width: 367.98px) {
-//   .mijnSlider {
-//     padding-left: 0% !important;
-//     padding-right: 0% !important;
-//   }
-// }
-
-
-
-@media only screen and (max-width: 1330.98px) {
-  .overlap {
-    top: 670px;
-    margin-bottom: 670px;
-  }
-}
-
-@media only screen and (max-width: 1199.98px) {
-  .overlap {
-    top: 400px;
-    margin-bottom: 400px;
-  }
-}
-
-@media only screen and (max-width: 809.98px) {
-  .overlap {
-    top: 300px;
-    margin-bottom: 300px;
-  }
-}
-
-@media only screen and (max-width: 609.98px) {
-  .overlap {
-    top: 280px;
-    margin-bottom: 280px;
-  }
-}
-
-@media only screen and (max-width: 569.98px) {
-  .overlap {
-    top: 260px;
-    margin-bottom: 260px;
-  }
-}
-
-@media only screen and (max-width: 524.98px) {
-  .overlap {
-    top: 230px;
-    margin-bottom: 230px;
-  }
-}
-
-@media only screen and (max-width: 477.98px) {
-  .overlap {
-    top: 210px;
-    margin-bottom: 210px;
-  }
-
-  #activiteitDescription {
-    justify-content: left !important;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-@media only screen and (max-width: 424.98px) {
-  .overlap {
-    top: 200px;
-    margin-bottom: 200px;
-  }
-}
-
-@media only screen and (max-width: 399.98px) {
-  .overlap {
-    top: 180px;
-    margin-bottom: 180px;
-  }
-}
-
-@media only screen and (max-width: 359.98px) {
-  .overlap {
-    top: 160px;
-    margin-bottom: 160px;
-  }
+#activiteitDescription {
+  justify-content: left !important;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* End media query's  */
