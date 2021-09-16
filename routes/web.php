@@ -67,6 +67,7 @@ Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\myAccountControl
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
 Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
+Route::post('/activiteiten/link/{productId}', [App\Http\Controllers\ActivitiesController::class,'redirect']);
 
 // News page
 
