@@ -18,7 +18,7 @@
             @csrf
             <br>
             <input type="hidden" value="{{ $activities->id }}" name="id" id="id">
-            <h2 class="h2">Activiteit toevoegen</h2>
+            <h2 class="h2">Activiteit {{ $activities->name }} bewerken</h2>
             <p>Als de prijs 0.00 is dan wordt de activiteit als gratis geregistreerd.</p>
 
             <div class="form-group">
@@ -34,6 +34,11 @@
             <div class="form-group">
                 <label for="Achternaam">Prijs*</label>
                 <input type="number" min="0" step=".01" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" value="{{ $activities->amount }}" id="price" name="price" placeholder="Prijs...">
+            </div>
+
+            <div class="form-group">
+                <label for="Achternaam">Prijs voor niet leden*</label>
+                <input type="number" min="0" step=".01" class="form-control{{ $errors->has('price2') ? ' is-invalid' : '' }}" value="{{ $activities->amount_non_member }}" id="price2" name="price2" placeholder="Prijs...">
             </div>
 
             <div class="form-group">
