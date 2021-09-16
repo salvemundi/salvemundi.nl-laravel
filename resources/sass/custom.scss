@@ -524,14 +524,12 @@ html {
 
 /* Cards begin*/
 
-// .card {
-//   border-radius: 10px;
-//   flex-direction: row;
-//   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
-//   margin: 10px;
-//   transition: all .2s ease-in-out;
-//   overflow: hidden;
-// }
+.card {
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
+  transition: all .2s ease-in-out;
+  overflow: hidden;
+}
 
 .imgActivity {
   min-height: 50%;
