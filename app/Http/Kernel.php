@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         'admin-intro.auth' => \App\Http\Middleware\AdminIntroAuth::class,
+        'admin-activiteiten.auth' => \App\Http\Middleware\AdminActiviteiten::class,
         'azure.auth' => \App\Http\Middleware\AzureAuth::class,
         'signUp.auth' => \App\Http\Middleware\SignUpCheck::class,
         'samu-api.auth' => \App\Http\Middleware\apiAuth::class,

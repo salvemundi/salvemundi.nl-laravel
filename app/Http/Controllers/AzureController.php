@@ -144,7 +144,7 @@ class AzureController extends Controller
         $userObject = User::where('id', $request->input('id'))->first();
         $userObject = User::find($request->input('id'));
         $graph = AzureController::connectToAzure();
-        $userObject->delete();
+        $userObject->forceDelete();
         try{
             $graphRequest = $graph->createRequest("DELETE", '/users/'.$userObject->AzureID)
                 ->execute();
