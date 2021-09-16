@@ -125,9 +125,4 @@ class ActivitiesController extends Controller
 
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'));
     }
-    public function redirect(Request $request)
-    {
-        $activity = Product::find($request->input('productId'));
-        return redirect($activity->formsLink);
-    }
 }
