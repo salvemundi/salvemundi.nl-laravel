@@ -47,7 +47,7 @@ class SendMailInschrijving extends Mailable
     {
         $whatsappLink = WhatsappLink::all();
         return $this
-                ->subject("Inschrijving SalveMundi")
+                ->subject("Inschrijving Salve Mundi")
                 ->markdown('mail/inschrijfMail',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentStatus' => $this->paymentStatus,'pass' => $this->pass, 'whatsappLink' => $whatsappLink,'email' => $this->email]);
     }
 }
