@@ -86,8 +86,7 @@
                         @endif
                     </div>
                     <br>
-                    <p><b>Naam:</b> {{ $user->FirstName }} </p>
-                    <p><b>Achternaam:</b> {{ $user->LastName }} </p>
+                    <p><b>Naam:</b> {{ $user->DisplayName }} </p>
                     <p><b>Email:</b> {{ $user->email }} </p>
                     <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
 

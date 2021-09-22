@@ -141,7 +141,7 @@ class AzureController extends Controller
 
     public static function DeleteUser(Request $request)
     {
-        $userObject = User::where('id', $request->input('id'))->first();
+        #$userObject = User::where('id', $request->input('id'))->first();
         $userObject = User::find($request->input('id'));
         $graph = AzureController::connectToAzure();
         $userObject->forceDelete();
