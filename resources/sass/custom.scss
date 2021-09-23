@@ -538,6 +538,10 @@ html {
   overflow: hidden;
 }
 
+.user {
+  flex-direction: unset;
+}
+
 .cardNews {
   width: 50%;
   border-radius: 10px;
