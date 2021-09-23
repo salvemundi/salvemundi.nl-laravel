@@ -150,9 +150,9 @@ class AzureController extends Controller
                 ->execute();
         }
         catch(\Exception $e){
-            return redirect('removeLeden')->with('message', 'Het verwijderen in azure is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
+            return back()->with('message', 'Het verwijderen in azure is niet gelukt, probeert het opnieuw of raadpleeg de ICT-commissie');
         }
-        return redirect('removeLeden')->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' is gelukt!');
+        return back()->with('message', 'Het verijderen van gebruiker '.$userObject->FirstName.' is gelukt!');
     }
 
     public static function accountEnabled(bool $mode, User $user)
