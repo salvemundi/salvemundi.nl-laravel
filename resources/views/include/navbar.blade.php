@@ -7,13 +7,13 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse showCom" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav justify-content-lg-start">
             <li class="nav-item">
                 <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
-                    <div id="dropdown" class="dropdown-content">
+                    <div id="dropdown" class="dropdown-content showCom">
                         <a class="dropdownText" href="/commissies#Bestuur">Bestuur</a>
                         @foreach ($Commissies as $commissie)
                             @if (str_contains($commissie->DisplayName, 'commissie'))

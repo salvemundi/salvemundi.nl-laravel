@@ -39,29 +39,29 @@ html {
 
 @media (min-width: 576px) {
   .overlap{
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}
+
+@media (min-width: 768px) {
+  .overlap{
     padding-left: 5em;
     padding-right: 5em;
   }
 }
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-  .overlap{
-    padding-left: 7em;
-    padding-right: 7em;
-  }
-}
-// Large devices (desktops, 992px and up)
+
 @media (min-width: 992px) {
   .overlap{
-    padding-left: 12em;
-    padding-right: 12em;
+    padding-left: 10em;
+    padding-right: 10em;
   }
 }
-// Extra large devices (large desktops, 1200px and up)
+
 @media (min-width: 1200px) {
   .overlap{
-    padding-left: 20em;
-    padding-right: 20em;
+    padding-left: 13em;
+    padding-right: 13em;
   }
 }
 
@@ -258,8 +258,14 @@ html {
 #hamburgerMenu {
   color: white;
 }
+// .showCom {
+//   background-color: $salveMundi-light;
+//   border-radius: 10px;
+//   padding: 10px;
+//   max-width: 75%;
+// }
 @media only screen and (max-width: 767px){
-  .show {
+  .showCom {
     background-color: $salveMundi-light;
     border-radius: 10px;
     padding: 10px;
@@ -269,6 +275,7 @@ html {
     background-color: unset !important;
   }
 }
+
 .navLink:hover,
 .navLink:link {
   text-decoration: none;
@@ -529,11 +536,6 @@ html {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3) !important;
   transition: all .2s ease-in-out;
   overflow: hidden;
-}
-
-.imgActivity {
-  min-height: 50%;
-  max-height: 60%;
 }
 
 .cardNews {
