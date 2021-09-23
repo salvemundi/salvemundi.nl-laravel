@@ -31,16 +31,27 @@ class MolliePaymentController extends Controller
                 ])->first();
 
             $newUser = new User;
-            $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
+            if($orderObject->insertion != null || $orderObject->insertion != "") {
+                $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
+                if($checkIfUserExists == null){
+                    $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
+                } else {
+                    $birthDayDay = date("d", strtotime($orderObject->birthday));
+                    $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+                }
+            } else {
+                $newUser->DisplayName = $orderObject->firstName." ".$orderObject->insertion." ".$orderObject->lastName;
+                if($checkIfUserExists == null){
+                    $newUser->email = $orderObject->firstName.".".$orderObject->insertion.".".$orderObject->lastName."@lid.salvemundi.nl";
+                } else {
+                    $birthDayDay = date("d", strtotime($orderObject->birthday));
+                    $newUser->email = $orderObject->firstName.".".$orderObject->insertion.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+                }
+            }
             $newUser->FirstName = $orderObject->firstName;
             $newUser->LastName = $orderObject->lastName;
             $newUser->phoneNumber = $orderObject->phoneNumber;
-            if($checkIfUserExists == null){
-                $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
-            } else {
-                $birthDayDay = date("d", strtotime($orderObject->birthday));
-                $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
-            }
+
             $newUser->ImgPath = "images/SalveMundi-Vector.svg";
             $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
             $newUser->save();

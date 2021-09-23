@@ -9,8 +9,8 @@
             Salve Mundi heeft verschillende commissies die ieder verantwoordelijk zijn voor het functioneren van de vereniging.<br> Elke commissie heeft zijn eigen taken en verantwoordelijkheden, en samen zorgen zij ervoor dat Salve Mundi kan zijn zoals het is!
         </p><br>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12" id="{{ $groupsBestuur->DisplayName }}">
+            <div class="row center">
+                <div class="col-auto col-md-6" id="{{ $groupsBestuur->DisplayName }}">
                     <div class="commissie card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $groupsBestuur->DisplayName }}</h4>
