@@ -14,7 +14,7 @@
             <form action="/inschrijven/store" method="post">
                 @csrf
                 <br>
-                <h2 class="h2">Inschrijven voor SalveMundi</h2>
+                <h2 class="h2">Inschrijven voor Salve Mundi</h2>
                     <br>
                     <label for="voornaam">Voornaam</label>
                     <input class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" value="{{ old('firstName') }}" type="text" id="firstName" name="firstName" placeholder="Voornaam...">

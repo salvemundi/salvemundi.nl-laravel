@@ -38,7 +38,7 @@ class SendMailInschrijvingTransactie extends Mailable
     public function build()
     {
         return $this
-            ->subject("Inschrijving SalveMundi")
+            ->subject("Inschrijving Salve Mundi")
             ->markdown('mail/InschrijvingTransactie',['firstName'=> $this->givenName,'lastName'=>$this->surName,'insertion'=>$this->insertion, 'paymentLink' => $this->paymentLink]);
     }
 }
