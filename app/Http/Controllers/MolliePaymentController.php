@@ -31,7 +31,7 @@ class MolliePaymentController extends Controller
                 ])->first();
 
             $newUser = new User;
-            if($orderObject->insertion != null || $orderObject->insertion != "") {
+            if($orderObject->insertion == null || $orderObject->insertion == "") {
                 $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
                 if($checkIfUserExists == null){
                     $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
