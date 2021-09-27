@@ -15,6 +15,7 @@
                     <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
                     <div id="dropdown" class="dropdown-content showCom">
                         <a class="dropdownText" href="/commissies#Bestuur">Bestuur</a>
+                        <a class="dropdownText" href="/commissies#Kandi-Bestuur">Kandi-Bestuur</a>
                         @foreach ($Commissies as $commissie)
                             @if (str_contains($commissie->DisplayName, 'commissie'))
                                 <a class="dropdownText" href="/commissies#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
