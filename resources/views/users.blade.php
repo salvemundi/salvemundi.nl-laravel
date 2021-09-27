@@ -14,10 +14,14 @@
                     <div class="commissie card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $groupsBestuur->DisplayName }}</h4>
-                            <div class="col-md-12">
-                                <p class="card-text">{{ $groupsBestuur->Description }} <br> E-mail: <a
-                                        href="mailto:{{ $groupsBestuur->email }}">{{ $groupsBestuur->email }}</a>
-                                        <a class="float-right" href="/vorigBestuur">Naar vorig bestuur</a></p>
+                            <div class="col-md-12 d-flex justify-content-between align-items-center" >
+                                <div style="">
+                                    <p class="card-text">{{ $groupsBestuur->Description }}
+                                    <br>
+                                    E-mail: <a href="mailto:{{ $groupsBestuur->email }}">{{ $groupsBestuur->email }}</p>
+                                    </a>
+                                </div>
+                                <a class="btn btn-primary ml-auto" href="/vorigBestuur">Naar vorig bestuur</a>
                             </div>
                         </div>
                     </div>
