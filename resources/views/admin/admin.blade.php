@@ -1,6 +1,6 @@
 @extends('layouts.appmin')
 @section('content')
-<div class="adminOverlap">
+<div class="adminOverlap container">
     <div class="mijnSlider">
         <div class="row mb-2">
             <div class="col-md-6">
