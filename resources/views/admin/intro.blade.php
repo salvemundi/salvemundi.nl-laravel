@@ -5,31 +5,27 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
-<div class="row widthFix adminOverlap mijnSlider center">
-    @if(session()->has('information'))
-    <div class="alert alert-primary">
-        {{ session()->get('information') }}
-    </div>
-    @endif
-    <div style="display:inline">
+<div class="row widthFix adminOverlap center removeAutoMargin">
+    <div class="col-auto col-md-10 col-sm-8">
+        @if(session()->has('information'))
+        <div class="alert alert-primary">
+            {{ session()->get('information') }}
+        </div>
+        @endif
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-{{--                <a class="nav-link active" id="inschrijvingen-tab" data-toggle="tab" href="#inschrijvingen" role="tab"--}}
-{{--                   aria-controls="inschrijvingen" aria-selected="true"><i class="fa fa-credit-card"></i> Betaald</a>--}}
                 <button class="nav-link tabber" id="contact-tab" data-bs-toggle="tab" data-bs-target="#inschrijvingen" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fa fa-credit-card"></i> Betaald</button>
 
             </li>
             <li class="nav-item">
                 <button class="nav-link tabber" id="contact-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</button>
-{{--                <a class="nav-link" id="gegevens-tab" data-toggle="tab" href="#gegevens" role="tab"--}}
-{{--                   aria-controls="gegevens" aria-selected="false"><i class="fas fa-user"></i> Ingeschreven</a>--}}
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div id="inschrijvingen" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent"
-                 aria-labelledby="inschrijvingen-tab" class="tabcontent">
-                <div class="col-md-12 center">
-                    <div class="table-responsive center centerTable">
+                    aria-labelledby="inschrijvingen-tab" class="tabcontent">
+                <div class="col-md-12">
+                    <div class="table-responsive">
                         <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                             data-show-columns="true">
                             <thead>
@@ -71,7 +67,7 @@
                 <div class="col-md-12 center">
                     <div class="table-responsive center centerTable">
                         <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
-                               data-show-columns="true">
+                                data-show-columns="true">
                             <thead>
                             <tr class="tr-class-1">
                                 <th data-field="firstName" data-sortable="true">Voornaam</th>
@@ -96,10 +92,9 @@
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="introCheck widthFix center">
+        </div>
+        <div class="col-auto col-md-10 col-sm-8">
+            <div class="introCheck center">
                 <form method="POST" action="intro/store">
                     @csrf
                     @if($introSetting->settingValue == 1)
@@ -129,17 +124,6 @@
                     &nbsp;
                     <a href="{{ route('export_excel.excelBetaald')}}" class="btn btn-primary btn-sm">Export to Excel</a>
                     <a href="{{ route('export_excel.excelIedereen')}}" class="btn btn-primary btn-sm">Export niet betaalde to Excel</a>
-{{--                    <div class="dropdown">--}}
-{{--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                            Dropdown button--}}
-{{--                        </button>--}}
-{{--                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--}}
-{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsFirstYear) }}" class="dropdown-item">Maak mail voor 1e jaars die niet betaald hebben</a></li>--}}
-{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail voor 2e jaars die niet betaald hebben</a></li>--}}
-{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail richting iedereen die niet betaald heeft</a></li>--}}
-{{--                            <li><a href="mailto:?bcc={{ implode(',', $emailsSecondYear) }}" class="dropdown-item">Maak mail richting iedereen die betaald heeft</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             Mail
