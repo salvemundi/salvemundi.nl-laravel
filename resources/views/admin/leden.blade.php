@@ -1,25 +1,26 @@
 @extends('layouts.appmin')
 @section('content')
-<div class="row widthFix adminOverlap mijnSlider center">
+<div class="row widthFix adminOverlap center removeAutoMargin">
 
     <div class="w-100 mt-2" id="showprogress" style="display: none;">
         <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" id="progresstinatie" style="width: 100%" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
-    <div style="margin-top: 15px; margin-left: 15px">
-        <div class="alert alert-success success" style="display: none;" role="alert">
-            De database is ge-synchroniseerd met Azure!
+
+    <div class="col-auto col-md-10 col-sm-8">
+
+        <div class="buttonSync">
+            <div class="alert alert-success success" style="display: none;" role="alert">
+                De database is ge-synchroniseerd met Azure!
+            </div>
+            <form id="ajaxform">
+                <button class="btn btn-primary save-data" data-toggle="tooltip" data-placement="right" title="Dit kan enkele minuten duren...">Sync met Azure</button>
+            </form>
         </div>
 
-        <form id="ajaxform">
-            <button class="btn btn-primary save-data" data-toggle="tooltip" data-placement="right" title="Dit kan enkele minuten duren...">Sync met Azure</button>
-        </form>
-    </div>
-
-    <div class="col-md-12">
         <h2>Betaald</h2>
-        <div class="table-responsive centerTable">
+        <div class="">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                 data-show-columns="true">
                 <thead>
@@ -67,9 +68,9 @@
             </table>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-auto col-md-10 col-sm-8">
         <h2>Niet betaald</h2>
-        <a data-bs-toggle="modal" data-bs-target="#disableAllModal" class="btn-warning btn">Verander account status voor alle niet betaalde leden</a>
+        <a data-bs-toggle="modal" data-bs-target="#disableAllModal" class="btn-warning btn btnDelAcc">Verander account status voor alle niet betaalde leden</a>
 {{--        <a data-toggle="modal" data-target="#deleteAllModal" class="btn-danger btn specialDelete">Verwijder alle accounts van niet betaalde leden</a>--}}
         <div class="table-responsive centerTable">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"

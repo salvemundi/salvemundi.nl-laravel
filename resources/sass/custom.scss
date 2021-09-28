@@ -677,6 +677,15 @@ html {
   top: 100px;
 }
 
+.buttonSync {
+  margin-top: 2.5rem;
+}
+
+.removeAutoMargin {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
 .introCheck {
   left: 1rem;
   position: relative;
@@ -892,6 +901,20 @@ html {
   }
   .adminCard {
     margin: 10px;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .btnDelAcc {
+    margin-left: 1.5rem !important;
+  }
+}
+
+@media only screen and (max-width: 578px) {
+  .buttonSync {
+    margin-top: 10px !important;
+    margin-left: 2px !important;
+    margin-bottom: 2px !important;
   }
 }
 
