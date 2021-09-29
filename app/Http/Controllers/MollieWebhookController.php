@@ -12,13 +12,19 @@ use Laravel\Cashier\Http\Controllers\BaseWebhookController;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
+use App\Models\User;
 use App\mail\SendMailActivitySignUp;
 
 class MollieWebhookController extends BaseWebhookController
 {
     protected function getTransactionObject($pid)
     {
-        return Transaction::where('transactionId', $pid)->first();
+        return Transaction::with(['contribution' => function ($query) {
+            $query->orderBy('created_at', 'asc')->take(1);
+        }])->where('transactionId', $pid)->first();
+
+
+        //return Transaction::where('transactionId', $pid)->with('contribution')->first();
     }
     public function handle(Request $request) {
         if (! $request->has('id')) {
@@ -65,17 +71,25 @@ class MollieWebhookController extends BaseWebhookController
         }
 
         if ($payment->isOpen()) {
-            $order->paymentStatus = paymentStatus::open;
-            $order->save();
-            $user = $order->contribution()->first();
-            $user->forceDelete();
+            if($order != null){
+                $order->paymentStatus = paymentStatus::open;
+                $order->save();
+            } else {
+                $orderReg = Transaction::where('transactionId', null)->latest()->first();
+                $user = User::find($orderReg->user_id);
+                $user->forceDelete();
+            }
         }
 
         if ($payment->isFailed()) {
-            $order->paymentStatus = paymentStatus::failed;
-            $order->save();
-            $user = $order->contribution()->first();
-            $user->forceDelete();
+            if($order != null){
+                $order->paymentStatus = paymentStatus::failed;
+                $order->save();
+            } else {
+                $orderReg = Transaction::where('transactionId', null)->latest()->first();
+                $user = User::find($orderReg->user_id);
+                $user->forceDelete();
+            }
         }
 
         if ($payment->isCanceled()) {
