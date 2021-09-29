@@ -7,8 +7,8 @@
     </div>
     @endif
 
-<div class="row widthFix center adminOverlap mijnSlider">
-    <div id="contact" class="col-md-6">
+<div class="row widthFix adminOverlap center removeAutoMargin">
+    <div id="contact" class="col-auto col-md-6 col-sm-12">
         @if(session()->has('message'))
         <div class="alert alert-primary">
             {{ session()->get('message') }}
@@ -47,7 +47,7 @@
             </div>
 
             <label for="photo">Foto</label>
-            <div class="input-group mb-3 test">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="custom-file" style="width: 80px;">
                         <label class="input-group-text form-control" id="inputGroupFileAddon01" for="photo">Browse </label>
@@ -59,8 +59,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <br>
+            <div class="form-group py-3">
                 <input class="btn btn-primary" type="submit" value="Bewerken">
             </div>
         </form>

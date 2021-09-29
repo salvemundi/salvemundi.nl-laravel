@@ -46,7 +46,7 @@
 </div>
 </div>
 
-<div class="row widthFix adminOverlap center">
+<div class="row widthFix adminOverlap center removeAutoMargin">
     <div id="contact" class="col-md-6">
         @if(session()->has('message'))
         <div class="alert alert-primary">
@@ -85,7 +85,7 @@
             </div>
 
             <label for="photo">Foto</label>
-            <div class="input-group mb-3 test">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Upload bijhorende foto</label>
@@ -93,9 +93,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <br>
+            <div class="form-group mx-auto my-3">
                 <input class="btn btn-primary" type="submit" value="Toevoegen">
             </div>
         </form>
