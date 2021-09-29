@@ -75,8 +75,8 @@ class MollieWebhookController extends BaseWebhookController
                 $order->paymentStatus = paymentStatus::open;
                 $order->save();
             } else {
-                $orderReg = Transaction::where('transactionId', null)->latest()->first();
-                $user = User::find($orderReg->user_id);
+                $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
+                $user = User::find($orderReg->contribution->user_id);
                 $user->forceDelete();
             }
         }
@@ -86,8 +86,8 @@ class MollieWebhookController extends BaseWebhookController
                 $order->paymentStatus = paymentStatus::failed;
                 $order->save();
             } else {
-                $orderReg = Transaction::where('transactionId', null)->latest()->first();
-                $user = User::find($orderReg->user_id);
+                $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
+                $user = User::find($orderReg->contribution()->user_id);
                 $user->forceDelete();
             }
         }
