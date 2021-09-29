@@ -1,9 +1,8 @@
 @extends('layouts.appmin')
 @section('content')
 
-
-<div class="adminOverlap center">
-    <div id="contact" class="col-md-6">
+<div class="row widthFix adminOverlap center removeAutoMargin">
+    <div id="contact" class="col-auto col-md-6 col-sm-8">
         @if(session()->has('message'))
             <div class="alert alert-primary">
                 {{ session()->get('message') }}
@@ -51,8 +50,7 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ $product->description }}}</textarea>
             </div>
 
-            <div class="test">
-                <br>
+            <div class="form-group py-3">
                 <input class="btn btn-primary" type="submit" value="Opslaan">
             </div>
         </form>

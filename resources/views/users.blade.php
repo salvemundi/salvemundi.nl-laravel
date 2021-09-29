@@ -7,10 +7,11 @@
         <h1 class="center">Commissies</h1>
         <p class="center">
             Salve Mundi heeft verschillende commissies die ieder verantwoordelijk zijn voor het functioneren van de vereniging.<br> Elke commissie heeft zijn eigen taken en verantwoordelijkheden, en samen zorgen zij ervoor dat Salve Mundi kan zijn zoals het is!
-        </p><br>
+        </p>
+        <br>
         <div class="container-fluid">
             <div class="row center">
-                <div class="col-auto col-md-6" id="{{ $groupsBestuur->DisplayName }}">
+                <div class="col-auto col-md-12" id="{{ $groupsBestuur->DisplayName }}">
                     <div class="commissie card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $groupsBestuur->DisplayName }}</h4>
@@ -30,6 +31,42 @@
             <br>
             <div class="row">
                 @foreach($groupsBestuur->users as $users)
+                @if($users->visibility == 1)
+                <div class="col-md-6">
+                    <div class="card user">
+                        {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
+                        <div class="card-body">
+                            <p class="card-text">{{ $users->DisplayName }} <br> {{ $users->email }}</p>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                @endif
+                @endforeach
+            </div>
+
+            <br>
+            <div class="row center">
+                <div class="col-auto col-md-12" id="{{ $kandiBestuur->DisplayName }}">
+                    <div class="commissie card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ $kandiBestuur->DisplayName }}</h4>
+                            <div class="col-md-12 d-flex justify-content-between align-items-center" >
+                                <div style="">
+                                    <p class="card-text">{{ $kandiBestuur->Description }}
+                                    <br>
+                                    E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $kandiBestuur->email }}</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                @foreach($kandiBestuur->users as $users)
                 @if($users->visibility == 1)
                 <div class="col-md-6">
                     <div class="card user">
