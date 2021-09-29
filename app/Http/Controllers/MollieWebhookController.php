@@ -76,7 +76,7 @@ class MollieWebhookController extends BaseWebhookController
                 $order->save();
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
-                $user = User::find($orderReg->contribution->user_id);
+                $user = $orderReg->contribution()->first();
                 $user->forceDelete();
             }
         }
@@ -87,32 +87,44 @@ class MollieWebhookController extends BaseWebhookController
                 $order->save();
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
-                $user = User::find($orderReg->contribution()->user_id);
+                $user = $orderReg->contribution()->first();
                 $user->forceDelete();
             }
         }
 
         if ($payment->isCanceled()) {
-            $order->paymentStatus = paymentStatus::canceled;
-            $order->save();
-            if($order->type == paymentType::intro)
-            {
-                $introObject = $order->introRelation;
-                Mail::to($introObject->email)
-                    ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
-                $introObject->delete();
+            if($order != null) {
+                $order->paymentStatus = paymentStatus::canceled;
+                $order->save();
+                if($order->type == paymentType::intro)
+                {
+                    $introObject = $order->introRelation;
+                    Mail::to($introObject->email)
+                        ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
+                    $introObject->delete();
+                }
+            } else {
+                $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
+                $user = $orderReg->contribution()->first();
+                $user->forceDelete();
             }
         }
 
         if ($payment->isExpired()) {
-            $order->paymentStatus = paymentStatus::expired;
-            $order->save();
-            if($order->type == paymentType::intro)
-            {
-                $introObject = $order->introRelation;
-                Mail::to($introObject->email)
-                    ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
-                $introObject->delete();
+            if($order != null){
+                $order->paymentStatus = paymentStatus::expired;
+                $order->save();
+                if($order->type == paymentType::intro)
+                {
+                    $introObject = $order->introRelation;
+                    Mail::to($introObject->email)
+                        ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
+                    $introObject->delete();
+                }
+            } else {
+                $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
+                $user = $orderReg->contribution()->first();
+                $user->forceDelete();
             }
         }
 
