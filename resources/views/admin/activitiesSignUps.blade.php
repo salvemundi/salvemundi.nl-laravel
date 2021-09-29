@@ -5,14 +5,14 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
-<div class="row widthFix adminOverlap mijnSlider center">
+<div class="row widthFix adminOverlap center removeAutoMargin">
     @if(session()->has('information'))
     <div class="alert alert-primary">
         {{ session()->get('information') }}
     </div>
     @endif
-    <div class="col-md-12 center">
-        <div class="table-responsive center centerTable">
+    <div class="col-auto col-md-6 col-sm-12">
+        <div class="table-responsive">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
             data-show-columns="true">
             <thead>

@@ -6,14 +6,14 @@
     }
 </script> --}}
 
-<div class="row widthFix center adminOverlap mijnSlider">
+<div class="row widthFix adminOverlap center removeAutoMargin">
     @if(session()->has('information'))
     <div class="alert alert-primary">
         {{ session()->get('information') }}
     </div>
     @endif
 
-    <div id="contact" class="col-md-6">
+    <div id="contact" class="col-auto col-md-6 col-sm-12">
         @if(session()->has('message'))
         <div class="alert alert-primary">
             {{ session()->get('message') }}
@@ -47,8 +47,7 @@
             </div>
 
             <div class="form-group">
-                <br>
-                <input class="btn btn-primary" type="submit" value="Bewerken">
+                <input class="btn btn-primary py-3" type="submit" value="Bewerken">
             </div>
         </form>
     </div>
