@@ -53,9 +53,9 @@
                             <h4 class="card-title">{{ $kandiBestuur->DisplayName }}</h4>
                             <div class="col-md-12 d-flex justify-content-between align-items-center" >
                                 <div style="">
-                                    <p class="card-text">{{ $groupsBestuur->Description }}
+                                    <p class="card-text">{{ $kandiBestuur->Description }}
                                     <br>
-                                    E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $groupsBestuur->email }}</p>
+                                    E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $kandiBestuur->email }}</p>
                                     </a>
                                 </div>
                             </div>
