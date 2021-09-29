@@ -67,11 +67,15 @@ class MollieWebhookController extends BaseWebhookController
         if ($payment->isOpen()) {
             $order->paymentStatus = paymentStatus::open;
             $order->save();
+            $user = $order->contribution()->first();
+            $user->forceDelete();
         }
 
         if ($payment->isFailed()) {
             $order->paymentStatus = paymentStatus::failed;
             $order->save();
+            $user = $order->contribution()->first();
+            $user->forceDelete();
         }
 
         if ($payment->isCanceled()) {
