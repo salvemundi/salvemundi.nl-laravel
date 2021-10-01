@@ -54,6 +54,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/bijbaanbank">Bijbanen bank</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clubs">Clubs</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav w-50 d-flex justify-content-end">

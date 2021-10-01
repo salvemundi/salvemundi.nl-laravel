@@ -61,6 +61,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/bijbaanbank">Bijbanen bank</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/clubs">Clubs</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav m-lg-auto">
