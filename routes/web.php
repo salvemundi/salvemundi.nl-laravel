@@ -66,7 +66,7 @@ Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\myAccountControl
 // Activiteiten page
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
-Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup'])->middleware('azure.auth');
+Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
 
 // News page
 
@@ -74,22 +74,29 @@ Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 // Finance page
 
-Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'] )->middleware('azure.auth');
+Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'])->middleware('azure.auth');
+
+// Nieuwsbrief page
+
+Route::get('/nieuwsbrief',[App\Http\Controllers\NewsLetterController::class, 'index']);
 
 // Privacy zooi
 Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
-// agenda
+// Agenda
 Route::get('/agenda', function() {return view('agenda');})->name('agenda');
 
 //SideJobBank page
-Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index'] );
+Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index']);
+
+// Clubs
+Route::get('/clubs',[App\Http\Controllers\ClubsController::class, 'index']);
 
 // Admin Panel
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-intro.auth');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
 Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");
 Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser')->middleware('admin.auth');
@@ -98,11 +105,12 @@ Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'get
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');
 Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');})->middleware('admin.auth');
 Route::post('/admin/sponsors/add/store', [App\Http\Controllers\SponsorController::class, 'addSponsor'])->middleware('admin.auth');
-Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities')->middleware('admin.auth');
+Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities')->middleware('admin-activiteiten.auth');
 Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/activities/edit', [App\Http\Controllers\ActivitiesController::class, 'editActivities'])->middleware('admin.auth');
 Route::post('/admin/activities/edit/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/activities/delete', [App\Http\Controllers\ActivitiesController::class, 'deleteActivity'])->middleware('admin.auth');
+Route::post('/admin/activities/signups', [App\Http\Controllers\ActivitiesController::class, 'signupsActivity'])->middleware('admin-activiteiten.auth');
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
 Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
@@ -145,3 +153,13 @@ Route::get('/export_excel/excelNietBetaald', [App\Http\Controllers\IntroControll
 
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden'])->middleware('admin.auth');
 Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->middleware('admin.auth')->name('removeLeden');
+
+Route::get('/admin/newsletter', [App\Http\Controllers\NewsLetterController::class, 'indexAdmin'])->middleware('admin.auth');
+Route::post('/admin/newsletter/store', [App\Http\Controllers\NewsLetterController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/newsletter/delete', [App\Http\Controllers\NewsLetterController::class, 'delete'])->middleware('admin.auth');
+
+Route::get('/admin/clubs', [App\Http\Controllers\ClubsController::class, 'adminIndex'])->middleware('admin.auth');
+Route::post('/admin/clubs/store', [App\Http\Controllers\ClubsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/clubs/edit', [App\Http\Controllers\ClubsController::class, 'edit'])->middleware('admin.auth');
+Route::post('/admin/clubs/edit/store', [App\Http\Controllers\ClubsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/clubs/delete', [App\Http\Controllers\ClubsController::class, 'delete'])->middleware('admin.auth');

@@ -13,6 +13,9 @@ use Microsoft\Graph\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use App\Models\Commissie;
+
 
 class ADUsers extends Seeder
 {
@@ -35,20 +38,41 @@ class ADUsers extends Seeder
         // Get Users from Azure
         //
 
+        //
+        // Get Users from Azure
+        //
+        DB::table('groups_relation')->truncate();
+        Log::info('RE-SYNCING WITH AZURE');
         $userArray = $graph->createRequest("GET", '/users/?$top=900')
             ->setReturnType(Model\User::class)
             ->execute();
+        $userIDArray = collect();
         foreach ($userArray as $users) {
-            $newUser = new User;
-            $newUser->AzureID = $users->getId();
-            $newUser->DisplayName = $users->getDisplayName();
-            $newUser->FirstName = $users->getGivenName();
-            $newUser->LastName = $users->getSurname();
-            $newUser->PhoneNumber = $users->getMobilePhone();
-            $newUser->email = $users->getMail();
-            $newUser->save();
+            $checkUser = User::where('AzureID', $users->getId())->first();
+            if(!$checkUser) {
+                $newUser = new User;
+                $newUser->AzureID = $users->getId();
+                $newUser->DisplayName = $users->getDisplayName();
+                $newUser->FirstName = $users->getGivenName();
+                $newUser->LastName = $users->getSurname();
+                $newUser->PhoneNumber = $users->getMobilePhone();
+                Log::info($users->getMobilePhone());
+                $newUser->email = $users->getMail();
+                $newUser->save();
+            } else {
+                if($checkUser->email != $users->getMail()){
+                    $checkUser->email = $users->getMail();
+                    $checkUser->save();
+                }
+                if($checkUser->PhoneNumber != $users->getMobilePhone()){
+                    $checkUser->PhoneNumber = $users->getMobilePhone();
+                    $checkUser->save();
+                }
+            }
+            $userIDArray->push($users->getID());
         }
-
+        Log::info($userIDArray->count());
+        User::whereNotIn('AzureID', $userIDArray)->forceDelete();
         echo('Users fetched, fetching groups now.');
         echo("\r\n");
 
@@ -56,21 +80,29 @@ class ADUsers extends Seeder
         // Get Groups from Azure
         //
 
+       // Fetch all groups
         $grouparray = $graph->createRequest("GET", '/groups')
             ->setReturnType(Model\Group::class)
             ->execute();
         foreach ($grouparray as $groups) {
-            if(Str::contains($groups->getDisplayName(), ['|| Salve Mundi']))
-            {
-                $commissieName = str_replace(" || Salve Mundi", "",$groups->getDisplayName());
-                DB::table('groups')->insert(
-                    array(
-                        'AzureID' => $groups->getId(),
-                        'DisplayName' => $commissieName,
-                        'Description' => $groups->getDescription(),
-                        'email' => $groups->getMail()
-                    )
-                );
+            $CommissieQuery = Commissie::where('AzureID', $groups->getId())->first();
+            if(!$CommissieQuery) {
+                if (Str::contains($groups->getDisplayName(), ['|| Salve Mundi'])) {
+                    $commissieName = str_replace(" || Salve Mundi", "", $groups->getDisplayName());
+                    DB::table('groups')->insert(
+                        array(
+                            'AzureID' => $groups->getId(),
+                            'DisplayName' => $commissieName,
+                            'Description' => $groups->getDescription(),
+                            'email' => $groups->getMail()
+                        )
+                    );
+                }
+            } else {
+                $commissieName = str_replace(" || Salve Mundi", "", $groups->getDisplayName());
+                $CommissieQuery->Description = $groups->getDescription();
+                $CommissieQuery->DisplayName = $commissieName;
+                $CommissieQuery->save();
             }
         }
         echo('Groups fetched, setting relation between users and groups now.');
@@ -128,5 +160,6 @@ class ADUsers extends Seeder
             }
         }
         echo('All data successfully fetched!');
+        echo("\r\n");
     }
 }

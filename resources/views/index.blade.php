@@ -84,9 +84,9 @@
         <a href="/activiteiten">
             <h1 class="center groot"><b>Activiteiten</b></h1>
         </a>
-        <div class="row">
+        <div class="row my-3">
             @foreach ($activitiesData as $activity)
-                <div class="col-md-4">
+                <div class="col-md-4 mt-2">
                     <a class="" href="/activiteiten#{{$activity->name}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">
@@ -105,9 +105,9 @@
         <a href="/nieuws">
             <h1 class="center groot"><b>Nieuws</b></h1>
         </a>
-        <div class="row">
+        <div class="row my-3">
             @foreach ($newsData as $nieuws)
-                <div class="col-md-4">
+                <div class="col-md-4 mt-2">
                     <a class="" href="/nieuws#{{$nieuws->title}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">

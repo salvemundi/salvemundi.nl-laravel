@@ -65,7 +65,7 @@ return [
             /**
              * The text to appear on the invoice.
              */
-            'description' => 'Contributie SalveMundi',
+            'description' => 'Contributie Salve Mundi',
 
             /**
              * The chain of subscription OrderItem preprocessors. These are called right before the Subscription's

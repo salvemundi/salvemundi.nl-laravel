@@ -22,7 +22,7 @@ use Laravel\Cashier\Exceptions;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, $userObject = null, $email = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
             $checkIfUserExists = User::where([
@@ -31,16 +31,27 @@ class MolliePaymentController extends Controller
                 ])->first();
 
             $newUser = new User;
-            $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
+            if($orderObject->insertion == null || $orderObject->insertion == "") {
+                $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
+                if($checkIfUserExists == null){
+                    $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
+                } else {
+                    $birthDayDay = date("d", strtotime($orderObject->birthday));
+                    $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+                }
+            } else {
+                $newUser->DisplayName = $orderObject->firstName." ".$orderObject->insertion." ".$orderObject->lastName;
+                if($checkIfUserExists == null){
+                    $newUser->email = $orderObject->firstName.".".$orderObject->insertion.".".$orderObject->lastName."@lid.salvemundi.nl";
+                } else {
+                    $birthDayDay = date("d", strtotime($orderObject->birthday));
+                    $newUser->email = $orderObject->firstName.".".$orderObject->insertion.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+                }
+            }
             $newUser->FirstName = $orderObject->firstName;
             $newUser->LastName = $orderObject->lastName;
             $newUser->phoneNumber = $orderObject->phoneNumber;
-            if($checkIfUserExists == null){
-                $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
-            } else {
-                $birthDayDay = date("d", strtotime($orderObject->birthday));
-                $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
-            }
+
             $newUser->ImgPath = "images/SalveMundi-Vector.svg";
             $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
             $newUser->save();
@@ -61,25 +72,32 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            $createPayment = MolliePaymentController::preparePayment($productIndex, null, $route);
-            $getProductObject = Product::where('index', $productIndex)->first();
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route, null, $email);
+            $getProductObject = Product::find($orderObject->id);
             if($getProductObject == null)
             {
-                $getProductObject = Product::find($productIndex);
+                $getProductObject = Product::where('index', $productIndex)->first();
             }
             $transaction = new Transaction();
+            if($email != null){
+                $transaction->email = $email;
+            }
             $transaction->transactionId = $createPayment->id;
+
             $transaction->product()->associate($getProductObject);
             $transaction->save();
 
-            $orderObject->payment()->associate($transaction);
-            $orderObject->save();
+            if($userObject != null){
+                $userObject->payment()->attach($transaction);
+                $userObject->save();
+            }
+
             return redirect()->away($createPayment->getCheckoutUrl(), 303);
         }
         return redirect('/');
     }
 
-    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null)
+    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null)
     {
         $product = Product::where('index', $productIndex)->first();
         if($product == null)
@@ -98,19 +116,21 @@ class MolliePaymentController extends Controller
         }
         if($route == null) {
             $route = route('home');
-        } else {
-            $route = route($route);
         }
         // redirect customer to Mollie checkout page
-        $formattedPrice = number_format($product->amount, 2, '.', '');
+        if($email == null || $email == "") {
+            $formattedPrice = number_format($product->amount, 2, '.', '');
+        } else {
+            $formattedPrice = number_format($product->amount_non_member, 2, '.', '');
+        }
         $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
                 "value" => "$priceToString"
             ],
-            "description" => "$product->description",
-            "redirectUrl" => $route,
+            "description" => "$product->name",
+            "redirectUrl" => "$route",
             "webhookUrl" => route('webhooks.mollie'),
         ]);
     }

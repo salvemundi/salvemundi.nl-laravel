@@ -7,14 +7,15 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse showCom" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav justify-content-lg-start">
             <li class="nav-item">
                 <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
-                    <div id="dropdown" class="dropdown-content">
+                    <div id="dropdown" class="dropdown-content showCom">
                         <a class="dropdownText" href="/commissies#Bestuur">Bestuur</a>
+                        <a class="dropdownText" href="/commissies#Kandi-Bestuur">Kandi-Bestuur</a>
                         @foreach ($Commissies as $commissie)
                             @if (str_contains($commissie->DisplayName, 'commissie'))
                                 <a class="dropdownText" href="/commissies#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
@@ -39,6 +40,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/nieuws">Nieuws</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nieuwsbrief">Nieuwsbrief</a>
+                </li>
                 @if (session('id') != null)
                 <li class="nav-item">
                     <a class="nav-link" href="/financien">Financiën</a>
@@ -49,6 +53,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/bijbaanbank">Bijbanen bank</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clubs">Clubs</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->

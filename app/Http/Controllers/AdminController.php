@@ -91,7 +91,7 @@ class AdminController extends Controller
                     return 1;
                 }
             }
-            if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0"){
+            if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0" || $groups->AzureID == "5f2bef70-ed28-4a26-95d3-774e0c89d830"){
                 return 1;
             }
             return 0;
@@ -104,7 +104,7 @@ class AdminController extends Controller
                         return 1;
                     }
                 }
-                if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0"){
+                if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0" || $groups->AzureID == "5f2bef70-ed28-4a26-95d3-774e0c89d830"){
                     return 1;
                 }
                 return 0;

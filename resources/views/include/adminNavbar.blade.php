@@ -38,6 +38,9 @@
                     <a class="nav-link" href="/admin/nieuws">Nieuws</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin/newsletter">Nieuwsbrief</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/admin/sponsors">Partners</a>
                 </li>
                 <li class="nav-item">
@@ -57,6 +60,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/bijbaanbank">Bijbanen bank</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/clubs">Clubs</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->

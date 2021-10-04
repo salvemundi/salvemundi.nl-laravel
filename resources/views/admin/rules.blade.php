@@ -1,15 +1,13 @@
 @extends('layouts.appmin')
 @section('content')
-<div class="row widthFix adminOverlap center">
+<div class="row widthFix adminOverlap center removeAutoMargin">
     @if(session()->has('information'))
     <div class="alert alert-primary">
         {{ session()->get('information') }}
     </div>
     @endif
-    <div class="col-md-12 center">
-
-        <div class="table-responsive center centerTable">
-
+    <div class="col-auto col-md-6 col-sm-8">
+        <div class="table-responsive">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                 data-show-columns="true">
                 <thead>
@@ -36,10 +34,9 @@
         </div>
     </div>
 </div>
-</div>
 
-<div class="row widthFix center adminOverlap mijnSlider">
-    <div id="contact" class="col-md-6">
+<div class="row widthFix adminOverlap center removeAutoMargin">
+    <div id="contact" class="col-auto col-md-4 col-sm-8">
         @if(session()->has('message'))
         <div class="alert alert-primary">
             {{ session()->get('message') }}
@@ -62,8 +59,7 @@
                     id="link" name="link" placeholder="Link...">
             </div>
 
-            <div class="form-group">
-                <br>
+            <div class="form-group py-3">
                 <input class="btn btn-primary" type="submit" value="Toevoegen">
             </div>
         </form>
