@@ -2,15 +2,16 @@
 @section('content')
 
 <div class="overlap">
-    <div class="row mb-4">
+    <div class="row">
         @foreach ($clubs as $club)
             <div class="px-2 mb-3 col-12 col-md-6">
                 <div class="card h-100" style="min-height: 15em;">
                     <div class="row g-0 h-100">
+                        @if($club->imgPath != null)
                         <div class="col-md-5 d-flex align-items-center">
-                            {{-- <img src="..." class="img-fluid rounded-start" alt="..."> --}}
-                            {!! '<img class="img-fluid rounded-start h-100 w-100" style="object-fit: cover;" src="storage/'.$club->imgPath.'" />' !!}
+                                {!! '<img class="img-fluid rounded-start h-100 w-100" style="object-fit: cover;" src="storage/'.$club->imgPath.'" />' !!}
                         </div>
+                        @endif
                         <div class="col-md-7">
                             <div class="card-body">
                                 <h2 class="card-title">{{ $club->clubName}}</h2>
@@ -32,11 +33,11 @@
                                         @endif
                                     </div>
                                     @endif
-                                    <small class="text-muted">
-                                        @if ($club->founderName != null)
-                                            <b>Naam oprichter:</b> {{ $club->founderName }} <br>
+                                    <p class="text-muted" style="white-space: pre-line">
+                                        @if ($club->description != null)
+                                            <b> {{ $club->description }} <br>
                                         @endif
-                                    </small>
+                                    </p>
                                 </p>
                             </div>
                         </div>

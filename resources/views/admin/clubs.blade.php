@@ -21,6 +21,7 @@
                         <th data-field="nickName" data-sortable="true">Bijnaam</th>
                         <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
                         <th data-field="founderName" data-sortable="false">Oprichter</th>
+                        <th data-field="description" data-sortable="false">Omschrijving</th>
                         <th data-field="whatsappLink" data-sortable="false">WhatsApp link</th>
                         <th data-field="discordLink" data-sortable="true">Discord link</th>
                         <th data-field="otherLink" data-sortable="true">Andere link</th>
@@ -35,6 +36,7 @@
                             <td data-value="{{ $club->nickName }}">{{$club->nickName}}</td>
                             <td data-value="{{ $club->imgPath }}">{{$club->imgPath}}</td>
                             <td data-value="{{ $club->founderName }}">{{$club->founderName}}</td>
+                            <td data-value="{{ $club->founderName }}">{{$club->description}}</td>
                             <td data-value="{{ $club->whatsappLink }}">{{$club->whatsappLink}}</td>
                             <td data-value="{{ $club->discordLink }}">{{$club->discordLink}}</td>
                             <td data-value="{{ $club->otherLink }}">{{$club->otherLink}}</td>
@@ -73,6 +75,11 @@
             <div class="form-group">
                 <label for="voornaam">Naam oprichter</label>
                 <input class="form-control{{ $errors->has('founderName') ? ' is-invalid' : '' }}" value="{{ old('founderName') }}" id="founderName" name="founderName" placeholder="Naam oprichter...">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Omschrijving</label>
+                <textarea class="form-control" value="{{{ old('description') }}}" type="textarea" id="description" name="description" placeholder="Omschrijving..."></textarea>
             </div>
 
             <div class="form-group">
