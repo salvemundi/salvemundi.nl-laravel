@@ -41,11 +41,7 @@ class MollieWebhookController extends BaseWebhookController
                 if ($order->paymentStatus != paymentStatus::paid) {
                     $order->paymentStatus = paymentStatus::paid;
                     $order->save();
-                    if ($order->product->index == paymentType::intro) {
-                        IntroController::postProcessPayment($order);
-                        return response(null, 200);
-                    }
-                    // This is an activity \/
+                    Log::info($order->product->index);
                     if ($order->product->index == null) {
                         $email = $order->email;
                         if($email == null){
@@ -57,6 +53,13 @@ class MollieWebhookController extends BaseWebhookController
                             ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         return response(null, 200);
                     }
+
+                    if ($order->product->index == paymentType::intro) {
+                        IntroController::postProcessPayment($order);
+                        return response(null, 200);
+                    }
+                    // This is an activity \/
+
                 } else {
                     return response(null, 200);
                 }
