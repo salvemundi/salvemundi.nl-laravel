@@ -31,7 +31,7 @@
                         <thead>
                             <tr class="tr-class-1">
                                 <th data-field="name" data-sortable="true">Groep naam</th>
-                                <th data-field="delete" data-sortable="true">vewijderen</th>
+                                <th data-field="delete" data-sortable="true">Verwijderen</th>
                             </tr>
                         </thead>
                         <tbody>

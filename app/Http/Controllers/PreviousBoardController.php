@@ -24,7 +24,7 @@ class PreviousBoardController extends Controller
     public function addBestuur(Request $request)
     {
         $request->validate([
-            'fotoPath' => '|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'fotoPath' => '|image|mimes:jpeg,png,jpg,svg|max:4096',
             'bestuur' => 'required',
             'year' => 'required|max:10|regex:/(^[0-9]+$)+/',
         ]);
