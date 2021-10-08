@@ -13,7 +13,7 @@ use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Transaction;
 use App\Models\User;
-use App\mail\SendMailActivitySignUp;
+use App\Mail\SendMailActivitySignUp;
 
 class MollieWebhookController extends BaseWebhookController
 {
@@ -51,6 +51,8 @@ class MollieWebhookController extends BaseWebhookController
                         if($email == null){
                             $email = $order->contribution->email;
                         }
+                        Log::info("this part is fucked");
+                        Log::info($email);
                         Mail::to($email)
                             ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         return response(null, 200);
