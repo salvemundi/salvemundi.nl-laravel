@@ -33,6 +33,9 @@
                                         @endif
                                     </div>
                                     @endif
+                                    <small class="text-muted">
+                                        beschrijving:
+                                    </small>
                                     <p class="text-muted" style="white-space: pre-line">
                                         @if ($club->description != null)
                                             <b> {{ $club->description }} <br>
