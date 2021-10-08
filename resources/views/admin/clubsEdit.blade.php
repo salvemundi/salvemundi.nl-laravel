@@ -11,7 +11,7 @@
             @csrf
             <input type="hidden" value="{{ $clubs->id }}" name="id" id="id">
             <br>
-            <h2 class="h2">Clubs toevoegen</h2>
+            <h2 class="h2">Club bewerken</h2>
 
             <div class="form-group">
                 <label for="voornaam">Club naam*</label>
