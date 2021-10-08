@@ -47,7 +47,11 @@ class MollieWebhookController extends BaseWebhookController
                     }
                     // This is an activity \/
                     if ($order->product->index == null) {
-                        Mail::to($order->email)
+                        $email = $order->email;
+                        if($email == null){
+                            $email = $order->contribution->email;
+                        }
+                        Mail::to($email)
                             ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         return response(null, 200);
                     }
