@@ -36,9 +36,9 @@
                                     <th data-field="email" data-sortable="true">E-mail</th>
                                     <th data-field="paymentStatus" data-sortable="true">Betalings Status</th>
                                     <th data-field="phoneNumber" data-sortable="true">Telefoonnummer</th>
-                                    <th data-field="birthday" data-sortable="true">verjaardag</th>
+                                    <th data-field="birthday" data-sortable="true">Verjaardag</th>
                                     <th data-field="medicalIssues" data-sortable="true">Allergieën/ medicijnen</th>
-                                    <th data-field="specials" data-sortable="true">andere bijzonderheden</th>
+                                    <th data-field="specials" data-sortable="true">Andere bijzonderheden</th>
                                     <th data-field="year" data-sortable="true">Jaar</th>
                                 </tr>
                             </thead>

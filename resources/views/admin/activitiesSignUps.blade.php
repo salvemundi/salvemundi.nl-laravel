@@ -19,7 +19,7 @@
                 <tr class="tr-class-1">
                     <th data-field="name" data-sortable="true">Naam</th>
                     <th data-field="price" data-sortable="true">Telefoonnummer</th>
-                    <th data-field="description" data-sortable="true">email</th>
+                    <th data-field="description" data-sortable="true">Email</th>
                     <th data-field="link" data-sortable="true">Verjaardag</th>
                 </tr>
             </thead>

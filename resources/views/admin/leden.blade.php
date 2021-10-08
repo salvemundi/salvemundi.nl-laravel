@@ -28,7 +28,7 @@
                         <th data-field="firstName" data-sortable="true">Voornaam</th>
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
-                        <th data-field="phone" data-sortable="true">telefoon</th>
+                        <th data-field="phone" data-sortable="true">Telefoon</th>
                         <th data-field="commissie" data-sortable="true">Commissies</th>
                         <th data-field="removeLeden" data-sortable="true">Verwijderen</th>
                     </tr>
