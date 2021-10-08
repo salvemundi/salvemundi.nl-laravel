@@ -32,11 +32,11 @@
                                         @endif
                                     </div>
                                     @endif
-                                    <small class="text-muted">
-                                        @if ($club->founderName != null)
-                                            <b>Naam oprichter:</b> {{ $club->founderName }} <br>
+                                    <p class="text-muted" style="white-space: pre-line">
+                                        @if ($club->description != null)
+                                            <b> {{ $club->description }} <br>
                                         @endif
-                                    </small>
+                                    </p>
                                 </p>
                             </div>
                         </div>

@@ -34,6 +34,11 @@
             </div>
 
             <div class="form-group">
+                <label for="description">Omschrijving</label>
+                <textarea class="form-control" value="{{{ old('description') }}}" type="textarea" id="description" name="description" placeholder="Omschrijving...">{{{ $clubs->description }}}</textarea>
+            </div>
+
+            <div class="form-group">
                 <label for="voornaam">Discord link</label>
                 <input class="form-control{{ $errors->has('discordLink') ? ' is-invalid' : '' }}" value="{{ $clubs->discordLink }}" id="discordLink" name="discordLink" placeholder="Discord link...">
             </div>
