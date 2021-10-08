@@ -21,7 +21,7 @@
                         <th data-field="nickName" data-sortable="true">Bijnaam</th>
                         <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
                         <th data-field="founderName" data-sortable="false">Oprichter</th>
-                        <th data-field="whatsappLink" data-sortable="false">WhatsApp Link</th>
+                        <th data-field="whatsappLink" data-sortable="false">WhatsApp link</th>
                         <th data-field="discordLink" data-sortable="true">Discord link</th>
                         <th data-field="otherLink" data-sortable="true">Andere link</th>
                         <th data-field="update" data-sortable="false">Bewerken</th>

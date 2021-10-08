@@ -12,7 +12,7 @@
                 data-show-columns="true">
                 <thead>
                     <tr class="tr-class-1">
-                        <th data-field="name" data-sortable="true" data-width="250">naam</th>
+                        <th data-field="name" data-sortable="true" data-width="250">Naam</th>
                         <th data-field="link" data-sortable="true">Link</th>
                         <th data-field="delete" data-sortable="false">Verwijderen</th>
                     </tr>

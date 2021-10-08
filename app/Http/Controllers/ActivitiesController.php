@@ -48,7 +48,7 @@ class ActivitiesController extends Controller
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:4096'
         ]);
 
         if($request->input('id') == null)
