@@ -22,7 +22,7 @@ class ClubsController extends Controller
         $request->validate([
             'clubName' => 'required',
             'whatsappLink' => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:4096'
         ]);
 
         if ($request->input('id') == null) {

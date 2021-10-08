@@ -35,7 +35,6 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" placeholder="Inhoud...">{{{ $news->content }}}</textarea>
             </div>
 
-            {{-- Kweet niet --}}
             <label for="photo">Foto</label>
             <div class="input-group mb-3 test">
                 <div class="input-group-prepend">
