@@ -11,7 +11,7 @@
             @csrf
             <input type="hidden" value="{{ $clubs->id }}" name="id" id="id">
             <br>
-            <h2 class="h2">Clubs toevoegen</h2>
+            <h2 class="h2">Club bewerken</h2>
 
             <div class="form-group">
                 <label for="voornaam">Club naam*</label>
@@ -31,6 +31,11 @@
             <div class="form-group">
                 <label for="voornaam">Whatsapp link*</label>
                 <input class="form-control{{ $errors->has('whatsappLink') ? ' is-invalid' : '' }}" value="{{ $clubs->whatsappLink }}" id="whatsappLink" name="whatsappLink" placeholder="WhatsApp link...">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Omschrijving</label>
+                <textarea class="form-control" value="{{{ old('description') }}}" type="textarea" id="description" name="description" placeholder="Omschrijving...">{{{ $clubs->description }}}</textarea>
             </div>
 
             <div class="form-group">

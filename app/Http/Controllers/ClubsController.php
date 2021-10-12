@@ -36,6 +36,7 @@ class ClubsController extends Controller
 
         $clubs->clubName = $request->input('clubName');
         $clubs->founderName = $request->input('founderName');
+        $clubs->description = $request->input('description');
         $clubs->nickName = $request->input('nickName');
         $clubs->imgPath = $request->input('imgPath');
 
