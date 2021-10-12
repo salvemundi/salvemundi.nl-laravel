@@ -37,7 +37,7 @@
                                 <td data-value="{{ $club->nickName }}">{{$club->nickName}}</td>
                                 <td data-value="{{ $club->imgPath }}">{{$club->imgPath}}</td>
                                 <td data-value="{{ $club->founderName }}">{{$club->founderName}}</td>
-                                <td data-value="{{ $club->founderName }}">{{$club->description}}</td>
+                                <td data-value="{{ $club->description }}">{{Illuminate\Support\Str::limit($club->description, 20)}}</td>
                                 <td data-value="{{ $club->whatsappLink }}">{{$club->whatsappLink}}</td>
                                 <td data-value="{{ $club->discordLink }}">{{$club->discordLink}}</td>
                                 <td data-value="{{ $club->otherLink }}">{{$club->otherLink}}</td>
