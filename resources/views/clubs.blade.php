@@ -38,7 +38,7 @@
                                     </small>
                                     <p class="text-muted" style="white-space: pre-line">
                                         @if ($club->description != null)
-                                            <b> {{ $club->description }} <br>
+                                            <b> {{ $club->description }} </b><br>
                                         @endif
                                     </p>
                                 </p>
