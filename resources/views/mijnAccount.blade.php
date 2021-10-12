@@ -26,7 +26,7 @@
                 <button class="nav-link tabber" id="regels-tab" data-bs-toggle="tab" data-bs-target="#regels" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-heart"></i> Regels</button>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content mb-3" id="myTabContent">
             <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent"
                  aria-labelledby="gegevens-tab" class="tabcontent">
                 <h2>Jouw gegevens:</h2>

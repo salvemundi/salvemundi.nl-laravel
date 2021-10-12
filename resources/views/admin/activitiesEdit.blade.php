@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <label for="link">Microsft forms link</label>
+                <label for="link">Microsoft forms link</label>
                 <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ $activities->formsLink }}" id="link" name="link" placeholder="Forms link...">
             </div>
 

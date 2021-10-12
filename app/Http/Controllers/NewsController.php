@@ -20,7 +20,7 @@ class NewsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:4096',
             'content' => 'required',
         ]);
         if($request->input('id') == null)

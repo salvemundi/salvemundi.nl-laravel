@@ -8,7 +8,8 @@ use App\Enums\paymentType;
 use App\Enums\paymentStatus;
 use App\Http\Controllers\MolliePaymentController;
 use App\Models\User;
-
+use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Builder;
 class ActivitiesController extends Controller
 {
     public function editActivities(Request $request){
@@ -20,8 +21,17 @@ class ActivitiesController extends Controller
 
     public function index()
     {
-        $activities = Product::where('index', null)->get();
+        $activities = $this->getActivities();
+        foreach($activities as $activity){
+            Transaction::find($activity->transactions->id)->with('contribution');
+            
+        }
         return view('admin/activities', ['activities' => $activities]);
+    }
+    public function getActivities(){
+        return Product::with('transactions')->whereHas('payment', function (Builder $query) {
+            return $query->where('paymentStatus', PaymentStatus::paid);
+        })->get();
     }
 
     public function signupsActivity(Request $request){
@@ -48,7 +58,7 @@ class ActivitiesController extends Controller
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'photo' => 'image|mimes:jpeg,png,jpg,svg|max:4096'
         ]);
 
         if($request->input('id') == null)

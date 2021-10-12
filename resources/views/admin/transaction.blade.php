@@ -17,8 +17,8 @@
                 data-show-columns="true">
                 <thead>
                     <tr class="tr-class-1">
-                        <th data-field="transactie ID" data-sortable="true">transactie ID</th>
-                        <th data-field="paymentStatus" data-sortable="true">paymentStatus</th>
+                        <th data-field="transactie ID" data-sortable="true">Transactie ID</th>
+                        <th data-field="paymentStatus" data-sortable="true">PaymentStatus</th>
                     </tr>
                 </thead>
                 <tbody>

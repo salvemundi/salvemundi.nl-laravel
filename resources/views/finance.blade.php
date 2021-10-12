@@ -11,7 +11,7 @@
         </object> --}}
         <iframe src="{{ 'storage/'.$financeDocument->filePath }}" style="width:80%; height:1000px" frameborder="0"></iframe>
         @else
-            <h2> er zijn geen bestanden gevonden</h2>
+            <h2> Er zijn geen bestanden gevonden</h2>
         @endif
     </div>
 </div>

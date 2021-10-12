@@ -91,6 +91,9 @@ Route::get('/agenda', function() {return view('agenda');})->name('agenda');
 //SideJobBank page
 Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index']);
 
+// Clubs
+Route::get('/clubs',[App\Http\Controllers\ClubsController::class, 'index']);
+
 // Admin Panel
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
@@ -154,3 +157,9 @@ Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class,
 Route::get('/admin/newsletter', [App\Http\Controllers\NewsLetterController::class, 'indexAdmin'])->middleware('admin.auth');
 Route::post('/admin/newsletter/store', [App\Http\Controllers\NewsLetterController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/newsletter/delete', [App\Http\Controllers\NewsLetterController::class, 'delete'])->middleware('admin.auth');
+
+Route::get('/admin/clubs', [App\Http\Controllers\ClubsController::class, 'adminIndex'])->middleware('admin.auth');
+Route::post('/admin/clubs/store', [App\Http\Controllers\ClubsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/clubs/edit', [App\Http\Controllers\ClubsController::class, 'edit'])->middleware('admin.auth');
+Route::post('/admin/clubs/edit/store', [App\Http\Controllers\ClubsController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/clubs/delete', [App\Http\Controllers\ClubsController::class, 'delete'])->middleware('admin.auth');

@@ -26,7 +26,7 @@ class InschrijfController extends Controller
             'insertion' => 'max:32',
             'lastName' => ['required', 'max:45', 'regex:/^[^(|\\]~@0-9!%^&*=};:?><’)]*$/'],
             'birthday' => 'required','date_format:"l, j F Y"',
-            'email' => 'required|email|max:65',
+            'email' => 'required|email:rfc,dns|max:65',
             'phoneNumber' => 'required|max:15|regex:/(^[0-9]+$)+/',
         ]);
 
