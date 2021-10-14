@@ -31,7 +31,7 @@ class InschrijfController extends Controller
         ]);
 
         $inschrijving = new Inschrijving;
-        $inschrijving->firstName = str_replace(' ', '_', $request->input('firstName'));
+        $inschrijving->firstName = $request->input('firstName');
         $inschrijving->insertion = $request->input('insertion');
         $inschrijving->lastName = $request->input('lastName');
 
