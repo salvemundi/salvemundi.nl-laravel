@@ -21,13 +21,26 @@ class ActivitiesController extends Controller
 
     public function index()
     {
-        $activities = $this->getActivities();
-        foreach($activities as $activity){
-            Transaction::find($activity->transactions->id)->with('contribution');
-            
-        }
+        $activities = Product::where("index",null)->get();
         return view('admin/activities', ['activities' => $activities]);
     }
+
+    public function userIsActive()
+    {
+        $userObject = User::where('AzureID', session('id'))->first();
+        $planCommissieLid = paymentType::fromValue(1);
+        $plan = paymentType::fromValue(2);
+        $name = ucfirst($plan) . ' membership';
+        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+
+        if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getActivities(){
         return Product::with('transactions')->whereHas('payment', function (Builder $query) {
             return $query->where('paymentStatus', PaymentStatus::paid);
@@ -112,7 +125,7 @@ class ActivitiesController extends Controller
     public function run()
     {
         $activiteiten = Product::latest()->where('index', null)->get();
-        return view('activities', ['activiteiten' => $activiteiten]);
+        return view('activities', ['activiteiten' => $activiteiten,'userIsActive' => $this->userIsActive()]);
     }
 
     public function deleteActivity(Request $request)
