@@ -28,7 +28,7 @@ class AdminActiviteiten
                 }
             }
 
-            if($user->AzureID == "5f2bef70-ed28-4a26-95d3-774e0c89d830") {
+            if($user->AzureID == "e0334b25-4805-4959-baf4-cf62aa8b6047") {
                 return $next($request);
             }
             return abort(401);
