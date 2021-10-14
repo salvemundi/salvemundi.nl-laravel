@@ -16,6 +16,7 @@
                             <div class="col-md-7">
                                 <div class="card-body">
                                     <h2 class="card-title">{{ $club->clubName}}</h2>
+                                    <div class="text-muted">{{ $club->nickName }}</div>
                                     <p class="card-text">
                                         @if (session('id') != null)
                                         <div class="row">
