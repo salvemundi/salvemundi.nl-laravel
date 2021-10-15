@@ -31,21 +31,23 @@ class MolliePaymentController extends Controller
                 ])->first();
 
             $newUser = new User;
+            $firstName = str_replace(' ', '_', $orderObject->firstName);
+            $lastName = str_replace(' ', '_', $orderObject->lastName);
             if($orderObject->insertion == null || $orderObject->insertion == "") {
                 $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
                 if($checkIfUserExists == null){
-                    $newUser->email = $orderObject->firstName.".".$orderObject->lastName."@lid.salvemundi.nl";
+                    $newUser->email = $firstName.".".$lastName."@lid.salvemundi.nl";
                 } else {
                     $birthDayDay = date("d", strtotime($orderObject->birthday));
-                    $newUser->email = $orderObject->firstName.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+                    $newUser->email = $firstName.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
                 }
             } else {
                 $newUser->DisplayName = $orderObject->firstName." ".$orderObject->insertion." ".$orderObject->lastName;
                 if($checkIfUserExists == null){
-                    $newUser->email = $orderObject->firstName.".".$orderObject->insertion.".".$orderObject->lastName."@lid.salvemundi.nl";
+                    $newUser->email = $firstName.".".$orderObject->insertion.".".$lastName."@lid.salvemundi.nl";
                 } else {
                     $birthDayDay = date("d", strtotime($orderObject->birthday));
-                    $newUser->email = $orderObject->firstName.".".$orderObject->insertion.".".$orderObject->lastName.$birthDayDay."@lid.salvemundi.nl";
+                    $newUser->email = $firstName.".".$orderObject->insertion.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
                 }
             }
             $newUser->FirstName = $orderObject->firstName;

@@ -59,7 +59,7 @@
                         <div class="modal-footer">
                         <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
                         @if($activiteit->formsLink != null || $activiteit->formsLink != "")
-                            @if(session('id') != null)
+                            @if($userIsActive)
                                 @if($activiteit->amount > 0)
                                     <form method="POST" action="/activiteiten/signup">
                                         @csrf
