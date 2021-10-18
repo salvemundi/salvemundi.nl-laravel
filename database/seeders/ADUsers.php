@@ -4,21 +4,18 @@ namespace Database\Seeders;
 
 
 use App\Http\Controllers\AzureController;
+use App\Models\Commissie;
 use App\Models\User;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Microsoft\Graph\Exception\GraphException;
 use Microsoft\Graph\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-use App\Models\Commissie;
+use Throwable;
 
-
-class ADUsers extends Seeder
-{
+class ADUsers extends Seeder {
     /**
      * Run the database seeds.
      *
@@ -56,7 +53,6 @@ class ADUsers extends Seeder
                 $newUser->FirstName = $users->getGivenName();
                 $newUser->LastName = $users->getSurname();
                 $newUser->PhoneNumber = $users->getMobilePhone();
-                Log::info($users->getMobilePhone());
                 $newUser->email = $users->getMail();
                 $newUser->save();
             } else {
@@ -150,10 +146,8 @@ class ADUsers extends Seeder
                 DB::table('users')
                     ->where('id', $members->id)
                     ->update(['ImgPath' => 'users/'.$members->AzureID.'.jpg']);
-            }
-            catch (\Throwable $th)
-            {
-                Storage::disk('public')->delete('users/'.$members->AzureID.'.jpg');
+            } catch (Throwable $th) {
+                Storage::disk('public')->delete('users/' . $members->AzureID . '.jpg');
                 DB::table('users')
                     ->where('id', $members->id)
                     ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
