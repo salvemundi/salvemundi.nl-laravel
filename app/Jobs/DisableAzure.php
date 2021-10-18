@@ -40,7 +40,6 @@ class DisableAzure implements ShouldQueue, FromParameters
         $userColl = $this->collection;
         foreach($userColl as $userObject) {
             if ($userObject instanceof User) {
-                Log::info($userObject->id);
                 AzureController::accountEnabled(false, $userObject);
             } else {
                 throw new ModelNotFoundException("Given collection is not of type user!");

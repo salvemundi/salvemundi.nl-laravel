@@ -56,7 +56,6 @@ class ADUsers extends Seeder
                 $newUser->FirstName = $users->getGivenName();
                 $newUser->LastName = $users->getSurname();
                 $newUser->PhoneNumber = $users->getMobilePhone();
-                Log::info($users->getMobilePhone());
                 $newUser->email = $users->getMail();
                 $newUser->save();
             } else {
@@ -71,7 +70,6 @@ class ADUsers extends Seeder
             }
             $userIDArray->push($users->getID());
         }
-        Log::info($userIDArray->count());
         User::whereNotIn('AzureID', $userIDArray)->forceDelete();
         User::where('AzureID',null)->forceDelete();
         echo('Users fetched, fetching groups now.');

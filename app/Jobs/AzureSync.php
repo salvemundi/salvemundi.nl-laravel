@@ -60,7 +60,6 @@ class AzureSync implements ShouldQueue
                 $newUser->FirstName = $users->getGivenName();
                 $newUser->LastName = $users->getSurname();
                 $newUser->PhoneNumber = $users->getMobilePhone();
-                Log::info($users->getMobilePhone());
                 $newUser->email = $users->getMail();
                 $newUser->save();
             } else {
@@ -75,7 +74,6 @@ class AzureSync implements ShouldQueue
             }
             $userIDArray->push($users->getID());
         }
-        Log::info($userIDArray->count());
         User::whereNotIn('AzureID', $userIDArray)->forceDelete();
         User::where('AzureID',null)->forceDelete();
         Log::info('Users fetched');
