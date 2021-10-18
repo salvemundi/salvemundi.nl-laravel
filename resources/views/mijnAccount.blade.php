@@ -30,8 +30,6 @@
             <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent"
                  aria-labelledby="gegevens-tab" class="tabcontent">
                 <h2>Jouw gegevens:</h2>
-
-                <p><b>Je lidmaatschap is geldig tot: </b>{{$user->created_at->addYear()->format('d F Y') }}</p>
                 @if($subscriptionActive == 0)
                     <form action="/mijnAccount/pay" method="post">
                         @csrf
@@ -63,6 +61,7 @@
                     <br>
                     <br>
                     <br>
+                    <p><b>Je lidmaatschap is geldig tot: </b>{{ $expiryDate }}</p>
                 @endif
 
 
