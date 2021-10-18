@@ -13,6 +13,8 @@ use Carbon\Carbon;
 use App\Enums\paymentType;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Cashier\Subscription;
+
 class myAccountController extends Controller
 {
     public function index(){
@@ -35,11 +37,8 @@ class myAccountController extends Controller
         if($adminAuthorization == 401){
             return abort(401);
         } else {
-            if($userObject->subscription($name,$plan->key) != null){
-                $expiryDate = $userObject->subscription($name,$plan->key)->cycle_ends_at;
-            } else {
-                $expiryDate = $userObject->subscription($nameCommissieLid,$planCommissieLid->key)->cycle_ends_at;
-            }
+            $subscription = Subscription::where('owner_id',$userObject->id)->first();
+            $expiryDate = $subscription->cycle_ends_at;
             $whatsappLinks = WhatsappLink::all();
             $rules = Rules::all();
             return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
