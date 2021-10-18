@@ -35,8 +35,9 @@ class myAccountController extends Controller
         if($adminAuthorization == 401){
             return abort(401);
         } else {
-            $expiryDate = $userObject->subscription($name,$plan->key)->cycle_ends_at;
-            if($expiryDate == null){
+            if($userObject->subscription($name,$plan->key) != null){
+                $expiryDate = $userObject->subscription($name,$plan->key)->cycle_ends_at;
+            } else {
                 $expiryDate = $userObject->subscription($nameCommissieLid,$planCommissieLid->key)->cycle_ends_at;
             }
             $whatsappLinks = WhatsappLink::all();
