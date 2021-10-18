@@ -73,6 +73,7 @@ class ADUsers extends Seeder
         }
         Log::info($userIDArray->count());
         User::whereNotIn('AzureID', $userIDArray)->forceDelete();
+        User::where('AzureID',null)->forceDelete();
         echo('Users fetched, fetching groups now.');
         echo("\r\n");
 
