@@ -58,10 +58,10 @@
                             <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                         </form>
                     </div>
+                    <br>
+                    <br>
+                    <br>
                     <p><b>Je lidmaatschap is geldig tot: </b>{{ $expiryDate }}</p>
-                    <br>
-                    <br>
-                    <br>
                 @endif
 
 
