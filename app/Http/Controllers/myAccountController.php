@@ -37,7 +37,7 @@ class myAccountController extends Controller
         if($adminAuthorization == 401){
             return abort(401);
         } else {
-            $subscription = Subscription::where('owner_id',$userObject->id)->first();
+            $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
             if($subscription != null){
                 $expiryDate = $subscription->cycle_ends_at;
             }
