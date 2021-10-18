@@ -23,7 +23,7 @@ class myAccountController extends Controller
         $getUser = User::where('AzureID', session('id'))->first();
         $adminAuthorization = AdminController::authorizeUser(session('id'));
         $status = 0;
-
+        $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
@@ -38,7 +38,9 @@ class myAccountController extends Controller
             return abort(401);
         } else {
             $subscription = Subscription::where('owner_id',$userObject->id)->first();
-            $expiryDate = $subscription->cycle_ends_at;
+            if($subscription != null){
+                $expiryDate = $subscription->cycle_ends_at;
+            }
             $whatsappLinks = WhatsappLink::all();
             $rules = Rules::all();
             return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
