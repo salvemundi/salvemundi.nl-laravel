@@ -31,7 +31,7 @@
                  aria-labelledby="gegevens-tab" class="tabcontent">
                 <h2>Jouw gegevens:</h2>
 
-                <p><b>Je lidmaatschap is geldig tot: </b>{{$user->created_at->addYear()->format('d F Y') }}</p>
+                <p><b>Je lidmaatschap is geldig tot: </b>{{ $expiryDate }}</p>
                 @if($subscriptionActive == 0)
                     <form action="/mijnAccount/pay" method="post">
                         @csrf

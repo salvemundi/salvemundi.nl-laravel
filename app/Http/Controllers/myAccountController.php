@@ -35,9 +35,13 @@ class myAccountController extends Controller
         if($adminAuthorization == 401){
             return abort(401);
         } else {
+            $expiryDate = $userObject->subscription($name,$plan->key)->cycle_ends_at;
+            if($expiryDate == null){
+                $expiryDate = $userObject->subscription($nameCommissieLid,$planCommissieLid->key)->cycle_ends_at;
+            }
             $whatsappLinks = WhatsappLink::all();
             $rules = Rules::all();
-            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules]);
+            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
         }
     }
     public function deletePicture(){
