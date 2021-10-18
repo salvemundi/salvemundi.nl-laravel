@@ -12,7 +12,9 @@ Set up a database. You can use something like [XAMPP](https://www.apachefriends.
 instructions on setting up a local development environment using Docker. Create a database, and add a user that has full access to that database.
 PHP-8.0 is officially supported.
 
-Create an environment (`.env`) file. The example `.env.example` file should get you along the way.
+Create an environment (`.env`) file. The example `.env.example` file should get you along the way. To generate a key to be used for encrypting and
+decrypting data, run the following command in your terminal:
+> php artisan key:generate
 
 In order to start up the project run the following inside the project root directory:
 
@@ -31,33 +33,27 @@ If you are using Docker, step 4,5,6 & 7 can be ignored.
 If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/). I have made a
 Dockerfile that you will have to build first. Before starting up docker, make sure that the database host is set to `db` in your .env file.
 
-## Method 1 - Taskfile
+## Method 1 - Laravel Sail
 
-If you are on a unix (macOS / Pretty much any linux distro) like system. You can use the [Taskfile](https://taskfile.dev). On macOS, you will need to
-install Task first. You can do so using Homebrew:
-> brew install task
-
-Running `$ task d:up` is all you need to do to get it up and running.
+If you have Docker installed on your machine, you may use [Laravel Sail](https://laravel.com/docs/8.x/sail) to run various Docker containers for local
+development. By default, port 80 is used for the web server, making the application reachable on `http://localhost` in your browser.
 
 Commands:
 
-- `$ task w:prep`
-  - Prepare dev environment (composer install, npm run)
+- `./vendor/bin/sail up -d`
+  - Starts the services defined in `docker-compose.yml`
 
-- `$ task d:up`
-  - Startup docker containers
+- `./vendor/bin/sail down`
+  - Stops the aforementioned services
 
-- `$ task d:down`
-    - Shutdown docker containers
+To run Artisan commands, use `./vendor/bin/sail artisan`. For more information, view
+the [Sail documentation](https://laravel.com/docs/8.x/sail#executing-sail-commands).
 
-- `$ task d:build`
-    - (re-)build docker containers
+### Setting up
 
-- `$ task w:db:migrate`
-    - Run pending migrations
-
-- `$ task w:db:reset`
-    - Reset database
+First, start the services by running `./vendor/bin/sail up -d`. Migrate the database by running `./vendor/bin/sail artisan migrate` and finally seed
+the database by running `
+./vendor/bin/sail artisan db:seed`.
 
 ## Method 2 - Manually
 
