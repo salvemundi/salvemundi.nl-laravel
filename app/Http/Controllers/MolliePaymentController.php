@@ -147,7 +147,6 @@ class MolliePaymentController extends Controller
         $user = User::where('AzureID',$id)->first();
         $plan = paymentType::fromValue($plan);
         $name = ucfirst($plan) . ' membership';
-        Log::info($plan);
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();

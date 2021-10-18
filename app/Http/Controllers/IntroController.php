@@ -61,9 +61,6 @@ class IntroController extends Controller
 
             if(!$request->input('birthday') == ""){
                 $userIntro->birthday = $request->input('birthday');
-                Log::info($request->input('firstNameParent'));
-                Log::info($request->input('lastNameParent'));
-                Log::info($request->input('phoneNumberParent'));
 
                 $min = strtotime('+18 years', strtotime($request->input('birthday')));
                 if(time() < $min)  {
@@ -107,7 +104,6 @@ class IntroController extends Controller
     public static function postProcessPayment($paymentObject)
     {
         $introObject = $paymentObject->introRelation;
-        Log::info($introObject);
         Mail::to($introObject->email)
             ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $paymentObject->paymentStatus));
     }
