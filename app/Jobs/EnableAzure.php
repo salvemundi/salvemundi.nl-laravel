@@ -40,7 +40,6 @@ class EnableAzure implements ShouldQueue, FromParameters
         $userColl = $this->collection;
         foreach($userColl as $userObject) {
             if ($userObject instanceof User) {
-                Log::info($userObject->id);
                 AzureController::accountEnabled(true, $userObject);
             } else {
                 throw new ModelNotFoundException("Given collection is not of type user!");
@@ -48,7 +47,7 @@ class EnableAzure implements ShouldQueue, FromParameters
         }
     }
 
-    public static function fromParameters(...$parameters): DisableAzure
+    public static function fromParameters(...$parameters): EnableAzure
     {
         return new self($parameters[0]);
     }

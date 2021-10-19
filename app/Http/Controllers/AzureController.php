@@ -39,17 +39,9 @@ class AzureController extends Controller
 
     public static function createAzureUser($registration,$transaction)
     {
-        if($registration == null)
-        {
-            Log::error('WHERE IS MY OBJECT');
-        }
         $randomPass = Str::random(40);
         $userObject = $registration->user()->first();
         $graph = AzureController::connectToAzure();
-        if($registration->insertion != null)
-        {
-
-        }
         $data = [
             'accountEnabled' => true,
             'displayName' => $registration->firstName." ".$registration->lastName,
@@ -63,7 +55,6 @@ class AzureController extends Controller
                 'password' => $randomPass,
             ],
         ];
-        Log::info(json_encode($data));
 
         $createUser = $graph->createRequest("POST", "/users")
             ->addHeaders(array("Content-Type" => "application/json"))
@@ -71,7 +62,6 @@ class AzureController extends Controller
             ->attachBody(json_encode($data))
             ->execute();
         $newUserID = $createUser->getId();
-        Log::info('New user id:'.$newUserID);
         $userEmail = $userObject->email;
         $userObject = User::where('email', $userEmail)->first();
         $userObject->AzureID = $newUserID;
