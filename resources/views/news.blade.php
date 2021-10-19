@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Nieuws – ' . config('app.name'))
 @section('content')
 <script src="js/scrollonload.js"></script>
 <div class="overlap">
