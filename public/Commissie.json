@@ -1,0 +1,14 @@
+{
+    "requests": [
+      {
+        "id": "1",
+        "method": "GET",
+        "url": "/groups/a4aeb401-882d-4e1e-90ee-106b7fdb23cc/members"
+      },
+      {
+        "id": "2",
+        "method": "GET",
+        "url": "/groups/a4aeb401-882d-4e1e-90ee-106b7fdb23cc/photo/$value"
+      }
+    ]
+  }

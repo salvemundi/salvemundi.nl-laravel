@@ -1,17 +1,20 @@
 
 ![alt text](./storage/app/public/images/SalveMundi-Vector.svg)
 
-## salvemundi.nl-laravel
+## Salve Mundi's website
 ![CI](https://github.com/salvemundi/salvemundi.nl-laravel/workflows/CI/badge.svg)
 
 In order to get started:
 
 Install [NPM/NodeJS](https://nodejs.org/en/) and [Composer](https://getcomposer.org/download/)
 
-Set up a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this.
-Create a database, and add a user that has full access to that database. PHP-8.0 is officially supported.
+Set up a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this, or read down below for
+instructions on setting up a local development environment using Docker. Create a database, and add a user that has full access to that database.
+PHP-8.0 is officially supported.
 
-Create an env file. The example env file should get you along the way.
+Create an environment (`.env`) file. The example `.env.example` file should get you along the way. To generate a key to be used for encrypting and
+decrypting data, run the following command in your terminal:
+> php artisan key:generate
 
 In order to start up the project run the following inside the project root directory:
 
@@ -23,52 +26,47 @@ In order to start up the project run the following inside the project root direc
 6. `$ php artisan db:seed`
 7. `$ php artisan serve`
 
-If you are using docker, step 4,5,6 & 7 can be ignored.
+If you are using Docker, step 4,5,6 & 7 can be ignored.
 
 # Docker
 
-If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/).
-I have made a Dockerfile that you will have to build first. Before starting up docker, make sure that the database host is set to `db` in your .env file.
+If you don't want to run a webserver and database on your own computer you can also use [Docker](https://docs.docker.com/get-docker/). I have made a
+Dockerfile that you will have to build first. Before starting up docker, make sure that the database host is set to `db` in your .env file.
 
+## Method 1 - Laravel Sail
 
-## Method 1 - Taskfile
-
-If you are on a unix (Macos / Pretty much any linux distro) like system. You can use the [Taskfile](https://taskfile.dev).
-
-Running `$ task d:up` is all you need to do to get it up and running.
+If you have Docker installed on your machine, you may use [Laravel Sail](https://laravel.com/docs/8.x/sail) to run various Docker containers for local
+development. By default, port 80 is used for the web server, making the application reachable on `http://localhost` in your browser.
 
 Commands:
-- `$ task w:prep`
-    - Prepare dev environment (composer install, npm run)
 
-- `$ task d:up`
-    - Startup docker containers
+- `./vendor/bin/sail up -d`
+  - Starts the services defined in `docker-compose.yml`
 
-- `$ task d:down`
-    - Shutdown docker containers
+- `./vendor/bin/sail down`
+  - Stops the aforementioned services
 
-- `$ task d:build`
-    - (re-)build docker containers
+To run Artisan commands, use `./vendor/bin/sail artisan`. For more information, view
+the [Sail documentation](https://laravel.com/docs/8.x/sail#executing-sail-commands).
 
-- `$ task w:db:migrate`
-    - Run pending migrations
+### Setting up
 
-- `$ task w:db:reset`
-    - Reset database
+First, start the services by running `./vendor/bin/sail up -d`. Migrate the database by running `./vendor/bin/sail artisan migrate` and finally seed
+the database by running `
+./vendor/bin/sail artisan db:seed`.
 
 ## Method 2 - Manually
 
-If for some reason you are using windows, make sure the `docker-start.sh` file is executable.
-When still getting permission denied errors for `docker-start.sh` then you may also set the permission correctly inside of the docker-container.
+If for some reason you are using Windows, make sure the `docker-start.sh` file is executable. When still getting permission denied errors
+for `docker-start.sh` then you may also set the permission correctly inside the docker-container.
 - `$ docker exec -it app bash`
 - `$ chmod +X docker-start.sh`
 
-After that is done `$ docker-compose up -d` can be ran and should work fine from here on. If not, please also read the [Api](#Api's) segment.
+After that is done `$ docker-compose up -d` can be run and should work fine from here on. If not, please also read the [APIs](#APIs) segment.
 
-That will startup the project, however this may take a while due to database seeding.
+That will start up the project's containers, however this may take a while due to database seeding.
 
-
-# Api's
+# APIs
 
 ## Microsoft graph
 
@@ -79,12 +77,15 @@ Keep in mind that we are dealing with personal data, and the website should comp
 P.S yes we shouldn't use production data in development but Microsoft Graph does not provide public test data via their API at this time.
 
 ## Mollie
-As for our payment system, [Mollie](https://mollie.com). This api key is only available to the development server. Reason being since Mollie uses webhooks in order to communicate payment status updates, the host sending the payment request needs to publicly available. Therefore you can't test mollie payments from your localhost under default circumstances.
+
+As for our payment system, [Mollie](https://mollie.com). This api key is only available to the development server. Reason being since Mollie uses
+webhooks in order to communicate payment status updates, the host sending the payment request needs to publicly available. Therefore, you can't test
+mollie payments from your localhost under default circumstances.
 
 ---
 
-P.S please don't commit sensitive/personal data into this public repo :)
+PS. Please don't commit sensitive/personal data into this public repo :)
 
 Thanks for reading!
 
-Made by: IT-Commission Salve Mundi
+Made by: The IT Committee of Salve Mundi

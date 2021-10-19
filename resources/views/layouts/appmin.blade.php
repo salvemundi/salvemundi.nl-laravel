@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -7,21 +7,21 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/adminCards.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tabs.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/checkbox.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/adminCards.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/tabs.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/checkbox.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a6479d1508.js" crossorigin="anonymous"></script>
 
     <!-- Favicons -->
@@ -36,10 +36,6 @@
     <div id="app">
         @include('include/adminNavbar')
         @yield('content')
-        {{-- @if(session('userName'))
-        <h4>Welcome {{ session('userName') }}!</h4>
-        <p>Use the navigation bar at the top of the page to get started.</p>
-    @endif --}}
     </div>
 </body>
 </html>
