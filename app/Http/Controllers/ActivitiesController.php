@@ -46,23 +46,21 @@
             })->get();
         }
 
-        public function signupsActivity(Request $request) {
-            $activity = Product::findOrFail($request->input('id'));
-            $arr      = [];
-            $emails   = [];
-
-            foreach ($activity->transactions as $user) {
-                if ($user->paymentStatus === paymentStatus::paid) {
-                    if ($user->email !== null || $user->email !== "") {
-                        $emails[] = $user->email;
+        public function signupsActivity(Request $request){
+            $activity = Product::find($request->input('id'));
+            $arr = [];
+            $emails = [];
+            foreach($activity->transactions as $user){
+                if($user->paymentStatus == paymentStatus::paid) {
+                    if($user->email != null || $user->email != ""){
+                        array_push($emails,$user->email);
                     }
-                    foreach ($user->contribution as $uss) {
-                        $arr[] = $uss;
+                    foreach($user->contribution as $uss){
+                        array_push($arr,$uss);
                     }
                 }
             }
-
-            return view('admin/activitiesSignUps', ['users' => $arr, 'emails' => $emails]);
+            return view('admin/activitiesSignUps',['users' => $arr, 'emails' => $emails]);
         }
 
         public function store(Request $request) {
