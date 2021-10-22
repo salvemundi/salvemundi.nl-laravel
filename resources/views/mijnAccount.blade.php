@@ -1,13 +1,13 @@
 @extends('layouts.app')
-
+@section('title', 'Mijn account – ' . config('app.name'))
 @section('content')
 
     <script src="js/scrollonload.js"></script>
     <div class="overlap" id="navlink" style="color: black;">
         <h2>Mijn account</h2>
-        <p>Zie hier jouw account gegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
+        <p>Zie hier jouw accountgegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @if ($authorized == 1)
+            @if ($authorized === 1)
                 <li class="nav-item">
                     <a class="nav-link tabber" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
                 </li>
@@ -30,7 +30,7 @@
             <div id="gegevens" class="tabcontent tab-pane fade show showMyAcc active" role="tabcontent"
                  aria-labelledby="gegevens-tab" class="tabcontent">
                 <h2>Jouw gegevens:</h2>
-                @if($subscriptionActive == 0)
+                @if($subscriptionActive === 0)
                     <form action="/mijnAccount/pay" method="post">
                         @csrf
                         <p>
@@ -67,9 +67,9 @@
 
                 <form method="post" action="mijnAccount/store" enctype="multipart/form-data">
                     @csrf
-                    @if($user->visibility == 1)
+                    @if($user->visibility === 1)
                         <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
-                    @elseif($user->visibility == 0)
+                    @elseif($user->visibility === 0)
                         <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" style="display: none"/>
                     @endif
                     <label class="cbx" for="cbx"><span>
@@ -90,7 +90,7 @@
                     <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
 
                     <div class="form-group">
-                        @if($user->birthday == null)
+                        @if($user->birthday === null)
                             <label for="birthday">Geboortedatum</label>
                             <input type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
                                    value="{{ old('birthday') }}" id="birthday" name="birthday"
@@ -124,7 +124,7 @@
                     <input type="hidden" name="insertion" value="{{ $user->insertion }}">
                     <input type="hidden" name="email" value="{{ $user->email }}">
                     <input type="hidden" name="phoneNumber" value="{{ $user->PhoneNumber }}">
-                    @if($subscriptionActive == 0)
+                    @if($subscriptionActive === 0)
                         <p>
                             <b>Lidmaatschap: </b>
                             <button type="submit" class="myAccountBtn btn btn-secondary" data-toggle="tooltip"

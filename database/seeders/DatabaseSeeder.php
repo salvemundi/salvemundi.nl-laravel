@@ -4,20 +4,24 @@ namespace Database\Seeders;
 
 
 use Illuminate\Database\Seeder;
-Use Database\Seeders\ADUsers;
-class DatabaseSeeder extends Seeder
-{
+use Illuminate\Support\Facades\App;
+
+class DatabaseSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(): void {
         $this->call([
             ProductSeeder::class,
-           ADUsers::class,
-           AdminSettings::class,
+            AdminSettings::class,
         ]);
+
+        if (App::isProduction()) {
+            $this->call([
+                ADUsers::class
+            ]);
+        }
     }
 }
