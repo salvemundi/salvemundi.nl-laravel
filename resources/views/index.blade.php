@@ -122,13 +122,13 @@
     </div>
 @endif
 @if($sponsorsCount > 0)
-    <h1 class="center groot"><b>Onze partners</b></h1>
-    <div class="slider" data-slick='{"slidesToScroll": 1}'>
-        @foreach($sponsorsData as $sponsor)
-            <div class="d-flex justify-content-center">
-                <h3><a target="_blank" href="{{ $sponsor->reference }}"><img class="sponsor img-fluid h-100 w-100 mx-auto" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3>
-            </div>
-        @endforeach
+    <div class="mijnSlider">
+        <h1 class="center groot"><b>Onze partners</b></h1>
+        <div class="slider" data-slick='{"slidesToScroll": 1}'>
+            @foreach($sponsorsData as $sponsor)
+                <div><h3><a target="_blank" href="{{ $sponsor->reference }}"><img class="sponsor" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3></div>
+            @endforeach
+        </div>
     </div>
 @endif
 </div>
