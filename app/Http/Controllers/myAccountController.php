@@ -55,7 +55,7 @@ class MyAccountController extends Controller
         $loggedInUser->save();
 
         if (!AzureController::updateProfilePhoto($loggedInUser)) {
-            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw');
         }
 
         $message = 'Je instellingen zijn bijgewerkt.';
