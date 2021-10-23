@@ -49,8 +49,9 @@ class myAccountController extends Controller
         $loggedInUser = User::find(session('id'));
         $loggedInUser->ImgPath = "images/SalveMundi-Vector.svg";
         $loggedInUser->save();
-        if(!AzureController::updateProfilePhoto($loggedInUser)){
-            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+
+        if (!AzureController::updateProfilePhoto($loggedInUser)) {
+            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw');
         }
         $message = 'Je instellingen zijn bijgewerkt.';
 
