@@ -1,9 +1,14 @@
 @extends('layouts.app')
 @section('title', 'Mijn account – ' . config('app.name'))
 @section('content')
-
     <script src="js/scrollonload.js"></script>
     <div class="overlap" id="navlink" style="color: black;">
+        @if(session()->has('message'))
+            <div class="alert alert-primary">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+
         <h2>Mijn account</h2>
         <p>Zie hier jouw accountgegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -77,18 +82,19 @@
               <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Ik wil op de website komen als ik bij een commissie hoor.</span></label>
                     <br>
-                    <div class="left" style="width: 25%;">
-                        @if(session()->has('message'))
-                            <div class="alert alert-primary">
-                                {{ session()->get('message') }}
-                            </div>
-                        @endif
-                    </div>
                     <br>
                     <p><b>Naam:</b> {{ $user->DisplayName }} </p>
                     <p><b>Email:</b> {{ $user->email }} </p>
-                    <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
-
+                    <div class="form-group">
+                        @if($user->PhoneNumber === null)
+                            <label for="phoneNumber">Telefoonnummer</label>
+                            <input type="tel" class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}"
+                                   value="{{ old('phoneNumber') }}" id="phoneNumber" name="phoneNumber"
+                                   placeholder="Telefoonnummer...">
+                        @else
+                            <p><b>Telefoonnummer:</b> {{ $user->PhoneNumber }} </p>
+                        @endif
+                    </div>
                     <div class="form-group">
                         @if($user->birthday === null)
                             <label for="birthday">Geboortedatum</label>
