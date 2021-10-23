@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Cashier\Subscription;
 
-class MyAccountController extends Controller
+class myAccountController extends Controller
 {
-    public function index() {
+    public function index(){
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
@@ -29,27 +29,23 @@ class MyAccountController extends Controller
         $name = ucfirst($plan) . ' membership';
         $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
 
-        if ($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key)) {
+        if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
+        {
             $status = 1;
         }
-
-        if ($adminAuthorization == 401) {
+        if($adminAuthorization == 401){
             return abort(401);
-        }
-        else {
+        } else {
             $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
-            if ($subscription != null) {
+            if($subscription != null){
                 $expiryDate = $subscription->cycle_ends_at;
             }
-
             $whatsappLinks = WhatsappLink::all();
             $rules = Rules::all();
-
             return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
         }
     }
-
-    public function deletePicture() {
+    public function deletePicture(){
         $loggedInUser = User::find(session('id'));
         $loggedInUser->ImgPath = "images/SalveMundi-Vector.svg";
         $loggedInUser->save();
@@ -57,50 +53,45 @@ class MyAccountController extends Controller
         if (!AzureController::updateProfilePhoto($loggedInUser)) {
             return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw');
         }
-
         $message = 'Je instellingen zijn bijgewerkt.';
 
         return redirect('/mijnAccount')->with('message', $message);
     }
 
-    public function savePreferences(Request $request) {
+    public function savePreferences(Request $request)
+    {
         $request->validate([
             'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
         ]);
 
         $user = User::find($request->input('user_id'));
-
-        if ($request->input('cbx')) {
+        if($request->input('cbx'))
+        {
             $user->visibility = 1;
             $message = 'Je bent nu te zien op de website';
-        }
-        else {
+        } else {
             $user->visibility = 0;
             $message = 'Je bent nu niet meer te zien op de website';
         }
         $user->save();
 
-        if ($request->input('birthday') != null) {
+        if($request->input('birthday') != null)
+        {
             $user->birthday = $request->input('birthday');
             $user->birthday = date("Y-m-d", strtotime($user->birthday));
         }
         $user->save();
 
-        if ($request->input('phoneNumber') != null) {
-            $user->PhoneNumber = $request->input('phoneNumber');
-        }
-        $user->save();
-
-        if ($request->file('photo') != null) {
+        if($request->file('photo') != null)
+        {
             $request->file('photo')->storeAs('public/users/',$user->AzureID);
             $user->ImgPath = 'users/'.$user->AzureID;
-
-            if (!AzureController::updateProfilePhoto($user)) {
+            if(!AzureController::updateProfilePhoto($user)){
                 return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
             }
         }
-        $user->save();
 
+        $user->save();
         $message = 'Je instellingen zijn bijgewerkt.';
 
         return redirect('/mijnAccount')->with('message', $message);
