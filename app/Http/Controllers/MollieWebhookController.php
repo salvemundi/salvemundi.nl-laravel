@@ -41,7 +41,6 @@ class MollieWebhookController extends BaseWebhookController
                 if ($order->paymentStatus != paymentStatus::paid) {
                     $order->paymentStatus = paymentStatus::paid;
                     $order->save();
-                    Log::info($order->product->index);
                     if ($order->product->index == null) {
                         $email = $order->email;
                         if($email == null){
@@ -68,10 +67,7 @@ class MollieWebhookController extends BaseWebhookController
                 $orderReg->transactionId = $paymentId;
                 $orderReg->paymentStatus = paymentStatus::paid;
                 $orderReg->save();
-                Log::info('Webhook');
                 $order->handlePaymentPaid();
-                Log::info($order);
-                Log::info($orderReg);
                 InschrijfController::processPayment($orderReg);
                 return response(null, 200);
             }

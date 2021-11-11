@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Commissies – ' . config('app.name'))
 @section('content')
 <div class="overlap">
     <div class="mijnSlider">
@@ -20,7 +20,6 @@
                                     <p class="card-text">{{ $groupsBestuur->Description }}
                                     <br>
                                     E-mail: <a href="mailto:{{ $groupsBestuur->email }}">{{ $groupsBestuur->email }}</p>
-                                    </a>
                                 </div>
                                 <a class="btn btn-primary ml-auto" href="/vorigBestuur">Naar vorig bestuur</a>
                             </div>
@@ -51,12 +50,13 @@
                     <div class="commissie card">
                         <div class="card-body">
                             <h4 class="card-title">{{ $kandiBestuur->DisplayName }}</h4>
-                            <div class="col-md-12 d-flex justify-content-between align-items-center" >
+                            <div class="col-md-12 d-flex justify-content-between align-items-center">
                                 <div style="">
-                                    <p class="card-text">{{ $kandiBestuur->Description }}
-                                    <br>
-                                    E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $kandiBestuur->email }}</p>
-                                    </a>
+                                    <p class="card-text">
+                                        {{ $kandiBestuur->Description }}
+                                        <br>
+                                        E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $kandiBestuur->email }}</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
