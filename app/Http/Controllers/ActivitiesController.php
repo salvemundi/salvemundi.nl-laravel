@@ -91,7 +91,6 @@ class ActivitiesController extends Controller {
             }
 
             $products->description = $request->input('description');
-            //dd($products);
             $products->save();
             return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
         }
@@ -124,6 +123,16 @@ class ActivitiesController extends Controller {
         return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => $this->userIsActive()]);
     }
 
+    public static function userHasPayedForActivity($activityId){
+        $user = null;
+
+        if (session('id') !== null) {
+            $user = User::where('AzureId', session('id'))->firstOrFail();
+        }
+
+        return $user->payment->where([['id', $activityId],['paymentStatus', paymentStatus::paid]])->count() > 0;
+    }
+
     public function deleteActivity(Request $request) {
         if ($request->id !== null) {
             $tobeDeleted = Product::find($request->id);
@@ -138,7 +147,7 @@ class ActivitiesController extends Controller {
         $user = null;
 
         if (session('id') !== null) {
-            $user = User::where('AzureId', $request->input('id'))->firstOrFail();
+            $user = User::where('AzureId', session('id'))->firstOrFail();
         }
 
         $activity = Product::find($request->input('activityId'));
