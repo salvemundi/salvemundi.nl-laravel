@@ -8,16 +8,6 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
             @foreach ($activiteiten  as $activiteit)
-            {{-- <!-- <div class="col-md-4">
-                    <a class="" href="/activiteiten#{{$activiteit->name}}">
-                        <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
-                            <div class="card-body">
-                                <h5 class="card-title" >{{$activiteit->name}}</h5>
-                                <p class="card-text" style="white-space: pre-line">{{Str::limit($activiteit->description, 300)}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div> --> --}}
                 <div style="width: 25rem;" class="d-flex p-3 align-items-stretch">
                     <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
@@ -62,12 +52,15 @@
                         @if($activiteit->formsLink != null || $activiteit->formsLink != "")
                             @if($userIsActive)
                                 @if($activiteit->amount > 0)
-                                    <form method="POST" action="/activiteiten/signup">
-                                        @csrf
-                                        <input type="hidden" name="id" id="id" value="{{ session('id') }}">
-                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                        <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
-                                    </form>
+                                    @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                                        <form method="POST" action="/activiteiten/signup">
+                                            @csrf
+                                            <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                            <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
+                                        </form>
+                                    @else
+                                        <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
+                                    @endif
                                 @endif
                             @else
                                 @if($activiteit->amount_non_member > 0)
