@@ -128,6 +128,8 @@ class ActivitiesController extends Controller {
 
         if (session('id') !== null) {
             $user = User::where('AzureId', session('id'))->firstOrFail();
+        } else {
+            return false;
         }
         foreach($user->payment as $transaction){
             if($transaction->product->id == $activityId) {
