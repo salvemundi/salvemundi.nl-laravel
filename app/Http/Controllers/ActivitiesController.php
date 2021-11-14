@@ -129,8 +129,13 @@ class ActivitiesController extends Controller {
         if (session('id') !== null) {
             $user = User::where('AzureId', session('id'))->firstOrFail();
         }
-
-        return $user->payment->where([['id', $activityId],['paymentStatus', paymentStatus::paid]])->count() > 0;
+        foreach($user->payment as $transaction){
+            if($transaction->product->id == $activityId) {
+                $status = paymentStatus::coerce($transaction->paymentStatus);
+                return $status->is(paymentStatus::paid);
+            }
+        }
+        return false;
     }
 
     public function deleteActivity(Request $request) {
