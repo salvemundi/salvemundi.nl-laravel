@@ -51,17 +51,18 @@
                         <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
                         @if($activiteit->formsLink != null || $activiteit->formsLink != "")
                             @if($userIsActive)
-                                @if($activiteit->amount > 0)
-                                    @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                                @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                                    @if($activiteit->amount > 0)
                                         <form method="POST" action="/activiteiten/signup">
                                             @csrf
                                             <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                             <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
                                         </form>
-                                    @else
-                                        <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                                     @endif
+                                @else
+                                    <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                                 @endif
+
                             @else
                                 @if($activiteit->amount_non_member > 0)
                                     <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
