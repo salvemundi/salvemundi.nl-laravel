@@ -52,7 +52,7 @@
                         @if($activiteit->formsLink != null || $activiteit->formsLink != "")
                             @if($userIsActive)
                                 @if($activiteit->amount > 0)
-                                    @if(!App::Http::Controllers::ActivitiesController::userHasPayedForActivity($activiteit->id))
+                                    @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
                                         <form method="POST" action="/activiteiten/signup">
                                             @csrf
                                             <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
