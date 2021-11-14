@@ -43,11 +43,12 @@ class MolliePaymentController extends Controller
                 }
             } else {
                 $newUser->DisplayName = $orderObject->firstName." ".$orderObject->insertion." ".$orderObject->lastName;
+                $insertion = str_replace(' ', '.', $orderObject->insertion);
                 if($checkIfUserExists == null){
-                    $newUser->email = $firstName.".".$orderObject->insertion.".".$lastName."@lid.salvemundi.nl";
+                    $newUser->email = $firstName.".".$insertion.".".$lastName."@lid.salvemundi.nl";
                 } else {
                     $birthDayDay = date("d", strtotime($orderObject->birthday));
-                    $newUser->email = $firstName.".".$orderObject->insertion.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
+                    $newUser->email = $firstName.".".$insertion.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
                 }
             }
             $newUser->FirstName = $orderObject->firstName;
