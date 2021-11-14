@@ -130,8 +130,9 @@ class ActivitiesController extends Controller {
             $user = User::where('AzureId', session('id'))->firstOrFail();
         }
         foreach($user->payment as $transaction){
-            if($transaction->product->id == $activityId){
-                return paymentStatus::fromvalue($transaction->paymentStatus) == paymentStatus::paid;
+            if($transaction->product->id == $activityId) {
+                $status = paymentStatus::coerce($transaction->paymentStatus);
+                return $status->is(paymentStatus::paid);
             }
         }
         return false;
