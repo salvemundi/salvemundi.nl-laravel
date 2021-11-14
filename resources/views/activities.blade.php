@@ -49,9 +49,9 @@
                         </div>
                         <div class="modal-footer">
                         <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
-                        @if($activiteit->formsLink != null || $activiteit->formsLink != "")
-                            @if($userIsActive)
-                                @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                        @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                            @if($activiteit->formsLink != null || $activiteit->formsLink != "")
+                                @if($userIsActive)
                                     @if($activiteit->amount > 0)
                                         <form method="POST" action="/activiteiten/signup">
                                             @csrf
@@ -59,31 +59,32 @@
                                             <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
                                         </form>
                                     @endif
-                                @else
-                                    <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
-                                @endif
 
-                            @else
-                                @if($activiteit->amount_non_member > 0)
-                                    <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
-                                        Inschrijven
-                                    </button>
-                                    <div class="collapse" id="collapseExample-{{ $activiteit->id }}">
-                                        <div class="card card-body">
-                                            <form method="POST" action="/activiteiten/signup">
-                                                @csrf
-                                                <input type="hidden" name="id" id="id" value="{{ session('id') }}">
-                                                <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                <div class="input-group mb-3 me-4">
-                                                    <span class="input-group-text" id="basic-addon3">email</span>
-                                                    <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
-                                                </div>
-                                                <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
-                                            </form>
+
+                                @else
+                                    @if($activiteit->amount_non_member > 0)
+                                        <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
+                                            Inschrijven
+                                        </button>
+                                        <div class="collapse" id="collapseExample-{{ $activiteit->id }}">
+                                            <div class="card card-body">
+                                                <form method="POST" action="/activiteiten/signup">
+                                                    @csrf
+                                                    <input type="hidden" name="id" id="id" value="{{ session('id') }}">
+                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                    <div class="input-group mb-3 me-4">
+                                                        <span class="input-group-text" id="basic-addon3">email</span>
+                                                        <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endif
                             @endif
+                        @else
+                            <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                         @endif
                         </div>
                     </div>
