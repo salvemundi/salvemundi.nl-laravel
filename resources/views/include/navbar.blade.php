@@ -31,7 +31,7 @@
                 @endif
                 @if($introSetting->settingValue === 1)
                     <li class="nav-item">
-                        <a class="nav-link" href="/intro">Intro</a>
+                        <a class="nav-link" href="https://intro.salvemundi.nl/">Intro</a>
                     </li>
                 @endif
                 <li class="nav-item">
