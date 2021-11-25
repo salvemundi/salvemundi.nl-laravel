@@ -33,10 +33,10 @@ Route::get('/vorigBestuur', [App\Http\Controllers\PreviousBoardController::class
 
 // Signup for Introduction
 
-Route::get('/intro', [App\Http\Controllers\IntroController::class, 'index'])->name('intro');
-Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store']);
-Route::get('/introconfirm', [App\Http\Controllers\IntroController::class, 'confirmview'])->name('intro.confirm');
-Route::post('/introData/store', [App\Http\Controllers\IntroController::class, 'storeData']);
+// Route::get('/intro', [App\Http\Controllers\IntroController::class, 'index'])->name('intro');
+// Route::post('/intro/store', [App\Http\Controllers\IntroController::class, 'store']);
+// Route::get('/introconfirm', [App\Http\Controllers\IntroController::class, 'confirmview'])->name('intro.confirm');
+// Route::post('/introData/store', [App\Http\Controllers\IntroController::class, 'storeData']);
 
 // Signup for SalveMundi page
 
