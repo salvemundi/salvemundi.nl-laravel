@@ -121,6 +121,11 @@ html {
 .tabber {
   color: black !important;
 }
+
+.nav-link {
+    white-space: nowrap;
+}
+
 .nav-link:hover {
   color: white;
 }
@@ -809,8 +814,8 @@ html {
 }
 
 .sponsor {
-  height: 150px;
-  padding: 5px;
+  object-fit: cover;
+  max-width: 9em;
 }
 
 .slick-left:before {

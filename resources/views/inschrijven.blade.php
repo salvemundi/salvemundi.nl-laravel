@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Inschrijven – ' . config('app.name'))
 @section('content')
 
 <script src="js/scrollonload.js"></script>
@@ -44,7 +44,7 @@
                     <input class="form-control{{ $errors->has('coupon') ? ' is-invalid' : '' }}" value="{{ old('coupon') }}" type="text" id="coupon" name="coupon" placeholder="Coupon..."> --}}
 
                     <br>
-                    <input class="btn btn-primary" type="submit" value="Versturen">
+                    <input class="btn btn-primary mb-3" type="submit" value="Versturen">
             </form>
         </div>
     </div>

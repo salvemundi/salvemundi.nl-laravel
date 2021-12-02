@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Nieuwsbrief – ' . config('app.name'))
 @section('content')
 <script src="js/scrollonload.js"></script>
 <div class="overlap">
@@ -10,7 +11,7 @@
             </div>
             @endforeach
         @else
-            <h2 class="center"> Er is geen nieuwsbrief geplaatst</h2>
+            <h2 class="center">Er is geen nieuwsbrief geplaatst</h2>
         @endif
     </div>
 </div>
