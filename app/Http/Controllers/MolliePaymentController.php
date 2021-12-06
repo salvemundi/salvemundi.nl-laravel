@@ -96,7 +96,11 @@ class MolliePaymentController extends Controller
             }
 
             if($createPayment === null) {
-                return redirect('/');
+                if($route === null) {
+                    return redirect('/');
+                } else {
+                    return redirect($route);
+                }
             }
 
             return redirect()->away($createPayment->getCheckoutUrl(), 303);
