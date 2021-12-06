@@ -76,34 +76,33 @@ class MolliePaymentController extends Controller
             return $createPayment;
         } else{
             $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route, null, $email);
-            $getProductObject = Product::find($orderObject->id);
-            if($getProductObject == null)
-            {
-                $getProductObject = Product::where('index', $productIndex)->first();
-            }
-            $transaction = new Transaction();
-            if($email != null){
-                $transaction->email = $email;
-            }
-            $transaction->transactionId = $createPayment->id;
-
-            $transaction->product()->associate($getProductObject);
-            $transaction->save();
-
-            if($userObject != null){
-                $userObject->payment()->attach($transaction);
-                $userObject->save();
-            }
-
             if($createPayment === null) {
                 if($route === null) {
                     return redirect('/');
                 } else {
                     return redirect($route);
                 }
-            }
+            } else {
+                $getProductObject = Product::find($orderObject->id);
+                if($getProductObject == null)
+                {
+                    $getProductObject = Product::where('index', $productIndex)->first();
+                }
+                $transaction = new Transaction();
+                if($email != null){
+                    $transaction->email = $email;
+                }
+                $transaction->transactionId = $createPayment->id;
 
-            return redirect()->away($createPayment->getCheckoutUrl(), 303);
+                $transaction->product()->associate($getProductObject);
+                $transaction->save();
+
+                if($userObject != null){
+                    $userObject->payment()->attach($transaction);
+                    $userObject->save();
+                }
+                return redirect()->away($createPayment->getCheckoutUrl(), 303);
+            }
         }
         return redirect('/');
     }
