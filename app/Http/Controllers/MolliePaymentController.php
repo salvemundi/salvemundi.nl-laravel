@@ -95,6 +95,10 @@ class MolliePaymentController extends Controller
                 $userObject->save();
             }
 
+            if($createPayment === null) {
+                return redirect('/');
+            }
+
             return redirect()->away($createPayment->getCheckoutUrl(), 303);
         }
         return redirect('/');
@@ -122,9 +126,15 @@ class MolliePaymentController extends Controller
         }
         // redirect customer to Mollie checkout page
         if($email == null || $email == "") {
+            if($product->amount == 0) {
+                return null;
+            }
             $formattedPrice = number_format($product->amount, 2, '.', '');
         } else {
             $formattedPrice = number_format($product->amount_non_member, 2, '.', '');
+            if($product->amount_non_member == 0) {
+                return null;
+            }
         }
         $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
