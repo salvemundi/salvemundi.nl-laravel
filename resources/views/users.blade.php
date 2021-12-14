@@ -35,7 +35,11 @@
                     <div class="card user">
                         {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
                         <div class="card-body">
-                            <p class="card-text">{{ $users->DisplayName }} <br> {{ $users->email }}</p>
+                            <p class="card-text">{{ $users->DisplayName }}
+                                @if(session('userName'))
+                                    <br> {{ $user->email }}
+                                @endif
+                            </p>
                         </div>
                     </div>
                     <br>
@@ -72,7 +76,11 @@
                     <div class="card user">
                         {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
                         <div class="card-body">
-                            <p class="card-text">{{ $users->DisplayName }} <br> {{ $users->email }}</p>
+                            <p class="card-text">{{ $users->DisplayName }}
+                                @if(session('userName'))
+                                    <br> {{ $user->email }}
+                                @endif
+                            </p>
                         </div>
                     </div>
                     <br>
@@ -101,7 +109,11 @@
                     <div class="card user">
                         {!! '<img class="pfPhoto" src="storage/'.$user->ImgPath.'" />' !!}
                         <div class="card-body">
-                            <p class="card-text">{{ $user->DisplayName }} <br> {{ $user->email }}</p>
+                            <p class="card-text">{{ $user->DisplayName }}
+                            @if(session('userName'))
+                                <br> {{ $user->email }}
+                            @endif
+                            </p>
                         </div>
                     </div>
                     <br>
