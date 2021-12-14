@@ -37,7 +37,7 @@
                         <div class="card-body">
                             <p class="card-text">{{ $users->DisplayName }}
                                 @if(session('userName'))
-                                    <br> {{ $user->email }}
+                                    <br> {{ $users->email }}
                                 @endif
                             </p>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="card-body">
                             <p class="card-text">{{ $users->DisplayName }}
                                 @if(session('userName'))
-                                    <br> {{ $user->email }}
+                                    <br> {{ $users->email }}
                                 @endif
                             </p>
                         </div>
