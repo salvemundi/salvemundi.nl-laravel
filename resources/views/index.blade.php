@@ -16,11 +16,11 @@
             </div>
         @endif
         @if(session('userName'))
-        @if($bday == true)
-            <h4>Gefeliciteerd <b>{{ session('userName') }}!!</h4></b>
-        @else
-            <h4>Welkom <b>{{ session('userName') }}!</h4></b>
-        @endif
+            @if($bday == true)
+                <h4>Gefeliciteerd <b>{{ session('userName') }}!!</h4></b>
+            @else
+                <h4>Welkom <b>{{ session('userName') }}!</h4></b>
+            @endif
         @endif
         <br>
         <h2 class="h2">Over ons</h2> <br>
