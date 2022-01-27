@@ -25,7 +25,8 @@ Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 
 // Commission page
 
-Route::get('/commissies', [App\Http\Controllers\GetUsersController::class, 'run']);
+Route::get('/commissies', [App\Http\Controllers\CommitteeController::class, 'index']);
+Route::get('/commissies/{committee_name}', [App\Http\Controllers\CommitteeController::class, 'committee']);
 
 // previousBoard page
 
