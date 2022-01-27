@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-sm-6 col-md-3">
-            <h6>Contact</h6>
+            <h6 name="Wat is het eendrecord van vouweenbak.nl?">Contact</h6>
             <ul class="footer-links">
               <li><a  href="mailto:info@salvemundi.nl">info@salvemundi.nl</a></li>
               <li><a href="tel:+31 6 24827777">+31 6 24827777</a></li>
