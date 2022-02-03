@@ -71,6 +71,17 @@
                 <input class="btn btn-primary" type="submit" value="Toevoegen">
             </div>
         </form>
+        <form method="POST" action="/admin/discord">
+            @csrf
+            <div class="form-group">
+                <label for="link">Discord link*</label>
+                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ $discordLink->link ?? old('link') }}"
+                    id="link" name="link" placeholder="Link...">
+            </div>
+            <div class="form-group py-3">
+                <input class="btn btn-primary" type="submit" value="Opslaan">
+            </div>
+        </form>
     </div>
 </div>
 @endsection
