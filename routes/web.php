@@ -27,6 +27,9 @@ Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 
 Route::get('/commissies', [App\Http\Controllers\GetUsersController::class, 'run']);
 
+// Discord link
+Route::get('/discord',  [App\Http\Controllers\Discordcontroller::class, 'redirect']);
+
 // previousBoard page
 
 Route::get('/vorigBestuur', [App\Http\Controllers\PreviousBoardController::class, 'index']);
@@ -121,7 +124,8 @@ Route::post('/admin/bijbaanbank/store', [App\Http\Controllers\SideJobBankControl
 Route::post('/admin/bijbaanbank/delete', [App\Http\Controllers\SideJobBankController::class, 'deleteSideJobBank'])->middleware('admin.auth');
 Route::post('/admin/bijbaanbank/edit', [App\Http\Controllers\SideJobBankController::class, 'editSideJobBank'])->middleware('admin.auth');
 Route::post('/admin/bijbaanbank/edit/store', [App\Http\Controllers\SideJobBankController::class, 'store'])->middleware('admin.auth');
-Route::get('/admin/whatsapp', [App\Http\Controllers\WhatsAppController::class, 'index'])->middleware('admin.auth');
+Route::get('/admin/socials', [App\Http\Controllers\WhatsAppController::class, 'index'])->middleware('admin.auth');
+Route::post('/admin/discord', [App\Http\Controllers\DiscordController::class, 'save'])->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/store', [App\Http\Controllers\WhatsAppController::class, 'addWhatsappLinks'])->name('WhatsappLinks')->middleware('admin.auth');
 Route::post('/admin/whatsappLinks/delete', [App\Http\Controllers\WhatsAppController::class, 'deleteWhatsappLinks'])->middleware('admin.auth');
 Route::post('/admin/intro/store', [App\Http\Controllers\AdminController::class, 'storeIntro'])->middleware('admin.auth');
