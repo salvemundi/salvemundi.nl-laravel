@@ -28,7 +28,7 @@ Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 Route::get('/commissies', [App\Http\Controllers\GetUsersController::class, 'run']);
 
 // Discord link
-Route::get('/discord',  [App\Http\Controllers\Discordcontroller::class, 'redirect']);
+Route::get('/discord',  [App\Http\Controllers\DiscordController::class, 'redirect']);
 
 // previousBoard page
 
