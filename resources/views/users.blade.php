@@ -68,26 +68,27 @@
                 </div>
             </div>
             <br>
-
-            <div class="row">
-                @foreach($kandiBestuur->users as $users)
-                @if($users->visibility == 1)
-                <div class="col-md-6">
-                    <div class="card user">
-                        {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
-                        <div class="card-body">
-                            <p class="card-text">{{ $users->DisplayName }}
-                                @if(session('userName'))
-                                    <br> {{ $users->email }}
-                                @endif
-                            </p>
+            @if($kandiBestuur != null)
+                <div class="row">
+                    @foreach($kandiBestuur->users as $users)
+                    @if($users->visibility == 1)
+                    <div class="col-md-6">
+                        <div class="card user">
+                            {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
+                            <div class="card-body">
+                                <p class="card-text">{{ $users->DisplayName }}
+                                    @if(session('userName'))
+                                        <br> {{ $users->email }}
+                                    @endif
+                                </p>
+                            </div>
                         </div>
+                        <br>
                     </div>
-                    <br>
+                    @endif
+                    @endforeach
                 </div>
-                @endif
-                @endforeach
-            </div>
+            @endif
 
             <div class="row">
                 @foreach($groups as $group)
