@@ -8,7 +8,7 @@
             <h1 class="center">Gezelligheidsclubs</h1>
             <p>
                 Salve Mundi heeft verschillende clubs waar leden aan deel kunnen nemen. Clubs zijn een vorm om te connecten met andere leden van de vereniging met vergelijkbare interesses. Zie jij hier een leuke club tussen staan waar jij deel van uit wil maken? Neem dan contact op met de club of join de groepsapp! <br>
-                Wil je zelf een club oprichten? Maak dan een draaiboek met deze <u><a href="https://salvemundi.sharepoint.com/:w:/g/Ed5Mv6cNFLdJnpyTynLymokB_dhaAjfb4HWLBeq0uFo3RQ?e=vLCvfI" >template</a></u> en stuur het door naar <u><a href="mailto:bestruur@salvemundi.nl">bestuur@salvemundi.nl</a></u>.
+                Wil je zelf een club oprichten? Maak dan een draaiboek met deze <u><a href="https://salvemundi.sharepoint.com/:w:/s/bestuur/EQWfBtpDCDpMmePkSBiAfHQBJXgsWGnxYOVmHXRHi7QufA" >template</a></u> en stuur het door naar <u><a href="mailto:bestruur@salvemundi.nl">bestuur@salvemundi.nl</a></u>.
             </p>
         </div>
         @if($clubs !== null)
