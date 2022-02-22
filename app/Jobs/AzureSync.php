@@ -74,6 +74,7 @@ class AzureSync implements ShouldQueue
                     $checkUser->PhoneNumber = $users->getMobilePhone();
                     $checkUser->save();
                 }
+                $checkUser->save();
             }
             $userIDArray->push($users->getID());
         }
