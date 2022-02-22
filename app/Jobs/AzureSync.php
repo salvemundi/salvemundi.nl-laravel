@@ -63,6 +63,9 @@ class AzureSync implements ShouldQueue
                 $newUser->email = $users->getMail();
                 $newUser->save();
             } else {
+                $checkUser->DisplayName = $users->getDisplayName();
+                $checkUser->FirstName = $users->getGivenName();
+                $checkUser->LastName = $users->getSurname();
                 if($checkUser->email != $users->getMail()){
                     $checkUser->email = $users->getMail();
                     $checkUser->save();
