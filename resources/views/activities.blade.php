@@ -53,7 +53,7 @@
                                     <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
                                     @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
                                         @if($activiteit->formsLink != null || $activiteit->formsLink != "")
-                                            @if($userIsActive)
+                                            @if(true)
                                                 <form method="POST" action="/activiteiten/signup">
                                                     @csrf
                                                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
@@ -65,7 +65,7 @@
                                                 @else
                                                     <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap, word lid voor korting op deze activiteit!</u></p>
                                                 @endif
-                                            </div>
+
                                             <div class="col-4 text-center buttonVerticalCenter">
                                                 <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
                                                     Inschrijven
@@ -87,9 +87,11 @@
                                             </div>
                                         @endif
                                     @endif
+
                                 @else
                                     <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                                 @endif
+                                </div>
                             </div>
                         </div>
                     </div>
