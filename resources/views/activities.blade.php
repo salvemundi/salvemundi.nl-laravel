@@ -53,7 +53,7 @@
                                     <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
                                     @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
                                         @if($activiteit->formsLink != null || $activiteit->formsLink != "")
-                                            @if(true)
+                                            @if($userIsActive)
                                                 <form method="POST" action="/activiteiten/signup">
                                                     @csrf
                                                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
