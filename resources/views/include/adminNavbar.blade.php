@@ -44,7 +44,7 @@
                     <a class="nav-link" href="/admin/sponsors">Partners</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/whatsapp">Whatsapp</a>
+                    <a class="nav-link" href="/admin/socials">Socials</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/products">Producten</a>
