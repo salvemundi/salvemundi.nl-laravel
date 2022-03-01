@@ -16,8 +16,6 @@ use App\Models\User;
 use App\Models\AdminSetting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use DB;
-use Illuminate\Support\Facades\Log;
 use App\Enums\paymentType;
 use App\Enums\paymentStatus;
 use Illuminate\Support\Collection;
@@ -133,7 +131,7 @@ class AdminController extends Controller
         return redirect('/admin/intro')->with('information', $message);
     }
 
-    public function storeIntroConfirm(Request $request){
+    public function storeIntroConfirm(Request $request) {
         $adminConfirmSetting = AdminSetting::where('settingName', 'introConfirm')->first();
         if($request->input('cdx'))
         {

@@ -41,45 +41,58 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         @if($activiteit->imgPath != null)
-                                {!! '<img style="max-width: 50%;" class="mx-auto img-fluid" src="storage/'.$activiteit->imgPath.'" />' !!}
+                            {!! '<img style="max-width: 50%;" class="mx-auto img-fluid" src="storage/'.$activiteit->imgPath.'" />' !!}
                         @endif
                         <h1 class="mt-3 center"> {{ $activiteit->name }} </h1>
                         <div class="modal-body">
                             <p style="white-space: pre-line" class="card-text">{{ $activiteit->description }}</p>
                         </div>
                         <div class="modal-footer">
-                        <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
-                        @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
-                            @if($activiteit->formsLink != null || $activiteit->formsLink != "")
-                                @if($userIsActive)
-                                    <form method="POST" action="/activiteiten/signup">
-                                        @csrf
-                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                        <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
-                                    </form>
-                                @else
-                                    <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
-                                        Inschrijven
-                                    </button>
-                                    <div class="collapse" id="collapseExample-{{ $activiteit->id }}">
-                                        <div class="card card-body">
-                                            <form method="POST" action="/activiteiten/signup">
-                                                @csrf
-                                                <input type="hidden" name="id" id="id" value="{{ session('id') }}">
-                                                <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                <div class="input-group mb-3 me-4">
-                                                    <span class="input-group-text" id="basic-addon3">email</span>
-                                                    <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
+                            <div class="col row">
+                                <div class="col-8">
+                                    <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
+                                    @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                                        @if($activiteit->formsLink != null || $activiteit->formsLink != "")
+                                            @if($userIsActive)
+                                                <form method="POST" action="/activiteiten/signup">
+                                                    @csrf
+                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                    <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
+                                                </form>
+                                            @else
+                                                @if(session('id'))
+                                                    <p class="card-text textCard text-danger"><u>Je lidmaatschap is niet meer geldig, verleng deze voor korting op deze activiteit!</u></p>
+                                                @else
+                                                    <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap, word lid voor korting op deze activiteit!</u></p>
+                                                @endif
+
+                                            <div class="col-4 text-center buttonVerticalCenter">
+                                                <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
+                                                    Inschrijven
+                                                </button>
+                                            </div>
+                                            <div class="collapse pt-2" id="collapseExample-{{ $activiteit->id }}">
+                                                <div class="card card-body">
+                                                    <form method="POST" action="/activiteiten/signup">
+                                                        @csrf
+                                                        <input type="hidden" name="id" id="id" value="{{ session('id') }}">
+                                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                        <div class="input-group mb-3 me-4">
+                                                            <span class="input-group-text" id="basic-addon3">email</span>
+                                                            <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
+                                                    </form>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
-                                            </form>
-                                        </div>
-                                    </div>
+                                            </div>
+                                        @endif
+                                    @endif
+
+                                @else
+                                    <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                                 @endif
-                            @endif
-                        @else
-                            <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
-                        @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

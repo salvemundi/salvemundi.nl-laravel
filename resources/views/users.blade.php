@@ -47,47 +47,48 @@
                 @endif
                 @endforeach
             </div>
-
-            <br>
-            <div class="row center">
-                <div class="col-auto col-md-12" id="{{ $kandiBestuur->DisplayName }}">
-                    <div class="commissie card">
-                        <div class="card-body">
-                            <h4 class="card-title">{{ $kandiBestuur->DisplayName }}</h4>
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div style="">
-                                    <p class="card-text">
-                                        {{ $kandiBestuur->Description }}
-                                        <br>
-                                        E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $kandiBestuur->email }}</a>
-                                    </p>
+            @if($kandiBestuur != null)
+                <br>
+                <div class="row center">
+                    <div class="col-auto col-md-12" id="{{ $kandiBestuur->DisplayName }}">
+                        <div class="commissie card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ $kandiBestuur->DisplayName }}</h4>
+                                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                    <div style="">
+                                        <p class="card-text">
+                                            {{ $kandiBestuur->Description }}
+                                            <br>
+                                            E-mail: <a href="mailto:{{ $kandiBestuur->email }}">{{ $kandiBestuur->email }}</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <br>
+                <br>
 
-            <div class="row">
-                @foreach($kandiBestuur->users as $users)
-                @if($users->visibility == 1)
-                <div class="col-md-6">
-                    <div class="card user">
-                        {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
-                        <div class="card-body">
-                            <p class="card-text">{{ $users->DisplayName }}
-                                @if(session('userName'))
-                                    <br> {{ $users->email }}
-                                @endif
-                            </p>
+                <div class="row">
+                    @foreach($kandiBestuur->users as $users)
+                    @if($users->visibility == 1)
+                    <div class="col-md-6">
+                        <div class="card user">
+                            {!! '<img class="pfPhoto" src="storage/'.$users->ImgPath.'" />' !!}
+                            <div class="card-body">
+                                <p class="card-text">{{ $users->DisplayName }}
+                                    @if(session('userName'))
+                                        <br> {{ $users->email }}
+                                    @endif
+                                </p>
+                            </div>
                         </div>
+                        <br>
                     </div>
-                    <br>
+                    @endif
+                    @endforeach
                 </div>
-                @endif
-                @endforeach
-            </div>
+            @endif
 
             <div class="row">
                 @foreach($groups as $group)

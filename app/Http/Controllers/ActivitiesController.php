@@ -85,6 +85,11 @@ class ActivitiesController extends Controller {
             $products->name      = $request->input('name');
             $products->formsLink = $request->input('link');
             $products->amount    = $request->input('price');
+            if($request->input('cbx')){
+                $products->oneTimeOrder = true;
+            } else {
+                $products->oneTimeOrder = false;
+            }
 
             if ($request->input('price2') != null || $request->input('price2') != "") {
                 $products->amount_non_member = $request->input('price2');
@@ -106,7 +111,11 @@ class ActivitiesController extends Controller {
         $productObject->name      = $request->input('name');
         $productObject->formsLink = $request->input('link');
         $productObject->amount    = $request->input('price');
-
+        if($request->input('cbx')){
+            $productObject->oneTimeOrder = true;
+        } else {
+            $productObject->oneTimeOrder = false;
+        }
         if ($request->input('price2') != null || $request->input('price2') != "") {
             $productObject->amount_non_member = $request->input('price2');
         }
@@ -125,11 +134,16 @@ class ActivitiesController extends Controller {
 
     public static function userHasPayedForActivity($activityId){
         $user = null;
-
+        $activity = Product::find($activityId);
         if (session('id') !== null) {
             $user = User::where('AzureId', session('id'))->firstOrFail();
         } else {
             return false;
+        }
+        if($activity != null){
+            if(!$activity->oneTimeOrder){
+                return false;
+            }
         }
         foreach($user->payment as $transaction){
             if($transaction->product->id == $activityId) {

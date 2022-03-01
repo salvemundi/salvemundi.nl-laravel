@@ -9,7 +9,8 @@ class WhatsAppController extends Controller
 {
     public function index(){
         $whatsappLinks = WhatsappLink::all();
-        return view('admin/whatsapp',['whatsappLinks' => $whatsappLinks]);
+        $discordLink = DiscordController::getLink();
+        return view('admin/whatsapp',['whatsappLinks' => $whatsappLinks,'discordLink' => $discordLink]);
     }
 
     public function addWhatsappLinks(Request $request)
