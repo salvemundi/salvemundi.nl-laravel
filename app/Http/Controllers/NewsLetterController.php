@@ -9,8 +9,7 @@ class NewsLetterController extends Controller
 {
     public function index()
     {
-        $newsletter = NewsLetter::all();
-        //dd($financeDocument);
+        $newsletter = NewsLetter::orderBy('id', 'DESC')->get();
         return view('newsletter', ['newsletters' => $newsletter]);
     }
 
