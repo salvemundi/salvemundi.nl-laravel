@@ -10,12 +10,12 @@ use Microsoft\Graph\Model;
 
 class CommitteeController extends Controller
 {
-    public function index() {
-        $committees = Commissie::with('users')->orderBy('DisplayName', 'ASC')->get();
-        // dd($committees);
 
-        // sorteer eerst op bestuur, kandi bestuur en dan de rest
-        return view('committee.index', ['committees' => $committees]);
+    public function index() {
+        $bestuur = Commissie::where('AzureID', 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0')->with('users')->first();
+        // Only bestuur isn't in the committees
+        $allCommitteesExceptBestuur = Commissie::where('AzureID', '!=', 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0')->with('users')->get();
+        return view('committee.index', ['allCommitteesExceptBestuur' => $allCommitteesExceptBestuur, 'bestuur' => $bestuur]);
     }
 
     public function committee(Request $request) {

@@ -16,7 +16,19 @@
 
     <br>
     <div class="row">
-        @foreach ($committees as $committee)
+        <div class="col-12 col-sm-6 col-lg-3 my-2">
+            <a href="/commissies/{{ $bestuur->DisplayName }}">
+                <div class="card">
+                    <img class="card-img-top" src="../storage/images/SalveMundi-Vector.svg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$bestuur->DisplayName}}</h5>
+                        <!-- <p class="card-text">{{$bestuur->email}}</p> -->
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        @foreach ($allCommitteesExceptBestuur as $committee)
             <div class="col-12 col-sm-6 col-lg-3 my-2">
                 <a href="/commissies/{{ $committee->DisplayName }}">
                     <div class="card">
