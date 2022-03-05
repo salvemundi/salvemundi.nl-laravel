@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="col-12 col-md-6 px-1 px-md-5">
-            <img class="imgIndex" src="images/SaMuFotos/IMG_0582.jpg">
+            <img class="imgIndex" src="images/SaMuFotos/DSC07654.jpg">
         </div>
     </div>
 
