@@ -30,7 +30,7 @@
         @endif
 
         <!-- Button trigger modal -->
-        @foreach ($activiteiten  as $activiteit)
+        @foreach ($activiteiten as $activiteit)
 
             <!-- Modal -->
             <div class="modal fade" id="showModal{{ $activiteit->id }}" tabindex="583208700" style="z-index: 534324;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,28 +66,32 @@
                                                     <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap, word lid voor korting op deze activiteit!</u></p>
                                                 @endif
 
-                                            <div class="col-4 text-center buttonVerticalCenter">
-                                                <button class="btn btn-primary buttonActiviteiten float-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
-                                                    Inschrijven
-                                                </button>
-                                            </div>
-                                            <div class="collapse pt-2" id="collapseExample-{{ $activiteit->id }}">
-                                                <div class="card card-body">
-                                                    <form method="POST" action="/activiteiten/signup">
-                                                        @csrf
-                                                        <input type="hidden" name="id" id="id" value="{{ session('id') }}">
-                                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                        <div class="input-group mb-3 me-4">
-                                                            <span class="input-group-text" id="basic-addon3">email</span>
-                                                            <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endif
+                                                @if($activiteit->membersOnly && !session('id'))
+                                                    <button class="btn btn-danger">Alleen voor Leden</button>
+                                                @else
+                                                    <div class="col-12">
+                                                        <button class="btn btn-primary buttonActiviteiten" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
+                                                            Inschrijven
+                                                        </button>
+                                                    </div>
 
+                                                    <div class="collapse pt-2" id="collapseExample-{{ $activiteit->id }}">
+                                                        <div class="card card-body">
+                                                            <form method="POST" action="/activiteiten/signup">
+                                                                @csrf
+                                                                <input type="hidden" name="id" id="id" value="{{ session('id') }}">
+                                                                <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                <div class="input-group mb-3 me-4">
+                                                                    <span class="input-group-text" id="basic-addon3">Email</span>
+                                                                    <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endif
+                                    @endif
                                 @else
                                     <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                                 @endif

@@ -153,6 +153,34 @@ class ADUsers extends Seeder {
                     ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
             }
         }
+
+
+        echo('Images set, now fetching group images.');
+        echo("\r\n");
+
+        //
+        // Get user profile pictures from Azure.
+        //
+
+        $groups = DB::table('groups')->select('id','AzureID')->get();
+
+        foreach($groups as $group)
+        {
+            try
+            {
+                $image = $graph->createRequest("GET", '/groups/'.$group->AzureID.'/photos/240x240/$value')
+                    ->download('public/storage/groups/'.$group->AzureID.'.jpg');
+                DB::table('groups')
+                    ->where('id', $group->id)
+                    ->update(['ImgPath' => 'users/'.$group->AzureID.'.jpg']);
+            } catch (Throwable $th) {
+                Storage::disk('public')->delete('users/' . $group->AzureID . '.jpg');
+                DB::table('groups')
+                    ->where('id', $group->id)
+                    ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
+            }
+        }
+
         echo('All data successfully fetched!');
         echo("\r\n");
     }

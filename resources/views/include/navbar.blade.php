@@ -11,18 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav justify-content-lg-start">
                 <li class="nav-item">
-                    <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn">Commissies &nbsp;<i class="fa fa-sort-down"></i></button>
-                        <div id="dropdown" class="dropdown-content showCom">
-                            <a class="dropdownText" href="/commissies#Bestuur">Bestuur</a>
-                            <a class="dropdownText" href="/commissies#Kandi-Bestuur">Kandi-Bestuur</a>
-                            @foreach ($Commissies as $commissie)
-                                @if (str_contains($commissie->DisplayName, 'commissie'))
-                                    <a class="dropdownText" href="/commissies#{{$commissie->DisplayName}}">{{$commissie->DisplayName}}</a>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
+                    <a class="nav-link" href="/commissies">Commissies</a>
                 </li>
                 @if (session('id') === null)
                     <li class="nav-item">
