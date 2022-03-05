@@ -10,9 +10,9 @@ use Microsoft\Graph\Model;
 
 class CommitteeController extends Controller
 {
-
     public function index() {
-        $committees = Commissie::with('users')->get();   
+        $committees = Commissie::with('users')->orderBy('DisplayName', 'ASC')->get();
+        // dd($committees);
 
         // sorteer eerst op bestuur, kandi bestuur en dan de rest
         return view('committee.index', ['committees' => $committees]);
@@ -21,7 +21,7 @@ class CommitteeController extends Controller
     public function committee(Request $request) {
         $committeeName = $request->route('committee_name');
         $committee = Commissie::where('DisplayName', $committeeName)->with('users')->firstOrFail();
-        
+
         return view('committee.committee', ['committee' => $committee]);
     }
 }

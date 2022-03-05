@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav justify-content-lg-start">
                 <li class="nav-item">
-                    <a class="nav-link" href="/commissie">Commissies</a>
+                    <a class="nav-link" href="/commissies">Commissies</a>
                 </li>
                 @if (session('id') === null)
                     <li class="nav-item">
