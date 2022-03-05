@@ -85,10 +85,17 @@ class ActivitiesController extends Controller {
             $products->name      = $request->input('name');
             $products->formsLink = $request->input('link');
             $products->amount    = $request->input('price');
+
             if($request->input('cbx')){
                 $products->oneTimeOrder = true;
             } else {
                 $products->oneTimeOrder = false;
+            }
+
+            if ($request->input('cbxMembers')) {
+                $products->membersOnly = true;
+            } else {
+                $products->membersOnly = false;
             }
 
             if ($request->input('price2') != null || $request->input('price2') != "") {
@@ -116,6 +123,13 @@ class ActivitiesController extends Controller {
         } else {
             $productObject->oneTimeOrder = false;
         }
+
+        if ($request->input('cbxMembers')) {
+            $productObject->membersOnly = true;
+        } else {
+            $productObject->membersOnly = false;
+        }
+
         if ($request->input('price2') != null || $request->input('price2') != "") {
             $productObject->amount_non_member = $request->input('price2');
         }

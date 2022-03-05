@@ -22,6 +22,7 @@
                     <th data-field="description" data-sortable="true">Beschrijving</th>
                     <th data-field="link" data-sortable="true">Forms link</th>
                     <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
+                    <th data-field="membersOnly" data-sortable="true" data-width="250">Alleen leden</th>
                     <th data-field="edit" data-sortable="false">Bewerken</th>
                     <th data-field="delete" data-sortable="false">Verwijderen</th>
                     <th data-field="signups" data-sortable="false">Inschrijvingen</th>
@@ -35,6 +36,7 @@
                     <td data-value="{{ $activity->description }}">{{Illuminate\Support\Str::limit($activity->description, 100)}}</td>
                     <td data-value="{{ $activity->formsLink }}">{{Illuminate\Support\Str::limit($activity->formsLink, 20)}}</td>
                     <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
+                    <td data-value="{{ $activity->membersOnly }}">{{$converted_res = $activity->membersOnly ? 'Ja' : 'Nee'; }}</td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/signups">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Inschrijvingen</button></form></td>
@@ -100,6 +102,14 @@
             <svg width="12px" height="10px" viewbox="0 0 12 10">
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Voor deze activiteit kan maar eenmaal ingeschreven worden per deelnemer</span></label>
+
+            <input class="inp-cbx" id="cbx2" name="cbxMembers" type="checkbox" style="display: none"/>
+
+            <label class="cbx" for="cbx2"><span>
+            <svg width="12px" height="10px" viewbox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg></span><span>Alleen Salve Mundi leden?</span></label>
+
             <div class="form-group mx-auto my-3">
                 <input class="btn btn-primary" type="submit" value="Toevoegen">
             </div>

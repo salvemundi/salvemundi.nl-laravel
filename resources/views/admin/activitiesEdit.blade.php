@@ -69,6 +69,16 @@
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Voor deze activiteit kan maar eenmaal ingeschreven worden per deelnemer</span></label>
 
+            @if($activities->membersOnly)
+                <input class="inp-cbx" id="cbx2" name="cbxMembers" type="checkbox" checked style="display: none"/>
+            @elseif(!$activities->membersOnly)
+                <input class="inp-cbx" id="cbx2" name="cbxMembers" type="checkbox" style="display: none"/>
+            @endif
+            <label class="cbx" for="cbx2"><span>
+            <svg width="12px" height="10px" viewbox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg></span><span>Alleen Salve Mundi leden?</span></label>
+
             <div class="form-group py-3">
                 <input class="btn btn-primary" type="submit" value="Bewerken">
             </div>
