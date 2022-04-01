@@ -32,7 +32,8 @@
             <div class="col-12 col-sm-6 col-lg-3 my-2">
                 <a href="/commissies/{{ $committee->DisplayName }}">
                     <div class="card">
-                        <img class="card-img-top" src="../storage/images/SalveMundi-Vector.svg" alt="Card image cap">
+                        <img class="card-img-top" src="../storage/committees/{{ $committee->AzureID }}.png" alt="Card image cap" onerror="this.src='../storage/images/SalveMundi-Vector.svg'">
+                        {{-- {!! '<img class="img-top" src="../storage/committees/'.$committee->DisplayName.'.png" />' !!} --}}
                         <div class="card-body">
                             <h5 class="card-title">{{$committee->DisplayName}}</h5>
                             <!-- <p class="card-text">{{$committee->email}}</p> -->
