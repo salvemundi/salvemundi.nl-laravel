@@ -7,7 +7,8 @@ use Laravel\Cashier\Order\OrderItemPreprocessorCollection;
 use Money\Currency;
 use Money\Money;
 use Laravel\Cashier\Plan\Contracts\Plan as PlanImplements;
-
+use Laravel\Cashier\Coupon\CouponOrderItemPreprocessor as ProcessCoupons;
+use Laravel\Cashier\Order\PersistOrderItemsPreprocessor as PersistOrderItems;
 
 class Plan extends Model implements PlanImplements
 {
@@ -173,7 +174,7 @@ class Plan extends Model implements PlanImplements
      */
     public function orderItemPreprocessors()
     {
-        return $this->orderItemPreprocessors;
+        return new OrderItemPreprocessorCollection([ProcessCoupons::class,PersistOrderItems::class]);
     }
 
     /**
