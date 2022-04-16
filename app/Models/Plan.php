@@ -174,7 +174,8 @@ class Plan extends Model implements PlanImplements
      */
     public function orderItemPreprocessors()
     {
-        return new OrderItemPreprocessorCollection([ProcessCoupons::class,PersistOrderItems::class]);
+        $coll = new OrderItemPreprocessorCollection();
+        return $coll::fromArray([ProcessCoupons::class,PersistOrderItems::class]);
     }
 
     /**
