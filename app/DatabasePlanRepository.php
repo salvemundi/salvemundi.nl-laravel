@@ -3,7 +3,7 @@ namespace App;
 use App\Models\Plan;
 use Laravel\Cashier\Exceptions\PlanNotFoundException;
 use Laravel\Cashier\Plan\Contracts\PlanRepository;
-
+use Illuminate\Support\Facades\Log;
 class DatabasePlanRepository implements PlanRepository
 {
     /**
@@ -22,6 +22,7 @@ class DatabasePlanRepository implements PlanRepository
      */
     public static function findOrFail(string $name)
     {
+        Log::info($name);
         if (($result = Plan::where('name', $name)->first()) != null) {
             return $result;
         } else {
