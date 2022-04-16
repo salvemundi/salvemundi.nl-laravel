@@ -218,6 +218,6 @@ class MolliePaymentController extends Controller
         {
             $userObject->subscription($name,$plan->key)->cancel();
         }
-        return redirect('/myAccount');
+        return redirect('/mijnAccount');
     }
 }
