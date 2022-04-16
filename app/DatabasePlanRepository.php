@@ -28,10 +28,15 @@ class DatabasePlanRepository implements PlanRepository
     public static function findOrFail(string $name)
     {
         Log::info($name);
-        if (($result = Plan::where('name', $name)->first()) != null) {
-            return $result;
+        if ($name ==  'contributionCommissie') {
+            if(Plan::where('name', '1 membership')->first() != null) {
+                return Plan::where('name', '1 membership')->first();
+            }
         } else {
-            throw new PlanNotFoundException;
+            if(Plan::where('name', '2 membership')->first() != null) {
+                return Plan::where('name', '2 membership')->first();
+            }
         }
+        throw new PlanNotFoundException;
     }
 }
