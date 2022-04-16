@@ -12,13 +12,7 @@ class DatabasePlanRepository implements PlanRepository
      */
     public static function find(string $name)
     {
-
-        if($name ==  'contributionCommissie') {
-            return Plan::where('name', '1 membership')->first();
-        } else {
-            Log::info($name);
-            return Plan::where('name', '2 membership')->first();
-        }
+        return Plan::where('name', $name)->first();
     }
 
     /**
@@ -28,16 +22,10 @@ class DatabasePlanRepository implements PlanRepository
      */
     public static function findOrFail(string $name)
     {
-        Log::info($name);
-        if ($name ==  'contributionCommissie') {
-            if(Plan::where('name', '1 membership')->first() != null) {
-                return Plan::where('name', '1 membership')->first();
-            }
+        if (($result = Plan::where('name', $name)->first()) != null) {
+            return $result;
         } else {
-            if(Plan::where('name', '2 membership')->first() != null) {
-                return Plan::where('name', '2 membership')->first();
-            }
+            throw new PlanNotFoundException;
         }
-        throw new PlanNotFoundException;
     }
 }
