@@ -31,8 +31,6 @@ class Plan extends Model implements PlanImplements
 
     public function amount()
     {
-
-
         $currency = new Currency($this->getCode());
         return new Money($this->attributes['amount'] * 100, $currency);
     }
@@ -175,7 +173,7 @@ class Plan extends Model implements PlanImplements
      */
     public function orderItemPreprocessors()
     {
-
+        return $this->orderItemPreprocessors;
     }
 
     /**
@@ -184,10 +182,7 @@ class Plan extends Model implements PlanImplements
      */
     public function setOrderItemPreprocessors(OrderItemPreprocessorCollection $preprocessors)
     {
-
-
         $this->orderItemPreprocessors = $preprocessors;
-
         return $this;
     }
 }
