@@ -60,6 +60,7 @@
                     </div>
                     <div style="float:left; display:inline;">
                         <form method="post" action="/mijnAccount/cancel">
+                            @csrf
                             <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                         </form>
                     </div>
