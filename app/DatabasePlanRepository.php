@@ -13,7 +13,11 @@ class DatabasePlanRepository implements PlanRepository
     public static function find(string $name)
     {
         Log::info($name);
-        return Plan::where('name', $name)->first();
+        if($name ==  'contributionCommissie') {
+            return Plan::where('name', '1 membership')->first();
+        } else {
+            return Plan::where('name', '2 membership')->first();
+        }
     }
 
     /**
