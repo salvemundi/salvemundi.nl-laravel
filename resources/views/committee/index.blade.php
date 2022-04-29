@@ -23,6 +23,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$bestuur->DisplayName}}</h5>
                         <!-- <p class="card-text">{{$bestuur->email}}</p> -->
+                        <a class="btn btn-primary ml-auto" href="/vorigBestuur">Naar vorige besturen</a>
                     </div>
                 </div>
             </a>
