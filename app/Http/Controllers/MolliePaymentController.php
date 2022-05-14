@@ -211,13 +211,13 @@ class MolliePaymentController extends Controller
     public function cancelSubscription(Request $request)
     {
         $userId = session('id');
-        $userObject = User::where('AzureID', $userId);
+        $userObject = User::where('AzureID', $userId)->first();
         $plan = paymentType::fromValue(3);
         $name = ucfirst($plan) . ' membership';
         if($userObject->subscribed($name, $plan->key))
         {
             $userObject->subscription($name,$plan->key)->cancel();
         }
-        return redirect('/myAccount');
+        return redirect('/mijnAccount');
     }
 }

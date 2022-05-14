@@ -17,3 +17,4 @@ yarn-error.log
 .phpunit.result.cache
 **/.DS_Store
 .vs
+composer.phar

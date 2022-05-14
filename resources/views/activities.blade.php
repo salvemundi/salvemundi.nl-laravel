@@ -66,7 +66,7 @@
                                                     <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap, word lid voor korting op deze activiteit!</u></p>
                                                 @endif
 
-                                                @if($activiteit->membersOnly && !session('id'))
+                                                @if($activiteit->membersOnly && !$userIsActive)
                                                     <button class="btn btn-danger">Alleen voor Leden</button>
                                                 @else
                                                     <div class="col-12">

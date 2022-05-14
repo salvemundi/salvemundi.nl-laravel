@@ -192,5 +192,5 @@
             }
         }
     }
-    </script>
+</script>
 @endsection

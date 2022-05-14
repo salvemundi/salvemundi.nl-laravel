@@ -10,17 +10,31 @@
             </p>
         </div>
         <div class="col-12 col-md-6 px-1 px-md-5">
-            <img class="imgIndex" src="images/SaMuFotos/IMG_0582.jpg">
+            <img class="imgIndex" src="images/SaMuFotos/DSC07654.jpg">
         </div>
     </div>
 
     <br>
     <div class="row">
-        @foreach ($committees as $committee)
+        <div class="col-12 col-sm-6 col-lg-3 my-2">
+            <a href="/commissies/{{ $bestuur->DisplayName }}">
+                <div class="card">
+                    <img class="card-img-top" src="../storage/images/SalveMundi-Vector.svg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$bestuur->DisplayName}}</h5>
+                        <!-- <p class="card-text">{{$bestuur->email}}</p> -->
+                        <a class="btn btn-primary ml-auto" href="/vorigBestuur">Naar vorige besturen</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        @foreach ($allCommitteesExceptBestuur as $committee)
             <div class="col-12 col-sm-6 col-lg-3 my-2">
                 <a href="/commissies/{{ $committee->DisplayName }}">
                     <div class="card">
-                        <img class="card-img-top" src="../storage/images/SalveMundi-Vector.svg" alt="Card image cap">
+                        <img class="card-img-top" src="../storage/committees/{{ $committee->AzureID }}.png" alt="Card image cap" onerror="this.src='../storage/images/SalveMundi-Vector.svg'">
+                        {{-- {!! '<img class="img-top" src="../storage/committees/'.$committee->DisplayName.'.png" />' !!} --}}
                         <div class="card-body">
                             <h5 class="card-title">{{$committee->DisplayName}}</h5>
                             <!-- <p class="card-text">{{$committee->email}}</p> -->

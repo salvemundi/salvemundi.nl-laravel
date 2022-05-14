@@ -24,9 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('cashier:run')
-            ->daily() // run as often as you like (Daily, monthly, every minute, ...)
-            ->withoutOverlapping(); // make sure to include this
+        // $schedule->command('cashier:run')
+        //     ->daily() // run as often as you like (Daily, monthly, every minute, ...)
+        //     ->withoutOverlapping(); // make sure to include this
     }
 
     /**
