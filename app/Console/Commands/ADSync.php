@@ -1,0 +1,166 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Http\Controllers\AzureController;
+use App\Models\Commissie;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Console\Command;
+
+class ADSync extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'job:dispatch {job}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        // Connect to Azure
+        $graph = AzureController::connectToAzure();
+        //
+        // Get Users from Azure
+        //
+        DB::table('groups_relation')->truncate();
+        Log::info('RE-SYNCING WITH AZURE');
+        $userArray = $graph->createRequest("GET", '/users/?$top=900')
+            ->setReturnType(Model\User::class)
+            ->execute();
+        $userIDArray = collect();
+        foreach ($userArray as $users) {
+            $checkUser = User::where('AzureID', $users->getId())->first();
+            if(!$checkUser) {
+                $newUser = new User;
+                $newUser->AzureID = $users->getId();
+                $newUser->DisplayName = $users->getDisplayName();
+                $newUser->FirstName = $users->getGivenName();
+                $newUser->LastName = $users->getSurname();
+                $newUser->PhoneNumber = $users->getMobilePhone();
+                $newUser->email = $users->getMail();
+                $newUser->save();
+            } else {
+                $checkUser->DisplayName = $users->getDisplayName();
+                $checkUser->FirstName = $users->getGivenName();
+                $checkUser->LastName = $users->getSurname();
+                if($checkUser->email != $users->getMail()){
+                    $checkUser->email = $users->getMail();
+                    $checkUser->save();
+                }
+                if($checkUser->PhoneNumber != $users->getMobilePhone()){
+                    $checkUser->PhoneNumber = $users->getMobilePhone();
+                    $checkUser->save();
+                }
+                $checkUser->save();
+            }
+            $userIDArray->push($users->getID());
+        }
+        User::whereNotIn('AzureID', $userIDArray)->forceDelete();
+        User::where('AzureID',null)->forceDelete();
+        Log::info('Users fetched');
+        // Fetch all groups
+        $grouparray = $graph->createRequest("GET", '/groups')
+            ->setReturnType(Model\Group::class)
+            ->execute();
+        foreach ($grouparray as $groups) {
+            $CommissieQuery = Commissie::where('AzureID', $groups->getId())->first();
+            if(!$CommissieQuery) {
+                if (Str::contains($groups->getDisplayName(), ['|| Salve Mundi'])) {
+                    $commissieName = str_replace(" || Salve Mundi", "", $groups->getDisplayName());
+                    DB::table('groups')->insert(
+                        array(
+                            'AzureID' => $groups->getId(),
+                            'DisplayName' => $commissieName,
+                            'Description' => $groups->getDescription(),
+                            'email' => $groups->getMail()
+                        )
+                    );
+                }
+            } else {
+                $commissieName = str_replace(" || Salve Mundi", "", $groups->getDisplayName());
+                $CommissieQuery->Description = $groups->getDescription();
+                $CommissieQuery->DisplayName = $commissieName;
+                $CommissieQuery->save();
+            }
+        }
+        Log::info('Groups fetched');
+        //
+        // Set relation between groups and users.
+        //
+
+        $grouparray = DB::table('groups')->select('id', 'AzureID')->get();
+        foreach($grouparray as $groupids)
+        {
+            $relationarray = $graph->createRequest("GET", '/groups/'.$groupids->AzureID.'/members')
+                ->setReturnType(Model\User::class)
+                ->execute();
+
+            foreach ($relationarray as $memberUsers) {
+                $memberuser = DB::table('users')->select('id','AzureID')->get()->where('AzureID', '=',$memberUsers->getId());
+                foreach($memberuser as $uid)
+                {
+                    DB::table('groups_relation')->insert(
+                        array(
+                            'user_id' => $uid->id,
+                            'group_id' => $groupids->id
+                        )
+                    );
+                }
+            }
+        }
+        Log::info('Relations set');
+        //
+        // Get user profile pictures from Azure.
+        //
+
+        $memberuser = DB::table('users')->select('id','AzureID')->get();
+        foreach($memberuser as $members)
+        {
+            try
+            {
+                $graph->createRequest("GET", '/users/'.$members->AzureID.'/photos/240x240/$value')
+                    ->download('storage/users/'.$members->AzureID.'.jpg');
+
+                DB::table('users')
+                    ->where('id', $members->id)
+                    ->update(['ImgPath' => 'users/'.$members->AzureID.'.jpg']);
+            }
+            catch (\Throwable $th)
+            {
+                Storage::disk('public')->delete('users/'.$members->AzureID.'.jpg');
+                DB::table('users')
+                    ->where('id', $members->id)
+                    ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
+
+            }
+        }
+        Log::info('Profile pictures fetched');
+    }
+}
