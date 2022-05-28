@@ -16,7 +16,7 @@
                             @if($activiteit->imgPath != null)
                                 {!! '<img class="img-fluid mx-auto card-img-top" src="storage/'.$activiteit->imgPath.'" />' !!}
                             @endif
-                            <div class="card-body" >
+                            <div class="card-body" style="overflow: hidden">
                                 <h5 class="card-title">{{ $activiteit->name }}</h5>
                                 <p style="white-space: pre-line" class="card-text">{{$activiteit->description, 300}}</p>
                                 <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
