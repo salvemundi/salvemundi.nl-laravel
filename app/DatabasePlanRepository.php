@@ -12,7 +12,7 @@ class DatabasePlanRepository implements PlanRepository
      */
     public static function find(string $name)
     {
-        // return Plan::where('name', $name)->first();
+        return Plan::where('name', $name)->first();
     }
 
     /**
@@ -22,10 +22,10 @@ class DatabasePlanRepository implements PlanRepository
      */
     public static function findOrFail(string $name)
     {
-        // if (($result = Plan::where('name', $name)->first()) != null) {
-        //     return $result;
-        // } else {
-        //     throw new PlanNotFoundException;
-        // }
+        if (($result = Plan::where('name', $name)->first()) != null) {
+            return $result;
+        } else {
+            throw new PlanNotFoundException;
+        }
     }
 }
