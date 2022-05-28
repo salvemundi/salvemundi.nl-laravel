@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="col-12 col-md-6 px-1 px-md-5">
-            <img class="imgIndex" src="../storage/images/SalveMundi-Vector.svg">
+            <img class="imgIndex" src="../storage/committees/{{ $committee->AzureID }}.png" onerror="this.src='../storage/images/SalveMundi-Vector.svg'">
         </div>
     </div>
 
