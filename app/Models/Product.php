@@ -26,4 +26,12 @@ class Product extends Model
     {
         return $this->hasManyThrough(Transaction::class, User::class);
     }
+    public function isFull(): bool
+    {
+        if($this->transactions->count() >= $this->limit && $this->limit != 0) {
+            return true;
+        }
+        return false;
+    }
+
 }
