@@ -51,47 +51,53 @@
                             <div class="col row">
                                 <div class="col-8">
                                     <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
+
                                     @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
-                                        @if($activiteit->formsLink != null || $activiteit->formsLink != "")
-                                            @if($userIsActive)
-                                                <form method="POST" action="/activiteiten/signup">
-                                                    @csrf
-                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                    <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
-                                                </form>
-                                            @else
-                                                @if(session('id'))
-                                                    <p class="card-text textCard text-danger"><u>Je lidmaatschap is niet meer geldig, verleng deze voor korting op deze activiteit!</u></p>
+                                        @if(!$activiteit->isFull())
+                                            @if($activiteit->formsLink != null || $activiteit->formsLink != "")
+                                                @if($userIsActive)
+                                                    <form method="POST" action="/activiteiten/signup">
+                                                        @csrf
+                                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                        <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
+                                                    </form>
                                                 @else
-                                                    <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap, word lid voor korting op deze activiteit!</u></p>
-                                                @endif
+                                                    @if(session('id'))
+                                                        <p class="card-text textCard text-danger"><u>Je lidmaatschap is niet meer geldig, verleng deze voor korting op deze activiteit!</u></p>
+                                                    @else
+                                                        <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap, word lid voor korting op deze activiteit!</u></p>
+                                                    @endif
 
-                                                @if($activiteit->membersOnly && !$userIsActive)
-                                                    <button class="btn btn-danger">Alleen voor Leden</button>
-                                                @else
-                                                    <div class="col-12">
-                                                        <button class="btn btn-primary buttonActiviteiten" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
-                                                            Inschrijven
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="collapse pt-2" id="collapseExample-{{ $activiteit->id }}">
-                                                        <div class="card card-body">
-                                                            <form method="POST" action="/activiteiten/signup">
-                                                                @csrf
-                                                                <input type="hidden" name="id" id="id" value="{{ session('id') }}">
-                                                                <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                                <div class="input-group mb-3 me-4">
-                                                                    <span class="input-group-text" id="basic-addon3">Email</span>
-                                                                    <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
-                                                                </div>
-                                                                <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
-                                                            </form>
+                                                    @if($activiteit->membersOnly && !$userIsActive)
+                                                        <button class="btn btn-danger">Alleen voor Leden</button>
+                                                    @else
+                                                        <div class="col-12">
+                                                            <button class="btn btn-primary buttonActiviteiten" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
+                                                                Inschrijven
+                                                            </button>
                                                         </div>
-                                                    </div>
+
+                                                        <div class="collapse pt-2" id="collapseExample-{{ $activiteit->id }}">
+                                                            <div class="card card-body">
+                                                                <form method="POST" action="/activiteiten/signup">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id" id="id" value="{{ session('id') }}">
+                                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                    <div class="input-group mb-3 me-4">
+                                                                        <span class="input-group-text" id="basic-addon3">Email</span>
+                                                                        <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 @endif
                                             @endif
-                                    @endif
+                                        @else
+                                            <p class="card-text textCard text-danger"><u>Deze activiteit is helaas vol!</u></p>
+
+                                        @endif
                                 @else
                                     <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
                                 @endif

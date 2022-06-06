@@ -63,6 +63,12 @@ class ActivitiesController extends Controller {
         return view('admin/activitiesSignUps',['users' => $arr, 'emails' => $emails]);
     }
 
+    private function countSignUps($activityId)
+    {
+        $activity = Product::find($activityId);
+        return $activity->transactions->count();
+    }
+
     public function store(Request $request) {
         $request->validate([
             'name'        => 'required',
@@ -85,6 +91,7 @@ class ActivitiesController extends Controller {
             $products->name      = $request->input('name');
             $products->formsLink = $request->input('link');
             $products->amount    = $request->input('price');
+            $products->limit     = $request->input('limit');
 
             if($request->input('cbx')){
                 $products->oneTimeOrder = true;
@@ -118,6 +125,8 @@ class ActivitiesController extends Controller {
         $productObject->name      = $request->input('name');
         $productObject->formsLink = $request->input('link');
         $productObject->amount    = $request->input('price');
+        $productObject->limit     = $request->input('limit');
+
         if($request->input('cbx')){
             $productObject->oneTimeOrder = true;
         } else {
@@ -186,7 +195,9 @@ class ActivitiesController extends Controller {
         }
 
         $activity = Product::find($request->input('activityId'));
-
+        if($this->countSignUps($request->input('activityId')) >= $activity->limit && $activity->limit != 0){
+            return back();
+        }
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'));
     }
 }
