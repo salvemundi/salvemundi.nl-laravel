@@ -4,7 +4,7 @@
     <div class="overlap">
         <div class="row center">
             <h1 class="center">Bijbanen bank</h1>
-<a class="btn btn-primary" href="https://forms.office.com/r/cALSNrkJgu" >Vacature plaatsen<\a>
+            <a class="btn btn-primary" href="https://forms.office.com/r/cALSNrkJgu">Vacature plaatsen</a>
             @if(!$sideJobBank->isEmpty())
                 @foreach($sideJobBank as $job)
                     <div class="cardNews">
