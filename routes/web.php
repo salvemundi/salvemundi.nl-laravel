@@ -77,6 +77,12 @@ Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::
 
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
+// Sticker page
+
+Route::get('/stickers',[App\Http\Controllers\StickerController::class, 'index'] );
+Route::post('/stickers/store', [App\Http\Controllers\StickerController::class, 'store'])->middleware('azure.auth');
+Route::post('/stickers/delete', [App\Http\Controllers\StickerController::class, 'delete'])->middleware('azure.auth');
+
 // Finance page
 
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'])->middleware('azure.auth');

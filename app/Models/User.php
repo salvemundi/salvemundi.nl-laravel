@@ -97,4 +97,9 @@ class User extends Authenticatable
             'group_id'
         );
     }
+
+    public function stickers()
+    {
+        return $this->hasMany(Sticker::class);
+    }
 }
