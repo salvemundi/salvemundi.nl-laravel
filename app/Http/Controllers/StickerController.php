@@ -26,8 +26,8 @@ class StickerController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'longitude' => 'required',
-            'latitude' => 'required',
+            'longitude' =>  ['required', 'regex:/(^[0-9.]+$)+/'],
+            'latitude'  =>  ['required', 'regex:/(^[0-9.]+$)+/'],
         ]);
 
         $sticker = new Sticker;
@@ -52,7 +52,7 @@ class StickerController extends Controller
 
                 return redirect('/stickers')->with('information', 'Sticker verwijderd!');
             }
-            return redirect('/stickers')->with('error', 'stupid hacker!');
+            return redirect('/stickers')->with('error', 'Beste Sukkel, jij dacht dit te doen. HaHa, nice try kut hacker!');
         } else {
             return redirect('/stickers');
         }

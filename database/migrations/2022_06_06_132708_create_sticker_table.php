@@ -17,8 +17,8 @@ class CreateStickerTable extends Migration
             $table->id();
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users');
-            $table->integer('latitude');
-            $table->integer('longitude');
+            $table->decimal('latitude', 20, 10);
+            $table->decimal('longitude', 20, 10);
             $table->timestamps();
         });
     }

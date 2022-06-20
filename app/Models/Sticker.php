@@ -10,7 +10,5 @@ class Sticker extends Model
     use HasFactory;
     protected $table = 'sticker';
 
-    // Remove for later
-    protected $connection = 'mysql2';
     protected $fillable = ['userId','latitude', 'longitude'];
 }
