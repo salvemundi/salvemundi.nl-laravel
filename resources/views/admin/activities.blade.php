@@ -78,7 +78,7 @@
 
             <div class="form-group">
                 <label for="limit">Limiet*</label>
-                <input type="number" min="0" class="form-control{{ $errors->has('limit') ? ' is-invalid' : '' }}" value="{{ $activities->limit }}" id="limit" name="limit" placeholder="Limiet aantal inschrijvingen...">
+                <input type="number" min="0" class="form-control{{ $errors->has('limit') ? ' is-invalid' : '' }}" value="{{ old('limit') }}" id="limit" name="limit" placeholder="Limiet aantal inschrijvingen...">
             </div>
 
             <div class="form-group">
