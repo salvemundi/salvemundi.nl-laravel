@@ -200,7 +200,7 @@ return [
                 'description' => 'Coupon code veel euro korting ' . config('app.name'),
                 'discount' => [
                     'currency' => 'EUR', // Make sure the currency matches the subscription plan it's being applied to
-                    'value' => '10.00',
+                    'value' => '9.99',
                 ],
 
                 /** Add credit to the customer's balance if discount results in a negative amount. */
