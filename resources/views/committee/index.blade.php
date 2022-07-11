@@ -19,7 +19,7 @@
         <div class="col-12 col-sm-6 col-lg-3 my-2">
             <a href="/commissies/{{ $bestuur->DisplayName }}">
                 <div class="card">
-                    <img class="card-img-top" src="../storage/images/SalveMundi-Vector.svg" alt="Card image cap">
+                    <img class="card-img-top" src="../storage/committees/b16d93c7-42ef-412e-afb3-f6cbe487d0e0.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{$bestuur->DisplayName}}</h5>
                         <!-- <p class="card-text">{{$bestuur->email}}</p> -->
