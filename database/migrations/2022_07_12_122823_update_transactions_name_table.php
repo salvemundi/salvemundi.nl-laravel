@@ -14,7 +14,7 @@ class UpdateTransactionsNameTable extends Migration
     public function up()
     {
         Schema::table('transaction',  function(Blueprint $table){
-            $table->string('name');
+            $table->string('name')->nullable();
         });
     }
 
