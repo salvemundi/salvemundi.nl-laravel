@@ -97,4 +97,15 @@ class User extends Authenticatable
             'group_id'
         );
     }
+
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Permission::class,
+            'permissions_users',
+            'user_id',
+            'permission_id'
+        );
+    }
 }

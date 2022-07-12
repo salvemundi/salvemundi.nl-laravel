@@ -74,15 +74,12 @@ Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'r
 Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
 
 // News page
-
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 // Finance page
-
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'])->middleware('azure.auth');
 
 // Nieuwsbrief page
-
 Route::get('/nieuwsbrief',[App\Http\Controllers\NewsLetterController::class, 'index']);
 
 // Privacy zooi
@@ -100,6 +97,14 @@ Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'i
 Route::get('/clubs',[App\Http\Controllers\ClubsController::class, 'index']);
 
 // Admin Panel
+
+Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class,'viewPermissions'])->middleware("admin.auth");
+Route::post('/admin/leden/{userId}/permissions/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'savePermissionUser'])->middleware("admin.auth");
+Route::post('/admin/leden/{userId}/permissions/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermissionUser'])->middleware("admin.auth");
+
+Route::get('/admin/groepen', [App\Http\Controllers\CommitteeController::class, 'showAllCommitteesAdmin'])->middleware("admin.auth");
+Route::get('/admin/groepen/{groupId}/permissions', [App\Http\Controllers\PermissionController::class, 'showCommitteePermissions'])->middleware("admin.auth");
+
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');

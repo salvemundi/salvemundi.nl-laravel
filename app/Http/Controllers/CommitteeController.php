@@ -24,4 +24,7 @@ class CommitteeController extends Controller
 
         return view('committee.committee', ['committee' => $committee]);
     }
+    public function showAllCommitteesAdmin() {
+        return view('admin/committees',["committees" => Commissie::all()]);
+    }
 }

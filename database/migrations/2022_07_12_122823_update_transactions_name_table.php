@@ -25,6 +25,8 @@ class UpdateTransactionsNameTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('transaction', function($table) {
+            $table->dropColumn('name');
+        });
     }
 }

@@ -6,29 +6,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Commissie extends Model
+class Permission extends Model
 {
     use HasFactory;
-    protected $table = 'groups';
+
+    protected $table = 'permissions';
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany
         (
             User::class,
-            'groups_relation',
-            'group_id',
+            'permissions_users',
+            'permission_id',
             'user_id'
         );
     }
 
-    public function permissions(): BelongsToMany
+    public function groups(): BelongsToMany
     {
         return $this->belongsToMany
         (
-            Permission::class,
+            Commissie::class,
             'permissions_groups',
-            'group_id',
-            'permission_id'
+            'permission_id',
+            'group_id'
         );
     }
 }
