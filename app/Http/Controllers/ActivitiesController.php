@@ -198,6 +198,6 @@ class ActivitiesController extends Controller {
         if($this->countSignUps($request->input('activityId')) >= $activity->limit && $activity->limit != 0){
             return back();
         }
-        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'));
+        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));
     }
 }

@@ -49,7 +49,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="col row">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
 
                                     @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
@@ -77,12 +77,17 @@
                                                             </button>
                                                         </div>
 
-                                                        <div class="collapse pt-2" id="collapseExample-{{ $activiteit->id }}">
+                                                        <div class="collapse mt-3" id="collapseExample-{{ $activiteit->id }}">
                                                             <div class="card card-body">
                                                                 <form method="POST" action="/activiteiten/signup">
                                                                     @csrf
                                                                     <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                                                                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                    <div class="input-group mb-3 me-4">
+                                                                        <span class="input-group-text" id="basic-addon3">Naam</span>
+                                                                        <input required type="text" class="form-control" id="nameActivity" name="nameActivity" aria-describedby="basic-addon3">
+                                                                        <br>
+                                                                    </div>
                                                                     <div class="input-group mb-3 me-4">
                                                                         <span class="input-group-text" id="basic-addon3">Email</span>
                                                                         <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
