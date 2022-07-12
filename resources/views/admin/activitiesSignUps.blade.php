@@ -34,14 +34,16 @@
                     <td data-value="{{ $user->birthday }}">{{date('d-m-Y', strtotime($user->birthday))}}</td>
                 </tr>
                 @endforeach
-                @foreach ($userTransactionInfo as $user)
-                <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                    <td data-value=""></td>
-                    <td data-value="{{ $user->name }}">{{ $user->name }}</td>
-                    <td data-value=""></td>
-                    <td data-value="{{ $user->email }}">{{ $user->email }}</td>
-                    <td data-value=""></td>
-                </tr>
+                @foreach ($userTransactionInfo as $transInfo)
+                    @foreach($transInfo as $user)
+                        <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                            <td data-value=""></td>
+                            <td data-value="{{ $user->name }}">{{ $user->name }}</td>
+                            <td data-value=""></td>
+                            <td data-value="{{ $user->email }}">{{ $user->email }}</td>
+                            <td data-value=""></td>
+                        </tr>
+                    @endforeach
                 @endforeach
             </tbody>
         </table>
