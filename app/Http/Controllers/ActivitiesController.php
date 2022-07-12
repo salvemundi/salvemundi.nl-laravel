@@ -53,13 +53,15 @@ class ActivitiesController extends Controller {
         foreach($activity->transactions as $user){
             if($user->paymentStatus == paymentStatus::paid) {
                 if($user->email != null || $user->email != "" && $user->name != null || $user->name == ""){
-                    array_push($userTransactionInfo, $user);
+                    $userTransaction = [$user->email, $user->name];
+                    array_push($userTransactionInfo, $userTransaction);
                 }
                 foreach($user->contribution as $uss){
                     array_push($arr,$uss);
                 }
             }
         }
+        dd($userTransactionInfo);
         return view('admin/activitiesSignUps',['users' => $arr, 'userTransactionInfo' => $userTransactionInfo]);
     }
 
