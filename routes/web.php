@@ -98,14 +98,16 @@ Route::get('/clubs',[App\Http\Controllers\ClubsController::class, 'index']);
 
 // Admin Panel
 
-Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class,'viewPermissions'])->middleware("admin.auth");
+Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class, 'viewPermissionsUser'])->middleware("admin.auth");
 Route::post('/admin/leden/{userId}/permissions/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'savePermissionUser'])->middleware("admin.auth");
 Route::post('/admin/leden/{userId}/permissions/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermissionUser'])->middleware("admin.auth");
 
 Route::get('/admin/groepen', [App\Http\Controllers\CommitteeController::class, 'showAllCommitteesAdmin'])->middleware("admin.auth");
-Route::get('/admin/groepen/{groupId}/permissions', [App\Http\Controllers\PermissionController::class, 'showCommitteePermissions'])->middleware("admin.auth");
+Route::get('/admin/groepen/{groupId}/permissions', [App\Http\Controllers\PermissionController::class, 'viewPermissionsGroup'])->middleware("admin.auth");
+Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/store', [App\Http\Controllers\PermissionController::class, 'savePermissionGroup'])->middleware("admin.auth");
+Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'deletePermissionGroup'])->middleware("admin.auth");
 
-
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
 Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");

@@ -39,7 +39,7 @@ class PermissionController extends Controller
         $commissie->save();
     }
 
-    public function viewPermissions(Request $request): View|Factory|Application|RedirectResponse
+    public function viewPermissionsUser(Request $request): View|Factory|Application|RedirectResponse
     {
         if($request->userId == null) {
             return back();
@@ -48,11 +48,31 @@ class PermissionController extends Controller
         return view('admin/ledenPermission', ['user' => $user, 'nonAssignedPermissions' => $this->getPermissionsUserDoesNotHave($user)]);
     }
 
+    public function viewPermissionsGroup(Request $request): View|Factory|Application|RedirectResponse
+    {
+        if($request->groupId == null) {
+            return back();
+        }
+        $committee = Commissie::find($request->groupId);
+        return view('admin/committeePermission', ['committee' => $committee, 'nonAssignedPermissions' => $this->getPermissionsGroupDoesNotHave($committee)]);
+    }
+
     private function getPermissionsUserDoesNotHave(User $user): Collection
     {
         $permissions = [];
         foreach(Permission::all() as $permission){
             if(!$user->permissions->contains($permission)){
+                array_push($permissions,$permission);
+            }
+        }
+        return collect($permissions);
+    }
+
+    private function getPermissionsGroupDoesNotHave(Commissie $commissie): Collection
+    {
+        $permissions = [];
+        foreach(Permission::all() as $permission){
+            if(!$commissie->permissions->contains($permission)){
                 array_push($permissions,$permission);
             }
         }
@@ -75,4 +95,19 @@ class PermissionController extends Controller
         return back()->with('success','Rechten succesvol bijgewerkt!');
     }
 
+    public function savePermissionGroup(Request $request): RedirectResponse
+    {
+        $committee = Commissie::find($request->groupId);
+        $permission = Permission::find($request->permissionId);
+        $this->assignGroupPermission($committee,$permission);
+        return back()->with('success','Rechten succesvol bijgewerkt!');
+    }
+
+    public function deletePermissionGroup(Request $request): RedirectResponse
+    {
+        $committee = Commissie::find($request->groupId);
+        $permission = Permission::find($request->permissionId);
+        $this->removeGroupPermission($committee,$permission);
+        return back()->with('success','Rechten succesvol bijgewerkt!');
+    }
 }

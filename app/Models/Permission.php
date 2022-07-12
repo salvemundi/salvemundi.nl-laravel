@@ -33,4 +33,15 @@ class Permission extends Model
             'group_id'
         );
     }
+
+    public function routes(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Route::class,
+            'route_permissions',
+            'permission_id',
+            'route_id'
+        );
+    }
 }
