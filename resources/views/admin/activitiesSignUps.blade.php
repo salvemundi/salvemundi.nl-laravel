@@ -38,6 +38,7 @@
                     <td data-value=""></td>
                     <td data-value="{{ $user->name }}">{{ $user->name }}</td>
                     <td data-value=""></td>
+                    <td data-value=""></td>
                     <td data-value="{{ $user->email }}">{{ $user->email }}</td>
                     <td data-value=""></td>
                 </tr>
