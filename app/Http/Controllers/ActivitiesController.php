@@ -61,7 +61,6 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        dd($userTransactionInfo);
         return view('admin/activitiesSignUps',['users' => $arr, 'userTransactionInfo' => $userTransactionInfo]);
     }
 
