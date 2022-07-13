@@ -27,8 +27,9 @@ class MyAccountController extends Controller
 
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
-        dd('testing');
         $getUser = User::where('AzureID', session('id'))->first();
+        dd('testing');
+
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
         $status = 0;
         $expiryDate = null;
