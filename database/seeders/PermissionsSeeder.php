@@ -16,7 +16,7 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         $arrayPermissions = ['globalAdmin','activiteiten','ledenAdministratie'];
-        $routes = ['*','/admin/activities/*','/admin/leden','/admin'];
+        $routes = ['*','/admin/activiteiten/*','/admin/activities/*','/admin/leden','/admin'];
 
         foreach($routes as $route) {
             if(Route::where('route',$route)->first() === null) {
@@ -38,5 +38,18 @@ class PermissionsSeeder extends Seeder
             $permission->routes()->attach($route);
         }
         $permission->save();
+
+        $permission = Permission::where('description','activiteiten')->first();
+        $route = Route::where('route','/admin/activiteiten/*')->first();
+        $permission->routes()->attach($route);
+        $permission->save();
+        $route = Route::where('route','/admin')->first();
+        $permission->routes()->attach($route);
+        $permission->save();
+        $route = Route::where('route','/admin/activities/*')->first();
+        $permission->routes()->attach($route);
+        $permission->save();
+
+
     }
 }

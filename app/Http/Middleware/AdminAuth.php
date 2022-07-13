@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Permission;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 class AdminAuth
 {
     /**
@@ -17,13 +19,25 @@ class AdminAuth
     public function handle(Request $request, Closure $next)
     {
         $userid = session('id');
-
+        $targetRoute = "/".$request->path();
         if($userid != null) {
-            $groups = User::where('AzureID', $userid)->first();
-
-            foreach ($groups->commission as $group) {
-                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
-                    return $next($request);
+            $user = User::where('AzureID', $userid)->first();
+            $permissions = $user->permissions;
+            foreach ($user->commission as $group) {
+                foreach($group->permissions as $permission) {
+                    $permissions->push($permission);
+                }
+            }
+            foreach($permissions as $permission) {
+                foreach($permission->routes as $route) {
+                    if(str_contains($route->route,'*')) {
+                        if(str_contains($targetRoute, substr($route->route, 0, -2))) {
+                            return $next($request);
+                        }
+                    }
+                    if($route->route == $targetRoute || $route->route == '*'){
+                        return $next($request);
+                    }
                 }
             }
             return abort(401);
