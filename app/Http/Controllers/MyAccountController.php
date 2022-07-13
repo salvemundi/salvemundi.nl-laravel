@@ -32,7 +32,6 @@ class MyAccountController extends Controller
         $status = 0;
         $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
-        dd('testing');
 
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
@@ -41,6 +40,7 @@ class MyAccountController extends Controller
         if ($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key)) {
             $status = 1;
         }
+        dd('testing');
 
         else {
             $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
