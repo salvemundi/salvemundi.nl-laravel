@@ -20,7 +20,7 @@ class AdminAuth
     {
         $userid = session('id');
         $targetRoute = "/".$request->path();
-        return $next($request);
+//        return $next($request);
 
         if($userid != null) {
             $user = User::where('AzureID', $userid)->first();
