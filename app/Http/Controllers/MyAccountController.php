@@ -28,9 +28,9 @@ class MyAccountController extends Controller
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
+        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
         dd('testing');
 
-        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
         $status = 0;
         $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
