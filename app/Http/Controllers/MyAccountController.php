@@ -24,9 +24,10 @@ class MyAccountController extends Controller
     }
 
     public function index() {
-        dd('testing');
+
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
+        dd('testing');
         $getUser = User::where('AzureID', session('id'))->first();
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
         $status = 0;
