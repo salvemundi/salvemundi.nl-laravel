@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Commissie;
 use App\Models\Permission;
 use App\Models\Route;
 use Illuminate\Database\Seeder;
@@ -50,6 +51,8 @@ class PermissionsSeeder extends Seeder
         $permission->routes()->attach($route);
         $permission->save();
 
-
+        $committee = Commissie::where('AzureID','a4aeb401-882d-4e1e-90ee-106b7fdb23cc')->first();
+        $committee->permissions()->attach(Permission::where('description','globalAdmin')->first());
+        $committee->save();
     }
 }
