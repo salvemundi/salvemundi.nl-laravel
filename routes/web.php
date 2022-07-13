@@ -98,6 +98,21 @@ Route::get('/clubs',[App\Http\Controllers\ClubsController::class, 'index']);
 
 // Admin Panel
 
+Route::get('/admin/rechten',[App\Http\Controllers\PermissionController::class,'viewAllPermissions'])->middleware('admin.auth');
+Route::get('/admin/rechten/{permissionId}/routes',[App\Http\Controllers\PermissionController::class,'viewAllRoutesOfPermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'storePermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/store',[App\Http\Controllers\PermissionController::class,'storePermission'])->middleware('admin.auth');
+
+Route::post('/admin/rechten/{permissionId}/routes/{routeId}/delete',[App\Http\Controllers\PermissionController::class,'deleteRouteFromPermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/{permissionId}/routes/{routeId}/store',[App\Http\Controllers\PermissionController::class,'addRouteToPermission'])->middleware('admin.auth');
+
+
+Route::post('/admin/route/{routeId}/store',[App\Http\Controllers\RouteController::class,'storeRoute'])->middleware('admin.auth');
+Route::post('/admin/route/store',[App\Http\Controllers\RouteController::class,'storeRoute'])->middleware('admin.auth');
+Route::post('/admin/route/{routeId}/delete',[App\Http\Controllers\RouteController::class,'deleteRoute'])->middleware('admin.auth');
+
+
 Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class, 'viewPermissionsUser'])->middleware("admin.auth");
 Route::post('/admin/leden/{userId}/permissions/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'savePermissionUser'])->middleware("admin.auth");
 Route::post('/admin/leden/{userId}/permissions/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermissionUser'])->middleware("admin.auth");

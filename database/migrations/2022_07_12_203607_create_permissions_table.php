@@ -22,18 +22,18 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->unsignedBigInteger('permission_id')->nullable()->index();
-            $table->foreign('permission_id')->references('id')->on('permissions');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');;
             $table->timestamps();
         });
 
         Schema::create('permissions_groups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('group_id')->nullable()->index();
-            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');;
             $table->unsignedBigInteger('permission_id')->nullable()->index();
-            $table->foreign('permission_id')->references('id')->on('permissions');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');;
             $table->timestamps();
         });
     }

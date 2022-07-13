@@ -16,9 +16,9 @@ class CreateRoutePermissionsTable extends Migration
         Schema::create('route_permissions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('permission_id');
-            $table->foreign('permission_id')->references('id')->on('permissions');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');;
             $table->unsignedBigInteger('route_id');
-            $table->foreign('route_id')->references('id')->on('routes');
+            $table->foreign('route_id')->references('id')->on('routes')->onDelete('cascade');;
             $table->timestamps();
         });
     }

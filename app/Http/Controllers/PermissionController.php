@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commissie;
 use App\Models\Permission;
+use App\Models\Route;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -11,6 +12,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use phpDocumentor\Reflection\Utils;
 
 class PermissionController extends Controller
 {
@@ -109,5 +112,89 @@ class PermissionController extends Controller
         $permission = Permission::find($request->permissionId);
         $this->removeGroupPermission($committee,$permission);
         return back()->with('success','Rechten succesvol bijgewerkt!');
+    }
+
+    public function checkIfUserIsAdmin(User $user): bool
+    {
+        $allPermissions = $this->getAllPermissionsForUser($user);
+        foreach($allPermissions as $permission) {
+            foreach($permission->routes as $route) {
+                if($route->route == '*' || $route->route == '/admin'){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private function getAllPermissionsForUser(User $user): Collection
+    {
+        $permissions = [];
+        foreach($user->permissions as $permission) {
+            array_push($permissions, $permission);
+        }
+        foreach($user->commission as $group) {
+            foreach($group->permissions as $permission) {
+                array_push($permissions,$permission);
+            }
+        }
+        return collect($permissions);
+    }
+
+    public function viewAllPermissions() {
+        return view('admin/permissions',['permissions' => Permission::all(),'routes' => Route::all()]);
+    }
+
+    public function storePermission(Request $request): RedirectResponse
+    {
+        if($request->permissionId) {
+            $permission = Permission::find($request->permissionId);
+        } else {
+            $permission = new Permission();
+        }
+        $permission->description = $request->input('description');
+        $permission->save();
+        return back()->with('success','Rechten groep is opgeslagen!');
+    }
+
+    public function deletePermission(Request $request): RedirectResponse
+    {
+        if($request->permissionId) {
+            $permission = Permission::find($request->permissionId);
+            $permission->delete();
+        }
+        return back()->with('success','Route is verwijderd!');
+    }
+
+    public function viewAllRoutesOfPermission(Request $request): Factory|View|Application
+    {
+        $permission = Permission::find($request->permissionId);
+        return view('admin/permissionsRoute',['permission' => Permission::find($request->permissionId),'routesNotInUse' => $this->getAllRoutesNotInUseByPermission($permission)]);
+    }
+
+    private function getAllRoutesNotInUseByPermission(Permission $permissionObj): Collection
+    {
+        $routes = [];
+        foreach(Route::all() as $route){
+            if(!$permissionObj->routes->contains($route)){
+                array_push($routes,$route);
+            }
+        }
+        return collect($routes);
+    }
+
+    public function deleteRouteFromPermission(Request $request) {
+        $permission = Permission::find($request->permissionId);
+        $route = Route::find($request->routeId);
+        $permission->routes()->detach($route);
+        $permission->save();
+        return back()->with('success','Gegevens opgeslagen!');
+    }
+    public function addRouteToPermission(Request $request) {
+        $permission = Permission::find($request->permissionId);
+        $route = Route::find($request->routeId);
+        $permission->routes()->attach($route);
+        $permission->save();
+        return back()->with('success','Gegevens opgeslagen!');
     }
 }
