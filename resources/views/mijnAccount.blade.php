@@ -12,7 +12,7 @@
         <h2>Mijn account</h2>
         <p>Zie hier jouw accountgegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @if ($authorized === 1)
+            @if ($authorized)
                 <li class="nav-item">
                     <a class="nav-link tabber" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
                 </li>

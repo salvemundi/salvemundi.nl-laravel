@@ -4,15 +4,13 @@ silent: true
 dotenv: ['.env']
 tasks:
   d:up:
-    deps: [w:prep]
     desc: Startup docker containers
     cmds:
-      - chmod +x docker-start.sh
-      - docker-compose up -d
+      - ./vendor/bin/sail up -d
   d:down:
     desc: Shutdown docker containers
     cmds:
-      - docker-compose down
+      - ./vendor/bin/sail down
   d:build:
     desc: (re)-build Docker image
     cmds:
@@ -20,7 +18,7 @@ tasks:
   w:prep:
     desc: Prepare dev environment (composer install, npm run, etc.)
     cmds:
-      - composer install
+      - ./composer.phar install
       - npm install
       - npm run dev
   w:db:migrate:

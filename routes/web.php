@@ -74,15 +74,12 @@ Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'r
 Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
 
 // News page
-
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 // Finance page
-
 Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index'])->middleware('azure.auth');
 
 // Nieuwsbrief page
-
 Route::get('/nieuwsbrief',[App\Http\Controllers\NewsLetterController::class, 'index']);
 
 // Privacy zooi
@@ -101,21 +98,45 @@ Route::get('/clubs',[App\Http\Controllers\ClubsController::class, 'index']);
 
 // Admin Panel
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin-activiteiten.auth');
+Route::get('/admin/rechten',[App\Http\Controllers\PermissionController::class,'viewAllPermissions'])->middleware('admin.auth');
+Route::get('/admin/rechten/{permissionId}/routes',[App\Http\Controllers\PermissionController::class,'viewAllRoutesOfPermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'storePermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/store',[App\Http\Controllers\PermissionController::class,'storePermission'])->middleware('admin.auth');
+
+Route::post('/admin/rechten/{permissionId}/routes/{routeId}/delete',[App\Http\Controllers\PermissionController::class,'deleteRouteFromPermission'])->middleware('admin.auth');
+Route::post('/admin/rechten/{permissionId}/routes/{routeId}/store',[App\Http\Controllers\PermissionController::class,'addRouteToPermission'])->middleware('admin.auth');
+
+
+Route::post('/admin/route/{routeId}/store',[App\Http\Controllers\RouteController::class,'storeRoute'])->middleware('admin.auth');
+Route::post('/admin/route/store',[App\Http\Controllers\RouteController::class,'storeRoute'])->middleware('admin.auth');
+Route::post('/admin/route/{routeId}/delete',[App\Http\Controllers\RouteController::class,'deleteRoute'])->middleware('admin.auth');
+
+
+Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class, 'viewPermissionsUser'])->middleware("admin.auth");
+Route::post('/admin/leden/{userId}/permissions/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'savePermissionUser'])->middleware("admin.auth");
+Route::post('/admin/leden/{userId}/permissions/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermissionUser'])->middleware("admin.auth");
+
+Route::get('/admin/groepen', [App\Http\Controllers\CommitteeController::class, 'showAllCommitteesAdmin'])->middleware("admin.auth");
+Route::get('/admin/groepen/{groupId}/permissions', [App\Http\Controllers\PermissionController::class, 'viewPermissionsGroup'])->middleware("admin.auth");
+Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/store', [App\Http\Controllers\PermissionController::class, 'savePermissionGroup'])->middleware("admin.auth");
+Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'deletePermissionGroup'])->middleware("admin.auth");
+
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
 Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");
 Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser')->middleware('admin.auth');
-Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware('admin-intro.auth');
+Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware("admin.auth");
 Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->middleware('admin.auth')->name('admin.sponsors');
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');
 Route::get('/admin/sponsors/add', function() {return view('admin/sponsorsAdd');})->middleware('admin.auth');
 Route::post('/admin/sponsors/add/store', [App\Http\Controllers\SponsorController::class, 'addSponsor'])->middleware('admin.auth');
-Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities')->middleware('admin-activiteiten.auth');
+Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities')->middleware('admin.auth');
 Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/activities/edit', [App\Http\Controllers\ActivitiesController::class, 'editActivities'])->middleware('admin.auth');
 Route::post('/admin/activities/edit/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/activities/delete', [App\Http\Controllers\ActivitiesController::class, 'deleteActivity'])->middleware('admin.auth');
-Route::post('/admin/activities/signups', [App\Http\Controllers\ActivitiesController::class, 'signupsActivity'])->middleware('admin-activiteiten.auth');
+Route::post('/admin/activities/signups', [App\Http\Controllers\ActivitiesController::class, 'signupsActivity'])->middleware('admin.auth');
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
 Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
@@ -151,11 +172,11 @@ Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController:
 Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete'])->middleware('admin.auth');
 Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync')->middleware('admin.auth');
 
-Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin-intro.auth');
-Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excelBetaald')->middleware('admin-intro.auth');
+Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin.auth');
+Route::get('/export_excel/excel', [App\Http\Controllers\IntroController::class, 'excel'])->name('export_excel.excelBetaald')->middleware('admin.auth');
 
-Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin-intro.auth');
-Route::get('/export_excel/excelNietBetaald', [App\Http\Controllers\IntroController::class, 'excelNietBetaald'])->name('export_excel.excelIedereen')->middleware('admin-intro.auth');
+Route::get('/export_excel', [App\Http\Controllers\IntroController::class, 'indexExcel'])->middleware('admin.auth');
+Route::get('/export_excel/excelNietBetaald', [App\Http\Controllers\IntroController::class, 'excelNietBetaald'])->name('export_excel.excelIedereen')->middleware('admin.auth');
 
 Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden'])->middleware('admin.auth');
 Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->middleware('admin.auth')->name('removeLeden');

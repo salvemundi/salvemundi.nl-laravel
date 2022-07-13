@@ -17,11 +17,17 @@ use Laravel\Cashier\Subscription;
 
 class MyAccountController extends Controller
 {
+    private PermissionController $permissionController;
+
+    public function __construct() {
+        $this->permissionController = new PermissionController();
+    }
+
     public function index() {
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
-        $adminAuthorization = AdminController::authorizeUser(session('id'));
+        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
         $status = 0;
         $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
@@ -33,9 +39,6 @@ class MyAccountController extends Controller
             $status = 1;
         }
 
-        if ($adminAuthorization == 401) {
-            return abort(401);
-        }
         else {
             $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
             if ($subscription != null) {
