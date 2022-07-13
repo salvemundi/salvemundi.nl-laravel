@@ -16,7 +16,7 @@ class AdminAuth
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $userid = session('id');
         $targetRoute = "/".$request->path();
@@ -42,8 +42,8 @@ class AdminAuth
                     }
                 }
             }
-            return abort(401);
+            return back();
         }
-        return abort(401);
+        return back();
     }
 }
