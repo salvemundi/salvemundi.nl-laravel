@@ -24,6 +24,7 @@ class MyAccountController extends Controller
     }
 
     public function index() {
+        dd('testing');
         //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
