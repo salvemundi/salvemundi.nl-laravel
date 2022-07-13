@@ -31,9 +31,10 @@ class MyAccountController extends Controller
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
 
         $status = 0;
-        dd('testing');
 
         $expiryDate = null;
+        dd('testing');
+
         $planCommissieLid = paymentType::fromValue(1);
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
