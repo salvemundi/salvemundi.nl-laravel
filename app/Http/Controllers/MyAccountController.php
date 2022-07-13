@@ -29,13 +29,11 @@ class MyAccountController extends Controller
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
-
         $status = 0;
-
         $expiryDate = null;
+        $planCommissieLid = paymentType::fromValue(1);
         dd('testing');
 
-        $planCommissieLid = paymentType::fromValue(1);
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
         $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
