@@ -12,11 +12,11 @@
         <h2>Mijn account</h2>
         <p>Zie hier jouw accountgegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @if ($authorized)
+            {{-- @if ($authorized)
                 <li class="nav-item">
                     <a class="nav-link tabber" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
                 </li>
-            @endif
+            @endif --}}
             <li class="nav-item">
                 <button class="nav-link tabber" id="gegevens-tab" data-bs-toggle="tab" data-bs-target="#gegevens" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i> Gegevens</button>
             </li>
