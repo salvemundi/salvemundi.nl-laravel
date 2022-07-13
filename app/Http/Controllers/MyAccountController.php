@@ -41,11 +41,11 @@ class MyAccountController extends Controller
             $status = 1;
         }
         else {
+            dd('testing');
             $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
             if ($subscription != null) {
                 $expiryDate = $subscription->cycle_ends_at;
             }
-            dd('testing');
 
             $whatsappLinks = WhatsappLink::all();
             $rules = Rules::all();
