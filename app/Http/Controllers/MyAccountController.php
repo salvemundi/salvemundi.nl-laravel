@@ -39,10 +39,10 @@ class MyAccountController extends Controller
 
         if ($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key)) {
             $status = 1;
+            dd('testing');
         }
-        dd('testing');
-
         else {
+
             $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
             if ($subscription != null) {
                 $expiryDate = $subscription->cycle_ends_at;
