@@ -17,6 +17,7 @@ final class StudyProfile extends Enum
     const Infra = 3;
     const Business = 4;
     const Media = 5;
+    const Diverse = 6;
 
     public static function getDescription($value): string
     {
@@ -37,6 +38,9 @@ final class StudyProfile extends Enum
         }
         if ($value === self::Media) {
             return 'Media';
+        }
+        if ($value === self::Diverse){
+            return "Diverse";
         }
 
         return parent::getDescription($value);
