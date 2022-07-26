@@ -39,7 +39,7 @@ final class StudyProfile extends Enum
         if ($value === self::Media) {
             return 'Media';
         }
-        if ($value === self::Diverse){
+        if ($value === self::Diverse) {
             return "Diverse";
         }
 
