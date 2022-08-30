@@ -46,10 +46,10 @@
                                 Non actief
                             </button>
                             <br>
-                            {{-- <b>Coupon: </b>
+                            <b>Coupon: </b>
                             <input type="text" class="form-control" name="coupon" placeholder="Coupon code hier...">
                             <br>
-                            <button type="submit" class="btn btn-primary">Betaal</button> --}}
+                            <button type="submit" class="btn btn-primary">Betaal</button>
                         </p>
                     </form>
                 @else
