@@ -67,7 +67,7 @@ class ActivitiesController extends Controller {
     private function countSignUps($activityId)
     {
         $activity = Product::find($activityId);
-        return $activity->transactions->count();
+        return $activity->transactions->where('paymentStatus', paymentStatus::paid)->count();
     }
 
     public function store(Request $request) {
