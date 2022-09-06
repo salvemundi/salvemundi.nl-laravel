@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\paymentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,7 +29,8 @@ class Product extends Model
     }
     public function isFull(): bool
     {
-        if($this->transactions->count() >= $this->limit && $this->limit != 0) {
+        $transactions = $this->transactions->where('paymentStatus', paymentStatus::paid)->count();
+        if($transactions >= $this->limit && $this->limit != 0) {
             return true;
         }
         return false;
