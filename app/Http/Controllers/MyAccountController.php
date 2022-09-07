@@ -25,7 +25,6 @@ class MyAccountController extends Controller
 
     public function index() {
 
-        //Session::get('user');
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);

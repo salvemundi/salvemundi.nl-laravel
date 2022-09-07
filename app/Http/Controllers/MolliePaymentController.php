@@ -191,18 +191,18 @@ class MolliePaymentController extends Controller
      * This logic typically goes into the controller handling the inbound webhook request.
      * See the webhook docs in /docs and on mollie.com for more information.
      */
-    public static function handleContributionPaymentFirstTime(Request $request)
+    public static function handleContributionPaymentFirstTime(Request $request): RedirectToCheckoutResponse|RedirectResponse
     {
         $user = User::where('AzureID',session('id'))->first();
         try {
-            if ($user->commission()->exists() == true) {
+            if ($user->commission()->exists()) {
                 return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'), $request->input('coupon'));
             } else {
                 return MolliePaymentController::createSubscription(paymentType::contribution, session('id'), $request->input('coupon'));
             }
         }
         catch (\Exception $e){
-            if ($user->commission()->exists() == true) {
+            if ($user->commission()->exists()) {
                 return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
             } else {
                 return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
