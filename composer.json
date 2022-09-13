@@ -14,7 +14,6 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/cashier-mollie": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
@@ -22,6 +21,7 @@
         "league/oauth2-client": "^2.6",
         "maatwebsite/excel": "^3.1",
         "microsoft/microsoft-graph": "^1.23",
+        "mollie/laravel-cashier-mollie": "^2.0",
         "mollie/laravel-mollie": "^2.0",
         "mxl/laravel-job": "^1.2",
         "pbmedia/laravel-ffmpeg": "^7.5"
