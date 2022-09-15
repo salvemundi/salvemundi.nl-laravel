@@ -97,19 +97,19 @@ class Plan extends Model implements PlanImplements
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function firstPaymentMethod()
+    public function firstPaymentMethod(): ?string
     {
 
-
+        return "";
     }
 
     /**
-     * @param string $firstPaymentMethod
+     * @param array $firstPaymentMethod
      * @return Plan
      */
-    public function setFirstPaymentMethod(?string $firstPaymentMethod)
+    public function setFirstPaymentMethod($firstPaymentMethod)
     {
 
     }

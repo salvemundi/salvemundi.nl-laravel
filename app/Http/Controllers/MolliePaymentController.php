@@ -149,7 +149,7 @@ class MolliePaymentController extends Controller
             ],
             "description" => "$product->name",
             "redirectUrl" => "$route",
-            "webhookUrl" => route('webhooks.mollie'),
+            "webhookUrl" => env('NGROK_LINK') ?? route('webhooks.mollie'),
         ]);
     }
 
