@@ -53,10 +53,11 @@ class ActivitiesController extends Controller {
         foreach($activity->transactions as $user){
             if($user->paymentStatus == paymentStatus::paid) {
                 if($user->email != null || $user->email != ""){
-                    $userTransaction = [$user->email, $user->name];
+                    $userTransaction = [$user->email, $user->name, $user->transactionId];
                     array_push($userTransactionInfo, $userTransaction);
                 }
                 foreach($user->contribution as $uss){
+                    $uss->transactionId = $user->transactionId;
                     array_push($arr,$uss);
                 }
             }
