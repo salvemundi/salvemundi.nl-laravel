@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\DatabasePlanRepository;
 use App\Models\AdminSetting;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Commissie;
 use mysql_xdevapi\Exception;
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
+            \URL::forceRootUrl(Config::get('app.url'));
             view()->share(['Commissies'=> Commissie::all(),'introSetting' => AdminSetting::where('settingName','intro')->first(),'introConfirmSetting' => AdminSetting::where('settingName','introConfirm')->first()]);
         }
         catch (\Exception $e)

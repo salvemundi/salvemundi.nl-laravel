@@ -50,7 +50,7 @@ Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::cla
 
 // Mollie
 
-Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
+//Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
 // Declaratie
 
