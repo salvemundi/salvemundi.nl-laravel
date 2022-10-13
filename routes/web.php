@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
+Route::get('/cobo', function () {
+    return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/EUlRX90jDbNFnhfHuBZCsOMBfnFusHcptRCnPLxHweupKg?e=CXWFQC');
+});
+
 // Microsoft Authentication
 
 Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
