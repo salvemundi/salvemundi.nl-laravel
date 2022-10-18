@@ -98,6 +98,11 @@ class User extends Authenticatable
         );
     }
 
+    public function stickers()
+    {
+        return $this->hasMany(Sticker::class);
+    }
+
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany
