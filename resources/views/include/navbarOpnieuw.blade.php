@@ -46,6 +46,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/clubs">Clubs</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/stickers">Stickers</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav w-50 d-flex justify-content-end">
