@@ -58,8 +58,6 @@
                 <br>
                 <h2 class="h2">Sticker toevoegen</h2>
 
-                <input type="hidden" name="userId" id="userId" value="{{ $userFound->id }}">
-
                 <div class="form-group">
                     <label for="latitude">Latitude*</label>
                     <input class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" value="{{ old('latitude') }}" id="latitude" name="latitude" placeholder="Latitude...">

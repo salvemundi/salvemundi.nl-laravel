@@ -21,7 +21,7 @@ class StickerController extends Controller
             }
         }
 
-        return view('/sticker', ['stickers' => $stickers, 'userStickers' => $userStickers, 'userFound' => $userFound]);
+        return view('/sticker', ['stickers' => $stickers, 'userStickers' => $userStickers]);
     }
 
     public function store(Request $request) {
@@ -31,8 +31,9 @@ class StickerController extends Controller
         ]);
 
         $sticker = new Sticker;
+        $userFound = User::where('AzureID', session('id'))->first();
 
-        $sticker->userId = $request->input('userId');
+        $sticker->userId = $userFound->id;
         $sticker->longitude = $request->input('longitude');
         $sticker->latitude = $request->input('latitude');
 
