@@ -1,11 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.stickerapp')
 @section('content')
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div class="justify-content-center my-3">
-    <div id="map" class="mx-auto" style="width: 800px; height: 600px"></div>
+<br><br><br><br><br>
+<div class="justify-content-center m-md-5 m-2">
+    <div id="map" class="mx-auto" style="height: 800px"></div>
 </div>
-
 
 @if(session('userName'))
     <div class="row widthFix adminOverlap center removeAutoMargin">

@@ -52,7 +52,7 @@ class StickerController extends Controller
 
                 return redirect('/stickers')->with('information', 'Sticker verwijderd!');
             }
-            return redirect('/stickers')->with('error', 'Beste Sukkel, jij dacht dit te doen. HaHa, nice try kut hacker!');
+            return redirect('/stickers')->with('error', 'Kut hacker, optyfen gauw!');
         } else {
             return redirect('/stickers');
         }
