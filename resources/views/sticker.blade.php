@@ -2,7 +2,7 @@
 @section('content')
 
 <br><br><br><br><br>
-<div class="justify-content-center m-md-5 m-2">
+<div class="justify-content-center m-md-5 m-5">
     <div id="map" class="mx-auto" style="height: 800px"></div>
 </div>
 
