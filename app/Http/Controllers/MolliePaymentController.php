@@ -22,7 +22,7 @@ use Laravel\Cashier\Exceptions;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, $userObject = null, $email = null): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, $userObject = null, $email = null, $nameNotMember = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
             $checkIfUserExists = User::where([
@@ -75,7 +75,7 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route, null, $email);
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route, null, $email, $nameNotMember);
             if($createPayment === null) {
                 if($route === null) {
                     return redirect('/');
@@ -89,7 +89,8 @@ class MolliePaymentController extends Controller
                     $getProductObject = Product::where('index', $productIndex)->first();
                 }
                 $transaction = new Transaction();
-                if($email != null){
+                if($email != null && $nameNotMember != null){
+                    $transaction->name = $nameNotMember;
                     $transaction->email = $email;
                 }
                 $transaction->transactionId = $createPayment->id;
@@ -107,7 +108,7 @@ class MolliePaymentController extends Controller
         return redirect('/');
     }
 
-    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null)
+    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null)
     {
         $product = Product::where('index', $productIndex)->first();
         if($product == null)
@@ -128,7 +129,7 @@ class MolliePaymentController extends Controller
             $route = route('home');
         }
         // redirect customer to Mollie checkout page
-        if($email == null || $email == "") {
+        if($email == null || $email == "" && $nameNotMember == null || $nameNotMember == "") {
             if($product->amount == 0) {
                 return null;
             }
@@ -139,6 +140,7 @@ class MolliePaymentController extends Controller
                 return null;
             }
         }
+
         $priceToString = strval($formattedPrice);
         return Mollie::api()->payments->create([
             "amount" => [
@@ -189,18 +191,18 @@ class MolliePaymentController extends Controller
      * This logic typically goes into the controller handling the inbound webhook request.
      * See the webhook docs in /docs and on mollie.com for more information.
      */
-    public static function handleContributionPaymentFirstTime(Request $request)
+    public static function handleContributionPaymentFirstTime(Request $request): RedirectToCheckoutResponse|RedirectResponse
     {
         $user = User::where('AzureID',session('id'))->first();
         try {
-            if ($user->commission()->exists() == true) {
+            if ($user->commission()->exists()) {
                 return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'), $request->input('coupon'));
             } else {
                 return MolliePaymentController::createSubscription(paymentType::contribution, session('id'), $request->input('coupon'));
             }
         }
         catch (\Exception $e){
-            if ($user->commission()->exists() == true) {
+            if ($user->commission()->exists()) {
                 return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
             } else {
                 return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));

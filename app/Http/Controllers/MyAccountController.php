@@ -17,14 +17,21 @@ use Laravel\Cashier\Subscription;
 
 class MyAccountController extends Controller
 {
+    private PermissionController $permissionController;
+
+    public function __construct() {
+        $this->permissionController = new PermissionController();
+    }
+
     public function index() {
-        //Session::get('user');
+
         $userObject = User::where('AzureID', session('id'))->first();
         $getUser = User::where('AzureID', session('id'))->first();
-        $adminAuthorization = AdminController::authorizeUser(session('id'));
+        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
         $status = 0;
         $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
+
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
         $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
@@ -33,20 +40,16 @@ class MyAccountController extends Controller
             $status = 1;
         }
 
-        if ($adminAuthorization == 401) {
-            return abort(401);
+        $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
+        if ($subscription != null) {
+            $expiryDate = $subscription->cycle_ends_at;
         }
-        else {
-            $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
-            if ($subscription != null) {
-                $expiryDate = $subscription->cycle_ends_at;
-            }
 
-            $whatsappLinks = WhatsappLink::all();
-            $rules = Rules::all();
+        $whatsappLinks = WhatsappLink::all();
+        $rules = Rules::all();
 
-            return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
-        }
+        return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
+
     }
 
     public function deletePicture() {

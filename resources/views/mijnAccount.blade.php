@@ -12,7 +12,7 @@
         <h2>Mijn account</h2>
         <p>Zie hier jouw accountgegevens, transacties & overige informatie bestemd voor Salve Mundi Leden.</p>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @if ($authorized === 1)
+            @if ($authorized)
                 <li class="nav-item">
                     <a class="nav-link tabber" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
                 </li>
@@ -45,11 +45,11 @@
                                     title="Het kan zijn dat jouw lidmaatschap nog geldig is. Dit komt door de nieuwe website. Dit wordt opgelost als je weer hebt betaald. Als dat niet zo is moet je contact opnemen met het bestuur">
                                 Non actief
                             </button>
-                            {{-- <br>
+                            <br>
                             <b>Coupon: </b>
                             <input type="text" class="form-control" name="coupon" placeholder="Coupon code hier...">
                             <br>
-                            <button type="submit" class="btn btn-primary">Betaal</button> --}}
+                            <button type="submit" class="btn btn-primary">Betaal</button>
                         </p>
                     </form>
                 @else

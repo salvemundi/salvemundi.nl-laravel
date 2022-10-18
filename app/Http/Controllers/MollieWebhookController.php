@@ -77,10 +77,6 @@ class MollieWebhookController extends BaseWebhookController
             if($order != null){
                 $order->paymentStatus = paymentStatus::open;
                 $order->save();
-            } else {
-                $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
-                $user = $orderReg->contribution()->first();
-                $user->forceDelete();
             }
         }
 

@@ -177,7 +177,7 @@ class ADUsers extends Seeder {
                 Storage::disk('public')->delete('users/' . $group->AzureID . '.jpg');
                 DB::table('groups')
                     ->where('id', $group->id)
-                    ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
+                    ->update(['ImgPath' => 'images/group-salvemundi-placeholder.svg']);
             }
         }
 

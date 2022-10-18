@@ -49,24 +49,26 @@ class ActivitiesController extends Controller {
     public function signupsActivity(Request $request){
         $activity = Product::find($request->input('id'));
         $arr = [];
-        $emails = [];
+        $userTransactionInfo = [];
         foreach($activity->transactions as $user){
             if($user->paymentStatus == paymentStatus::paid) {
                 if($user->email != null || $user->email != ""){
-                    array_push($emails,$user->email);
+                    $userTransaction = [$user->email, $user->name, $user->transactionId];
+                    array_push($userTransactionInfo, $userTransaction);
                 }
                 foreach($user->contribution as $uss){
+                    $uss->transactionId = $user->transactionId;
                     array_push($arr,$uss);
                 }
             }
         }
-        return view('admin/activitiesSignUps',['users' => $arr, 'emails' => $emails]);
+        return view('admin/activitiesSignUps',['users' => $arr, 'userTransactionInfo' => $userTransactionInfo]);
     }
 
     private function countSignUps($activityId)
     {
         $activity = Product::find($activityId);
-        return $activity->transactions->count();
+        return $activity->transactions->where('paymentStatus', paymentStatus::paid)->count();
     }
 
     public function store(Request $request) {
@@ -198,6 +200,6 @@ class ActivitiesController extends Controller {
         if($this->countSignUps($request->input('activityId')) >= $activity->limit && $activity->limit != 0){
             return back();
         }
-        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'));
+        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));
     }
 }

@@ -23,9 +23,7 @@
             </div>
             @endif
             <div class="center">
-
                 <div class="table-responsive center centerTable">
-
                     <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                         data-show-columns="true">
                         <thead>
@@ -36,15 +34,17 @@
                         </thead>
                         <tbody>
                             @foreach ($groupUser as $group)
-                            <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                <td data-value="{{ $group->DisplayName }}">{{$group->DisplayName}}</td>
-                                <td data-value="{{ $group->id }}">
-                                    <form method="post" action="/admin/leden/groepen/delete">@csrf<input type="hidden"
-                                            name="groupId" id="groupId" value="{{ $group->id }}"><input type="hidden"
-                                            name="userId" id="userId" value="{{ $userName->id }}"><button type="submit"
-                                            class="btn btn-danger">Verwijderen</button></form>
-                                </td>
-                            </tr>
+                                <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                                    <td data-value="{{ $group->DisplayName }}">{{$group->DisplayName}}</td>
+                                    <td data-value="{{ $group->id }}">
+                                        <form method="post" action="/admin/leden/groepen/delete">
+                                            @csrf
+                                            <input type="hidden" name="groupId" id="groupId" value="{{ $group->id }}">
+                                            <input type="hidden" name="userId" id="userId" value="{{ $userName->id }}">
+                                            <button type="submit" class="btn btn-danger">Verwijderen</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

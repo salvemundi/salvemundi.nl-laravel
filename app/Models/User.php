@@ -102,4 +102,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Sticker::class);
     }
+
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Permission::class,
+            'permissions_users',
+            'user_id',
+            'permission_id'
+        );
+    }
 }

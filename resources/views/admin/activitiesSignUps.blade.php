@@ -18,27 +18,33 @@
             <thead>
                 <tr class="tr-class-1">
                     <th data-field="name" data-sortable="true">Naam</th>
+                    <th data-field="nameNotMembers" data-sortable="true">Naam niet leden</th>
                     <th data-field="price" data-sortable="true">Telefoonnummer</th>
                     <th data-field="description" data-sortable="true">Email</th>
                     <th data-field="link" data-sortable="true">Verjaardag</th>
+                    <th data-field="transactionId" data-sortable="false">Transactie ID</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
                 <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                     <td data-value="{{ $user->DisplayName }}">{{$user->DisplayName}}</td>
+                    <td data-value=""></td>
                     <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                     <td data-value="{{ $user->email }}">{{ $user->email }}</td>
                     <td data-value="{{ $user->birthday }}">{{date('d-m-Y', strtotime($user->birthday))}}</td>
+                    <td data-value="{{ $user->transactionId }}">{{ $user->transactionId }}</td>
                 </tr>
                 @endforeach
-                @foreach ($emails as $email)
-                <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                    <td data-value=""></td>
-                    <td data-value=""></td>
-                    <td data-value="{{ $email }}">{{ $email }}</td>
-                    <td data-value=""></td>
-                </tr>
+                @foreach ($userTransactionInfo as $user)
+                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                        <td data-value=""></td>
+                        <td data-value="{{ $user[1] }}">{{ $user[1] }}</td>
+                        <td data-value=""></td>
+                        <td data-value="{{ $user[0] }}">{{ $user[0] }}</td>
+                        <td data-value=""></td>
+                        <td data-value="{{ $user[2] }}">{{ $user[2] }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

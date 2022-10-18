@@ -26,7 +26,7 @@
                     <a class="nav-link" href="/admin/leden">Leden</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/intro">Intro inschrijvingen</a>
+                    <a class="nav-link" href="/admin/groepen">Groepen</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/transactie">Transactie lijst</a>
@@ -63,6 +63,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/clubs">Clubs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/rechten">Rechten</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
