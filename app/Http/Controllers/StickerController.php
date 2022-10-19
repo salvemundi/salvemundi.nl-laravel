@@ -26,8 +26,8 @@ class StickerController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'longitude' =>  ['required', 'regex:/(^[0-9.]+$)+/'],
-            'latitude'  =>  ['required', 'regex:/(^[0-9.]+$)+/'],
+            'longitude' =>  ['required', 'regex:/(^[0-9.-]+$)+/'],
+            'latitude'  =>  ['required', 'regex:/(^[0-9.-]+$)+/'],
         ]);
 
         $sticker = new Sticker;
