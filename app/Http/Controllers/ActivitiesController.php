@@ -20,7 +20,7 @@ class ActivitiesController extends Controller {
     }
 
     public function index() {
-        $activities = Product::where("index", null)->orderBy('created_at', 'asc')->get();
+        $activities = Product::where("index", null)->orderBy('created_at', 'desc')->get();
         return view('admin/activities', ['activities' => $activities]);
     }
 
