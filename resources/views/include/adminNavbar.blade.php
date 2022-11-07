@@ -29,9 +29,6 @@
                     <a class="nav-link" href="/admin/groepen">Groepen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/transactie">Transactie lijst</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/admin/activiteiten">Activiteiten</a>
                 </li>
                 <li class="nav-item">
