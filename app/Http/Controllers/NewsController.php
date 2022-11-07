@@ -63,7 +63,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::orderBy('updated_at', 'DESC')->get();
+        $news = News::orderBy('updated_at', 'asc')->get();
         $newsCount = News::all()->count();
         return view('/news', ['news' => $news, 'newsCount' => $newsCount]);
     }
