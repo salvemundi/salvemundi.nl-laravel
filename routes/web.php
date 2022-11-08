@@ -21,6 +21,10 @@ Route::get('/cobo', function () {
     return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/EUlRX90jDbNFnhfHuBZCsOMBfnFusHcptRCnPLxHweupKg?e=CXWFQC');
 });
 
+Route::get('/feest', function () {
+    return redirect('https://salvemundi.sharepoint.com/:x:/s/feest/EdfnRaYnPMRNkcVw7exIaeUBKX8WnZn4bF83l2H3ifyyqA?e=KO5zJS');
+});
+
 // Microsoft Authentication
 
 Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
