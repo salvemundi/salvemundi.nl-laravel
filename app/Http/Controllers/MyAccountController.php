@@ -54,7 +54,7 @@ class MyAccountController extends Controller
 
     public function deletePicture() {
         $loggedInUser = User::find(session('id'));
-        $loggedInUser->ImgPath = "images/SalveMundi-Vector.svg";
+        $loggedInUser->ImgPath = "images/logo.svg";
         $loggedInUser->save();
 
         if (!AzureController::updateProfilePhoto($loggedInUser)) {

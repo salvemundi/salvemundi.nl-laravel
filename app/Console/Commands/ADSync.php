@@ -157,7 +157,7 @@ class ADSync extends Command
                 Storage::disk('public')->delete('users/'.$members->AzureID.'.jpg');
                 DB::table('users')
                     ->where('id', $members->id)
-                    ->update(['ImgPath' => 'images/SalveMundi-Vector.svg']);
+                    ->update(['ImgPath' => 'images/logo.svg']);
 
             }
         }
