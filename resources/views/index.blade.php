@@ -85,7 +85,7 @@
             <h1 class="center groot"><b>Activiteiten</b></h1>
         </a>
         <div class="row my-3">
-            @foreach (htmlspecialchars($activitiesData as $activity))
+            @foreach ($activitiesData as $activity)
                 <div class="col-md-4 mt-2">
                     <a class="" href="/activiteiten#{{htmlspecialchars($activity->name)}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
@@ -106,7 +106,7 @@
             <h1 class="center groot"><b>Nieuws</b></h1>
         </a>
         <div class="row my-3">
-            @foreach (htmlspecialchars($newsData as $nieuws))
+            @foreach ($newsData as $nieuws)
                 <div class="col-md-4 mt-2">
                     <a class="" href="/nieuws#{{htmlspecialchars($nieuws->title)}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
@@ -124,7 +124,7 @@
 @if(htmlspecialchars($sponsorsCount > 0))
     <h1 class="center groot"><b>Onze partners</b></h1>
     <div class="slider" data-slick='{"slidesToScroll": 1}'>
-        @foreach(htmlspecialchars($sponsorsData as $sponsor))
+        @foreach($sponsorsData as $sponsor)
             <div class="d-flex justify-content-center">
                 <h3><a target="_blank" href="{{ htmlspecialchars($sponsor->reference) }}"><img class="sponsor img-fluid h-100 w-100 mx-auto" src="{{ asset("storage/".htmlspecialchars($sponsor->imagePath)) }}"></a></h3>
             </div>

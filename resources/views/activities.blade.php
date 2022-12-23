@@ -7,7 +7,7 @@
         @if(htmlspecialchars(!$activiteiten->isEmpty()))
         <div class="container-fluid">
             <div class="row justify-content-center">
-            @foreach (htmlspecialchars($activiteiten  as $activiteit))
+            @foreach ($activiteiten as $activiteit)
                 <div style="width: 25rem;" class="d-flex p-3 align-items-stretch">
                     <input type="hidden" name="id" id="id" value="{{ htmlspecialchars(session('id')) }}">
                     <input type="hidden" name="activityId" id="activityId" value="{{ htmlspecialchars($activiteit->id) }}">
@@ -30,7 +30,7 @@
         @endif
 
         <!-- Button trigger modal -->
-        @foreach (htmlspecialchars($activiteiten as $activiteit))
+        @foreach ($activiteiten as $activiteit)
 
             <!-- Modal -->
             <div class="modal fade" id="showModal{{ htmlspecialchars($activiteit->id) }}" tabindex="583208700" style="z-index: 534324;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
