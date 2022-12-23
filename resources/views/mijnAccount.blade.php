@@ -170,7 +170,7 @@
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                             <td data-value="toegekend"><a href="{{htmlspecialchars($user->FirstName)}}">{{htmlspecialchars($user->FirstName)}}</a></td>
                             <td data-value="inschrijving">{{htmlspecialchars($transaction->product->name)}}</td>
-                            <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue(htmlspecialchars($transaction->paymentStatus)->key) }}</td>
+                            <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
                             <td data-value="beschrijving">{{"€ ".htmlspecialchars($transaction->product->amount)}}</td>
                             <td data-value="creationDate">{{ htmlspecialchars($transaction->created_at->format('d/m/Y')) }}</td>
                         </tr>
