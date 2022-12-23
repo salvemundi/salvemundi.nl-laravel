@@ -8,7 +8,7 @@
                 <a class="btn btn-primary" href="https://forms.office.com/r/cALSNrkJgu">Vacature plaatsen</a>
             </div>
             @if(!$sideJobBank->isEmpty())
-                @foreach(htmlspecialchars($sideJobBank as $job))
+                @foreach($sideJobBank as $job)
                     <div class="cardNews">
                         <div class="card-body">
                             <h4><b><p class="card-title" id="{{ htmlspecialchars($job->name) }}">{{ htmlspecialchars($job->name) }}</p></b></h4>

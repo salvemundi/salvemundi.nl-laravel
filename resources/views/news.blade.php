@@ -5,7 +5,7 @@
 <div class="overlap">
     <div class="row center">
         @if(!htmlspecialchars($news->isEmpty()))
-        @foreach(htmlspecialchars($news as $article))
+        @foreach($news as $article)
             <div style="width: 70rem;" class="d-flex p-3 align-items-stretch center">
                 <div class="card">
                     @if(htmlspecialchars($article->imgPath) != null)
