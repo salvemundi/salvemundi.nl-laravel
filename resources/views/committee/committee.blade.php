@@ -2,7 +2,6 @@
 @section('content')
 
 <div class="overlap">
-    <!-- {{$committee}} -->
     <div class="row">
         <div class="col-12 col-md-6 px-1 px-md-5">
             <h1 class="center">{{$committee->DisplayName}}</h1>
