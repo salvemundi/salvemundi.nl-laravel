@@ -28,7 +28,7 @@
             </a>
         </div>
 
-        @foreach (htmlspecialchars($allCommitteesExceptBestuur as $committee))
+        @foreach ($allCommitteesExceptBestuur as $committee)
             <div class="col-12 col-sm-6 col-lg-3 my-2">
                 <a href="/commissies/{{ htmlspecialchars($committee->DisplayName) }}">
                     <div class="card">
