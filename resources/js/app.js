@@ -56,7 +56,6 @@ $(window).scroll(function() {
       $('.navbar').addClass('affix');
       $('.imgNavbar').addClass('affix-img');
       $('.dropdown-content').addClass('affix-dropdown');
-      console.log("OK");
   } else {
       $('.navbar').removeClass('affix');
       $('.imgNavbar').removeClass('affix-img');
@@ -152,9 +151,10 @@ window.myFunction = function myFunction() {
 
 // activities form submit
 window.onload = function(){
-  document.getElementById("linkActivity").onclick = function() {
-    document.getElementById("formActivity").submit();
-  }
+  const linkActEl = document.getElementById("linkActivity");
+
+  if(linkActEl)
+    linkActEl.onclick = ()=> document.getElementById("formActivity").submit();
 }
 
 $(function () {
