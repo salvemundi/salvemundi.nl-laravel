@@ -16,11 +16,6 @@ class Thumbnailer {
     const THUMB_QUALITY = 65;
 
     /**
-     * Whether to invalidate thumbnail if source file date was changed from thumbnail.
-     */
-    const INVALIDATE_CHECK_FD = true;
-
-    /**
      * Creates an ID for the specified image.
      * @param string $expr Image expression. This is usually a combination of a path and generation options.
      */
