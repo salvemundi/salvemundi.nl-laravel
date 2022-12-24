@@ -42,7 +42,6 @@
                 <li> Willekeurige spontane activiteiten </li>
                 <br>
                 <p> En voor de wat minder uitgaande studenten:</p>
-
                 <li> Jaarlijks op kamp </li>
                 <li> Game Nights (bordspellen & eSports) </li>
                 <li> Uitjes naar bijvoorbeeld pretparken </li>
@@ -53,27 +52,26 @@
             <div class="col-md-6">
                 <div class="imgSlider"  data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/DSC07676.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/DSC07676.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/DSC07654.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/DSC07654.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/DSC07719.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/DSC07719.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/IMG_0032.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0032.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/IMG_0215.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0215.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/IMG_0582.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0582.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src="images/SaMuFotos/IMG_0413.jpg">
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0413.jpg", "50%") }}>
                     </div>
-
                 </div>
             </div>
         </div>

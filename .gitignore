@@ -5,6 +5,8 @@
 /public/hot
 /public/storage
 /storage/.key
+/storage/app/public/cache/thumbs/*
+!/storage/app/public/cache/thumbs/.gitkeep
 /vendor
 /.idea
 /.vscode

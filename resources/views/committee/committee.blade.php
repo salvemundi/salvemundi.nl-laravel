@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="col-12 col-md-6 px-1 px-md-5">
-            <img class="imgIndex" src="../storage/committees/{{ htmlspecialchars($committee->AzureID) }}.png" onerror="this.src='../storage/images/group-salvemundi-placeholder.svg'">
+            <img class="imgIndex" src="{{ '/' . Thumbnailer::generate('storage/committees/' . $committee->AzureID . '.png', '1296x864') }}" onerror="this.src='../storage/images/group-salvemundi-placeholder.svg'">
         </div>
     </div>
 
