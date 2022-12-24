@@ -17,9 +17,9 @@
         @endif
         @if(session('userName'))
             @if($bday == true)
-                <h4>Gefeliciteerd <b>{{ htmlspecialchars(session('userName')) }}!!</h4></b>
+                <h4>Gefeliciteerd <b>{{ session('userName') }}!!</h4></b>
             @else
-                <h4>Welkom <b>{{ htmlspecialchars(session('userName')) }}!</h4></b>
+                <h4>Welkom <b>{{ session('userName') }}!</h4></b>
             @endif
         @endif
         <br>
@@ -85,11 +85,11 @@
         <div class="row my-3">
             @foreach ($activitiesData as $activity)
                 <div class="col-md-4 mt-2">
-                    <a class="" href="/activiteiten#{{htmlspecialchars($activity->name)}}">
+                    <a class="" href="/activiteiten#{{$activity->name}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">
-                                <h5 class="card-title" >{{htmlspecialchars($activity->name)}}</h5>
-                                <p class="card-text" style="white-space: pre-line">{{Str::limit(htmlspecialchars($activity->description), 300)}}</p>
+                                <h5 class="card-title" >{{$activity->name}}</h5>
+                                <p class="card-text" style="white-space: pre-line">{{Str::limit($activity->description, 300)}}</p>
                             </div>
                         </div>
                     </a>
@@ -106,11 +106,11 @@
         <div class="row my-3">
             @foreach ($newsData as $nieuws)
                 <div class="col-md-4 mt-2">
-                    <a class="" href="/nieuws#{{htmlspecialchars($nieuws->title)}}">
+                    <a class="" href="/nieuws#{{$nieuws->title}}">
                         <div class="card indexCard" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!">
                             <div class="card-body">
-                                <h5 class="card-title" >{{htmlspecialchars($nieuws->title)}}</h5>
-                                <p class="card-text" style="white-space: pre-line">{{Str::limit(htmlspecialchars($nieuws->content), 300)}}</p>
+                                <h5 class="card-title" >{{$nieuws->title}}</h5>
+                                <p class="card-text" style="white-space: pre-line">{{Str::limit($nieuws->content, 300)}}</p>
                             </div>
                         </div>
                     </a>
@@ -119,12 +119,12 @@
         </div>
     </div>
 @endif
-@if(htmlspecialchars($sponsorsCount > 0))
+@if($sponsorsCount > 0)
     <h1 class="center groot"><b>Onze partners</b></h1>
     <div class="slider" data-slick='{"slidesToScroll": 1}'>
         @foreach($sponsorsData as $sponsor)
             <div class="d-flex justify-content-center">
-                <h3><a target="_blank" href="{{ htmlspecialchars($sponsor->reference) }}"><img class="sponsor img-fluid h-100 w-100 mx-auto" src="{{ asset("storage/".htmlspecialchars($sponsor->imagePath)) }}"></a></h3>
+                <h3><a target="_blank" href="{{ $sponsor->reference }}"><img class="sponsor img-fluid h-100 w-100 mx-auto" src="{{ asset("storage/".$sponsor->imagePath) }}"></a></h3>
             </div>
         @endforeach
     </div>

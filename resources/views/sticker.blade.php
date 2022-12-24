@@ -23,10 +23,10 @@
                     <tbody>
                         @foreach ($userStickers as $sticker)
                             <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                <td data-value="{{ htmlspecialchars($sticker->latitude) }}">{{htmlspecialchars($sticker->latitude)}}</td>
-                                <td data-value="{{ htmlspecialchars($sticker->longitude) }}">{{htmlspecialchars($sticker->longitude)}}</td>
-                                <td data-value="{{ htmlspecialchars($sticker->created_at) }}">{{htmlspecialchars($sticker->created_at)}}</td>
-                                <td data-value="{{ htmlspecialchars($sticker->id) }}"><form method="post" action="/stickers/delete">@csrf<input type="hidden" name="id" id="id" value="{{ htmlspecialchars($sticker->id) }}"><button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze sticker wilt verwijderen? Dit kan NIET ongedaan gemaakt worden');">Verwijderen</button></form></td>
+                                <td data-value="{{ ($sticker->latitude) }}">{{($sticker->latitude)}}</td>
+                                <td data-value="{{ ($sticker->longitude) }}">{{($sticker->longitude)}}</td>
+                                <td data-value="{{ ($sticker->created_at) }}">{{($sticker->created_at)}}</td>
+                                <td data-value="{{ ($sticker->id) }}"><form method="post" action="/stickers/delete">@csrf<input type="hidden" name="id" id="id" value="{{ ($sticker->id) }}"><button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze sticker wilt verwijderen? Dit kan NIET ongedaan gemaakt worden');">Verwijderen</button></form></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -60,12 +60,12 @@
 
                 <div class="form-group">
                     <label for="latitude">Latitude*</label>
-                    <input class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" value="{{ htmlspecialchars(old('latitude')) }}" id="latitude" name="latitude" placeholder="Latitude...">
+                    <input class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" value="{{ (old('latitude')) }}" id="latitude" name="latitude" placeholder="Latitude...">
                 </div>
 
                 <div class="form-group">
                     <label for="longitude">Longitude*</label>
-                    <input class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" value="{{ htmlspecialchars(old('longitude')) }}" id="longitude" name="longitude" placeholder="Longitude...">
+                    <input class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" value="{{ (old('longitude')) }}" id="longitude" name="longitude" placeholder="Longitude...">
                 </div>
 
                 <div class="form-group mx-auto my-3">

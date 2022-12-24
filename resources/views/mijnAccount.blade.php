@@ -67,7 +67,7 @@
                     <br>
                     <br>
                     <br>
-                    <p><b>Je lidmaatschap is geldig tot: </b>{{ htmlspecialchars($expiryDate) }}</p>
+                    <p><b>Je lidmaatschap is geldig tot: </b>{{ $expiryDate }}</p>
                 @endif
 
 
@@ -84,31 +84,31 @@
             </svg></span><span>Ik wil op de website komen als ik bij een commissie hoor.</span></label>
                     <br>
                     <br>
-                    <p><b>Naam:</b> {{ htmlspecialchars($user->DisplayName) }} </p>
-                    <p><b>Email:</b> {{ htmlspecialchars($user->email) }} </p>
+                    <p><b>Naam:</b> {{ ($user->DisplayName) }} </p>
+                    <p><b>Email:</b> {{ ($user->email) }} </p>
                     <div class="form-group">
                         @if($user->PhoneNumber === null)
                             <label for="phoneNumber">Telefoonnummer</label>
                             <input type="tel" class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}"
-                                   value="{{ htmlspecialchars(old('phoneNumber')) }}" id="phoneNumber" name="phoneNumber"
+                                   value="{{ (old('phoneNumber')) }}" id="phoneNumber" name="phoneNumber"
                                    placeholder="Telefoonnummer...">
                         @else
-                            <p><b>Telefoonnummer:</b> {{ htmlspecialchars($user->PhoneNumber) }} </p>
+                            <p><b>Telefoonnummer:</b> {{ ($user->PhoneNumber) }} </p>
                         @endif
                     </div>
                     <div class="form-group">
                         @if($user->birthday === null)
                             <label for="birthday">Geboortedatum</label>
                             <input type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
-                                   value="{{ htmlspecialchars(old('birthday')) }}" id="birthday" name="birthday"
+                                   value="{{ (old('birthday')) }}" id="birthday" name="birthday"
                                    placeholder="Verjaardag...">
                         @else
-                            <p><b>Verjaardag:</b> {{date('d-m-Y', htmlspecialchars(strtotime($user->birthday)))}}</p>
+                            <p><b>Verjaardag:</b> {{date('d-m-Y', (strtotime($user->birthday)))}}</p>
                         @endif
                     </div>
 
                     <p><b>Profiel foto:</b></p>
-                    {!! '<img class="pfPhoto" src="storage/'.htmlspecialchars($user->ImgPath).'" />' !!}
+                    {!! '<img class="pfPhoto" src="storage/'.($user->ImgPath).'" />' !!}
                     <br>
                     <br>
 
@@ -117,7 +117,7 @@
                     <p id="demo"></p>
 
 
-                    <input type="hidden" name="user_id" id="user_id" value="{{ htmlspecialchars($user->id) }}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ ($user->id) }}">
                     <button type="submit" class="btn btn-primary">Opslaan</button>
                 </form>
             </div>
@@ -126,11 +126,11 @@
                 <h1>Transacties</h1>
                 <form method="post" action="/mijnAccount/pay">
                     @csrf
-                    <input type="hidden" name="firstName" value="{{ htmlspecialchars($user->FirstName) }}">
-                    <input type="hidden" name="lastName" value="{{ htmlspecialchars($user->LastName) }}">
-                    <input type="hidden" name="insertion" value="{{ htmlspecialchars($user->insertion) }}">
-                    <input type="hidden" name="email" value="{{ htmlspecialchars($user->email) }}">
-                    <input type="hidden" name="phoneNumber" value="{{ htmlspecialchars($user->PhoneNumber) }}">
+                    <input type="hidden" name="firstName" value="{{ ($user->FirstName) }}">
+                    <input type="hidden" name="lastName" value="{{ ($user->LastName) }}">
+                    <input type="hidden" name="insertion" value="{{ ($user->insertion) }}">
+                    <input type="hidden" name="email" value="{{ ($user->email) }}">
+                    <input type="hidden" name="phoneNumber" value="{{ ($user->PhoneNumber) }}">
                     @if($subscriptionActive === 0)
                         <p>
                             <b>Lidmaatschap: </b>
@@ -149,7 +149,7 @@
                     </div>
                     <div style="float:left; display:inline;">
                         <form method="post" action="/mijnAccount/cancel">
-                            <input type="hidden" name="userId" value="{{ htmlspecialchars(session('id')) }}">
+                            <input type="hidden" name="userId" value="{{ (session('id')) }}">
                             <button type="submit" class="myAccountBtn btn btn-danger">Annuleer</button>
                         </form>
                     </div>
@@ -168,11 +168,11 @@
                     <tbody>
                     @foreach($transactions as $transaction)
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                            <td data-value="toegekend"><a href="{{htmlspecialchars($user->FirstName)}}">{{htmlspecialchars($user->FirstName)}}</a></td>
-                            <td data-value="inschrijving">{{htmlspecialchars($transaction->product->name)}}</td>
+                            <td data-value="toegekend"><a href="{{($user->FirstName)}}">{{($user->FirstName)}}</a></td>
+                            <td data-value="inschrijving">{{($transaction->product->name)}}</td>
                             <td data-value="beschrijving">{{ App\Enums\paymentStatus::fromvalue($transaction->paymentStatus)->key }}</td>
-                            <td data-value="beschrijving">{{"€ ".htmlspecialchars($transaction->product->amount)}}</td>
-                            <td data-value="creationDate">{{ htmlspecialchars($transaction->created_at->format('d/m/Y')) }}</td>
+                            <td data-value="beschrijving">{{"€ ".($transaction->product->amount)}}</td>
+                            <td data-value="creationDate">{{ ($transaction->created_at->format('d/m/Y')) }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -195,9 +195,9 @@
                     <tbody>
                     @foreach($whatsapplink as $whatsapp)
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                            <td data-value="link"><a href="{{htmlspecialchars($whatsapp->link)}}">{{htmlspecialchars($whatsapp->link)}}</a></td>
-                            <td data-value="naam">{{htmlspecialchars($whatsapp->name)}}</td>
-                            <td data-value="beschrijving">{{htmlspecialchars($whatsapp->description)}}</td>
+                            <td data-value="link"><a href="{{($whatsapp->link)}}">{{($whatsapp->link)}}</a></td>
+                            <td data-value="naam">{{($whatsapp->name)}}</td>
+                            <td data-value="beschrijving">{{($whatsapp->description)}}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -219,8 +219,8 @@
                     <tbody>
                     @foreach($rules as $rule)
                         <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                            <td data-value="naam">{{htmlspecialchars($rule->name)}}</td>
-                            <td data-value="link"><a href="{{htmlspecialchars($rule->link)}}">{{htmlspecialchars($rule->link)}}</a></td>
+                            <td data-value="naam">{{($rule->name)}}</td>
+                            <td data-value="link"><a href="{{($rule->link)}}">{{($rule->link)}}</a></td>
                         </tr>
                     @endforeach
                     </tbody>
