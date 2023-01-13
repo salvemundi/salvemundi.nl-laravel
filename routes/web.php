@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
-Route::get('/cobo', function () {
-    return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/EUlRX90jDbNFnhfHuBZCsOMBfnFusHcptRCnPLxHweupKg?e=CXWFQC');
+Route::get('/februari-intro', function () {
+    return redirect('https://fontys.nl/Goede-Start-februari/Welkom-bij-AD-ICT-en-HBO-ICT-Locatie-Eindhoven.htm');
 });
 
 Route::get('/feest', function () {
