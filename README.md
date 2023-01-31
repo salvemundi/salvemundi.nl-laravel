@@ -8,6 +8,8 @@ In order to get started:
 
 Install [NPM/NodeJS](https://nodejs.org/en/) and [Composer](https://getcomposer.org/download/)
 
+> ⚠ For PHP: Please ensure the imagick module is installed and enabled. Image generation will fail without it!
+
 Set up a database. You can use something like [XAMPP](https://www.apachefriends.org/index.html) to accomplish this, or read down below for
 instructions on setting up a local development environment using Docker. Create a database, and add a user that has full access to that database.
 PHP-8.0 is officially supported.
