@@ -4,4 +4,6 @@
 !images/
 !Files/
 !cache/
+!cache/thumbs/
+!cache/thumbs/.gitkeep
 cache/thumbs/*.jpg
