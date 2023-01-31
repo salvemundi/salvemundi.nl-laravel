@@ -10,18 +10,18 @@
             </p>
         </div>
         <div class="col-12 col-md-6 px-1 px-md-5">
-            <img class="imgIndex" src="images/SaMuFotos/DSC07654.jpg">
+            <img class="imgIndex" src={{ '/' . Thumbnailer::generate("images/SaMuFotos/DSC07654.jpg", "50%") }}>
         </div>
     </div>
 
     <br>
     <div class="row">
         <div class="col-12 col-sm-6 col-lg-3 my-2">
-            <a href="/commissies/{{ htmlspecialchars($bestuur->DisplayName) }}">
+            <a href="/commissies/{{ $bestuur->DisplayName }}">
                 <div class="card">
-                    <img class="card-img-top" src="../storage/committees/b16d93c7-42ef-412e-afb3-f6cbe487d0e0.png" alt="Card image cap">
+                    <img class="card-img-top" src={{ '/' . Thumbnailer::generate('storage/committees/b16d93c7-42ef-412e-afb3-f6cbe487d0e0.png', '1296x864') }} alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{htmlspecialchars($bestuur->DisplayName)}}</h5>
+                        <h5 class="card-title">{{$bestuur->DisplayName}}</h5>
                         <a class="btn btn-primary ml-auto" href="/vorigBestuur">Naar vorige besturen</a>
                     </div>
                 </div>
@@ -30,11 +30,11 @@
 
         @foreach ($allCommitteesExceptBestuur as $committee)
             <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <a href="/commissies/{{ htmlspecialchars($committee->DisplayName) }}">
+                <a href="/commissies/{{ $committee->DisplayName }}">
                     <div class="card">
-                        <img class="card-img-top" src="../storage/committees/{{ htmlspecialchars($committee->AzureID) }}.png" alt="Card image cap" onerror="this.src='../storage/images/group-salvemundi-placeholder.svg'">
+                        <img class="card-img-top" src="{{ '/' . Thumbnailer::generate('storage/committees/' . $committee->AzureID . '.png', '1296x864') }}" alt="Card image cap" onerror="this.src='../storage/images/group-salvemundi-placeholder.svg'">
                         <div class="card-body">
-                            <h5 class="card-title">{{htmlspecialchars($committee->DisplayName)}}</h5>
+                            <h5 class="card-title">{{$committee->DisplayName}}</h5>
                         </div>
                     </div>
                 </a>

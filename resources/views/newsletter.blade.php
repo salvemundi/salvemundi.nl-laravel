@@ -7,7 +7,7 @@
         @if(!$newsletters->isEmpty())
             @foreach($newsletters as $newsletter)
             <div class="col-md-12 my-3 center">
-                <iframe src="{{ 'storage/'.htmlspecialchars($newsletter->filePath) }}" style="width:80%; height:1000px" frameborder="0"></iframe>
+                <iframe src="{{ 'storage/'. $newsletter->filePath }}" style="width:80%; height:1000px" frameborder="0"></iframe>
             </div>
             @endforeach
         @else

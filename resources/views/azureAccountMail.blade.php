@@ -1,8 +1,8 @@
 @component('mail::message')
 @if($insertion != "")
-    <h1> Beste {{ htmlspecialchars($firstName) }} {{ htmlspecialchars($insertion) }} {{ htmlspecialchars($lastName) }},</h1><hr>
+    <h1> Beste {{ $firstName }} {{ $insertion }} {{ $lastName }},</h1><hr>
 @else
-    <h1> Beste {{ htmlspecialchars($firstName) }} {{ htmlspecialchars($lastName) }},</h1><hr>
+    <h1> Beste {{ $firstName }} {{ $lastName }},</h1><hr>
 @endif
 
 Vanuit de studievereniging hebben we met Microsoft geregeld dat iedereen een Office 365 account krijgt.

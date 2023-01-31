@@ -55,6 +55,12 @@
     }
 
     $(document).ready(function () {
+        // Check if canvas is present
+        const cvs = document.getElementById("canvas");
+
+        if(!cvs)
+            return; // No party canvas found
+
         SetGlobals();
         InitializeButton();
         InitializeConfetti();
