@@ -92,6 +92,7 @@ class ActivitiesController extends Controller {
 
             $products->name      = $request->input('name');
             $products->formsLink = $request->input('link');
+            $products->membersOnlyContent = $request->input('membersOnlyContent');
             $products->amount    = $request->input('price');
             $products->limit     = $request->input('limit');
 
@@ -126,6 +127,7 @@ class ActivitiesController extends Controller {
 
         $productObject->name      = $request->input('name');
         $productObject->formsLink = $request->input('link');
+        $productObject->membersOnlyContent = $request->input('membersOnlyContent');
         $productObject->amount    = $request->input('price');
         $productObject->limit     = $request->input('limit');
 
