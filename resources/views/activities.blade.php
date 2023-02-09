@@ -46,7 +46,11 @@
                         <h1 class="mt-3 center"> {{ $activiteit->name }} </h1>
                         <div class="modal-body">
                             <p style="white-space: pre-line" class="card-text">{{ $activiteit->description }}</p>
+                            @if(session('userName'))
+                                <p style="white-space: pre-line" class="card-text">{{ $activiteit->membersOnlyContent }}</p>
+                            @endif
                         </div>
+
                         <div class="modal-footer">
                             <div class="col row">
                                 <div class="col-12">

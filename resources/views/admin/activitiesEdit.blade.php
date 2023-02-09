@@ -51,6 +51,11 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ $activities->description }}}</textarea>
             </div>
 
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Beschrijving voor actieve leden</label>
+                <textarea type="textarea" class="form-control{{ $errors->has('membersOnlyContent') ? ' is-invalid' : '' }}" name="membersOnlyContent" placeholder="Beschrijving...">{{{ $activities->membersOnlyContent }}}</textarea>
+            </div>
+
             <label for="photo">Foto</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
