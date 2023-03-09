@@ -31,6 +31,10 @@ Route::get('/signin', [App\Http\Controllers\AuthController::class, 'signin']);
 Route::get('/callback', [App\Http\Controllers\AuthController::class, 'callback']);
 Route::get('/signout', [App\Http\Controllers\AuthController::class, 'signout']);
 
+Route::get('/waarmoetdeprullenbakzak ', function () {
+    return view('prullenbakfilmpje');
+});
+
 // Commission page
 
 Route::get('/commissies', [App\Http\Controllers\CommitteeController::class, 'index']);
