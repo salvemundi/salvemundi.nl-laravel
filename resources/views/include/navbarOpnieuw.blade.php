@@ -38,9 +38,6 @@
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="/merch">Merch</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/bijbaanbank">Bijbanen bank</a>
                 </li>
                 <li class="nav-item">

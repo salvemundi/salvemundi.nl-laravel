@@ -68,10 +68,6 @@ Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::cl
 
 Route::get('/declaratie', function() {return redirect("https://forms.office.com/r/kN2T95wzRm");})->name('declaratie');
 
-// Merch
-
-Route::get('/merch', function() {return view('merch');})->name('merch');
-
 // MyAccount page
 
 Route::get('/mijnAccount', [App\Http\Controllers\MyAccountController::class, 'index'])->middleware('azure.auth')->name('myAccount');
