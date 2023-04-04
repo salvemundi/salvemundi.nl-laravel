@@ -20,6 +20,8 @@
                         <th data-field="name" data-sortable="true" data-width="250">Naam bedrijf</th>
                         <th data-field="studyProfile" data-sortable="true" data-width="250">Studie richting</th>
                         <th data-field="description" data-sortable="true">Omschrijving bijbaan</th>
+                        <th data-field="salary" data-sortable="true">Salaris p.u.</th>
+                        <th data-field="hours" data-sortable="true">Aantal uren</th>
                         <th data-field="update" data-sortable="false">Bewerken</th>
                         <th data-field="delete" data-sortable="false">Verwijderen</th>
                     </tr>
@@ -30,6 +32,8 @@
                             <td data-value="{{ $job->name }}">{{$job->name}}</td>
                             <td data-value="{{ $job->studyProfile }}">{{\App\Enums\StudyProfile::coerce($job->studyProfile)->description}}</td>
                             <td data-value="{{ $job->description }}">{{$job->description}}</td>
+                            <td data-value="{{ $job->minSalaryEuroBruto }}">{{$job->minSalaryEuroBruto ?? 'Onderhandelbaar'}} @if(isset($job->minSalaryEuroBruto) && isset($job->maxSalaryEuroBruto)) t/m @endif {{ $job->maxSalaryEuroBruto ?? null }}</td>
+                            <td data-value="{{ $job->minAmountOfHoursPerWeek }}">{{$job->minAmountOfHoursPerWeek ?? 'Onderhandelbaar'}} @if(isset($job->minAmountOfHoursPerWeek) && isset($job->maxAmountOfHoursPerWeek)) t/m @endif {{ $job->maxAmountOfHoursPerWeek ?? null }}</td>
                             <td data-value="{{ $job->id }}"><form method="post" action="/admin/bijbaanbank/edit">@csrf<input type="hidden" name="id" value="{{ $job->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                             <td data-value="{{ $job->id }}"><form method="post" action="/admin/bijbaanbank/delete">@csrf<input type="hidden" name="id" value="{{ $job->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                         </tr>
@@ -53,8 +57,30 @@
             <h2 class="h2">Bijbaan toevoegen</h2>
 
             <div class="form-group">
-                <label for="voornaam">Naam*</label>
+                <label for="name">Naam*</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Naam...">
+            </div>
+
+            <div class="form-group">
+                <label for="city">Stad*</label>
+                <input type="text" list="cityOptions" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{ old('city') }}" id="city" name="city" placeholder="Eindhoven...">
+                <datalist id="cityOptions">
+                    @foreach ($sideJobBank->unique('city') as $job)
+                        <option value="{{$job->city}}">
+                    @endforeach
+                </datalist>
+            </div>
+
+            <div class="input-group mt-2">
+                <span class="input-group-text">Min / max salaris per uur</span>
+                <input type="number" name="minimumSalary" aria-label="Minimum" class="form-control">
+                <input type="number" name="maximumSalary" aria-label="Maximum" class="form-control">
+            </div>
+
+            <div class="input-group mt-2">
+                <span class="input-group-text">Min / max aantal uren</span>
+                <input type="number" name="minimumHours" aria-label="Minimum" class="form-control">
+                <input type="number" name="maximumHours" aria-label="Maximum" class="form-control">
             </div>
 
             <label for="voornaam">Studie richting*</label>

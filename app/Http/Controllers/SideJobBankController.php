@@ -20,6 +20,8 @@ class SideJobBankController extends Controller
     public function index()
     {
         $viewVar = [];
+        $viewVar['minSalary'] = SideJobBank::where('minSalaryEuroBruto','>=',0)->min('minSalaryEuroBruto');
+        $viewVar['maxSalary'] = SideJobBank::where('maxSalaryEuroBruto','>=',0)->max('maxSalaryEuroBruto');
 
         $viewVar['sideJobBank'] = SideJobBank::orderBy('updated_at', 'DESC')->get();
 
@@ -29,7 +31,7 @@ class SideJobBankController extends Controller
         $viewVar['business'] = SideJobBank::where('studyProfile', Studyprofile::Business)->get();
         $viewVar['media'] = SideJobBank::where('studyProfile', Studyprofile::Media)->get();
 
-        return view('/sidejobbank', $viewVar);
+        return view('sidejobbank', $viewVar);
     }
 
     public function indexAdmin()
@@ -52,7 +54,12 @@ class SideJobBankController extends Controller
             $sideJobBank->name = $request->input('name');
             $sideJobBank->studyProfile = StudyProfile::coerce((int)$request->input('studyProfile'));
             $sideJobBank->description = $request->input('description');
-            // dd($sideJobBank);
+            $sideJobBank->city = $request->input('city');
+            $sideJobBank->minAmountOfHoursPerWeek = $request->input('minimumHours');
+            $sideJobBank->maxAmountOfHoursPerWeek = $request->input('maximumHours');
+            $sideJobBank->minSalaryEuroBruto = $request->input('minimumSalary');
+            $sideJobBank->maxSalaryEuroBruto = $request->input('maximumSalary');
+
             $sideJobBank->save();
 
             return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is toegevoegd');
@@ -63,8 +70,14 @@ class SideJobBankController extends Controller
             $sideJobBankObject->name = $request->input('name');
             $sideJobBankObject->studyProfile = StudyProfile::coerce((int)$request->input('studyProfile'));
             $sideJobBankObject->description = $request->input('description');
+            $sideJobBankObject->city = $request->input('city');
+            $sideJobBankObject->minAmountOfHoursPerWeek = $request->input('minimumHours');
+            $sideJobBankObject->maxAmountOfHoursPerWeek = $request->input('maximumHours');
+            $sideJobBankObject->minSalaryEuroBruto = $request->input('minimumSalary');
+            $sideJobBankObject->maxSalaryEuroBruto = $request->input('maximumSalary');
             $sideJobBankObject->save();
-            return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is bijgwerkt');
+
+            return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is bijgewerkt');
         }
     }
 

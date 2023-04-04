@@ -33,4 +33,4 @@ tasks:
   d:sql:
     desc: Get into sql console
     cmds:
-      - docker exec -it db mysql -u $DB_USERNAME --password=$DB_PASSWORD $DB_DATABASE
+      - docker exec -it salvemundinl-laravel-mysql-1 mysql -u $DB_USERNAME --password=$DB_PASSWORD $DB_DATABASE

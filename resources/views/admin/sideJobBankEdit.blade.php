@@ -31,6 +31,28 @@
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->name }}" id="name" name="name" placeholder="Bijbaan naam...">
             </div>
 
+            <div class="form-group">
+                <label for="city">Stad*</label>
+                <input type="text" list="cityOptions" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{ old('city') }}" id="city" name="city" placeholder="Eindhoven...">
+                <datalist id="cityOptions">
+                    @foreach ($sideJobBank->unique('city') as $job)
+                        <option value="{{$job->city}}">
+                    @endforeach
+                </datalist>
+            </div>
+
+            <div class="input-group mt-2">
+                <span class="input-group-text">Min / max salaris per uur</span>
+                <input type="number" name="minimumSalary" aria-label="Minimum" class="form-control">
+                <input type="number" name="maximumSalary" aria-label="Maximum" class="form-control">
+            </div>
+
+            <div class="input-group mt-2">
+                <span class="input-group-text">Min / max aantal uren</span>
+                <input type="number" name="minimumHours" aria-label="Minimum" class="form-control">
+                <input type="number" name="maximumHours" aria-label="Maximum" class="form-control">
+            </div>
+
             <label for="voornaam">Studie richting*</label>
             <select class="form-control" name="studyProfile">
                 <option selected value="{{$sideJobBank->studyProfile}}">{{\App\Enums\StudyProfile::coerce($sideJobBank->studyProfile)->description}}</option>
