@@ -15,10 +15,14 @@ class UpdateSidejobsTable extends Migration
     {
         Schema::table('side_job_bank', function (Blueprint $table) {
             $table->string('city')->nullable();
-            $table->tinyInteger('minAmountOfHoursPerWeek')->nullable();
-            $table->tinyInteger('maxAmountOfHoursPerWeek')->nullable();
-            $table->integer('minSalaryEuroBruto')->nullable();
-            $table->integer('maxSalaryEuroBruto')->nullable();
+            $table->float('minAmountOfHoursPerWeek')->nullable();
+            $table->float('maxAmountOfHoursPerWeek')->nullable();
+            $table->float('minSalaryEuroBruto')->nullable();
+            $table->float('maxSalaryEuroBruto')->nullable();
+            $table->string('linkToJobOffer')->nullable();
+            $table->string('emailContact')->nullable();
+            $table->string('phoneNumberContact')->nullable();
+            $table->string('position')->nullable();
         });
     }
 
@@ -29,6 +33,26 @@ class UpdateSidejobsTable extends Migration
      */
     public function down()
     {
-        //
+        $this->myDropColumnIfExists('side_job_bank', 'city');
+        $this->myDropColumnIfExists('side_job_bank', 'minAmountOfHoursPerWeek');
+        $this->myDropColumnIfExists('side_job_bank', 'maxAmountOfHoursPerWeek');
+        $this->myDropColumnIfExists('side_job_bank', 'minSalaryEuroBruto');
+        $this->myDropColumnIfExists('side_job_bank', 'maxSalaryEuroBruto');
+        $this->myDropColumnIfExists('side_job_bank', 'linkToJobOffer');
+        $this->myDropColumnIfExists('side_job_bank', 'emailContact');
+        $this->myDropColumnIfExists('side_job_bank', 'phoneNumberContact');
+        $this->myDropColumnIfExists('side_job_bank', 'position');
+
+    }
+
+    private function myDropColumnIfExists($myTable, $column)
+    {
+        if (Schema::hasColumn($myTable, $column)) //check the column
+        {
+            Schema::table($myTable, function (Blueprint $table) use ($column) {
+                $table->dropColumn($column); //drop it
+            });
+        }
+
     }
 }

@@ -28,29 +28,51 @@
 
             <div class="form-group">
                 <label for="voornaam">Bijbaan naam</label>
-                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->name }}" id="name" name="name" placeholder="Bijbaan naam...">
+                <input type="text" required class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->name }}" id="name" name="name" placeholder="Bijbaan naam...">
+            </div>
+            <div class="form-group">
+                <label for="position">Positie</label>
+                <input type="text" class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}"
+                       value="{{ $sideJobBank->position }}" id="position" name="position" placeholder="Positie...">
+            </div>
+            <div class="form-group">
+                <label for="name">Link naar vacature*</label>
+                <input type="text" required class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->linkToJobOffer }}" id="link" name="link" placeholder="Link...">
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-2">
+                <label for="name">Skills* (ctrl click to deselect)</label>
+                <select name="skills[]" class="form-select" multiple aria-label="multiple select example">
+                    @foreach($sideJobSkills as $skill)
+                        @if($sideJobBank->skills->contains($skill))
+                            <option selected value="{{$skill->id}}">{{$skill->name}}</option>
+                        @else
+                            <option value="{{$skill->id}}">{{$skill->name}}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-2">
                 <label for="city">Stad*</label>
-                <input type="text" list="cityOptions" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{ old('city') }}" id="city" name="city" placeholder="Eindhoven...">
+                <input type="text" list="cityOptions" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->city }}" id="city" name="city" placeholder="Eindhoven...">
                 <datalist id="cityOptions">
-                    @foreach ($sideJobBank->unique('city') as $job)
+                    @foreach ($allSideJobBank->unique('city') as $job)
                         <option value="{{$job->city}}">
                     @endforeach
                 </datalist>
             </div>
 
-            <div class="input-group mt-2">
+            <div class="input-group mb-2">
                 <span class="input-group-text">Min / max salaris per uur</span>
-                <input type="number" name="minimumSalary" aria-label="Minimum" class="form-control">
-                <input type="number" name="maximumSalary" aria-label="Maximum" class="form-control">
+                <input type="number" step=".01" value="{{ $sideJobBank->minSalaryEuroBruto }}" name="minimumSalary" aria-label="Minimum" class="form-control">
+                <input type="number" step=".01" value="{{ $sideJobBank->maxSalaryEuroBruto }}" name="maximumSalary" aria-label="Maximum" class="form-control">
             </div>
 
             <div class="input-group mt-2">
                 <span class="input-group-text">Min / max aantal uren</span>
-                <input type="number" name="minimumHours" aria-label="Minimum" class="form-control">
-                <input type="number" name="maximumHours" aria-label="Maximum" class="form-control">
+                <input type="number" step=".1" value="{{ $sideJobBank->minAmountOfHoursPerWeek }}" name="minimumHours" aria-label="Minimum" class="form-control">
+                <input type="number" step=".1" value="{{ $sideJobBank->maxAmountOfHoursPerWeek }}" name="maximumHours" aria-label="Maximum" class="form-control">
             </div>
 
             <label for="voornaam">Studie richting*</label>
@@ -62,14 +84,23 @@
                     @endif
                 @endforeach
             </select>
-
             <div class="form-group">
+                <label for="email">Email contact</label>
+                <input type="email" value="{{$sideJobBank->emailContact}}" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        id="email" name="email" placeholder="Email...">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Telefoonnummer</label>
+                <input type="text" value="{{$sideJobBank->phoneNumberContact}}" class="form-control{{ $errors->has('phoneNumber') ? ' is-invalid' : '' }}"
+                        id="phoneNumber" name="phoneNumber" placeholder="Naam...">
+            </div>
+            <div class="form-group mb-2">
                 <label for="hours">Bijbaan omschrijving</label>
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Omschrijving...">{{{ $sideJobBank->description }}}</textarea>
             </div>
 
             <div class="form-group">
-                <input class="btn btn-primary py-3" type="submit" value="Bewerken">
+                <input class="btn btn-primary" type="submit" value="Bewerken">
             </div>
         </form>
     </div>
