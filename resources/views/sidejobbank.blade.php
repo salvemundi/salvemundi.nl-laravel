@@ -8,8 +8,8 @@
                 <a class="btn btn-primary" href="https://forms.office.com/r/cALSNrkJgu">Vacature plaatsen</a>
             </div>
             @if(!$sideJobBank->isEmpty())
-                <div class="d-flex container mb-5 mt-3 align-items-start align-content-start">
-                    <div class="row w-100 align-items-start align-content-start">
+                <div class="container w-100 mb-5 mt-3 align-items-start align-content-start">
+                    <div class="row w-100 align-items-start align-content-start mx-0">
                     <div class="mb-3 card p-2 col-lg-3 col-sm-12">
                         <div class="card-body">
                             <div class="d-flex">
