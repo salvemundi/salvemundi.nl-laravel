@@ -54,18 +54,21 @@ class SideJobBankController extends Controller
             $sideJobBank = new SideJobBank;
             $sideJobBank = $this->setFields($sideJobBank, $request);
             $sideJobBank->save();
-            foreach($request->input('skills') as $key => $item) {
-                $sideJobBank->skills()->attach($item);
+            if ($request->input('skills') != null){
+                foreach ($request->input('skills') as $key => $item) {
+                    $sideJobBank->skills()->attach($item);
+                }
             }
             return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is toegevoegd');
         }
-        else
-        {
+        else {
             $sideJobBankObject = SideJobBank::find($request->input('id'));
             $this->setFields($sideJobBankObject, $request)->save();
-            $sideJobBankObject->skills()->detach();
-            foreach($request->input('skills') as $key => $item) {
-                $sideJobBankObject->skills()->attach($item);
+            if ($request->input('skills') != null){
+                $sideJobBankObject->skills()->detach();
+                foreach ($request->input('skills') as $key => $item) {
+                    $sideJobBankObject->skills()->attach($item);
+                }
             }
             return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is bijgewerkt');
         }

@@ -1,5 +1,6 @@
 @extends('layouts.appmin')
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <script>
         function CopyMe(oFileInput, sTargetID) {
             document.getElementById(sTargetID).value = oFileInput.value;
@@ -47,14 +48,14 @@
                             <td data-value="{{ $skill->id }}">
                                 <form method="post" action="/admin/bijbaanbank/edit">@csrf<input type="hidden" name="id"
                                                                                                  value="{{ $skill->id }}">
-                                    <button type="submit" class="btn btn-primary">Bewerken</button>
+                                    <button type="submit" class="btn btn-primary text-white">Bewerken</button>
                                 </form>
                             </td>
                             <td data-value="{{ $skill->id }}">
                                 <form method="post" action="/admin/bijbaanbank/delete">@csrf<input type="hidden"
                                                                                                    name="id"
                                                                                                    value="{{ $skill->id }}">
-                                    <button type="submit" class="btn btn-danger">Verwijderen</button>
+                                    <button type="submit" class="btn btn-danger text-white">Verwijderen</button>
                                 </form>
                             </td>
                         </tr>
@@ -92,7 +93,7 @@
                     <div class="form-group mb-2">
                         <label for="name">Skills* (ctrl click to deselect)</label>
 
-                        <select name="skills[]" class="form-select" multiple aria-label="multiple select example">
+                        <select id="skills" name="skills[]" class="form-select" multiple aria-label="multiple select example">
                             @foreach($sideJobSkills as $skill)
                                 <option value="{{$skill->id}}">{{$skill->name}}</option>
                             @endforeach
@@ -148,7 +149,7 @@
                     </div>
 
                     <div class="form-group py-3">
-                        <input class="btn btn-primary" type="submit" value="Toevoegen">
+                        <input class="btn btn-primary text-white" type="submit" value="Toevoegen">
                     </div>
                 </form>
             </div>
@@ -173,7 +174,7 @@
                                 <td data-value="{{ $skill->id }}">
                                     <form method="post" action="/admin/skills/delete/{{ $skill->id }}">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Verwijderen</button>
+                                        <button type="submit" class="btn btn-danger text-white">Verwijderen</button>
                                     </form>
                                 </td>
                             </tr>
@@ -192,10 +193,14 @@
                     </div>
 
                     <div class="form-group py-3">
-                        <input class="btn btn-primary" type="submit" value="Toevoegen">
+                        <input class="btn btn-primary text-white" type="submit" value="Toevoegen">
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+    <script>
+        new MultiSelectTag('skills')  // id
+    </script>
 @endsection

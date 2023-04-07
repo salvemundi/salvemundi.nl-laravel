@@ -5,6 +5,7 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script> --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
 
 <div class="row widthFix adminOverlap center removeAutoMargin">
     @if(session()->has('information'))
@@ -42,7 +43,7 @@
 
             <div class="form-group mb-2">
                 <label for="name">Skills* (ctrl click to deselect)</label>
-                <select name="skills[]" class="form-select" multiple aria-label="multiple select example">
+                <select id="skills" name="skills[]" class="form-select" multiple aria-label="multiple select example">
                     @foreach($sideJobSkills as $skill)
                         @if($sideJobBank->skills->contains($skill))
                             <option selected value="{{$skill->id}}">{{$skill->name}}</option>
@@ -100,9 +101,13 @@
             </div>
 
             <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Bewerken">
+                <input class="btn btn-primary text-white" type="submit" value="Bewerken">
             </div>
         </form>
+        <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+        <script>
+            new MultiSelectTag('skills')  // id
+        </script>
     </div>
 </div>
 @endsection
