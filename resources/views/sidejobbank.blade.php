@@ -67,7 +67,7 @@
                                     @if($job->position != null)
                                         <h6 class="card-text fw-bold">Positie: {{$job->position}}</h6>
                                     @endif
-                                    <div class="container">
+                                    <div class="container px-0 m-0">
                                         <div class="row">
                                         <div class="col-lg-6 col-sm-12 mb-4">
                                             <h5>Omschrijving:</h5>
@@ -87,7 +87,7 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="mb-2 container-fluid">
+                                    <div class="mb-2 container-fluid px-0">
                                         <div class="row">
                                             <div><i class="fas fa-map-marker-alt"></i> {{ $job->city ?? "Niet bekend" }}</div>
                                             <div><i class="fas fa-euro-sign"></i> {{$job->minSalaryEuroBruto ?? 'Onderhandelbaar'}} @if(isset($job->minSalaryEuroBruto) && isset($job->maxSalaryEuroBruto)) tot @endif {{ $job->maxSalaryEuroBruto ?? null }} @if(isset($job->minSalaryEuroBruto)) euro per uur @endif</div>
