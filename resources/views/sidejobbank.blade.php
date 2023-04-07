@@ -184,9 +184,9 @@
             const cards = document.querySelectorAll('.filter-this-card');
 
             cards.forEach((card) => {
-                const cardMaxSalary = card.classList[7];
-                const cardMinSalary = card.classList[6];
-                const cardCategory = card.classList[5];
+                const cardMaxSalary = card.classList[6];
+                const cardMinSalary = card.classList[5];
+                const cardCategory = card.classList[4];
                 const cardLocation = card.id;
                 let shouldDisplay = false;
                 let catBool = new RegExp(selectedCategories.join('|')).test(String(cardCategory))
