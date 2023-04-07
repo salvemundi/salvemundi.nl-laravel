@@ -61,7 +61,7 @@
                     </div>
                     <div class="ps-lg-3  px-0 flex-grow-1 col-lg-6 col-sm-12">
                         @foreach($sideJobBank as $job)
-                            <div class="p-2 card mb-3 filter-this-card {{ $job->city }} {{ \App\Enums\StudyProfile::coerce($job->studyProfile)->value }} {{$job->minSalaryEuroBruto}}">
+                            <div class="p-2 card mb-3 filter-this-card {{ $job->city ?? 'b' }} {{ \App\Enums\StudyProfile::coerce($job->studyProfile)->value }} {{$job->minSalaryEuroBruto ?? 0}} {{$job->maxSalaryEuroBruto ?? 0}}">
                                 <div class="card-body">
                                     <h2 class="card-title">{{ $job->name }}</h2>
                                     @if($job->position != null)
@@ -149,8 +149,24 @@
             filterCards()
         }
 
-        function filterSalary(cardMinSalary){
-            return MinSalary.value == MinSalaryOfAll || MinSalary.value >= cardMinSalary;
+        function filterSalary(cardMinSalary, cardMaxSalary){
+            let minSal = parseFloat(MinSalary.value)
+            let minSalOfAll = parseFloat(MinSalaryOfAll)
+            let minSalCard = parseFloat(cardMinSalary);
+            let maxSalCard = parseFloat(cardMaxSalary);
+            if(minSal === minSalOfAll){
+                return true;
+            }
+            if(minSalCard === 0){
+                return false;
+            }
+            if(cardMaxSalary > 0) {
+                return minSal >= minSalCard && minSal <= maxSalCard
+            }
+            else {
+                console.log(minSal + " " + minSalCard)
+                return minSal >= minSalCard;
+            }
         }
 
 
@@ -170,6 +186,7 @@
             const cards = document.querySelectorAll('.filter-this-card');
 
             cards.forEach((card) => {
+                const cardMaxSalary = card.classList[7];
                 const cardMinSalary = card.classList[6];
                 const cardCategory = card.classList[5];
                 const cardLocation = card.classList[4];
@@ -179,13 +196,13 @@
                 if(selectedCategories.length > 0 && selectedLocations.length > 0) {
                     shouldDisplay = catBool && locBool
                 } else {
-                    if(selectedCategories.length > 0 && catBool && filterSalary(cardMinSalary)) {
+                    if(selectedCategories.length > 0 && catBool && filterSalary(cardMinSalary, cardMaxSalary)) {
                         shouldDisplay = true;
                     }
-                    if(selectedLocations.length > 0 && locBool && filterSalary(cardMinSalary)){
+                    if(selectedLocations.length > 0 && locBool && filterSalary(cardMinSalary, cardMaxSalary)){
                         shouldDisplay = true;
                     }
-                    if(selectedCategories.length === 0 && selectedLocations.length === 0 && filterSalary(cardMinSalary)) {
+                    if(selectedCategories.length === 0 && selectedLocations.length === 0 && filterSalary(cardMinSalary, cardMaxSalary)) {
                         shouldDisplay = true;
                     }
                 }
