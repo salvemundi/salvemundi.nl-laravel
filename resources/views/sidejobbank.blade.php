@@ -59,7 +59,7 @@
 
                         </div>
                     </div>
-                    <div class="ps-3 flex-grow-1 col-lg-6 col-sm-12">
+                    <div class="ps-lg-3  px-0 flex-grow-1 col-lg-6 col-sm-12">
                         @foreach($sideJobBank as $job)
                             <div class="p-2 card mb-3 filter-this-card {{ $job->city }} {{ \App\Enums\StudyProfile::coerce($job->studyProfile)->value }} {{$job->minSalaryEuroBruto}}">
                                 <div class="card-body">
