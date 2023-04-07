@@ -61,7 +61,7 @@
                     </div>
                     <div class="ps-lg-3  px-0 flex-grow-1 col-lg-6 col-sm-12">
                         @foreach($sideJobBank as $job)
-                            <div class="p-2 card mb-3 filter-this-card {{ $job->city ?? 'b' }} {{ \App\Enums\StudyProfile::coerce($job->studyProfile)->value }} {{$job->minSalaryEuroBruto ?? 0}} {{$job->maxSalaryEuroBruto ?? 0}}">
+                            <div id="{{$job->city ?? "b"}}" class="p-2 card mb-3 filter-this-card {{ \App\Enums\StudyProfile::coerce($job->studyProfile)->value }} {{$job->minSalaryEuroBruto ?? 0}} {{$job->maxSalaryEuroBruto ?? 0}}">
                                 <div class="card-body">
                                     <h2 class="card-title">{{ $job->name }}</h2>
                                     @if($job->position != null)
@@ -92,7 +92,6 @@
                                             <div><i class="fas fa-map-marker-alt"></i> {{ $job->city ?? "Niet bekend" }}</div>
                                             <div><i class="fas fa-euro-sign"></i> {{$job->minSalaryEuroBruto ?? 'Onderhandelbaar'}} @if(isset($job->minSalaryEuroBruto) && isset($job->maxSalaryEuroBruto)) tot @endif {{ $job->maxSalaryEuroBruto ?? null }} @if(isset($job->minSalaryEuroBruto)) euro per uur @endif</div>
                                             <div><i class="fas fa-clock"></i> {{$job->minAmountOfHoursPerWeek ?? 'Onderhandelbaar'}} @if(isset($job->minAmountOfHoursPerWeek) && isset($job->maxAmountOfHoursPerWeek)) tot @endif {{ $job->maxAmountOfHoursPerWeek ?? null }} @if(isset($job->minAmountOfHoursPerWeek)) uur per week @endif</div>
-
 
                                             @if(session('id') != null)
                                                 <div>
@@ -164,7 +163,6 @@
                 return minSal >= minSalCard && minSal <= maxSalCard
             }
             else {
-                console.log(minSal + " " + minSalCard)
                 return minSal >= minSalCard;
             }
         }
@@ -189,7 +187,7 @@
                 const cardMaxSalary = card.classList[7];
                 const cardMinSalary = card.classList[6];
                 const cardCategory = card.classList[5];
-                const cardLocation = card.classList[4];
+                const cardLocation = card.id;
                 let shouldDisplay = false;
                 let catBool = new RegExp(selectedCategories.join('|')).test(String(cardCategory))
                 let locBool = new RegExp(selectedLocations.join('|')).test(String(cardLocation))
@@ -206,8 +204,6 @@
                         shouldDisplay = true;
                     }
                 }
-                // const shouldDisplay = cardCategory.some(el => selectedCategories.includes(cardCategory));
-                // const shouldDisplay = selectedCategories.includes(cardCategory);
 
                 if (shouldDisplay) {
                     card.style.display = 'block';
