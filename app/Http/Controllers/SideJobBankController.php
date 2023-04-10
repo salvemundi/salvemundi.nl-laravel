@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SideJobSkill;
 use Illuminate\Http\Request;
-use DB;
 use App\Models\SideJobBank;
 use App\Enums\StudyProfile;
 
@@ -14,12 +14,14 @@ class SideJobBankController extends Controller
             'id' => ['required'],
         ]);
 
-        return view('/admin/sideJobBankEdit', ['sideJobBank' => SideJobBank::find($request->input('id'))]);
+        return view('/admin/sideJobBankEdit', ['sideJobSkills' => SideJobSkill::all(),'sideJobBank' => SideJobBank::find($request->input('id')), 'allSideJobBank' => SideJobBank::all()->unique('city')]);
     }
 
     public function index()
     {
         $viewVar = [];
+        $viewVar['minSalary'] = SideJobBank::where('minSalaryEuroBruto','>=',0)->min('minSalaryEuroBruto');
+        $viewVar['maxSalary'] = SideJobBank::where('maxSalaryEuroBruto','>=',0)->max('maxSalaryEuroBruto');
 
         $viewVar['sideJobBank'] = SideJobBank::orderBy('updated_at', 'DESC')->get();
 
@@ -29,13 +31,14 @@ class SideJobBankController extends Controller
         $viewVar['business'] = SideJobBank::where('studyProfile', Studyprofile::Business)->get();
         $viewVar['media'] = SideJobBank::where('studyProfile', Studyprofile::Media)->get();
 
-        return view('/sidejobbank', $viewVar);
+        return view('sidejobbank', $viewVar);
     }
 
     public function indexAdmin()
     {
         $sideJobBank = SideJobBank::all();
-        return view('/admin/sideJobBank', ['sideJobBank' => $sideJobBank]);
+        $sideJobSkills = SideJobSkill::all();
+        return view('/admin/sideJobBank', ['sideJobSkills' => $sideJobSkills,'sideJobBank' => $sideJobBank]);
     }
 
     public function store(Request $request)
@@ -49,23 +52,45 @@ class SideJobBankController extends Controller
         if($request->input('id') == null)
         {
             $sideJobBank = new SideJobBank;
-            $sideJobBank->name = $request->input('name');
-            $sideJobBank->studyProfile = StudyProfile::coerce((int)$request->input('studyProfile'));
-            $sideJobBank->description = $request->input('description');
-            // dd($sideJobBank);
+            $sideJobBank = $this->setFields($sideJobBank, $request);
             $sideJobBank->save();
-
+            if ($request->input('skills') != null){
+                foreach ($request->input('skills') as $key => $item) {
+                    $sideJobBank->skills()->attach($item);
+                }
+            }
             return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is toegevoegd');
         }
-        else
-        {
+        else {
             $sideJobBankObject = SideJobBank::find($request->input('id'));
-            $sideJobBankObject->name = $request->input('name');
-            $sideJobBankObject->studyProfile = StudyProfile::coerce((int)$request->input('studyProfile'));
-            $sideJobBankObject->description = $request->input('description');
-            $sideJobBankObject->save();
-            return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is bijgwerkt');
+            $this->setFields($sideJobBankObject, $request)->save();
+            if ($request->input('skills') != null){
+                $sideJobBankObject->skills()->detach();
+                foreach ($request->input('skills') as $key => $item) {
+                    $sideJobBankObject->skills()->attach($item);
+                }
+            }
+            return redirect('admin/bijbaanbank')->with('message', 'Bijbaan bank  is bijgewerkt');
         }
+
+    }
+
+    private function setFields(SideJobBank $sideJobBankObject,Request $request): SideJobBank
+    {
+        $sideJobBankObject->name = $request->input('name');
+        $sideJobBankObject->studyProfile = StudyProfile::coerce((int)$request->input('studyProfile'));
+        $sideJobBankObject->description = $request->input('description');
+        $sideJobBankObject->city = $request->input('city');
+        $sideJobBankObject->minAmountOfHoursPerWeek = $request->input('minimumHours');
+        $sideJobBankObject->maxAmountOfHoursPerWeek = $request->input('maximumHours');
+        $sideJobBankObject->minSalaryEuroBruto = $request->input('minimumSalary');
+        $sideJobBankObject->maxSalaryEuroBruto = $request->input('maximumSalary');
+        $sideJobBankObject->linkToJobOffer = $request->input('link');
+        $sideJobBankObject->emailContact = $request->input('email');
+        $sideJobBankObject->phoneNumberContact = $request->input('phoneNumber');
+        $sideJobBankObject->position = $request->input('position');
+
+        return $sideJobBankObject;
     }
 
     public function deleteSideJobBank(Request $request)

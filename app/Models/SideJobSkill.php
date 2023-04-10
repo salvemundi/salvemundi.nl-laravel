@@ -6,18 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class SideJobBank extends Model
+class SideJobSkill extends Model
 {
     use HasFactory;
-    protected $table = "side_job_bank";
-    public function skills(): BelongsToMany
+    protected $table = 'side_job_skills';
+
+    public function jobs(): BelongsToMany
     {
         return $this->belongsToMany
         (
-            SideJobSkill::class,
+            SideJobBank::class,
             'skill_jobs',
-            'jobId',
-            'skillId'
+            'skillId',
+            'jobId'
         );
     }
 }

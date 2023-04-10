@@ -156,6 +156,11 @@ Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 's
 Route::post('/admin/news/delete', [App\Http\Controllers\NewsController::class, 'deleteNews'])->middleware('admin.auth');
 Route::post('/admin/news/edit', [App\Http\Controllers\NewsController::class, 'editNews'])->middleware('admin.auth');
 Route::post('/admin/news/edit/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
+
+Route::post('/admin/skills/store/{id}', [App\Http\Controllers\SideJobSkillController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/skills/store', [App\Http\Controllers\SideJobSkillController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/skills/delete/{id}', [App\Http\Controllers\SideJobSkillController::class, 'delete'])->middleware('admin.auth');
+
 Route::get('/admin/bijbaanbank', [App\Http\Controllers\SideJobBankController::class, 'indexAdmin'])->middleware('admin.auth');
 Route::post('/admin/bijbaanbank/store', [App\Http\Controllers\SideJobBankController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/bijbaanbank/delete', [App\Http\Controllers\SideJobBankController::class, 'deleteSideJobBank'])->middleware('admin.auth');
