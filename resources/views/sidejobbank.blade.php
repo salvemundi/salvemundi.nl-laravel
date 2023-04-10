@@ -48,7 +48,7 @@
                                     @endforeach
                                 </li>
                                 <li class="list-group-item">
-                                    <h5 class="card-text">Bruto salaris per uur</h5>
+                                    <h5 id="salDisplay" class="card-text">Bruto salaris per uur</h5>
                                     <div class="d-flex">
                                         <p>€{{ $minSalary }}</p>
                                         <input type="range" value="{{ $minSalary ?? 0 }}" min="{{$minSalary ?? 0}}" max="{{$maxSalary}}" step="1" name="salaryRange" class="form-range custom-range" id="salaryRange">
@@ -139,12 +139,17 @@
             checkbox.addEventListener('change', filterCards);
         });
 
+        $('#salaryRange').on('input', function() {
+            $('#salDisplay').text("Bruto salaris per uur: €" + $(this).val());
+        });
+
         function resetFilter(){
 
             MinSalary.value = MinSalaryOfAll
             checkboxes.forEach((checkbox) => {
                 checkbox.checked = false;
             });
+            $('#salDisplay').text("Bruto salaris per uur");
             filterCards()
         }
 
