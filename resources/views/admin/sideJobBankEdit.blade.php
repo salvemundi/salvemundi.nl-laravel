@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="name">Link naar vacature*</label>
-                <input type="text" required class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->linkToJobOffer }}" id="link" name="link" placeholder="Link...">
+                <input type="text" class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ $sideJobBank->linkToJobOffer }}" id="link" name="link" placeholder="Link...">
             </div>
 
             <div class="form-group mb-2">

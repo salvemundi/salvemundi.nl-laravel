@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Link naar vacature*</label>
-                        <input type="text" required class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}"
+                        <input type="text" class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}"
                                value="{{ old('link') }}" id="link" name="link" placeholder="Link...">
                     </div>
 

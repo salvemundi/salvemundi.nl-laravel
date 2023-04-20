@@ -110,9 +110,11 @@
                                             <div class="col-md-12">
                                                 <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($job->created_at))}}
                                             </div>
-                                            <div class="flex-grow-1 justify-content-center align-self-center">
-                                                <a href="{{ $job->linkToJobOffer }}" class="btn btn-primary float-end text-white">Naar vacature <i class="far fa-share-square"></i> </a>
-                                            </div>
+                                            @if($job->linkToJobOffer)
+                                                <div class="flex-grow-1 justify-content-center align-self-center">
+                                                    <a href="{{ $job->linkToJobOffer }}" class="btn btn-primary float-end text-white">Naar vacature <i class="far fa-share-square"></i> </a>
+                                                </div>
+                                            @endif
                                         </div>
 
                                     </div>
