@@ -109,7 +109,7 @@ class Plan extends Model implements PlanImplements
      * @param string $firstPaymentMethod
      * @return Plan
      */
-    public function setFirstPaymentMethod(?string $firstPaymentMethod)
+    public function setFirstPaymentMethod($firstPaymentMethod)
     {
 
     }
