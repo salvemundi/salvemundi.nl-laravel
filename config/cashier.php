@@ -44,6 +44,7 @@ return [
          * Plan. You can use either a relative or absolute url.
          */
         'webhook_url' => env('NGROK_LINK') ? env('NGROK_LINK').'/first-payment': '/webhooks/mollie/first-payment',
+        'aftercare_webhook_url' => env('NGROK_LINK') ? env('NGROK_LINK') .'/aftercare': '/webhooks/mollie/aftercare',
 
         /**
          * A comma-separated list of allowed Mollie payment methods for the first payment. Make sure the methods are

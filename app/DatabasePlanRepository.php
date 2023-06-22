@@ -12,7 +12,17 @@ class DatabasePlanRepository implements PlanRepository
      */
     public static function find(string $name)
     {
-        return Plan::where('name', $name)->first();
+        $plan = Plan::where('name', $name)->first();
+
+        if (is_null($plan)) {
+            return null;
+        }
+
+        // Return a \Laravel\Cashier\Plan\Plan by creating one from the database values
+        return $plan->buildCashierPlan();
+
+        // Or if your model implements the contract: \Laravel\Cashier\Plan\Contracts\Plan
+        return $plan;
     }
 
     /**
