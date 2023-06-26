@@ -97,7 +97,16 @@ class User extends Authenticatable
             'group_id'
         );
     }
-
+    public function activities(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Product::class,
+            'activity_user',
+            'userId',
+            'activityId'
+        );
+    }
     public function stickers()
     {
         return $this->hasMany(Sticker::class);

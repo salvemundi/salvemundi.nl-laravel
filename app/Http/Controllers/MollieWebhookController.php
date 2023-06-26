@@ -45,6 +45,12 @@ class MollieWebhookController extends BaseWebhookController
                         if($email == null){
                             $email = $order->contribution->first()->email;
                         }
+                        if($payment->metadata->userId != "null") {
+                            $userObject = User::find($payment->metadata->userId);
+                            $userObject->activities()->attach($order->product);
+                            $userObject->save();
+                        }
+
                         Mail::to($email)
                             ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         return response(null, 200);

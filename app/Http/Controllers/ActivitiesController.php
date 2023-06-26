@@ -6,7 +6,10 @@ use App\Enums\paymentStatus;
 use App\Enums\paymentType;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -46,23 +49,23 @@ class ActivitiesController extends Controller {
         })->get();
     }
 
-    public function signupsActivity(Request $request){
+    public function signupsActivity(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
         $activity = Product::find($request->input('id'));
-        $arr = [];
-        $userTransactionInfo = [];
-        foreach($activity->transactions as $user){
-            if($user->paymentStatus == paymentStatus::paid) {
-                if($user->email != null || $user->email != ""){
-                    $userTransaction = [$user->email, $user->name, $user->transactionId];
-                    array_push($userTransactionInfo, $userTransaction);
-                }
-                foreach($user->contribution as $uss){
-                    $uss->transactionId = $user->transactionId;
-                    array_push($arr,$uss);
+        $nonMembers = [];
+        $members = [];
+        foreach($activity->members as $user) {
+            $members[] = $user;
+        }
+        foreach($activity->transactions as $transaction) {
+            if($transaction->paymentStatus == paymentStatus::paid) {
+                if($transaction->email != null && $transaction->email != ""){
+                    $userTransaction = [$transaction->email, $transaction->name, $transaction->transactionId];
+                    $nonMembers[] = $userTransaction;
                 }
             }
         }
-        return view('admin/activitiesSignUps',['users' => $arr, 'userTransactionInfo' => $userTransactionInfo]);
+        return view('admin/activitiesSignUps',['users' => $members, 'userTransactionInfo' => $nonMembers]);
     }
 
     private function countSignUps($activityId)
