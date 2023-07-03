@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Cashier\Order\Order;
+use Laravel\Cashier\SubscriptionBuilder\RedirectToCheckoutResponse;
 use Mollie\Laravel\Facades\Mollie;
 use App\Enums\paymentType;
 use App\Models\Inschrijving;
@@ -196,7 +197,7 @@ class MolliePaymentController extends Controller
      * This logic typically goes into the controller handling the inbound webhook request.
      * See the webhook docs in /docs and on mollie.com for more information.
      */
-    public static function handleContributionPaymentFirstTime(Request $request): RedirectToCheckoutResponse|RedirectResponse
+    public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = User::where('AzureID',session('id'))->first();
         try {
