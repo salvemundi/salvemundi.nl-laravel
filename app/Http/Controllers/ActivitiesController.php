@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\paymentStatus;
 use App\Enums\paymentType;
+use App\Models\NonUserActivityParticipant;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
@@ -65,7 +66,7 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        return view('admin/activitiesSignUps',['users' => $members, 'userTransactionInfo' => $nonMembers]);
+        return view('admin/activitiesSignUps',['users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
     }
 
     private function countSignUps($activityId)
@@ -162,7 +163,8 @@ class ActivitiesController extends Controller {
         return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => $this->userIsActive()]);
     }
 
-    public static function userHasPayedForActivity($activityId){
+    public static function userHasPayedForActivity($activityId): bool
+    {
         $user = null;
         $activity = Product::find($activityId);
         if (session('id') !== null) {
@@ -205,9 +207,21 @@ class ActivitiesController extends Controller {
 
         if (session('id') !== null) {
             $user = User::where('AzureId', session('id'))->firstOrFail();
-        }
 
-        $activity->members()->save($user);
+            $activity->members()->save($user);
+        }
+        else {
+            if ((!$activity->nonMembers()->where('email', $request->input('email'))->exists() && $activity->oneTimeOrder) || !$activity->oneTimeOrder) {
+                $non_member = new NonUserActivityParticipant();
+                $non_member->activity()->associate($activity);
+                $non_member->name = $request->input('nameActivity');
+                $non_member->email = $request->input('email');
+
+                $non_member->save();
+            } else {
+                return back()->with('message', 'Je kunt je maar één keer aanmelden voor de activiteit: ' . $activity->name . '!');
+            }
+        }
 
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));
     }

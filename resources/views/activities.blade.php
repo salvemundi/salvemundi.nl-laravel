@@ -4,6 +4,11 @@
 <script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="container">
+        @if(session()->has('message'))
+            <div class="alert alert-primary">
+                {{ session()->get('message') }}
+            </div>
+        @endif
         @if(!$activiteiten->isEmpty())
         <div class="container-fluid">
             <div class="row justify-content-center">
