@@ -34,8 +34,7 @@ class MollieWebhookController extends BaseWebhookController
         $paymentId = $request->input('id');
         $payment = Mollie::api()->payments()->get($paymentId);
         $order = $this->getTransactionObject($paymentId);
-        $paymentRegister = $this->getPaymentById($request->get('id'));
-
+        $paymentRegister = $this->getMolliePaymentById($request->get('id'));
         if ($payment->isPaid()) {
             if($order != null){
                 if ($order->paymentStatus != paymentStatus::paid) {
@@ -46,6 +45,12 @@ class MollieWebhookController extends BaseWebhookController
                         if($email == null){
                             $email = $order->contribution->first()->email;
                         }
+                        if($payment->metadata->userId != "null") {
+                            $userObject = User::find($payment->metadata->userId);
+                            $userObject->activities()->attach($order->product);
+                            $userObject->save();
+                        }
+
                         Mail::to($email)
                             ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         return response(null, 200);
@@ -67,7 +72,7 @@ class MollieWebhookController extends BaseWebhookController
                 $orderReg->transactionId = $paymentId;
                 $orderReg->paymentStatus = paymentStatus::paid;
                 $orderReg->save();
-                $order->handlePaymentPaid();
+                $order->handlePaymentPaid($paymentRegister);
                 InschrijfController::processPayment($orderReg);
                 return response(null, 200);
             }

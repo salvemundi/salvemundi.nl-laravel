@@ -23,6 +23,16 @@ class Product extends Model
             'id'
         );
     }
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            User::class,
+            'activity_user',
+            'activityId',
+            'userId'
+        );
+    }
     public function users()
     {
         return $this->hasManyThrough(Transaction::class, User::class);
