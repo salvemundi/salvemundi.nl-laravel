@@ -112,7 +112,7 @@
 
                                         @endif
                                 @else
-                                    <button class="btn btn-success disabled"><i class="fas fa-check"></i> Betaald</button>
+                                    <button class="btn btn-success disabled"><i class="fas fa-check"></i> Ingeschreven</button>
                                 @endif
                                 </div>
                             </div>
