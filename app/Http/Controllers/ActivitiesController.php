@@ -194,17 +194,21 @@ class ActivitiesController extends Controller {
         }
     }
 
-    public function signup(Request $request): RedirectResponse {
+    public function signUp(Request $request): RedirectResponse {
+        $activity = Product::find($request->input('activityId'));
+
+        if($this->countSignUps($request->input('activityId')) >= $activity->limit && $activity->limit != 0){
+            return back();
+        }
+
         $user = null;
 
         if (session('id') !== null) {
             $user = User::where('AzureId', session('id'))->firstOrFail();
         }
 
-        $activity = Product::find($request->input('activityId'));
-        if($this->countSignUps($request->input('activityId')) >= $activity->limit && $activity->limit != 0){
-            return back();
-        }
+        $activity->members()->save($user);
+
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));
     }
 }

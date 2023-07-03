@@ -79,7 +79,7 @@ Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\MyAccountControl
 // Activiteiten page
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
-Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
+Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class, 'signUp']);
 
 // News page
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );

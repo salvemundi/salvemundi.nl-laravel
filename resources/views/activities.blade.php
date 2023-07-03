@@ -85,7 +85,6 @@
                                                             <div class="card card-body">
                                                                 <form method="POST" action="/activiteiten/signup">
                                                                     @csrf
-                                                                    <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                                                                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                     <div class="input-group mb-3 me-4">
                                                                         <span class="input-group-text" id="basic-addon3">Naam</span>
