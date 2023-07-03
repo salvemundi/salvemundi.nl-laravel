@@ -169,6 +169,9 @@ class ActivitiesController extends Controller {
         $activity = Product::find($activityId);
         if (session('id') !== null) {
             $user = User::where('AzureId', session('id'))->firstOrFail();
+            if($user->activities->contains($activity)) {
+                return true;
+            }
         } else {
             return false;
         }
