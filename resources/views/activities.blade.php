@@ -4,6 +4,11 @@
 <script src="js/scrollonload.js"></script>
 <div class="overlap">
     <div class="container">
+        @if(session()->has('message'))
+            <div class="alert alert-primary">
+                {{ session()->get('message') }}
+            </div>
+        @endif
         @if(!$activiteiten->isEmpty())
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -85,7 +90,6 @@
                                                             <div class="card card-body">
                                                                 <form method="POST" action="/activiteiten/signup">
                                                                     @csrf
-                                                                    <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                                                                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                     <div class="input-group mb-3 me-4">
                                                                         <span class="input-group-text" id="basic-addon3">Naam</span>
@@ -108,7 +112,7 @@
 
                                         @endif
                                 @else
-                                    <button class="btn btn-success"><i class="fas fa-check"></i> Betaald</button>
+                                    <button class="btn btn-success disabled"><i class="fas fa-check"></i> Ingeschreven</button>
                                 @endif
                                 </div>
                             </div>
