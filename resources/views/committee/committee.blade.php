@@ -17,14 +17,16 @@
     <br>
     <div class="row">
         @foreach ($committee->users as $committeeMember)
-            <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <div class="card">
-                        {!! '<img class="img-fluid" src="../storage/'.$committeeMember->ImgPath.'" />' !!}
-                    <div class="card-body card-body-no-padding mt-2">
-                        <h5 class="card-title text-center">{{$committeeMember->DisplayName}}</h5>
+            @if($committeeMember->visibility)
+                <div class="col-12 col-sm-6 col-lg-3 my-2">
+                    <div class="card">
+                            {!! '<img class="img-fluid" src="../storage/'.$committeeMember->ImgPath.'" />' !!}
+                        <div class="card-body card-body-no-padding mt-2">
+                            <h5 class="card-title text-center">{{$committeeMember->DisplayName}}</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         @endforeach
     </div>
 </div>
