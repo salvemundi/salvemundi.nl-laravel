@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\paymentType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,8 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    use Billable;
+    use HasFactory, Notifiable, Billable;
 
     public function inschrijving()
     {
@@ -121,5 +121,13 @@ class User extends Authenticatable
             'user_id',
             'permission_id'
         );
+    }
+
+    public function hasActiveSubscription() {
+        $planCommissieLid = paymentType::fromValue(1);
+        $plan = paymentType::fromValue(2);
+        $name = ucfirst($plan) . ' membership';
+        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+        return $this->subscribed($name,$plan->key) || $this->subscribed($nameCommissieLid,$planCommissieLid->key);
     }
 }
