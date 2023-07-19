@@ -9,16 +9,22 @@
     </div>
 
     <div class="col-auto col-md-10 col-sm-8">
-
-        <div class="buttonSync">
-            <div class="alert alert-success success" style="display: none;" role="alert">
-                De database is ge-synchroniseerd met Azure!
+        <div class="d-flex">
+            <div class="buttonSync">
+                <div class="alert alert-success success" style="display: none;" role="alert">
+                    De database is ge-synchroniseerd met Azure!
+                </div>
+                <form id="ajaxform">
+                    <button class="btn btn-primary save-data" data-toggle="tooltip" data-placement="right" title="Dit kan enkele minuten duren...">Sync met Azure</button>
+                </form>
             </div>
-            <form id="ajaxform">
-                <button class="btn btn-primary save-data" data-toggle="tooltip" data-placement="right" title="Dit kan enkele minuten duren...">Sync met Azure</button>
-            </form>
+            <div class="buttonSync ms-2">
+                <form method="post" action="/admin/leden/unpaid/notify">
+                    @csrf
+                    <button class="btn btn-primary save-data" type="submit">Mail niet betaalde leden</button>
+                </form>
+            </div>
         </div>
-
         <h2>Betaald</h2>
         <div class="">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
