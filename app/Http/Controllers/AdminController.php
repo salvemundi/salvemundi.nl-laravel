@@ -6,6 +6,7 @@ use App\Http\Controllers\AzureController;
 use App\Jobs\AzureSync;
 use App\Jobs\DisableAzure;
 use App\Jobs\EnableAzure;
+use App\Mail\MembershipExpiry;
 use App\Models\Commissie;
 use App\Models\Intro;
 use App\Models\IntroData;
@@ -14,11 +15,15 @@ use App\Models\Transaction;
 use App\Models\WhatsappLink;
 use App\Models\User;
 use App\Models\AdminSetting;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use App\Enums\paymentType;
 use App\Enums\paymentStatus;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -26,11 +31,6 @@ class AdminController extends Controller
     {
         $whatsappLinks = WhatsappLink::all();
         return view('admin/admin',['whatsappLinks' => $whatsappLinks]);
-    }
-
-    public function getUsers()
-    {
-        return view('admin/leden',['users' => User::all()]);
     }
     public function Sync(Request $request)
     {
@@ -188,14 +188,14 @@ class AdminController extends Controller
         }
     }
 
-    public function viewRemoveLeden()
+    public function viewRemoveLeden(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $userCollectionPaid = Collection::make();
         $userCollectionUnPaid = Collection::make();
         $userObjectList = User::all();
         foreach($userObjectList as $userObject)
         {
-            $adminAuthorization = AdminController::authorizeUser(session('id'));
+            AdminController::authorizeUser(session('id'));
             $planCommissieLid = paymentType::fromValue(1);
             $plan = paymentType::fromValue(2);
             $name = ucfirst($plan) . ' membership';
@@ -241,5 +241,19 @@ class AdminController extends Controller
             DisableAzure::dispatch($userCollectionUnPaid);
         }
         return redirect('/admin/leden');
+    }
+
+    public function sendEmailToUnpaidMembers(): void
+    {
+        $userCollection = new Collection();
+        foreach (User::all() as $user) {
+            if(!$user->hasActiveSubscription()) {
+                $userCollection->push($user->email);
+                if($user->inschrijving !== null) {
+                    $userCollection->push($user->inschrijving->email);
+                }
+            }
+        }
+        Mail::bcc($userCollection)->send(new MembershipExpiry());
     }
 }

@@ -8,33 +8,31 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.1",
         "ext-json": "*",
-        "bensampo/laravel-enum": "^3.1",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
+        "bensampo/laravel-enum": "^6.0",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/cashier-mollie": "^1.0",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "^10.0",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.1",
+        "laravel/ui": "^4.2.1",
         "laravelcollective/html": "^6.2",
-        "larswiegers/laravel-maps": "^0.12.0",
+        "larswiegers/laravel-maps": "^0.14.0",
         "league/oauth2-client": "^2.6",
         "maatwebsite/excel": "^3.1",
         "microsoft/microsoft-graph": "^1.23",
         "mollie/laravel-mollie": "^2.0",
         "mxl/laravel-job": "^1.2",
-        "pbmedia/laravel-ffmpeg": "^7.5"
+        "pbmedia/laravel-ffmpeg": "^8.0",
+        "mollie/laravel-cashier-mollie": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "facade/ignition": "^2.5",
+        "spatie/laravel-ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.13",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -58,7 +56,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [

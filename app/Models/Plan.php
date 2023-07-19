@@ -3,18 +3,36 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+use Laravel\Cashier\FirstPayment\Traits\PaymentMethodString;
 use Laravel\Cashier\Order\OrderItemPreprocessorCollection;
+use Laravel\Cashier\Plan\DefaultIntervalGenerator;
 use Money\Currency;
 use Money\Money;
 use Laravel\Cashier\Plan\Contracts\Plan as PlanImplements;
 use Laravel\Cashier\Coupon\CouponOrderItemPreprocessor as ProcessCoupons;
 use Laravel\Cashier\Order\PersistOrderItemsPreprocessor as PersistOrderItems;
+use Laravel\Cashier\Plan\Plan as CashierPlan;
 
 class Plan extends Model implements PlanImplements
 {
+    use PaymentMethodString;
+
     protected $fillable = [
-        'name', 'amount', 'interval', 'description', 'currency','firstPaymentDescription','firstPaymentAmount'
+        'name', 'amount', 'interval', 'description', 'currency','firstPaymentDescription','firstPaymentCurrency','firstPaymentAmount','firstPaymentMethod'
     ];
+
+    public function buildCashierPlan(): CashierPlan
+    {
+        $plan = new CashierPlan($this->name);
+
+        return $plan->setAmount(mollie_array_to_money(['value' => $this->amount, 'currency' => $this->attributes['firstPaymentCurrency']]))
+            ->setInterval($this->interval)
+            ->setDescription($this->attributes['description'])
+            ->setFirstPaymentMethod($this->attributes['firstPaymentMethod'])
+            ->setFirstPaymentAmount(mollie_array_to_money(['value' => $this->attributes['firstPaymentAmount'], 'currency' => 'EUR']))
+            ->setFirstPaymentDescription($this->attributes['firstPaymentDescription']);
+    }
 
     protected $table = 'products';
 
@@ -42,7 +60,8 @@ class Plan extends Model implements PlanImplements
      */
     public function setAmount(Money $amount)
     {
-
+        $this->attributes['amount'] = $amount->getAmount() / 100;
+        return $this;
     }
 
     /**
@@ -64,10 +83,17 @@ class Plan extends Model implements PlanImplements
      */
     public function interval()
     {
-        return $this->attributes['interval'];
+        Log::info($this->attributes['interval']);
+
+        return is_array($this->attributes['interval']) ? new $this->attributes['interval']['generator']($this->attributes['interval']) : new DefaultIntervalGenerator($this->attributes['interval']);
 
     }
+    public function setInterval($interval)
+    {
+        $this->attributes['interval'] = is_array($interval) ? new $interval['generator']($interval) : new DefaultIntervalGenerator($interval);
 
+        return $this;
+    }
     /**
      * @return string
      */
@@ -93,25 +119,25 @@ class Plan extends Model implements PlanImplements
      */
     public function setFirstPaymentAmount(Money $firstPaymentAmount)
     {
-
+        $this->attributes['firstPaymentAmount'] = $firstPaymentAmount->getAmount() / 100;
+        return $this;
     }
-
     /**
      * @return string
      */
     public function firstPaymentMethod()
     {
-
-
+        return $this->attributes['firstPaymentMethod'];
     }
 
     /**
      * @param string $firstPaymentMethod
      * @return Plan
      */
-    public function setFirstPaymentMethod(?string $firstPaymentMethod)
+    public function setFirstPaymentMethod($firstPaymentMethod)
     {
-
+        $this->attributes['firstPaymentMethod'] = $firstPaymentMethod;
+        return $this;
     }
 
     /**
@@ -149,7 +175,8 @@ class Plan extends Model implements PlanImplements
      */
     public function setFirstPaymentRedirectUrl(string $redirectUrl)
     {
-
+        $this->attributes['first_payment_redirect_url'] = $redirectUrl;
+        return $this;
     }
 
     /**
@@ -157,8 +184,7 @@ class Plan extends Model implements PlanImplements
      */
     public function firstPaymentWebhookUrl()
     {
-        return route('webhooks.mollie');
-
+        return env("NGROK_LINK") ? env("NGROK_LINK") : route('webhooks.mollie');
     }
 
     /**
@@ -167,6 +193,8 @@ class Plan extends Model implements PlanImplements
      */
     public function setFirstPaymentWebhookUrl(string $webhookUrl)
     {
+        $this->attributes['first_payment_webhook_url'] = $webhookUrl;
+        return $this;
     }
 
     /**

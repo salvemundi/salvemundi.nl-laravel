@@ -79,7 +79,7 @@ Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\MyAccountControl
 // Activiteiten page
 
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
-Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class,'signup']);
+Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class, 'signUp']);
 
 // News page
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
@@ -137,9 +137,9 @@ Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/store', [App\Ht
 Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'deletePermissionGroup'])->middleware("admin.auth");
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->middleware('admin.auth');
-Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'getUsers'])->name("admin.leden")->middleware('admin.auth');
 Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc'])->middleware("admin.auth");
 Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser')->middleware('admin.auth');
+Route::post('/admin/leden/unpaid/notify', [App\Http\Controllers\AdminController::class, 'sendEmailToUnpaidMembers'])->middleware('admin.auth');
 Route::get('/admin/intro', [App\Http\Controllers\AdminController::class, 'getIntro'])->middleware("admin.auth");
 Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->middleware('admin.auth')->name('admin.sponsors');
 Route::post('/admin/sponsors/delete', [App\Http\Controllers\SponsorController::class, 'deleteSponsor'])->middleware('admin.auth');

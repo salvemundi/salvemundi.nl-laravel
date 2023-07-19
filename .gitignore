@@ -18,3 +18,5 @@ yarn-error.log
 **/.DS_Store
 .vs
 composer.phar
+ngrok.exe
+ngrok.old.exe

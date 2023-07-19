@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Product;
 use App\Models\Transaction;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -75,7 +78,7 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            $createPayment = MolliePaymentController::preparePayment($orderObject->id, null, $route, null, $email, $nameNotMember);
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, User::where('AzureID', session('id'))->first(), $route, null, $email, $nameNotMember, false);
             if($createPayment === null) {
                 if($route === null) {
                     return redirect('/');
@@ -108,14 +111,14 @@ class MolliePaymentController extends Controller
         return redirect('/');
     }
 
-    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null)
+    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null, $isSubscription = true)
     {
         $product = Product::where('index', $productIndex)->first();
         if($product == null)
         {
             $product = Product::find($productIndex);
         }
-        if($userObject != null)
+        if($isSubscription)
         {
             $plan = paymentType::fromValue(2);
             $name = ucfirst($plan) . ' membership';
@@ -142,18 +145,21 @@ class MolliePaymentController extends Controller
         }
 
         $priceToString = strval($formattedPrice);
-        return Mollie::api()->payments->create([
+        return Mollie::api()->payments()->create([
             "amount" => [
                 "currency" => "EUR",
                 "value" => "$priceToString"
             ],
             "description" => "$product->name",
             "redirectUrl" => "$route",
-            "webhookUrl" => route('webhooks.mollie'),
+            "metadata" => [
+                "userId" => $userObject ? $userObject->id : "null"
+            ],
+            "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK') : route('webhooks.mollie'),
         ]);
     }
 
-    public function index()
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('intro');
     }
@@ -191,7 +197,7 @@ class MolliePaymentController extends Controller
      * This logic typically goes into the controller handling the inbound webhook request.
      * See the webhook docs in /docs and on mollie.com for more information.
      */
-    public static function handleContributionPaymentFirstTime(Request $request): RedirectToCheckoutResponse|RedirectResponse
+    public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = User::where('AzureID',session('id'))->first();
         try {

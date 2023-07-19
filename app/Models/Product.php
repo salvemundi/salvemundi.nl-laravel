@@ -23,10 +23,33 @@ class Product extends Model
             'id'
         );
     }
+
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            User::class,
+            'activity_user',
+            'activityId',
+          'userId'
+        );
+    }
+
+    public function nonMembers(): HasMany
+    {
+        return $this->hasMany
+        (
+            NonUserActivityParticipant::class,
+            'activityId',
+            'id'
+        );
+    }
+
     public function users()
     {
         return $this->hasManyThrough(Transaction::class, User::class);
     }
+
     public function isFull(): bool
     {
         $transactions = $this->transactions->where('paymentStatus', paymentStatus::paid)->count();
@@ -35,5 +58,4 @@ class Product extends Model
         }
         return false;
     }
-
 }

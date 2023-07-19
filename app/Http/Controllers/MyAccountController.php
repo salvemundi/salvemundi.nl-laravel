@@ -35,7 +35,6 @@ class MyAccountController extends Controller
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
         $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
-
         if ($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key)) {
             $status = 1;
         }
