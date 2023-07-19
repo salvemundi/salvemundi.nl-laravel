@@ -243,7 +243,7 @@ class AdminController extends Controller
         return redirect('/admin/leden');
     }
 
-    public function SendEmailToUnpaidMembers(): void
+    public function sendEmailToUnpaidMembers(): void
     {
         $userCollection = new Collection();
         foreach (User::all() as $user) {
