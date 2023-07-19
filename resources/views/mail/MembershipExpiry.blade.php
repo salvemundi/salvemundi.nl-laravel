@@ -1,13 +1,13 @@
 @component('mail::message')
 Beste Lid,<br>
 <p>
-    Bij deze willen we je er graag aan laten herinneren om je lidmaatschap te verlengen!
+    Bij deze willen we je er graag aan herinneren om je lidmaatschap te verlengen!
 </p>
 <p>
-    Dit kun je doen door op https://salvemundi.nl in te loggen met je salvemundi office account en vervolgens naar "mijn account" te navigeren. Hierna kun je op het grijze knopje "non active" klikken om je lidmaatschap te vernieuwen. Deze is dan weer een jaar geldig!
+    Dit kun je doen door op https://salvemundi.nl in te loggen met je Salve Mundi office account en vervolgens naar "mijn account" te navigeren. Hierna kun je op het grijze knopje "non active" klikken om je lidmaatschap te vernieuwen. Deze is dan weer een jaar geldig!
 </p>
 <p>
-    Lukt het niet om je lidmaatschap te verlengen? Aarzel vooral niet om de ICT-commissie te benaderen voor assistentie / vragen via ict@salvemundi.nl. Mocht het inloggen niet lukkken op de website, probeer eerst met incognito in te loggen op salvemundi.nl!
+    Lukt het niet om je lidmaatschap te verlengen? Aarzel vooral niet om de ICT-commissie te benaderen voor assistentie of vragen via ict@salvemundi.nl. Mocht het inloggen niet lukkken op de website, probeer eerst met incognito in te loggen op salvemundi.nl!
 </p>
 <p>
     Voor overige vragen met betrekking tot jouw lidmaatschap kun je altijd het bestuur benaderen. (bestuur@salvemundi.nl)
