@@ -79,7 +79,6 @@
 
                                     @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
                                         @if(!$activiteit->isFull())
-                                            @if($activiteit->formsLink != null || $activiteit->formsLink != "")
                                                 @if($userIsActive)
                                                     <form method="POST" action="/activiteiten/signup">
                                                         @csrf
@@ -122,7 +121,6 @@
                                                         </div>
                                                     @endif
                                                 @endif
-                                            @endif
                                         @else
                                             <p class="card-text textCard text-danger"><u>Deze activiteit is helaas vol!</u></p>
 
