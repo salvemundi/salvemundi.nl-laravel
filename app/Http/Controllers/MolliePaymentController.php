@@ -78,7 +78,7 @@ class MolliePaymentController extends Controller
             $orderObject->save();
             return $createPayment;
         } else{
-            if($route == null) {
+            if($route === null) {
                 $route = env("APP_URL");
             }
             $createPayment = MolliePaymentController::preparePayment($orderObject->id, User::where('AzureID', session('id'))->first(), $route, null, $email, $nameNotMember, false);

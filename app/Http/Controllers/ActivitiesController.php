@@ -101,7 +101,7 @@ class ActivitiesController extends Controller {
             $products->amount    = $request->input('price');
             $products->limit     = $request->input('limit');
             $products->tags()->detach();
-            if ($request->input('tags') != null){
+            if ($request->input('tags') !== null){
                 foreach ($request->input('tags') as $key => $item) {
                     $products->tags()->attach($item);
                 }
@@ -135,7 +135,7 @@ class ActivitiesController extends Controller {
             $productObject->imgPath = 'activities/' . $request->input('name') . ".png";
         }
         $productObject->tags()->detach();
-        if ($request->input('tags') != null){
+        if ($request->input('tags') !== null){
             foreach ($request->input('tags') as $key => $item) {
                 $productObject->tags()->attach($item);
             }
