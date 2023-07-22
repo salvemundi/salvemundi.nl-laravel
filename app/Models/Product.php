@@ -50,6 +50,17 @@ class Product extends Model
         return $this->hasManyThrough(Transaction::class, User::class);
     }
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            CommitteeTags::class,
+            'activity_committee_tag',
+            'activityId',
+            'tagId'
+        );
+    }
+
     public function isFull(): bool
     {
         $transactions = $this->transactions->where('paymentStatus', paymentStatus::paid)->count();

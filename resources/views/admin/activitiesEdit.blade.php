@@ -6,6 +6,7 @@
         {{ session()->get('information') }}
     </div>
     @endif
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
 
 <div class="row widthFix adminOverlap center removeAutoMargin">
     <div id="contact" class="col-auto col-md-6 col-sm-12">
@@ -44,6 +45,22 @@
             <div class="form-group">
                 <label for="Achternaam">Prijs voor niet leden*</label>
                 <input type="number" min="0" step=".01" class="form-control{{ $errors->has('price2') ? ' is-invalid' : '' }}" value="{{ $activities->amount_non_member }}" id="price2" name="price2" placeholder="Prijs...">
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="name">Tags* (ctrl click to deselect)</label>
+
+                <select id="tags" name="tags[]" class="form-select" multiple aria-label="multiple select example">
+                    @foreach($tags as $tag)
+                        @foreach($activities->tags as $activityTag)
+                            @if($activityTag->id == $tag->id)
+                                <option selected value="{{$tag->id}}">{{$tag->name}}</option>
+                            @else
+                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                            @endif
+                        @endforeach
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
@@ -95,4 +112,8 @@
         </form>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+    new MultiSelectTag('tags')  // id
+</script>
 @endsection
