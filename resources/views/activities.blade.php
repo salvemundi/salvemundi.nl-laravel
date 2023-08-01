@@ -16,13 +16,23 @@
                 <div style="width: 25rem;" class="d-flex p-3 align-items-stretch">
                     <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                    <a class="" href="/activiteiten#{{$activiteit->name}}" data-bs-toggle="modal" data-bs-target="#showModal{{ $activiteit->id }}">
+                    <a data-bs-toggle="modal" data-bs-target="#showModal{{ $activiteit->id }}">
                         <div class="card"  style="min-height: 50vh; max-height: 50vh;" data-toggle="tooltip" data-placement="top" title="Klik om volledig te lezen!" style="">
                             @if($activiteit->imgPath != null)
                                 {!! '<img class="img-fluid mx-auto card-img-top" src="/'. Thumbnailer::generate("storage/" . $activiteit->imgPath, "60%") .'" />' !!}
                             @endif
-                            <div class="card-body" style="overflow: hidden">
-                                <h5 class="card-title">{{ $activiteit->name }}</h5>
+                            <div class="card-body" style="overflow: hidden; cursor: pointer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">{{ $activiteit->name }}</h5>
+                                    <div class="ms-4 center">
+                                        @foreach($activiteit->tags as $tag)
+                                            <h5 class="ms-2">
+                                                <span class="badge {{ $tag->colorClass }}"><i class="{{ $tag->icon }}"></i> {{ $tag->name }}</span>
+                                            </h5>
+                                        @endforeach
+                                    </div>
+                                </div>
+
                                 <p style="white-space: pre-line" class="card-text">{{$activiteit->description, 300}}</p>
                                 <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
                             </div>
@@ -36,13 +46,19 @@
 
         <!-- Button trigger modal -->
         @foreach ($activiteiten as $activiteit)
-
             <!-- Modal -->
             <div class="modal fade" id="showModal{{ $activiteit->id }}" tabindex="583208700" style="z-index: 534324;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-lg" style="z-index: 100000;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">{{ $activiteit->name }}</h5>
+                            <div class="ms-auto center">
+                                @foreach($activiteit->tags as $tag)
+                                    <h5 class="ms-2">
+                                        <span class="badge {{ $tag->colorClass }}"><i class="{{ $tag->icon }}"></i> {{ $tag->name }}</span>
+                                    </h5>
+                                @endforeach
+                            </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         @if($activiteit->imgPath != null)
@@ -63,7 +79,6 @@
 
                                     @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
                                         @if(!$activiteit->isFull())
-                                            @if($activiteit->formsLink != null || $activiteit->formsLink != "")
                                                 @if($userIsActive)
                                                     <form method="POST" action="/activiteiten/signup">
                                                         @csrf
@@ -106,7 +121,6 @@
                                                         </div>
                                                     @endif
                                                 @endif
-                                            @endif
                                         @else
                                             <p class="card-text textCard text-danger"><u>Deze activiteit is helaas vol!</u></p>
 

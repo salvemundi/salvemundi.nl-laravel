@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\paymentStatus;
 use App\Enums\paymentType;
+use App\Models\CommitteeTags;
 use App\Models\NonUserActivityParticipant;
 use App\Models\Product;
 use App\Models\User;
@@ -19,13 +20,13 @@ class ActivitiesController extends Controller {
         $request->validate([
             'id' => ['required'],
         ]);
-
-        return view('admin/activitiesEdit', ['activities' => Product::findOrFail($request->input('id'))]);
+        return view('admin/activitiesEdit', ['activities' => Product::findOrFail($request->input('id')),'tags' => CommitteeTags::all()]);
     }
 
-    public function index() {
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
         $activities = Product::where("index", null)->orderBy('created_at', 'desc')->get();
-        return view('admin/activities', ['activities' => $activities]);
+        return view('admin/activities', ['activities' => $activities, 'tags' => CommitteeTags::all()]);
     }
 
     public function userIsActive(): bool {
@@ -99,7 +100,12 @@ class ActivitiesController extends Controller {
             $products->membersOnlyContent = $request->input('membersOnlyContent');
             $products->amount    = $request->input('price');
             $products->limit     = $request->input('limit');
-
+            $products->tags()->detach();
+            if ($request->input('tags') !== null){
+                foreach ($request->input('tags') as $key => $item) {
+                    $products->tags()->attach($item);
+                }
+            }
             if($request->input('cbx')){
                 $products->oneTimeOrder = true;
             } else {
@@ -127,6 +133,12 @@ class ActivitiesController extends Controller {
                 'public/activities', $request->input('name') . ".png"
             );
             $productObject->imgPath = 'activities/' . $request->input('name') . ".png";
+        }
+        $productObject->tags()->detach();
+        if ($request->input('tags') !== null){
+            foreach ($request->input('tags') as $key => $item) {
+                $productObject->tags()->attach($item);
+            }
         }
 
         $productObject->name      = $request->input('name');

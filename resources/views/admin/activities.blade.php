@@ -5,6 +5,8 @@
         document.getElementById(sTargetID).value = oFileInput.value;
     }
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
 <div class="row widthFix adminOverlap center removeAutoMargin">
     @if(session()->has('information'))
     <div class="alert alert-primary">
@@ -12,6 +14,7 @@
     </div>
     @endif
     <div class="col-auto col-md-10 col-sm-8">
+        <a class="btn btn-primary mt-4" href="/admin/activiteiten/tags"><i class="fas fa-tags"></i> Tags</a>
         <div class="table-responsive">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
             data-show-columns="true">
@@ -23,6 +26,7 @@
                     <th data-field="link" data-sortable="true">Forms link</th>
                     <th data-field="imgPath" data-sortable="true" data-width="250">Foto pad</th>
                     <th data-field="membersOnly" data-sortable="true" data-width="250">Alleen leden</th>
+                    <th data-field="tags">Tags</th>
                     <th data-field="edit" data-sortable="false">Bewerken</th>
                     <th data-field="delete" data-sortable="false">Verwijderen</th>
                     <th data-field="signups" data-sortable="false">Inschrijvingen</th>
@@ -36,7 +40,8 @@
                     <td data-value="{{ $activity->description }}">{{Illuminate\Support\Str::limit($activity->description, 100)}}</td>
                     <td data-value="{{ $activity->formsLink }}">{{Illuminate\Support\Str::limit($activity->formsLink, 20)}}</td>
                     <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
-                    <td data-value="{{ $activity->membersOnly }}">{{$converted_res = $activity->membersOnly ? 'Ja' : 'Nee'; }}</td>
+                    <td data-value="{{ $activity->membersOnly }}">{{$converted_res = $activity->membersOnly ? 'Ja' : 'Nee' }}</td>
+                    <td data-value="{{$activity->tags}}">@foreach($activity->tags as $tag) <span class="badge {{ $tag->colorClass }}"><i class="{{ $tag->icon }}"></i> {{ $tag->name }}</span> @endforeach</td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/signups">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Inschrijvingen</button></form></td>
@@ -86,6 +91,16 @@
                 <input type="number" min="0" step=".01" class="form-control{{ $errors->has('price2') ? ' is-invalid' : '' }}" value="{{ old('price2') }}" id="price2" name="price2" placeholder="Prijs...">
             </div>
 
+            <div class="form-group mb-2">
+                <label for="name">Tags* (ctrl click to deselect)</label>
+
+                <select id="tags" name="tags[]" class="form-select" multiple aria-label="multiple select example">
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Beschrijving</label>
                 <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
@@ -126,4 +141,8 @@
         </form>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+    new MultiSelectTag('tags')  // id
+</script>
 @endsection
