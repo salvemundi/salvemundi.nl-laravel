@@ -52,13 +52,18 @@
 
                 <select id="tags" name="tags[]" class="form-select" multiple aria-label="multiple select example">
                     @foreach($tags as $tag)
-                        @foreach($activities->tags as $activityTag)
-                            @if($activityTag->id == $tag->id)
-                                <option selected value="{{$tag->id}}">{{$tag->name}}</option>
-                            @else
-                                <option value="{{$tag->id}}">{{$tag->name}}</option>
-                            @endif
-                        @endforeach
+                        @php
+                            $selected = false;
+                            if ($activities->tags != null) {
+                                foreach ($activities->tags as $activityTag) {
+                                    if ($activityTag->id == $tag->id) {
+                                        $selected = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        @endphp
+                        <option @if($selected) selected @endif value="{{$tag->id}}">{{$tag->name}}</option>
                     @endforeach
                 </select>
             </div>
