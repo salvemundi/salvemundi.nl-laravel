@@ -22,9 +22,6 @@ class MollieWebhookController extends BaseWebhookController
         return Transaction::with(['contribution' => function ($query) {
             $query->orderBy('created_at', 'asc')->take(1);
         }])->where('transactionId', $pid)->first();
-
-
-        //return Transaction::where('transactionId', $pid)->with('contribution')->first();
     }
     public function handle(Request $request) {
         if (! $request->has('id')) {
@@ -41,18 +38,19 @@ class MollieWebhookController extends BaseWebhookController
                     $order->paymentStatus = paymentStatus::paid;
                     $order->save();
                     if ($order->product->index == null) {
-                        $email = $order->email;
-                        if($email == null){
-                            $email = $order->contribution->first()->email;
+                        if($payment->metadata->email != "null") {
+                            Log::info('non member email' . $payment->metadata->email);
+                            Mail::to($payment->metadata->email)
+                                ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         }
                         if($payment->metadata->userId != "null") {
                             $userObject = User::find($payment->metadata->userId);
                             $userObject->activities()->attach($order->product);
                             $userObject->save();
+                            Log::info('member email' . $userObject->email);
+                            Mail::to($userObject->email)
+                                ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         }
-
-                        Mail::to($email)
-                            ->send(new SendMailActivitySignUp($order->product->name, $order->product));
                         return response(null, 200);
                     }
 

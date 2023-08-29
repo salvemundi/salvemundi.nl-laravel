@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class ActivitiesController extends Controller {
     public function editActivities(Request $request) {
@@ -67,7 +68,7 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        return view('admin/activitiesSignUps',['users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
+        return view('admin/activitiesSignUps',['activity' => $activity,'users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
     }
 
     private function countSignUps($activityId)
@@ -76,7 +77,8 @@ class ActivitiesController extends Controller {
         return $activity->transactions->where('paymentStatus', paymentStatus::paid)->count();
     }
 
-    public function store(Request $request) {
+    public function store(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
         $request->validate([
             'name'        => 'required',
             'price'       => 'required',
@@ -220,12 +222,8 @@ class ActivitiesController extends Controller {
 
         $user = null;
 
-        if (session('id') !== null) {
-            $user = User::where('AzureId', session('id'))->firstOrFail();
-
-            $activity->members()->save($user);
-        }
-        else {
+        if (session('id') == null)
+        {
             if ((!$activity->nonMembers()->where('email', $request->input('email'))->exists() && $activity->oneTimeOrder) || !$activity->oneTimeOrder) {
                 $non_member = new NonUserActivityParticipant();
                 $non_member->activity()->associate($activity);

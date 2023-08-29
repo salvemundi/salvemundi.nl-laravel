@@ -9,7 +9,7 @@
 <nav id="TopNavbar" class="navbarAdmin navbar navbar-expand-md shadow-sm">
     <div class="container navAdminWidth">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img class="imgNavbar" src="{{ asset('/images/logo.svg') }}">
+            <img class="imgNavbar" src="{{ asset('/images/logo_old.svg') }}">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

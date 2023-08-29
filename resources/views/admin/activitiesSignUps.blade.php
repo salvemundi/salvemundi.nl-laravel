@@ -43,15 +43,17 @@
                         <td data-value=""></td>
                     </tr>
                 @endforeach
-                @foreach ($nonMembersFree as $user)
-                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                        <td data-value=""></td>
-                        <td data-value="{{ $user->name }}">{{ $user->name }}</td>
-                        <td data-value=""></td>
-                        <td data-value="{{ $user->email }}">{{ $user->email }}</td>
-                        <td data-value=""></td>
-                    </tr>
-                @endforeach
+                @if($activity->amount_non_member == 0)
+                    @foreach ($nonMembersFree as $user)
+                        <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                            <td data-value=""></td>
+                            <td data-value="{{ $user->name }}">{{ $user->name }}</td>
+                            <td data-value=""></td>
+                            <td data-value="{{ $user->email }}">{{ $user->email }}</td>
+                            <td data-value=""></td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

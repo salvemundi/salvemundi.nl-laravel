@@ -52,25 +52,25 @@
             <div class="col-md-6">
                 <div class="imgSlider"  data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/DSC07676.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro22.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/DSC07654.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro102.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/DSC07719.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro156.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0032.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro239.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0215.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro259.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0582.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro282.jpg", "50%") }}>
                     </div>
                     <div>
-                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/IMG_0413.jpg", "50%") }}>
+                        <img class="imgIndex" src={{ Thumbnailer::generate("images/SaMuFotos/Intro2023/intro288.jpg", "50%") }}>
                     </div>
                 </div>
             </div>
