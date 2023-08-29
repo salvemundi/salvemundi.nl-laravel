@@ -77,14 +77,25 @@
                                 <div class="col-12">
                                     <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
 
-                                    @if(!App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
                                         @if(!$activiteit->isFull())
                                                 @if($userIsActive)
-                                                    <form method="POST" action="/activiteiten/signup">
-                                                        @csrf
-                                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                        <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
-                                                    </form>
+                                                    @if(App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id))
+                                                        @if($activiteit->oneTimeOrder)
+                                                            <button class="btn btn-success disabled"><i class="fas fa-check"></i> Ingeschreven</button>
+                                                        @else
+                                                            <form method="POST" action="/activiteiten/signup">
+                                                                @csrf
+                                                                <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
+                                                            </form>
+                                                         @endif
+                                                    @else
+                                                        <form method="POST" action="/activiteiten/signup">
+                                                            @csrf
+                                                            <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                            <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
+                                                        </form>
+                                                     @endif
                                                 @else
                                                     @if(session('id'))
                                                         <p class="card-text textCard text-danger"><u>Je lidmaatschap is niet meer geldig, verleng deze voor korting op deze activiteit!</u></p>
@@ -123,11 +134,7 @@
                                                 @endif
                                         @else
                                             <p class="card-text textCard text-danger"><u>Deze activiteit is helaas vol!</u></p>
-
                                         @endif
-                                @else
-                                    <button class="btn btn-success disabled"><i class="fas fa-check"></i> Ingeschreven</button>
-                                @endif
                                 </div>
                             </div>
                         </div>
