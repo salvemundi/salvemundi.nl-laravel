@@ -156,7 +156,8 @@ class MolliePaymentController extends Controller
             "description" => "$product->name",
             "redirectUrl" => "$route",
             "metadata" => [
-                "userId" => $userObject ? $userObject->id : "null"
+                "userId" => $userObject ? $userObject->id : "null",
+                "email" => $email ?: "null"
             ],
             "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK') : route('webhooks.mollie'),
         ]);
