@@ -57,7 +57,7 @@ class ActivitiesController extends Controller {
         $activity = Product::find($request->input('id'));
         $nonMembers = [];
         $members = [];
-        foreach($activity->members->unique() as $user) {
+        foreach($activity->members as $user) {
             $members[] = $user;
         }
         foreach($activity->transactions as $transaction) {
