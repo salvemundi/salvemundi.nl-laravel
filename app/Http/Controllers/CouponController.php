@@ -27,6 +27,10 @@ class CouponController extends Controller
         return back()->with('success','Coupon is aangemaakt!');
     }
 
+    public function editView(Request $request) {
+        return view('admin.couponsEdit', ['coupon' => Coupon::find($request->id)]);
+    }
+
     private function mapValues(Request $request)
     {
         $coupon = new Coupon;

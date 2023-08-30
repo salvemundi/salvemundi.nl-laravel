@@ -37,7 +37,7 @@
                     <td data-value="{{ $coupon->isOneTimeUse }}">{{$coupon->isOneTimeUse ? 'Ja' : 'Nee'}}</td>
                     <td data-value="{{ $coupon->hasBeenUsed }}">{{$coupon->hasBeenUsed ? 'Ja' : 'Nee' }}</td>
                     <td data-value="{{ $coupon->currency }}">{{$coupon->currency}}</td>
-                    <td data-value="{{ $coupon->id }}"><form method="post" action="/admin/coupons/edit/{{$coupon->id}}">@csrf<button type="submit" class="btn btn-primary">Bewerken</button></form></td>
+                    <td data-value="{{ $coupon->id }}"><form method="get" action="/admin/coupons/edit/{{$coupon->id}}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                     <td data-value="{{ $coupon->id }}"><form method="post" action="/admin/coupons/delete/{{$coupon->id}}">@csrf<button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
                 </tr>
                 @endforeach

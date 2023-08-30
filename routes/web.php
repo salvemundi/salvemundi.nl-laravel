@@ -220,3 +220,4 @@ Route::get('/admin/coupons', [App\Http\Controllers\CouponController::class, 'ind
 Route::post('/admin/coupons/create', [App\Http\Controllers\CouponController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/coupons/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->middleware('admin.auth');
 Route::post('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'store'])->middleware('admin.auth');
+Route::get('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'editView'])->middleware('admin.auth');
