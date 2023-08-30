@@ -73,10 +73,7 @@ class ActivitiesController extends Controller {
     {
         $activity = Product::find($request->activityId);
         $nonMembers = [];
-        $members = [];
-        foreach($activity->members as $user) {
-            $members[] = $user;
-        }
+
         foreach($activity->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
                 if($transaction->email != null && $transaction->email != ""){
@@ -85,7 +82,7 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        return view('admin/activitiesSignUps',['allMembers' => User::all(), 'activity' => $activity,'users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
+        return view('admin/activitiesSignUps',['allMembers' => User::all(), 'activity' => $activity,'users' => $activity->members->unique(), 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
     }
 
     private function countSignUps($activityId)

@@ -116,13 +116,6 @@ class MollieWebhookController extends BaseWebhookController
             if($order != null){
                 $order->paymentStatus = paymentStatus::expired;
                 $order->save();
-                if($order->type == paymentType::intro)
-                {
-                    $introObject = $order->introRelation;
-                    Mail::to($introObject->email)
-                        ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
-                    $introObject->delete();
-                }
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
                 $user = $orderReg->contribution()->first();
