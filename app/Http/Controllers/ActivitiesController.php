@@ -82,7 +82,7 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        return view('admin/activitiesSignUps',['allMembers' => User::all(), 'activity' => $activity,'users' => $activity->members->unique(), 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
+        return view('admin/activitiesSignUps',['allMembers' => User::orderBy('FirstName')->orderBy('LastName')->get(), 'activity' => $activity,'users' => $activity->members->unique(), 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
     }
 
     private function countSignUps($activityId)
