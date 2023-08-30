@@ -19,7 +19,12 @@ class CouponController extends Controller
         $coupon->delete();
         return back()->with('succes','Coupon is verwijderd!');
     }
-
+    public function apiStore(Request $request)
+    {
+        $coupon = $this->mapValues($request);
+        $coupon->save();
+        return response(null, 200);
+    }
     public function store(Request $request)
     {
         $coupon = $this->mapValues($request);

@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('samu-api.auth')->get('/participants', [App\Http\Controllers\IntroController::class, 'GetParticipants']);
+Route::middleware('client_credentials')->post('/coupons',[App\Http\Controllers\CouponController::class,'apiStore']);
