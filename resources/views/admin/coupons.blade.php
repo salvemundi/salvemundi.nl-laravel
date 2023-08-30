@@ -54,7 +54,7 @@
             {{ session()->get('message') }}
         </div>
         @endif
-        <form action="/admin/coupons/create" method="post" enctype="multipart/form-data">
+        <form action="/admin/coupons/create" method="post">
             @csrf
             <br>
             <h2 class="h2">Coupon toevoegen</h2>
@@ -64,9 +64,9 @@
                 <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Naam...">
             </div>
 
-            <div class="form-group">
-                <label for="link">Microsoft forms link</label>
-                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="link" name="link" placeholder="Forms link...">
+           <div class="form-group">
+                <label for="exampleFormControlTextarea1">Beschrijving</label>
+                <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
             </div>
 
             <div class="form-group">
@@ -75,43 +75,17 @@
             </div>
 
             <div class="form-group">
-                <label for="limit">Limiet*</label>
-                <input type="number" min="0" class="form-control{{ $errors->has('limit') ? ' is-invalid' : '' }}" value="{{ old('limit') }}" id="limit" name="limit" placeholder="Limiet aantal inschrijvingen...">
+                <label for="name">Valuta*</label>
+                <input value="EUR" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="valuta" placeholder="Valuta...">
             </div>
 
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Beschrijving</label>
-                <textarea type="textarea" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" placeholder="Beschrijving...">{{{ old('description') }}}</textarea>
+                <label for="Achternaam">Kan maar een keer gebruikt worden*</label>
+                <select name="isOneTimeUse" class="form-select" aria-label="Default select example">
+                    <option value="1">Ja</option>
+                    <option value="0">Nee</option>
+                </select>
             </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Beschrijving voor actieve leden</label>
-                <textarea type="textarea" class="form-control{{ $errors->has('membersOnlyContent') ? ' is-invalid' : '' }}" name="membersOnlyContent" placeholder="Beschrijving...">{{{ old('membersOnlyContent') }}}</textarea>
-            </div>
-
-            <label for="photo">Foto</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Upload bijhorende foto</label>
-                        <input class="form-control" type="file" id="photo" name="photo">
-                    </div>
-                </div>
-            </div>
-
-            <input class="inp-cbx" id="cbx" name="cbx" type="checkbox" checked style="display: none"/>
-
-            <label class="cbx" for="cbx"><span>
-            <svg width="12px" height="10px" viewbox="0 0 12 10">
-            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </svg></span><span>Voor deze activiteit kan maar eenmaal ingeschreven worden per deelnemer</span></label>
-
-            <input class="inp-cbx" id="cbx2" name="cbxMembers" type="checkbox" style="display: none"/>
-
-            <label class="cbx" for="cbx2"><span>
-            <svg width="12px" height="10px" viewbox="0 0 12 10">
-            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </svg></span><span>Alleen Salve Mundi leden?</span></label>
 
             <div class="form-group mx-auto my-3">
                 <input class="btn btn-primary" type="submit" value="Toevoegen">
