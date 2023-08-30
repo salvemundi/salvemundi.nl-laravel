@@ -17,6 +17,15 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 
 class ActivitiesController extends Controller {
+
+    public function addMemberToAcitivty(Request $request) {
+        $activity = Product::find($request->activityId);
+        $user = User::find($request->input('addUser'));
+
+        $activity->members()->attach($user);
+        return back()->with('success',"Gebruiker is toegevoegd aan activiteit");
+    }
+
     public function editActivities(Request $request) {
         $request->validate([
             'id' => ['required'],
@@ -54,7 +63,7 @@ class ActivitiesController extends Controller {
 
     public function signupsActivity(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $activity = Product::find($request->input('id'));
+        $activity = Product::find($request->activityId);
         $nonMembers = [];
         $members = [];
         foreach($activity->members as $user) {
@@ -68,7 +77,7 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        return view('admin/activitiesSignUps',['activity' => $activity,'users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
+        return view('admin/activitiesSignUps',['allMembers' => User::all(), 'activity' => $activity,'users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
     }
 
     private function countSignUps($activityId)

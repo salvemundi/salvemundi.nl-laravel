@@ -11,7 +11,17 @@
         {{ session()->get('information') }}
     </div>
     @endif
+
     <div class="col-auto col-md-6 col-sm-12">
+        <form class="mt-3"  action="/admin/activiteiten/{{$activity->id}}/addMember" method='POST'>
+            @csrf
+            <select name="addUser" class="form-select" aria-label="Default select example">
+                @foreach($allMembers as $user)
+                    <option value="{{$user->id}}">{{ $user->FirstName. " ". $user->LastName }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary">Voeg toe</button>
+        </form>
         <div class="table-responsive">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
             data-show-columns="true">
