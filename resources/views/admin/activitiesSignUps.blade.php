@@ -32,6 +32,7 @@
                     <th data-field="price" data-sortable="true">Telefoonnummer</th>
                     <th data-field="description" data-sortable="true">Email</th>
                     <th data-field="link" data-sortable="true">Verjaardag</th>
+                    <th data-field="deleteFromActivity" data-sortable="false">Verwijder van activiteit</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,12 @@
                     <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                     <td data-value="{{ $user->email }}">{{ $user->email }}</td>
                     <td data-value="{{ $user->birthday }}">{{date('d-m-Y', strtotime($user->birthday))}}</td>
+                    <td data-value="{{$user->id}}">
+                        <form method="post" action="/admin/activiteiten/{{ $activity->id }}/remove/{{$user->id}}">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Verwijder</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
                 @foreach ($userTransactionInfo as $user)
