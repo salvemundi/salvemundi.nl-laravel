@@ -17,7 +17,7 @@
             @csrf
             <select name="addUser" class="form-select" aria-label="Default select example">
                 @foreach($allMembers as $user)
-                    <option value="{{$user->id}}">{{ $user->FirstName. " ". $user->LastName }}</option>
+                    <option value="{{$user->id}}">{{ $user->FirstName. " ". $user->LastName . "---" . $user->email}}</option>
                 @endforeach
             </select>
             <button type="submit" class="btn btn-primary">Voeg toe</button>
