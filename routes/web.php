@@ -155,7 +155,7 @@ Route::get('/admin/activiteiten/tags', [App\Http\Controllers\TagsController::cla
 Route::post('/admin/activiteiten/tags/store', [App\Http\Controllers\TagsController::class, 'store'])->name('ActivityTagsStore')->middleware('admin.auth');
 Route::post('/admin/activiteiten/tags/delete/{tagId}', [App\Http\Controllers\TagsController::class, 'delete'])->name('ActivityTagDelete')->middleware('admin.auth');
 Route::post('/admin/activiteiten/{activityId}/addMember', [App\Http\Controllers\ActivitiesController::class, 'addMemberToAcitivty'])->middleware('admin.auth');
-Route::post('/admin/activiteiten/{activityId}/remove/{userId}', [App\Http\Controllers\ActivitiesController::class, 'removeMemberFromAcitivty'])->middleware('admin.auth');
+Route::post('/admin/activiteiten/{activityId}/remove/{userId}', [App\Http\Controllers\ActivitiesController::class, 'removeMemberFromActivity'])->middleware('admin.auth');
 
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
 Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');

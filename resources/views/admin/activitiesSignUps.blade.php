@@ -58,6 +58,7 @@
                         <td data-value=""></td>
                         <td data-value="{{ $user[0] }}">{{ $user[0] }}</td>
                         <td data-value=""></td>
+                        <td data-value=""></td>
                     </tr>
                 @endforeach
                 @if($activity->amount_non_member == 0)
@@ -67,6 +68,7 @@
                             <td data-value="{{ $user->name }}">{{ $user->name }}</td>
                             <td data-value=""></td>
                             <td data-value="{{ $user->email }}">{{ $user->email }}</td>
+                            <td data-value=""></td>
                             <td data-value=""></td>
                         </tr>
                     @endforeach

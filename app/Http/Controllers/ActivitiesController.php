@@ -26,7 +26,7 @@ class ActivitiesController extends Controller {
         return back()->with('success',"Gebruiker is toegevoegd aan activiteit");
     }
 
-    public function removeMemberFromAcitivty(Request $request) {
+    public function removeMemberFromActivity(Request $request) {
         $activity = Product::find($request->activityId);
         $user = User::find($request->userId);
 
