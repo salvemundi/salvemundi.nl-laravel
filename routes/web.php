@@ -213,3 +213,8 @@ Route::post('/admin/clubs/store', [App\Http\Controllers\ClubsController::class, 
 Route::post('/admin/clubs/edit', [App\Http\Controllers\ClubsController::class, 'edit'])->middleware('admin.auth');
 Route::post('/admin/clubs/edit/store', [App\Http\Controllers\ClubsController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/clubs/delete', [App\Http\Controllers\ClubsController::class, 'delete'])->middleware('admin.auth');
+
+Route::get('/admin/coupons', [App\Http\Controllers\CouponController::class, 'index'])->middleware('admin.auth');
+Route::post('/admin/coupons/create', [App\Http\Controllers\CouponController::class, 'create'])->middleware('admin.auth');
+Route::post('/admin/coupons/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->middleware('admin.auth');
+Route::post('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'edit'])->middleware('admin.auth');
