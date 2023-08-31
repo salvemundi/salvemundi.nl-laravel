@@ -58,12 +58,12 @@
 
             <div class="form-group">
                 <label for="link">Icon</label>
-                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="tagIcon" name="tagIcon" placeholder="Forms link...">
+                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="tagIcon" name="tagIcon" placeholder="fas fa-book">
             </div>
 
             <div class="form-group">
                 <label for="link">Kleur klasse</label>
-                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="tagColorClass" name="tagColorClass" placeholder="Forms link...">
+                <input class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" value="{{ old('link') }}" id="tagColorClass" name="tagColorClass" placeholder="bootstrap color theme (primary, success, etc.)">
             </div>
 
             <div class="form-group mx-auto my-3">
