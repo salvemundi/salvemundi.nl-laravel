@@ -46,7 +46,7 @@
             {{ session()->get('message') }}
         </div>
         @endif
-        <form action="/admin/activiteiten/tags/save" method="post">
+        <form action="/admin/activiteiten/tags/store" method="post">
             @csrf
             <br>
             <h2 class="h2">Tag toevoegen</h2>
