@@ -15,6 +15,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Carbon\Carbon;
 
 class ActivitiesController extends Controller {
 
@@ -187,7 +188,8 @@ class ActivitiesController extends Controller {
     }
 
     public function run() {
-        $activiteiten = Product::latest()->where('index', null)->get();
+        $halfYearAgo = Carbon::now()->subMonths(6);
+        $activiteiten = Product::latest()->where('index', null)->whereDate('created_at', '>=', $halfYearAgo)->get();
 
         return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => $this->userIsActive()]);
     }
