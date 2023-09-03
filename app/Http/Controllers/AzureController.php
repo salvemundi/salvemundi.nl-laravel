@@ -91,7 +91,7 @@ class AzureController extends Controller
         $graph = AzureController::connectToAzure();
         $data = [
             'accountEnabled' => true,
-            'displayName' => $registration->firstName ?: ($user->firstName . " " . $registration->lastName ?: $user->lastName),
+            'displayName' => $registration->firstName ? $registration->firstName." ". $registration->lastName : $user->firstName . " " . $user->lastName,
             'givenName' => $registration->firstName ?: $user->firstName,
             'surname' => $registration->lastName ?: $user->lastName,
             'mailNickname' => $registration->firstName ?: $user->firstName,
