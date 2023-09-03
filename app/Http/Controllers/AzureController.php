@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Mail\SendMailInschrijving;
 use App\Models\User;
 use GuzzleHttp\Client;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -39,7 +42,8 @@ class AzureController extends Controller
         return $graph;
     }
 
-    public function createAzureUserAPI(Request $request) {
+    public function createAzureUserAPI(Request $request): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+    {
         $checkIfUserExists = User::where([
             ['FirstName', $orderObject->firstName],
             ['LastName', $orderObject->lastName]
@@ -73,8 +77,10 @@ class AzureController extends Controller
         $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
         $newUser->save();
         $this->createAzureUser(null, null, $request->input('password'), $newUser);
+        return response(null, 200);
+
     }
-    public static function createAzureUser(Inschrijving $registration = null,$transaction = null, $password = null, User $user = null)
+    public static function createAzureUser(Inschrijving $registration = null,$transaction = null,string $password = null, User $user = null): string
     {
         $randomPass = Str::random(40);
         if($registration == null) {
