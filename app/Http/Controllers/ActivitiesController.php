@@ -116,12 +116,7 @@ class ActivitiesController extends Controller {
             $products->membersOnlyContent = $request->input('membersOnlyContent');
             $products->amount    = $request->input('price');
             $products->limit     = $request->input('limit');
-            $products->tags()->detach();
-            if ($request->input('tags') !== null){
-                foreach ($request->input('tags') as $key => $item) {
-                    $products->tags()->attach($item);
-                }
-            }
+
             if($request->input('cbx')){
                 $products->oneTimeOrder = true;
             } else {
@@ -140,6 +135,12 @@ class ActivitiesController extends Controller {
 
             $products->description = $request->input('description');
             $products->save();
+            $products->tags()->detach();
+            if ($request->input('tags') !== null){
+                foreach ($request->input('tags') as $key => $item) {
+                    $products->tags()->attach($item);
+                }
+            }
             return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
         }
 
