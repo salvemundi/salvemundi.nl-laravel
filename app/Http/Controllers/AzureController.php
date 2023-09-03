@@ -15,6 +15,8 @@ use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use Illuminate\Http\Request;
 use Microsoft\Graph\Model\Image;
+use App\Models\Inschrijving;
+
 class AzureController extends Controller
 {
     public static function connectToAzure(): Graph
@@ -37,10 +39,45 @@ class AzureController extends Controller
         return $graph;
     }
 
-    public static function createAzureUser($registration,$transaction)
+    public function createAzureUserAPI(Request $request) {
+        $newUser = new User;
+        $firstName = str_replace(' ', '_', $request->input('firstName'));
+        $lastName = str_replace(' ', '_', $request->input('lastName'));
+        if($request->input('insertion') == null || $request->input('insertion') == "") {
+            $newUser->DisplayName = $request->input('firstName')." ".$request->input('lastName');
+            if($checkIfUserExists == null){
+                $newUser->email = $firstName.".".$lastName."@lid.salvemundi.nl";
+            } else {
+                $birthDayDay = date("d", strtotime($request->input('birthday')));
+                $newUser->email = $firstName.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
+            }
+        } else {
+            $newUser->DisplayName = $request->input('firstName')." ".$request->input('insertion')." ".$request->input('lastName');
+            $insertion = str_replace(' ', '.', $request->input('insertion'));
+            if($checkIfUserExists == null){
+                $newUser->email = $firstName.".".$insertion.".".$lastName."@lid.salvemundi.nl";
+            } else {
+                $birthDayDay = date("d", strtotime($request->input('birthday')));
+                $newUser->email = $firstName.".".$insertion.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
+            }
+        }
+        $newUser->FirstName = $request->input('firstName');
+        $newUser->LastName = $request->input('lastName');
+        $newUser->phoneNumber = $orderObject->phoneNumber;
+
+        $newUser->ImgPath = "images/logo.svg";
+        $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
+        $newUser->save();
+        $this->createAzureUser(null, null, $request->input('password'), $newUser);
+    }
+    public static function createAzureUser(Inschrijving $registration = null,$transaction = null, $password = null, User $user = null)
     {
         $randomPass = Str::random(40);
-        $userObject = $registration->user()->first();
+        if($registration == null) {
+            $userObject = $user;
+        } else {
+            $userObject = $registration->user()->first();
+        }
         $graph = AzureController::connectToAzure();
         $data = [
             'accountEnabled' => true,
@@ -49,10 +86,10 @@ class AzureController extends Controller
             'surname' => $registration->lastName,
             'mailNickname' => $registration->firstName,
             'mobilePhone' => $registration->phoneNumber,
-            'userPrincipalName' => $userObject->email,
+            'userPrincipalName' => $userObject->email ? $userObject->email : $registration->upn,
             'passwordProfile' => [
                 'forceChangePasswordNextSignIn' => true,
-                'password' => $randomPass,
+                'password' => $password ? $password : $randomPass,
             ],
         ];
 
@@ -66,8 +103,11 @@ class AzureController extends Controller
         $userObject = User::where('email', $userEmail)->first();
         $userObject->AzureID = $newUserID;
         $userObject->save();
-        Mail::to($registration->email)
-            ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass, $userEmail));
+        // if this isn't from the api request (reffering to createAzureUserAPI function), send an email.
+        if($user == null) {
+            Mail::to($registration->email)
+                ->send(new SendMailInschrijving($registration->firstName, $registration->lastName, $registration->insertion, $transaction->paymentStatus, $randomPass, $userEmail));
+        }
         return $randomPass;
     }
 
