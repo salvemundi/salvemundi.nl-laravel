@@ -71,10 +71,10 @@ class AzureController extends Controller
         }
         $newUser->FirstName = $request->input('firstName');
         $newUser->LastName = $request->input('lastName');
-        $newUser->phoneNumber = $orderObject->phoneNumber;
+        $newUser->phoneNumber = $request->input('phoneNumber');
 
         $newUser->ImgPath = "images/logo.svg";
-        $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
+        $newUser->birthday = date("Y-m-d", strtotime($request->input('birthday')));
         $newUser->save();
         $this->createAzureUser(null, null, $request->input('password'), $newUser);
         return response(null, 200);
