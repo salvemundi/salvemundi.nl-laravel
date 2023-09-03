@@ -40,6 +40,10 @@ class AzureController extends Controller
     }
 
     public function createAzureUserAPI(Request $request) {
+        $checkIfUserExists = User::where([
+            ['FirstName', $orderObject->firstName],
+            ['LastName', $orderObject->lastName]
+            ])->first();
         $newUser = new User;
         $firstName = str_replace(' ', '_', $request->input('firstName'));
         $lastName = str_replace(' ', '_', $request->input('lastName'));
