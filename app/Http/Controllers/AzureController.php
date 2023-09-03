@@ -91,11 +91,11 @@ class AzureController extends Controller
         $graph = AzureController::connectToAzure();
         $data = [
             'accountEnabled' => true,
-            'displayName' => $registration->firstName ? $registration->firstName." ". $registration->lastName : $user->firstName . " " . $user->lastName,
-            'givenName' => $registration->firstName ?: $user->firstName,
-            'surname' => $registration->lastName ?: $user->lastName,
-            'mailNickname' => $registration->firstName ?: $user->firstName,
-            'mobilePhone' => $registration->phoneNumber ?: $user->phoneNumber,
+            'displayName' => $registration ? $registration->firstName." ". $registration->lastName : $user->firstName . " " . $user->lastName,
+            'givenName' => $registration ? $registration->firstName : $user->firstName,
+            'surname' => $registration ? $registration->lastName : $user->lastName,
+            'mailNickname' => $registration ? $registration->firstName : $user->firstName,
+            'mobilePhone' => $registration ? $registration->phoneNumber : $user->phoneNumber,
             'userPrincipalName' => $userObject->email,
             'passwordProfile' => [
                 'forceChangePasswordNextSignIn' => true,
