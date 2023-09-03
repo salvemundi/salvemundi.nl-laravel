@@ -49,8 +49,10 @@ class DatabaseCouponRespository implements CouponRepository
         $couponArr = [
             'context' => [
                 'description' => $coupon->description,
-                'currency' => $coupon->currency,
-                'value' => $coupon->value
+                'discount' => [
+                    'currency' => $coupon->currency,
+                    'value' => $coupon->value
+                ]
             ]
         ];
 
