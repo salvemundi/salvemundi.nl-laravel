@@ -64,24 +64,23 @@ class MolliePaymentController extends Controller
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
-            if($coupon != null){
-                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser, null, $coupon);
-            } else{
-                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
-            }
+
             $getProductObject = Product::where('index', paymentType::contribution)->first();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
-            if($coupon != null) {
-                $couponObject = Coupon::where('name',$coupon)->first();
-                $transaction->coupon()->associate($couponObject);
-                $transaction->save();
-            }
             $newUser->payment()->attach($transaction);
             $newUser->save();
             $orderObject->payment()->associate($transaction);
             $orderObject->save();
+            if($coupon != null){
+                $couponObject = Coupon::where('name',$coupon)->first();
+                $transaction->coupon()->associate($couponObject);
+                $transaction->save();
+                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser, null, $coupon);
+            } else{
+                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
+            }
             return $createPayment;
         } else{
             if($route === null) {
