@@ -181,16 +181,20 @@ class MolliePaymentController extends Controller
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
-            if($coupon != null || $coupon != "") {
-                $result = $user->newSubscription($name, $plan->key)->withCoupon($coupon)->create();
-            } else {
-                $result = $user->newSubscription($name, $plan->key)->create();
-            }
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
             $transaction->contribution()->attach($user);
             $transaction->save();
+            if($coupon != null || $coupon != "") {
+                $couponObject = Coupon::where('name',$coupon)->first();
+                $transaction->coupon()->associate($couponObject);
+                $transaction->save();
+                $result = $user->newSubscription($name, $plan->key)->withCoupon($coupon)->create();
+            } else {
+                $result = $user->newSubscription($name, $plan->key)->create();
+            }
+
 
             if(is_a($result, RedirectToCheckoutResponse::class)) {
                 return $result;
