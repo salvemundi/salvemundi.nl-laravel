@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMailInschrijvingTransactie;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
@@ -72,6 +73,11 @@ class MolliePaymentController extends Controller
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
+            if($coupon != null) {
+                $couponObject = Coupon::where('name',$coupon)->first();
+                $transaction->coupon()->associate($couponObject);
+                $transaction->save();
+            }
             $newUser->payment()->attach($transaction);
             $newUser->save();
             $orderObject->payment()->associate($transaction);

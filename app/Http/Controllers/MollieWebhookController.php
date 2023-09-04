@@ -69,6 +69,12 @@ class MollieWebhookController extends BaseWebhookController
                 $orderReg = Transaction::where('transactionId', null)->latest()->first();
                 $orderReg->transactionId = $paymentId;
                 $orderReg->paymentStatus = paymentStatus::paid;
+                if($orderReg->coupon != null) {
+                    if(!$orderReg->coupon->hasBeenUsed && $orderReg->coupon->isOneTimeUse) {
+                        $orderReg->coupon->hasBeenUsed = true;
+                        $orderReg->coupon->save();
+                    }
+                }
                 $orderReg->save();
                 $order->handlePaymentPaid($paymentRegister);
                 InschrijfController::processPayment($orderReg);

@@ -18,11 +18,10 @@ class DatabaseCouponRespository implements CouponRepository
             return null;
         }
 
-        if($coupon->isOneTimeUse) {
-            if($coupon->hasBeenUsed) {
-                return null;
-            }
+        if($coupon->isOneTimeUse && $coupon->hasBeenUsed) {
+            return null;
         }
+
         return $this->buildCoupon($coupon);
     }
 
@@ -33,10 +32,8 @@ class DatabaseCouponRespository implements CouponRepository
     public function findOrFail(string $name): ?\Laravel\Cashier\Coupon\Coupon
     {
         if (($coupon = Coupon::where('name', $name)->first()) != null) {
-            if($coupon->isOneTimeUse) {
-                if($coupon->hasBeenUsed) {
-                    return null;
-                }
+            if($coupon->isOneTimeUse && $coupon->hasBeenUsed) {
+                return null;
             }
             return $this->buildCoupon($coupon);
         } else {

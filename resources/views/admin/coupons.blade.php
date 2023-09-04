@@ -21,7 +21,7 @@
                     <th data-field="name" data-sortable="true">Coupon naam</th>
                     <th data-field="price" data-sortable="true">Kortings prijs</th>
                     <th data-field="description" data-sortable="true">Beschrijving</th>
-                    <th data-field="link" data-sortable="true">Meerder malig gebruik</th>
+                    <th data-field="link" data-sortable="true">Een malig gebruik</th>
                     <th data-field="imgPath" data-sortable="true">Is gebruikt</th>
                     <th data-field="membersOnly" data-sortable="true">Valuta</th>
                     <th data-field="edit" data-sortable="false">Bewerken</th>

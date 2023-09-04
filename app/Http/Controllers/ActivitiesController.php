@@ -251,6 +251,8 @@ class ActivitiesController extends Controller {
             } else {
                 return back()->with('message', 'Je kunt je maar één keer aanmelden voor de activiteit: ' . $activity->name . '!');
             }
+        } else {
+            $user = User::where('AzureId', session('id'))->firstOrFail();
         }
 
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));
