@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('transaction', function ($table) {
-            $table->string('coupon_id')->nullable();
+            $table->unsignedBigInteger('coupon_id')->nullable();
             $table->foreign('coupon_id')->references('id')->on('coupons');
         });
     }
