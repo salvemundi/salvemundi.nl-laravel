@@ -54,4 +54,9 @@ class Transaction extends Model
             'products'
         );
     }
+
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
+    }
 }

@@ -150,10 +150,12 @@ Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesControlle
 Route::post('/admin/activities/edit', [App\Http\Controllers\ActivitiesController::class, 'editActivities'])->middleware('admin.auth');
 Route::post('/admin/activities/edit/store', [App\Http\Controllers\ActivitiesController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/activities/delete', [App\Http\Controllers\ActivitiesController::class, 'deleteActivity'])->middleware('admin.auth');
-Route::post('/admin/activities/signups', [App\Http\Controllers\ActivitiesController::class, 'signupsActivity'])->middleware('admin.auth');
+Route::get('/admin/activities/{activityId}/signups', [App\Http\Controllers\ActivitiesController::class, 'signupsActivity'])->middleware('admin.auth');
 Route::get('/admin/activiteiten/tags', [App\Http\Controllers\TagsController::class, 'getTags'])->name('ActivityTags')->middleware('admin.auth');
 Route::post('/admin/activiteiten/tags/store', [App\Http\Controllers\TagsController::class, 'store'])->name('ActivityTagsStore')->middleware('admin.auth');
 Route::post('/admin/activiteiten/tags/delete/{tagId}', [App\Http\Controllers\TagsController::class, 'delete'])->name('ActivityTagDelete')->middleware('admin.auth');
+Route::post('/admin/activiteiten/{activityId}/addMember', [App\Http\Controllers\ActivitiesController::class, 'addMemberToAcitivty'])->middleware('admin.auth');
+Route::post('/admin/activiteiten/{activityId}/remove/{userId}', [App\Http\Controllers\ActivitiesController::class, 'removeMemberFromActivity'])->middleware('admin.auth');
 
 Route::get('/admin/nieuws', [App\Http\Controllers\NewsController::class, 'indexAdmin'])->name('News')->middleware('admin.auth');
 Route::post('/admin/news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('admin.auth');
@@ -213,3 +215,9 @@ Route::post('/admin/clubs/store', [App\Http\Controllers\ClubsController::class, 
 Route::post('/admin/clubs/edit', [App\Http\Controllers\ClubsController::class, 'edit'])->middleware('admin.auth');
 Route::post('/admin/clubs/edit/store', [App\Http\Controllers\ClubsController::class, 'store'])->middleware('admin.auth');
 Route::post('/admin/clubs/delete', [App\Http\Controllers\ClubsController::class, 'delete'])->middleware('admin.auth');
+
+Route::get('/admin/coupons', [App\Http\Controllers\CouponController::class, 'index'])->middleware('admin.auth');
+Route::post('/admin/coupons/create', [App\Http\Controllers\CouponController::class, 'store'])->middleware('admin.auth');
+Route::post('/admin/coupons/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->middleware('admin.auth');
+Route::post('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'store'])->middleware('admin.auth');
+Route::get('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'editView'])->middleware('admin.auth');

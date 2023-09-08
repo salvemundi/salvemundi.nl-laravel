@@ -69,6 +69,12 @@ class MollieWebhookController extends BaseWebhookController
                 $orderReg = Transaction::where('transactionId', null)->latest()->first();
                 $orderReg->transactionId = $paymentId;
                 $orderReg->paymentStatus = paymentStatus::paid;
+                if($orderReg->coupon != null) {
+                    if(!$orderReg->coupon->hasBeenUsed && $orderReg->coupon->isOneTimeUse) {
+                        $orderReg->coupon->hasBeenUsed = true;
+                        $orderReg->coupon->save();
+                    }
+                }
                 $orderReg->save();
                 $order->handlePaymentPaid($paymentRegister);
                 InschrijfController::processPayment($orderReg);
@@ -116,13 +122,6 @@ class MollieWebhookController extends BaseWebhookController
             if($order != null){
                 $order->paymentStatus = paymentStatus::expired;
                 $order->save();
-                if($order->type == paymentType::intro)
-                {
-                    $introObject = $order->introRelation;
-                    Mail::to($introObject->email)
-                        ->send(new SendMailIntro($introObject->firstName, $introObject->lastName, $introObject->insertion, $order->paymentStatus));
-                    $introObject->delete();
-                }
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
                 $user = $orderReg->contribution()->first();

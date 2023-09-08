@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMailInschrijvingTransactie;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
@@ -63,11 +64,7 @@ class MolliePaymentController extends Controller
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
-            if($coupon != null){
-                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser, null, $coupon);
-            } else{
-                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
-            }
+
             $getProductObject = Product::where('index', paymentType::contribution)->first();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
@@ -76,6 +73,14 @@ class MolliePaymentController extends Controller
             $newUser->save();
             $orderObject->payment()->associate($transaction);
             $orderObject->save();
+            if($coupon != null){
+                $couponObject = Coupon::where('name',$coupon)->first();
+                $transaction->coupon()->associate($couponObject);
+                $transaction->save();
+                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser, null, $coupon);
+            } else{
+                $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
+            }
             return $createPayment;
         } else{
             if($route === null) {
@@ -176,16 +181,20 @@ class MolliePaymentController extends Controller
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
-            if($coupon != null || $coupon != "") {
-                $result = $user->newSubscription($name, $plan->key)->withCoupon($coupon)->create();
-            } else {
-                $result = $user->newSubscription($name, $plan->key)->create();
-            }
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
             $transaction->save();
             $transaction->contribution()->attach($user);
             $transaction->save();
+            if($coupon != null || $coupon != "") {
+                $couponObject = Coupon::where('name',$coupon)->first();
+                $transaction->coupon()->associate($couponObject);
+                $transaction->save();
+                $result = $user->newSubscription($name, $plan->key)->withCoupon($coupon)->create();
+            } else {
+                $result = $user->newSubscription($name, $plan->key)->create();
+            }
+
 
             if(is_a($result, RedirectToCheckoutResponse::class)) {
                 return $result;

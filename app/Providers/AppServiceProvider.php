@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Providers;
+use App\DatabaseCouponRespository;
 use App\DatabasePlanRepository;
 use App\Models\AdminSetting;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Commissie;
+use Laravel\Cashier\Coupon\Contracts\CouponRepository;
+use Laravel\Cashier\Plan\Contracts\PlanRepository;
 use mysql_xdevapi\Exception;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(\Laravel\Cashier\Plan\Contracts\PlanRepository::class, DatabasePlanRepository::class);
+        $this->app->bind(PlanRepository::class, DatabasePlanRepository::class);
+        $this->app->bind(CouponRepository::class, DatabaseCouponRespository::class);
     }
 
     /**

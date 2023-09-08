@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="col-12 col-md-6 px-1 px-md-5">
-            <img class="imgIndex" src={{ '/' . Thumbnailer::generate("images/SaMuFotos/DSC07654.jpg", "50%") }}>
+            <img class="imgIndex" src={{ '/' . Thumbnailer::generate("images/SaMuFotos/Intro2023/intro156.jpg", "50%") }}>
         </div>
     </div>
 
