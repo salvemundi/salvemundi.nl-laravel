@@ -15,8 +15,26 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Carbon\Carbon;
 
 class ActivitiesController extends Controller {
+
+    public function addMemberToAcitivty(Request $request) {
+        $activity = Product::find($request->activityId);
+        $user = User::find($request->input('addUser'));
+
+        $activity->members()->attach($user);
+        return back()->with('success',"Gebruiker is toegevoegd aan activiteit");
+    }
+
+    public function removeMemberFromActivity(Request $request) {
+        $activity = Product::find($request->activityId);
+        $user = User::find($request->userId);
+
+        $activity->members()->detach($user);
+        return back()->with('success',"Gebruiker is verwijderd van activiteit");
+    }
+
     public function editActivities(Request $request) {
         $request->validate([
             'id' => ['required'],
@@ -54,12 +72,9 @@ class ActivitiesController extends Controller {
 
     public function signupsActivity(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $activity = Product::find($request->input('id'));
+        $activity = Product::find($request->activityId);
         $nonMembers = [];
-        $members = [];
-        foreach($activity->members as $user) {
-            $members[] = $user;
-        }
+
         foreach($activity->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
                 if($transaction->email != null && $transaction->email != ""){
@@ -68,7 +83,7 @@ class ActivitiesController extends Controller {
                 }
             }
         }
-        return view('admin/activitiesSignUps',['activity' => $activity,'users' => $members, 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
+        return view('admin/activitiesSignUps',['allMembers' => User::orderBy('FirstName')->orderBy('LastName')->get(), 'activity' => $activity,'users' => $activity->members->unique(), 'userTransactionInfo' => $nonMembers, 'nonMembersFree' => $activity->nonMembers()->get()]);
     }
 
     private function countSignUps($activityId)
@@ -102,12 +117,7 @@ class ActivitiesController extends Controller {
             $products->membersOnlyContent = $request->input('membersOnlyContent');
             $products->amount    = $request->input('price');
             $products->limit     = $request->input('limit');
-            $products->tags()->detach();
-            if ($request->input('tags') !== null){
-                foreach ($request->input('tags') as $key => $item) {
-                    $products->tags()->attach($item);
-                }
-            }
+
             if($request->input('cbx')){
                 $products->oneTimeOrder = true;
             } else {
@@ -126,6 +136,12 @@ class ActivitiesController extends Controller {
 
             $products->description = $request->input('description');
             $products->save();
+            $products->tags()->detach();
+            if ($request->input('tags') !== null){
+                foreach ($request->input('tags') as $key => $item) {
+                    $products->tags()->attach($item);
+                }
+            }
             return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
         }
 
@@ -172,7 +188,8 @@ class ActivitiesController extends Controller {
     }
 
     public function run() {
-        $activiteiten = Product::latest()->where('index', null)->get();
+        $halfYearAgo = Carbon::now()->subMonths(6);
+        $activiteiten = Product::latest()->where('index', null)->whereDate('created_at', '>=', $halfYearAgo)->get();
 
         return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => $this->userIsActive()]);
     }
@@ -234,6 +251,8 @@ class ActivitiesController extends Controller {
             } else {
                 return back()->with('message', 'Je kunt je maar één keer aanmelden voor de activiteit: ' . $activity->name . '!');
             }
+        } else {
+            $user = User::where('AzureId', session('id'))->firstOrFail();
         }
 
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));

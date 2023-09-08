@@ -64,6 +64,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/rechten">Rechten</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/coupons">Coupons</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav m-lg-auto">

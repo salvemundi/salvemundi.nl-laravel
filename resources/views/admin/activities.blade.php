@@ -41,10 +41,10 @@
                     <td data-value="{{ $activity->formsLink }}">{{Illuminate\Support\Str::limit($activity->formsLink, 20)}}</td>
                     <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
                     <td data-value="{{ $activity->membersOnly }}">{{$converted_res = $activity->membersOnly ? 'Ja' : 'Nee' }}</td>
-                    <td data-value="{{$activity->tags}}">@foreach($activity->tags as $tag) <span class="badge {{ $tag->colorClass }}"><i class="{{ $tag->icon }}"></i> {{ $tag->name }}</span> @endforeach</td>
+                    <td data-value="{{ $activity->tags }}">@foreach($activity->tags as $tag) <span class="badge {{ $tag->colorClass }}"><i class="{{ $tag->icon }}"></i> {{ $tag->name }}</span> @endforeach</td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
-                    <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/signups">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Inschrijvingen</button></form></td>
+                    <td data-value="{{ $activity->id }}"><a href="/admin/activities/{{$activity->id}}/signups" type="submit" class="btn btn-primary">Inschrijvingen</a></td>
                 </tr>
                 @endforeach
             </tbody>

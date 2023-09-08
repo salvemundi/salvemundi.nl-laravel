@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Log;
+
 
 class Product extends Model
 {
@@ -63,10 +65,21 @@ class Product extends Model
 
     public function isFull(): bool
     {
-        $transactions = $this->transactions->where('paymentStatus', paymentStatus::paid)->count();
-        if($transactions >= $this->limit && $this->limit != 0) {
-            return true;
+        $nonMembers = [];
+        foreach($this->transactions as $transaction) {
+            if($transaction->paymentStatus == paymentStatus::paid) {
+                if($transaction->email != null && $transaction->email != ""){
+                    $userTransaction = [$transaction->email, $transaction->name, $transaction->transactionId];
+                    $nonMembers[] = $userTransaction;
+                }
+            }
         }
-        return false;
+        $count = $this->members->count();
+        if($this->amount_non_member > 0) {
+            $count += count($nonMembers);
+        } else {
+            $count += $this->nonMembers->count();
+        }
+        return $count >= $this->limit;
     }
 }
