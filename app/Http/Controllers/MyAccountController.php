@@ -51,7 +51,6 @@ class MyAccountController extends Controller
         $rules = Rules::all();
 
         return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
-
     }
 
     public function deletePicture() {
