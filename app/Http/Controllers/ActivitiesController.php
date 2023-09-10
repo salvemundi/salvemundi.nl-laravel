@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ActivitiesController extends Controller {
 
@@ -46,22 +47,6 @@ class ActivitiesController extends Controller {
     {
         $activities = Product::where("index", null)->orderBy('created_at', 'desc')->get();
         return view('admin/activities', ['activities' => $activities, 'tags' => CommitteeTags::all()]);
-    }
-
-    public function userIsActive(): bool {
-        $sessionId = session('id');
-
-        if ($sessionId === null) {
-            return false;
-        }
-
-        $userObject       = User::where('AzureID', $sessionId)->firstOrFail();
-        $planCommissieLid = paymentType::fromValue(1);
-        $plan             = paymentType::fromValue(2);
-        $name             = ucfirst($plan) . ' membership';
-        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
-
-        return $userObject->subscribed($name, $plan->key) || $userObject->subscribed($nameCommissieLid, $planCommissieLid->key);
     }
 
     public function getActivities() {
@@ -191,15 +176,15 @@ class ActivitiesController extends Controller {
         $halfYearAgo = Carbon::now()->subMonths(6);
         $activiteiten = Product::latest()->where('index', null)->whereDate('created_at', '>=', $halfYearAgo)->get();
 
-        return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => $this->userIsActive()]);
+        return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => Auth::user()->userIsActive()]);
     }
 
     public static function userHasPayedForActivity($activityId): bool
     {
         $user = null;
         $activity = Product::find($activityId);
-        if (session('id') !== null) {
-            $user = User::where('AzureId', session('id'))->firstOrFail();
+        if (Auth::check()) {
+            $user = Auth::user();
             if($user->activities->contains($activity)) {
                 return true;
             }
@@ -239,7 +224,7 @@ class ActivitiesController extends Controller {
 
         $user = null;
 
-        if (session('id') == null)
+        if (!Auth::check())
         {
             if ((!$activity->nonMembers()->where('email', $request->input('email'))->exists() && $activity->oneTimeOrder) || !$activity->oneTimeOrder) {
                 $non_member = new NonUserActivityParticipant();
@@ -252,7 +237,7 @@ class ActivitiesController extends Controller {
                 return back()->with('message', 'Je kunt je maar één keer aanmelden voor de activiteit: ' . $activity->name . '!');
             }
         } else {
-            $user = User::where('AzureId', session('id'))->firstOrFail();
+            $user = Auth::user();
         }
 
         return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));

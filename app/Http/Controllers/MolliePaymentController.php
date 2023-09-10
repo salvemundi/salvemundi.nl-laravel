@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -86,7 +87,7 @@ class MolliePaymentController extends Controller
             if($route === null) {
                 $route = env("APP_URL");
             }
-            $createPayment = MolliePaymentController::preparePayment($orderObject->id, User::where('AzureID', session('id'))->first(), $route, null, $email, $nameNotMember, false);
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, Auth::user(), $route, null, $email, $nameNotMember, false);
             if($createPayment === null) {
                 if($route === null) {
                     return redirect('/');
@@ -173,9 +174,9 @@ class MolliePaymentController extends Controller
         return view('intro');
     }
 
-    private static function createSubscription($plan,$id,$coupon = null)
+    private static function createSubscription($plan,$coupon = null)
     {
-        $user = User::where('AzureID',$id)->first();
+        $user = Auth::user();
         $plan = paymentType::fromValue($plan);
         $name = ucfirst($plan) . ' membership';
         if(!$user->subscribed($name, $plan->key)) {
@@ -212,32 +213,31 @@ class MolliePaymentController extends Controller
      */
     public static function handleContributionPaymentFirstTime(Request $request)
     {
-        $user = User::where('AzureID',session('id'))->first();
+        $user = Auth::user();
         try {
             if ($user->commission()->exists()) {
-                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'), $request->input('coupon'));
+                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, $request->input('coupon'));
             } else {
-                return MolliePaymentController::createSubscription(paymentType::contribution, session('id'), $request->input('coupon'));
+                return MolliePaymentController::createSubscription(paymentType::contribution, $request->input('coupon'));
             }
         }
         catch (\Exception $e){
             if ($user->commission()->exists()) {
-                return MolliePaymentController::createSubscription(paymentType::contributionCommissie, session('id'));
+                return MolliePaymentController::createSubscription(paymentType::contributionCommissie);
             } else {
-                return MolliePaymentController::createSubscription(paymentType::contribution, session('id'));
+                return MolliePaymentController::createSubscription(paymentType::contribution);
             }
         }
     }
 
     public function cancelSubscription(Request $request)
     {
-        $userId = session('id');
-        $userObject = User::where('AzureID', $userId)->first();
+        $user = Auth::user();
         $plan = paymentType::fromValue(3);
         $name = ucfirst($plan) . ' membership';
-        if($userObject->subscribed($name, $plan->key))
+        if($user->subscribed($name, $plan->key))
         {
-            $userObject->subscription($name,$plan->key)->cancel();
+            $user->subscription($name,$plan->key)->cancel();
         }
         return redirect('/mijnAccount');
     }

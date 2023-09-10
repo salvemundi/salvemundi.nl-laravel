@@ -11,6 +11,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class HomeController extends Controller
@@ -24,21 +25,15 @@ class HomeController extends Controller
     $newsCount = News::all()->count();
     $activitiesData = Product::latest()->where('index', null)->take(3)->get();
     $activitiesCount = Product::where('index', null)->count();
+    $bday = false;
 
-    if(session('id') != null)
+    if(Auth::check())
     {
-      $user = User::where('AzureID', session('id'))->first();
-      //dd(Carbon::now()->toDateString());
-      if ((string)date("m-d", strtotime($user->birthday)) == (string)date("m-d", strtotime(Carbon::now()->toDateString())))
+      $user = Auth::user();
+      if (date("m-d", strtotime($user->birthday)) == date("m-d", strtotime(Carbon::now()->toDateString())))
       {
         $bday = true;
       }
-      else
-      {
-        $bday = false;
-      }
-    } else {
-      $bday = false;
     }
     return view('index', ['viewData' => $viewData,'sponsorsData' => $sponsorsData, 'newsData' => $newsData, 'activitiesData' => $activitiesData, 'sponsorsCount' => $sponsorsCount, 'newsCount' => $newsCount, 'activitiesCount' => $activitiesCount , 'bday' => $bday]);
   }

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SignUpCheck
 {
@@ -16,7 +17,7 @@ class SignUpCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session('id')){
+        if(!Auth::check()){
             return $next($request);
         }
         return abort(401);

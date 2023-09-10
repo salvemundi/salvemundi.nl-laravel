@@ -6,7 +6,11 @@ use App\Models\WhatsappLink;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Rules;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use DB;
 use Carbon\Carbon;
@@ -23,11 +27,10 @@ class MyAccountController extends Controller
         $this->permissionController = new PermissionController();
     }
 
-    public function index() {
-
-        $userObject = User::where('AzureID', session('id'))->first();
-        $getUser = User::where('AzureID', session('id'))->first();
-        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($getUser);
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
+        $user = Auth::user();
+        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
         $status = 0;
         $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
@@ -35,11 +38,11 @@ class MyAccountController extends Controller
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';
         $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
-        if ($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key)) {
+        if ($user->subscribed($name,$plan->key) || $user->subscribed($nameCommissieLid,$planCommissieLid->key)) {
             $status = 1;
         }
 
-        $subscription = Subscription::where('owner_id',$userObject->id)->latest()->first();
+        $subscription = Subscription::where('owner_id',$user->id)->latest()->first();
         if ($subscription != null) {
             $expiryDate = $subscription->cycle_ends_at;
         }
@@ -47,12 +50,12 @@ class MyAccountController extends Controller
         $whatsappLinks = WhatsappLink::all();
         $rules = Rules::all();
 
-        return view('mijnAccount', ['user' => $getUser, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $getUser->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
+        return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
 
     }
 
     public function deletePicture() {
-        $loggedInUser = User::find(session('id'));
+        $loggedInUser = Auth::user();
         $loggedInUser->ImgPath = "images/logo.svg";
         $loggedInUser->save();
 

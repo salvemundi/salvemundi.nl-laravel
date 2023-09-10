@@ -5,25 +5,23 @@ namespace App\Http\Middleware;
 use App\Models\Permission;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 class AdminAuth
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $userid = session('id');
+        $user = Auth::user();
         $targetRoute = "/".$request->path();
-//        return $next($request);
 
-        if($userid != null) {
-            $user = User::where('AzureID', $userid)->first();
+        if(Auth::check()) {
             $permissions = $user->permissions;
             foreach ($user->commission as $group) {
                 foreach($group->permissions as $permission) {
