@@ -1,5 +1,5 @@
 
-![alt text](./public/images/logo.svg)
+![alt text](./public/images/logo_old.svg)
 
 ## Salve Mundi's website
 ![CI](https://github.com/salvemundi/salvemundi.nl-laravel/workflows/CI/badge.svg)
