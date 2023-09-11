@@ -97,7 +97,7 @@
                                 <td data-field="user">{{$pizza->user->insertion? $pizza->user->FirstName. " ". $pizza->user->insertion . " ". $pizza->user->LastName : $pizza->user->FirstName . " " . $pizza->user->LastName}}</td>
                                 <td data-field="description">{{$pizza->description}}</td>
                                 <td data-field="delete">
-                                @if($pizza->user->id == Illuminate\Support\Facades\Auth::user()->id)
+                                @if($pizza->user->id == Illuminate\Support\Facades\Auth::user()->id || Illuminate\Support\Facades\Auth::user()->isAdmin())
                                     @include('include.deleteOwnPizzaModal', ['pizza' => $pizza])
                                     <button data-bs-toggle="modal" data-bs-target="#deletePizza{{$pizza->id}}" class="btn btn-danger">Verwijder</button>
                                 @endif

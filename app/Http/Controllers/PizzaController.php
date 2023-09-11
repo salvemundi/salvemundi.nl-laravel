@@ -46,7 +46,7 @@ class PizzaController extends Controller
     public function deleteOwnPizza(Request $request) {
         $user = Auth::user();
         $pizza = Pizza::find($request->id);
-        if($pizza->user->id == $user->id) {
+        if($pizza->user->id == $user->id || $user->isAdmin()) {
             $pizza->delete();
             return back()->with('success','Bestelling is verwijderd!');
         }
