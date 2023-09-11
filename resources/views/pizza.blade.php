@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="overlap row pt-5">
+<div class="overlap removeAutoMargin row pt-5">
     <div class="col-12 col-md-6 p-1 p-md-3 p-lg-5">
         @if(session()->has('success'))
         <div class="alert alert-success">
