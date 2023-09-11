@@ -25,6 +25,15 @@ class User extends Authenticatable
         );
     }
 
+    public function isAdmin() {
+        foreach($this->commission as $commission) {
+            if($commission->permissions->count() > 0){
+                return true;
+            }
+        }
+        return $this->permissions->count() > 0;
+    }
+
     public function pizzas(): HasMany
     {
         return $this->hasMany(Pizza::class);
