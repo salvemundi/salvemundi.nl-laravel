@@ -176,7 +176,7 @@ class ActivitiesController extends Controller {
         $halfYearAgo = Carbon::now()->subMonths(6);
         $activiteiten = Product::latest()->where('index', null)->whereDate('created_at', '>=', $halfYearAgo)->get();
 
-        return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => Auth::user()->userIsActive()]);
+        return view('activities', ['activiteiten' => $activiteiten, 'userIsActive' => Auth::user()->hasActiveSubscription()]);
     }
 
     public static function userHasPayedForActivity($activityId): bool
