@@ -11,26 +11,20 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav justify-content-lg-start">
                 <li class="nav-item">
-                    <a class="nav-link" href="/commissies">Commissies</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 @if (session('id') === null)
                     <li class="nav-item">
-                        <a class="nav-link" href="/inschrijven">Inschrijven</a>
+                        <a class="nav-link" href="/commissies">Commissies</a>
                     </li>
                 @endif
                 @if($introSetting->settingValue === 1)
                     <li class="nav-item">
-                        <a class="nav-link" href="https://intro.salvemundi.nl/">Intro</a>
+                        <a class="nav-link" href="/activiteiten">Activiteiten</a>
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="/activiteiten">Activiteiten</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/nieuws">Nieuws</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/nieuwsbrief">Nieuwsbrief</a>
+                    <a class="nav-link" href="/clubs">Clubs</a>
                 </li>
                 @if (session('id') !== null)
                     <li class="nav-item">
@@ -40,13 +34,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/bijbaanbank">Bijbanen bank</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/clubs">Clubs</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/stickers">Stickers</a>
-                </li>
-            </ul>
+                    <a class="nav-link" href="/inschrijven"><b>Word lid</b></a>
+                </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav w-50 d-flex justify-content-end">
                 <!-- Authentication Links -->
@@ -58,11 +48,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
                         </li>
+                        <div class="btn-group">
+                            <button type="button" href="/mijnAccount" class="btn btn-primary">Mijn account</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
+                            </div>
+                        </div>
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                         </li>
                     @endif
+                    
                 @endguest
             </ul>
         </div>

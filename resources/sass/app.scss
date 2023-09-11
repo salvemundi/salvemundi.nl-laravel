@@ -67,3 +67,8 @@
   -moz-appearance: none;
   appearance: none;
 }
+
+@font-face {
+  font-family: 'Portico-Rounded';
+  src: url('../../../public/fonts/Portico-Rounded.woff') format('woff');
+}

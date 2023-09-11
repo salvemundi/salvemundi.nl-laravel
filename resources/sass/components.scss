@@ -1,0 +1,25 @@
+@import "variables";
+
+body{
+    font-family: $font-family;
+    font-size: medium;
+    color: black;
+}
+
+h1{
+    font-size: large;
+    font-family: $font-headers;
+    color: white;
+}
+
+h2{
+    font-size: large;
+    font-family: $font-headers;
+    color: $salveMundi-primary;
+}
+
+h3, h4, h5{
+    font-size: medium;
+    font-family: $font-headers;
+    color: $salveMundi-primary;
+}
