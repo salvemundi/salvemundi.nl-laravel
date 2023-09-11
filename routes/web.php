@@ -90,6 +90,14 @@ Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index']
 // Nieuwsbrief page
 Route::get('/nieuwsbrief',[App\Http\Controllers\NewsLetterController::class, 'index']);
 
+// Pizza
+
+Route::get('/pizza',[App\Http\Controllers\PizzaController::class ,'index'])->middleware('auth');
+Route::post('/pizza/store',[\App\Http\Controllers\PizzaController::class,'store'])->middleware('auth');
+Route::post('/pizza/delete/all',[\App\Http\Controllers\PizzaController::class, 'deletePizzas'])->middleware('auth');
+Route::post('/pizza/delete/{id}',[\App\Http\Controllers\PizzaController::class, 'deleteOwnPizza'])->middleware('auth');
+
+
 // Privacy zooi
 Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
