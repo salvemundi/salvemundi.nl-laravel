@@ -133,6 +133,9 @@
                                                     @endif
                                                 @endif
                                         @else
+                                            @if(App\Http\Controllers\ActivitiesController::userHasPayedForActivity($activiteit->id) && $activiteit->oneTimeOrder)
+                                                <button class="btn btn-success disabled"><i class="fas fa-check"></i> Ingeschreven</button>
+                                            @endif
                                             <p class="card-text textCard text-danger"><u>Deze activiteit is helaas vol!</u></p>
                                         @endif
                                 </div>
