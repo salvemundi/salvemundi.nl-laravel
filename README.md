@@ -1,5 +1,5 @@
 
-![alt text](./public/images/logo.svg)
+![alt text](./public/images/logo_old.svg)
 
 ## Salve Mundi's website
 ![CI](https://github.com/salvemundi/salvemundi.nl-laravel/workflows/CI/badge.svg)
@@ -83,6 +83,10 @@ P.S yes we shouldn't use production data in development but Microsoft Graph does
 As for our payment system, [Mollie](https://mollie.com). This api key is only available to the development server. Reason being since Mollie uses
 webhooks in order to communicate payment status updates, the host sending the payment request needs to publicly available. Therefore, you can't test
 mollie payments from your localhost under default circumstances.
+
+## Salve Mundi API
+
+A link has been created between the [introduction system](https://github.com/salvemundi/intro-application) and the main Salve Mundi website. Laravel passport is used to authenticate the introduction system to the Salve Mundi API hosted in this project. This API currently supports creating one time use coupons, and creating new users. For more details you can find the routes in the routes/api.php file that are using the "client_credentials" middleware.
 
 ---
 

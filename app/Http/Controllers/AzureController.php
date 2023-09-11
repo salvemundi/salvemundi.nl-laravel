@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\SendMailInschrijving;
 use App\Models\User;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
@@ -76,11 +77,20 @@ class AzureController extends Controller
         $newUser->ImgPath = "images/logo.svg";
         $newUser->birthday = date("Y-m-d", strtotime($request->input('birthday')));
         $newUser->save();
-        $this->createAzureUser(null, null, $request->input('password'), $newUser);
+        try {
+            $this->createAzureUser(null, null, $request->input('password'), $newUser);
+        } catch(GraphException) {
+            return response("User already exists or email format is invalid.", 500);
+        }
         return response(null, 200);
 
     }
-    public static function createAzureUser(Inschrijving $registration = null,$transaction = null,string $password = null, User $user = null): string
+
+    /**
+     * @throws GraphException
+     * @throws GuzzleException
+     */
+    public static function createAzureUser(Inschrijving $registration = null, $transaction = null, string $password = null, User $user = null): string
     {
         $randomPass = Str::random(40);
         if($registration == null) {
@@ -139,7 +149,7 @@ class AzureController extends Controller
     {
         $graph = AzureController::connectToAzure();
         try {
-            $fetchedUser = $graph->createRequest("PATCH", '/users/' . $userObject->AzureID . '/photo/\$value')
+            $graph->createRequest("PATCH", '/users/' . $userObject->AzureID . '/photo/\$value')
                 ->addHeaders(array("Content-Type" => "image/png"))
                 ->upload('storage/'.$userObject->ImgPath);
         } catch (GraphException $e) {
@@ -198,23 +208,13 @@ class AzureController extends Controller
     public static function accountEnabled(bool $mode, User $user)
     {
         $graph = AzureController::connectToAzure();
-        if($mode)
-        {
-            $data = [
-                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$user->AzureID,
-                "accountEnabled" => true,
-            ];
-        }
-        else
-        {
-            $data = [
-                "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$user->AzureID,
-                "accountEnabled" => false,
-            ];
-        }
+        $data = [
+            "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$user->AzureID,
+            "accountEnabled" => $mode,
+        ];
 
         try {
-            $graphRequest = $graph->createRequest("PATCH","/users/".$user->AzureID)
+            $graph->createRequest("PATCH","/users/".$user->AzureID)
                 ->addHeaders(array("Content-Type" => "application/json"))
                 ->attachBody(json_encode($data))
                 ->execute();
