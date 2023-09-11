@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PizzaLocations;
+use App\Enums\PizzaSizes;
 use App\Models\Pizza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,15 +23,19 @@ class PizzaController extends Controller
             'size'       => ['required','max:65', 'regex:/(^[0-9]+$)+/'],
             'location'       => ['required','max:65', 'regex:/(^[0-9]+$)+/'],
         ]);
-        $pizza = new Pizza();
-        $pizza->name = $request->input('name');
-        $pizza->type = $request->input('type');
-        $pizza->description = $request->input('description');
-        $pizza->size = $request->input('size');
-        $pizza->location = $request->input('location');
-        $pizza->user()->associate(Auth::user())->save();
+        try {
+            $pizza = new Pizza();
+            $pizza->name = $request->input('name');
+            $pizza->type = $request->input('type');
+            $pizza->description = $request->input('description');
+            $pizza->size = PizzaSizes::fromValue((int)$request->input('size'));
+            $pizza->location = PizzaLocations::fromValue((int)$request->input('location'));
+            $pizza->user()->associate(Auth::user())->save();
 
-        return back()->with('success', 'Je bestelling is opgenomen!');
+            return back()->with('success', 'Je bestelling is opgenomen!');
+        } catch(\Exception $e) {
+            return back()->with('error', 'Formulier niet goed ingevuld!');
+        }
     }
 
     public function deleteAllPizzas() {
