@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,11 @@ class User extends Authenticatable
             'userId',
             'id'
         );
+    }
+
+    public function pizzas(): HasMany
+    {
+        return $this->hasMany(Pizza::class);
     }
 
     public function getInvoiceInformation()
