@@ -66,6 +66,9 @@ class Product extends Model
     public function isFull(): bool
     {
         $nonMembers = [];
+        if($this->limit == 0) {
+            return false;
+        }
         foreach($this->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
                 if($transaction->email != null && $transaction->email != ""){
