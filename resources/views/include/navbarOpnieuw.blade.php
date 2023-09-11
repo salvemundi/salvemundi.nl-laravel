@@ -51,19 +51,18 @@
             <ul class="navbar-nav w-50 d-flex justify-content-end">
                 <!-- Authentication Links -->
                 @guest
-                    @if(session('userName') !== null)
-                        <li class="nav-item">
-                            <a class="nav-link" href="/mijnAccount">Mijn account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
-                        </li>
-                    @else
                         <li class="nav-item">
                             <a class="nav-link" href="/signin">{{ __('Inloggen') }}</a>
                         </li>
-                    @endif
                 @endguest
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mijnAccount">Mijn account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signout">{{ __('Uitloggen') }}</a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>

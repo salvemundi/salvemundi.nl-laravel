@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\AzureAuth;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use League\OAuth2\Client\Provider\GenericProvider;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
@@ -15,18 +21,19 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function signout()
+    public function signOut(): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
           $tokenCache = new TokenCache();
           $tokenCache->clearTokens();
           Session::forget('id');
+          Auth::logout();
           return redirect('/');
     }
 
-    public function signin()
+    public function signIn(): RedirectResponse
     {
       // Initialize the OAuth client
-      $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
+      $oauthClient = new GenericProvider([
         'clientId'                => env('OAUTH_APP_ID'),
         'clientSecret'            => env('OAUTH_APP_PASSWORD'),
         'redirectUri'             => env('OAUTH_REDIRECT_URI'),
@@ -67,7 +74,7 @@ class AuthController extends Controller
       $authCode = $request->query('code');
       if (isset($authCode)) {
         // Initialize the OAuth client
-        $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
+        $oauthClient = new GenericProvider([
           'clientId'                => env('OAUTH_APP_ID'),
           'clientSecret'            => env('OAUTH_APP_PASSWORD'),
           'redirectUri'             => env('OAUTH_REDIRECT_URI'),
@@ -98,9 +105,11 @@ class AuthController extends Controller
           $AzureUser = User::where('AzureID',$user->getId())->first();
           $AzureUser->api_token = hash('sha256', $accessToken);
           $AzureUser->save();
+
+          Auth::login($AzureUser);
           return redirect('/');
         }
-        catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e)
+        catch (IdentityProviderException $e)
         {
           return redirect('/')
             ->with('error', 'Error requesting access token')

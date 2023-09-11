@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Sticker;
 use App\Models\User;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class StickerController extends Controller
 {
-    public function index() {
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
         $stickers = Sticker::all();
-        $userFound = User::where('AzureID', session('id'))->first();
+        $user = Auth::user();
         $userStickers = [];
 
-        if ($userFound != null) {
+        if ($user != null) {
             foreach ($stickers as $sticker) {
-                if ($sticker->userId == $userFound->id) {
+                if ($sticker->userId == $user->id) {
                     array_push($userStickers, $sticker);
                 }
             }
@@ -24,16 +31,17 @@ class StickerController extends Controller
         return view('/sticker', ['stickers' => $stickers, 'userStickers' => $userStickers]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
         $request->validate([
             'longitude' =>  ['required', 'regex:/(^[0-9.-]+$)+/'],
             'latitude'  =>  ['required', 'regex:/(^[0-9.-]+$)+/'],
         ]);
 
         $sticker = new Sticker;
-        $userFound = User::where('AzureID', session('id'))->first();
+        $user = Auth::user();
 
-        $sticker->userId = $userFound->id;
+        $sticker->userId = $user->id;
         $sticker->longitude = $request->input('longitude');
         $sticker->latitude = $request->input('latitude');
 
@@ -46,9 +54,9 @@ class StickerController extends Controller
         if ($request->id != null) {
             $stickerToDelete = Sticker::find($request->id);
 
-            $userFound = User::where('AzureID', session('id'))->first();
+            $user = Auth::user();
 
-            if ($userFound->id == $stickerToDelete->userId) {
+            if ($user->id == $stickerToDelete->userId) {
                 $stickerToDelete->delete();
 
                 return redirect('/stickers')->with('information', 'Sticker verwijderd!');

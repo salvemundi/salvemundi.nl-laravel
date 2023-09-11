@@ -123,7 +123,8 @@ class User extends Authenticatable
         );
     }
 
-    public function hasActiveSubscription() {
+    public function hasActiveSubscription(): bool
+    {
         $planCommissieLid = paymentType::fromValue(1);
         $plan = paymentType::fromValue(2);
         $name = ucfirst($plan) . ' membership';

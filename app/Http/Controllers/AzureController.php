@@ -149,7 +149,7 @@ class AzureController extends Controller
     {
         $graph = AzureController::connectToAzure();
         try {
-            $fetchedUser = $graph->createRequest("PATCH", '/users/' . $userObject->AzureID . '/photo/\$value')
+            $graph->createRequest("PATCH", '/users/' . $userObject->AzureID . '/photo/\$value')
                 ->addHeaders(array("Content-Type" => "image/png"))
                 ->upload('storage/'.$userObject->ImgPath);
         } catch (GraphException $e) {

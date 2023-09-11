@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use App\Enums\paymentType;
 use App\Enums\paymentStatus;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -77,38 +78,6 @@ class AdminController extends Controller
         $allEmails = IntroController::sendMailToAll();
         //dd($emailsFirstYear, $emailsSecondYear);
         return view('admin/intro', ['allEmails' => $allEmails, 'emailNonPaid' => $emailNonPaid, 'emailPaid' => $emailPaid,'introObjects' => $allIntro,'introSetting' => $IntroSetting,'introConfirmSetting' => $IntroConfirmSetting,'introSignUp' => $introSignup, 'emailsFirstYear' => $emailsFirstYear, 'emailsSecondYear' => $emailsSecondYear]);
-    }
-
-    public static function authorizeUser($userid): int
-    {
-        if($userid != null) {
-            $groups = User::where('AzureID', $userid)->first();
-
-            foreach ($groups->commission as $group) {
-                if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
-                    return 1;
-                }
-            }
-            if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0" || $groups->AzureID == "5f2bef70-ed28-4a26-95d3-774e0c89d830"){
-                return 1;
-            }
-            return 0;
-        } else {
-            if(session('id') != null){
-                $groups = User::where('AzureID', session('id'))->first();
-
-                foreach ($groups->commission as $group) {
-                    if ($group->AzureID == 'a4aeb401-882d-4e1e-90ee-106b7fdb23cc' || $group->AzureID == 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0') {
-                        return 1;
-                    }
-                }
-                if($groups->AzureID == "f35114c4-9ccf-4b12-bf66-ab85e7536243" || $groups->AzureID == "e1461535-4e72-400f-bf29-78a598fa75e0" || $groups->AzureID == "5f2bef70-ed28-4a26-95d3-774e0c89d830"){
-                    return 1;
-                }
-                return 0;
-            }
-            return 401;
-        }
     }
 
     public static function getSponsors()
@@ -195,7 +164,6 @@ class AdminController extends Controller
         $userObjectList = User::all();
         foreach($userObjectList as $userObject)
         {
-            AdminController::authorizeUser(session('id'));
             $planCommissieLid = paymentType::fromValue(1);
             $plan = paymentType::fromValue(2);
             $name = ucfirst($plan) . ' membership';
