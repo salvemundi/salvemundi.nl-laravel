@@ -30,7 +30,7 @@ class PizzaController extends Controller
         return back()->with('success', 'Je bestelling is opgenomen!');
     }
 
-    public function deletePizzas() {
+    public function deleteAllPizzas() {
         Pizza::whereNotNull('id')->delete();
         return back()->with('success','Alle pizza bestellingen zijn verwijderd');
     }

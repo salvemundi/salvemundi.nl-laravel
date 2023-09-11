@@ -2,6 +2,16 @@
 @section('content')
 <div class="overlap row pt-5">
     <div class="col-12 col-md-6 p-1 p-md-3 p-lg-5">
+        @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+        @endif
+        @if(session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
+        @endif
         @include('include.deletePizzaModal')
         <form action="/pizza/store" method="post" enctype="multipart/form-data">
             @csrf
