@@ -8,13 +8,17 @@ use App\Jobs\DisableAzure;
 use App\Jobs\EnableAzure;
 use App\Mail\MembershipExpiry;
 use App\Models\Commissie;
+use App\Models\Inschrijving;
 use App\Models\Intro;
 use App\Models\IntroData;
+use App\Models\Product;
 use App\Models\Sponsor;
+use App\Models\Sticker;
 use App\Models\Transaction;
 use App\Models\WhatsappLink;
 use App\Models\User;
 use App\Models\AdminSetting;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,6 +28,7 @@ use App\Enums\paymentType;
 use App\Enums\paymentStatus;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -39,28 +44,83 @@ class AdminController extends Controller
         echo $response['status'] = 'success';
         AzureSync::dispatch();
     }
-    public function dashboard()
+    public function dashboard(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $getAllUsers = User::all()->count();
-        $getAllIntroSignups = Intro::orderBy('firstName')->with('payment')->whereHas('payment', function (Builder $query) {
-            return $query->where('paymentStatus', PaymentStatus::paid);
-        })->count();
-        $whatsappLinks = WhatsappLink::latest()->first();
-        $sponsorsCount = Sponsor::all()->count();
-        $transactionCount = Transaction::all()->count();
+        $usersWithActiveMembership = $this->getUsersThatHavePaid();
+        $activities = Product::where('index', null)
+            ->latest() // Order by the default "created_at" timestamp in descending order
+            ->limit(4) // Limit the result to 4 records
+            ->get();
+        $usersInCommittees = $this->countMembersInCommittees();
+        $newMembersSinceLastMonth = $this->newMembersSinceLastMonth();
+        $latestSticker = Sticker::latest()->first();
+        dd($this->nextBirthday());
+        return view('admin/admin',['userCount' => $getAllUsers, 'userCountPaid' => $usersWithActiveMembership,'activities' => $activities, 'membersInCommittees' => $usersInCommittees, 'newMembersSinceLastMonth' => $newMembersSinceLastMonth, 'latestSticker' => $latestSticker]);
+    }
+
+    private function nextBirthday(): Collection
+    {
+        $today = Carbon::now();
+        $nextBirthday = $today->copy()->addYear(); // Next year, same date
+
+        return DB::table('users')
+            ->select('FirstName', 'birthday')
+            ->where(function ($query) use ($today, $nextBirthday) {
+                $query->whereBetween(
+                    DB::raw("CONCAT(YEAR('$today'), '-', DATE_FORMAT(birthday, '%m-%d'))"),
+                    [
+                        $today->format('Y-m-d'),
+                        $nextBirthday->format('Y-m-d'),
+                    ]
+                )->orWhereBetween(
+                    DB::raw("CONCAT(YEAR('$nextBirthday'), '-', DATE_FORMAT(birthday, '%m-%d'))"),
+                    [
+                        $today->format('Y-m-d'),
+                        $nextBirthday->format('Y-m-d'),
+                    ]
+                );
+            })
+            ->orderByRaw("ABS(DATEDIFF('$today', DATE_FORMAT(birthday, '%Y-%m-%d')))") // Sort by closest birthdays
+            ->get();
+    }
+    private function newMembersSinceLastMonth(): int {
+        $startDate = Carbon::now()->subMonth(); // Get the date one month ago
+        $endDate = Carbon::now(); // Get the current date
+
+        return Inschrijving::whereDate('created_at', '>=', $startDate)
+            ->whereDate('created_at', '<=', $endDate)
+            ->latest()
+            ->count();
+    }
+
+    private function countMembersInCommittees(): int
+    {
+        $users = User::all();
+        $count = 0;
+        foreach($users as $user) {
+            if($user->commission()->count() > 0) {
+                $count += 1;
+            }
+        }
+        return $count;
+    }
+
+    private function getUsersThatHavePaid(): int
+    {
         $plan = paymentType::fromValue(2);
         $planCommissieLid = paymentType::fromValue(1);
         $name = ucfirst($plan) . ' membership';
         $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
-        $OpenPaymentsCount = 0;
+        $count = 0;
         foreach(User::all() as $user)
         {
-            if(!$user->subscribed($name, $plan->key) && !$user->subscribed($nameCommissieLid, $planCommissieLid->key))
+            if($user->subscribed($name, $plan->key) || $user->subscribed($nameCommissieLid, $planCommissieLid->key))
             {
-                $OpenPaymentsCount += 1;
+                $count += 1;
             }
         }
-        return view('admin/admin',['userCount' => $getAllUsers, 'introCount' => $getAllIntroSignups, 'whatsappLinks' => $whatsappLinks, 'sponsorsCount' => $sponsorsCount, 'transactionCount' => $transactionCount, 'OpenPaymentsCount' => $OpenPaymentsCount]);
+        return $count;
     }
 
     public function getIntro()

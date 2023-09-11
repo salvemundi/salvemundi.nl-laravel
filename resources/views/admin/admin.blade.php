@@ -8,8 +8,8 @@
                     <div class="card-body">
                         <div class="row align-items-center gx-0">
                             <div class="col">
-                                <h6 class="text-uppercase text-muted mb-2">Aantal leden:</h6>
-                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p class="dashboard-font"> &nbsp;{{ $userCount }}</p></i></span>
+                                <h6 class="text-uppercase text-muted mb-2">Aantal leden met lidmaatschap / totaal:</h6>
+                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p class="dashboard-font"> {{$userCountPaid}} / {{ $userCount }}</p></i></span>
                             </div>
                         </div>
                     </div>
@@ -17,17 +17,19 @@
             </a>
         </div>
         <div class="col-md-6 mt-3">
-            <a href="/admin/intro">
+            <a href="/admin/activiteiten">
                 <div class="card adminCard grow">
                     <div class="card-body">
                         <div class="row align-items-center gx-0">
                             <div class="col">
-                                @if($introSetting->settingValue == 1)
-                                    <h6 class="text-uppercase text-muted mb-2">Aantal intro inschrijvingen</h6>
-                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-list"> <p class="dashboard-font"> &nbsp;{{ $introCount }}</p></i></span>
-                                @else
-                                    <h6 class="text-uppercase text-muted mb-2">De intro inschrijvingen staan uit</h6>
-                                @endif
+                                <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier activiteiten</h6>
+                                @foreach($activities as $activity)
+                                    @if($activity->limit > 0)
+                                        <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
+                                    @else
+                                        <span class="h2 mb-0"> <h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -37,13 +39,13 @@
     </div>
     <div class="row mb-2">
         <div class="col-md-6">
-            <a href="/admin/sponsors">
+            <a href="/pizza">
                 <div class="card adminCard grow">
                     <div class="card-body">
                         <div class="row align-items-center gx-0">
                             <div class="col">
-                            <h6 class="text-uppercase text-muted mb-2">Aantal sponsoren</h6>
-                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-hand-holding-usd"> <p class="dashboard-font"> &nbsp;{{ $sponsorsCount }}</p></i></span>
+                            <h6 class="text-uppercase text-muted mb-2">Aantal pizzas besteld</h6>
+                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-hand-holding-usd"> <p class="dashboard-font"> ik wacht op sanne</p></i></span>
                             </div>
                         </div>
                     </div>
@@ -51,13 +53,13 @@
             </a>
         </div>
         <div class="col-md-6">
-            <a href="/admin/transactie">
+            <a href="/admin/leden">
                 <div class="card adminCard grow">
                     <div class="card-body">
                         <div class="row align-items-center gx-0">
                             <div class="col">
-                                <h6 class="text-uppercase text-muted mb-2">Aantal transacties</h6>
-                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-money-bill-wave"> <p class="dashboard-font"> &nbsp;{{ $transactionCount}}</p></i></span>
+                                <h6 class="text-uppercase text-muted mb-2">Aantal leden in commissies</h6>
+                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-money-bill-wave"> <p class="dashboard-font"> &nbsp;{{ $membersInCommittees }}</p></i></span>
                             </div>
                         </div>
                     </div>
@@ -72,23 +74,29 @@
                     <div class="card-body">
                         <div class="row align-items-center gx-0">
                             <div class="col">
-                                <h6 class="text-uppercase text-muted mb-2">Aantal leden die moeten betalen</h6>
-                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p class="dashboard-font"> &nbsp;{{ $OpenPaymentsCount }}</p></i></span>
+                                <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen in de afgelopen maand</h6>
+                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p class="dashboard-font"> &nbsp;{{ $newMembersSinceLastMonth }}</p></i></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
-        @if($whatsappLinks != null)
+        @if($latestSticker != null)
             <div class="col-md-6">
-                <a href="/admin/whatsapp">
+                <a href="/stickers">
                     <div class="card adminCard grow">
                         <div class="card-body">
                             <div class="row align-items-center gx-0">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Laatste whatsapp link</h6>
-                                    <span class="h2 mb-0"><i style="display: flex" class="fab fa-whatsapp"> <p class="dashboard-font"> &nbsp;{{ $whatsappLinks->updated_at->format('d/m/Y') }}</p></i></span>
+                                    <h6 class="text-uppercase text-muted mb-2">Laatste sticker</h6>
+                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-sticky-note">
+                                            &nbsp;
+                                            <h4 class="dashboard-font">
+                                                {{ $latestSticker->user->insertion ? $latestSticker->user->FirstName. " " . $latestSticker->user->insertion . " " . $latestSticker->user->LastName : $latestSticker->user->FirstName. " ". $latestSticker->user->LastName . ", geplakt op ". \Carbon\Carbon::parse($latestSticker->created_at)->format("d-m-Y")}}
+                                            </h4>
+                                        </i>
+                                    </span>
                                 </div>
                             </div>
                         </div>

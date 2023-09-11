@@ -6,7 +6,7 @@
     <div id="map" class="mx-auto" style="height: 800px"></div>
 </div>
 
-@if(session('userName'))
+@auth
     <div class="row widthFix adminOverlap center removeAutoMargin">
         <div class="col-auto col-md-8 col-sm-8">
             <div class="table-responsive">
@@ -100,7 +100,7 @@
             y.value=position.coords.longitude;
         }
     </script>
-@endif
+@endauth
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
