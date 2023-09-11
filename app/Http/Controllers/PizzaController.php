@@ -19,12 +19,14 @@ class PizzaController extends Controller
             'type'       => ['required','max:65', 'regex:/^[a-zA-Z á é í ó ú ý Á É Í Ó Ú Ý ç Ç â ê î ô û Â Ê Î Ô Û à è ì ò ù À È Ì Ò Ù ä ë ï ö ü ÿ Ä Ë Ï Ö Ü Ÿ ã õ ñ Ã Õ Ñ]+$/'],
             'description' => ['required', 'max:215', 'regex:/^[a-zA-Z á é í ó ú ý Á É Í Ó Ú Ý ç Ç â ê î ô û Â Ê Î Ô Û à è ì ò ù À È Ì Ò Ù ä ë ï ö ü ÿ Ä Ë Ï Ö Ü Ÿ ã õ ñ Ã Õ Ñ]+$/'],
             'size'       => ['required','max:65', 'regex:/(^[0-9]+$)+/'],
+            'location'       => ['required','max:65', 'regex:/(^[0-9]+$)+/'],
         ]);
         $pizza = new Pizza();
         $pizza->name = $request->input('name');
         $pizza->type = $request->input('type');
         $pizza->description = $request->input('description');
         $pizza->size = $request->input('size');
+        $pizza->location = $request->input('location');
         $pizza->user()->associate(Auth::user())->save();
 
         return back()->with('success', 'Je bestelling is opgenomen!');

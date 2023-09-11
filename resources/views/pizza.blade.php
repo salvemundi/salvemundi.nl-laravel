@@ -38,6 +38,15 @@
             </div>
 
             <div class="form-group">
+                <label for="Maat">Locatie</label>
+                <select class="form-select" name="location" aria-label="Default select example">
+                    @foreach(App\Enums\PizzaLocations::asSelectArray() as $key => $value))
+                    <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="description">Notities</label>
                 <input class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" value="{{ old('description') }}" id="description" name="description" placeholder="Notitie...">
             </div>
@@ -70,6 +79,7 @@
                         <th data-field="name" data-sortable="true" data-width="250">Besteld voor</th>
                         <th data-field="type" data-sortable="true">Pizza soort</th>
                         <th data-field="size" data-sortable="true">Pizza grootte</th>
+                        <th data-field="location" data-sortable="true">Locatie</th>
                         <th data-field="user" data-sortable="false">Toegevoegd door</th>
                         <th data-field="description" data-sortable="false">Notitie</th>
                         <th data-field="delete" data-sortable="false">Verwijder</th>
@@ -83,6 +93,7 @@
                                 <td data-field="name">{{$pizza->name}}</td>
                                 <td data-field="type">{{$pizza->type}}</td>
                                 <td data-field="size">{{App\Enums\PizzaSizes::coerce($pizza->size)->key}}</td>
+                                <td data-field="size">{{App\Enums\PizzaLocations::coerce($pizza->location)->key}}</td>
                                 <td data-field="user">{{$pizza->user->insertion? $pizza->user->FirstName. " ". $pizza->user->insertion . " ". $pizza->user->LastName : $pizza->user->FirstName . " " . $pizza->user->LastName}}</td>
                                 <td data-field="description">{{$pizza->description}}</td>
                                 <td data-field="delete">
