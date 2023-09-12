@@ -92,7 +92,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 mt-3">
+            <div class="col-md-6">
                 <a href="/admin/leden">
                     <div class="card adminCard grow">
                         <div class="card-body">
@@ -118,7 +118,7 @@
                 </a>
             </div>
         </div>
-        <div class="row mb2">
+        <div class="row mb-2">
             <div class="col-md-6">
                 <a href="/admin/activiteiten">
                     <div class="card adminCard grow">
