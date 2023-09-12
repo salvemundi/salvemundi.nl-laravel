@@ -62,13 +62,8 @@ class Product extends Model
             'tagId'
         );
     }
-
-    public function isFull(): bool
-    {
+    public function countSignups(): int {
         $nonMembers = [];
-        if($this->limit == 0) {
-            return false;
-        }
         foreach($this->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
                 if($transaction->email != null && $transaction->email != ""){
@@ -83,6 +78,13 @@ class Product extends Model
         } else {
             $count += $this->nonMembers->count();
         }
-        return $count >= $this->limit;
+        return $count;
+    }
+    public function isFull(): bool
+    {
+        if($this->limit == 0) {
+            return false;
+        }
+        return $this->countSignups() >= $this->limit;
     }
 }
