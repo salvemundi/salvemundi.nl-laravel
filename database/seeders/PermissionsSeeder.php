@@ -17,7 +17,7 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         $arrayPermissions = ['globalAdmin','activiteiten','ledenAdministratie'];
-        $routes = ['*','/admin/activiteiten/*','/admin/activities/*','/admin/leden','/admin'];
+        $routes = ['*','/admin/activiteiten/*','/admin/activities/*','/admin/leden','/admin','/pizza/delete/all'];
 
         foreach($routes as $route) {
             if(Route::where('route',$route)->first() === null) {
