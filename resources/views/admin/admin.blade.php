@@ -78,14 +78,21 @@
         </div>
         <div class="row mb-2">
             <div class="col-md-6">
-                <a href="/pizza">
+                <a href="/admin/activiteiten">
                     <div class="card adminCard grow">
                         <div class="card-body">
                             <div class="row align-items-center gx-0">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Aantal pizzas besteld</h6>
-                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-pizza-slice"> &nbsp;<p
-                                                    class="dashboard-font"> {{$pizzas}}</p></i></span>
+                                    <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
+                                        activiteiten</h6>
+                                    @foreach($activities as $activity)
+                                        @if($activity->limit > 0)
+                                            <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
+                                        @else
+                                            <span class="h2 mb-0"> <h4
+                                                        class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -120,27 +127,21 @@
         </div>
         <div class="row mb-2">
             <div class="col-md-6">
-                <a href="/admin/activiteiten">
+                <a href="/pizza">
                     <div class="card adminCard grow">
                         <div class="card-body">
                             <div class="row align-items-center gx-0">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
-                                        activiteiten</h6>
-                                    @foreach($activities as $activity)
-                                        @if($activity->limit > 0)
-                                            <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
-                                        @else
-                                            <span class="h2 mb-0"> <h4
-                                                        class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
-                                        @endif
-                                    @endforeach
+                                    <h6 class="text-uppercase text-muted mb-2">Aantal pizzas besteld</h6>
+                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-pizza-slice"> &nbsp;<p
+                                                    class="dashboard-font"> {{$pizzas}}</p></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
+            
         </div>
     </div>
     <script>
