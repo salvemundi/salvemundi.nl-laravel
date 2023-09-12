@@ -65,7 +65,7 @@ class AdminController extends Controller
         $nextBirthday = $today->copy()->addYear(); // Next year, same date
 
         return DB::table('users')
-            ->select('FirstName', 'birthday')
+            ->select('id','FirstName', 'birthday')
             ->where(function ($query) use ($today, $nextBirthday) {
                 $query->whereBetween(
                     DB::raw("CONCAT(YEAR('$today'), '-', DATE_FORMAT(birthday, '%m-%d'))"),
@@ -82,6 +82,7 @@ class AdminController extends Controller
                 );
             })
             ->orderByRaw("ABS(DATEDIFF('$today', DATE_FORMAT(birthday, '%Y-%m-%d')))") // Sort by closest birthdays
+            ->limit(4)
             ->get();
     }
     private function newMembersSinceLastMonth(): int {
