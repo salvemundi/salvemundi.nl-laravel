@@ -61,28 +61,10 @@ class AdminController extends Controller
 
     private function nextBirthday(): Collection
     {
-        $today = Carbon::now();
-        $nextBirthday = $today->copy()->addYear(); // Next year, same date
-
-        return DB::table('users')
-            ->select('id','FirstName', 'birthday')
-            ->where(function ($query) use ($today, $nextBirthday) {
-                $query->whereBetween(
-                    DB::raw("CONCAT(YEAR('$today'), '-', DATE_FORMAT(birthday, '%m-%d'))"),
-                    [
-                        $today->format('Y-m-d'),
-                        $nextBirthday->format('Y-m-d'),
-                    ]
-                )->orWhereBetween(
-                    DB::raw("CONCAT(YEAR('$nextBirthday'), '-', DATE_FORMAT(birthday, '%m-%d'))"),
-                    [
-                        $today->format('Y-m-d'),
-                        $nextBirthday->format('Y-m-d'),
-                    ]
-                );
-            })
-            ->orderByRaw("ABS(DATEDIFF('$today', DATE_FORMAT(birthday, '%Y-%m-%d')))") // Sort by closest birthdays
-            ->limit(4)
+        return User::whereDate('birthday', '>=', now())
+            ->whereDate('birthday', '<=', now()->addDays(30))
+            ->orderByRaw("DATE_FORMAT(birthday, '%m-%d') ASC")
+            ->orderBy('birthday')
             ->get();
     }
     private function newMembersSinceLastMonth(): int {
