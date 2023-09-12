@@ -19,21 +19,24 @@
                 </a>
             </div>
             <div class="col-md-6 mt-3">
-                <a href="/admin/activiteiten">
+                <a href="/admin/leden">
                     <div class="card adminCard grow">
                         <div class="card-body">
                             <div class="row align-items-center gx-0">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
-                                        activiteiten</h6>
-                                    @foreach($activities as $activity)
-                                        @if($activity->limit > 0)
-                                            <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
-                                        @else
-                                            <span class="h2 mb-0"> <h4
-                                                        class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
-                                        @endif
-                                    @endforeach
+                                    <h6 class="text-uppercase text-muted mb-2">Komende jarige joppies</h6>
+                                    <span class="h2 mb-0">
+                                            <h4 class="dashboard-font">
+                                                @if(!$nextBirthdays->isEmpty())
+                                                    @foreach($nextBirthdays as $user)
+                                                        {{ $user->insertion ? $user->FirstName. " " . $user->insertion . " " . $user->LastName : $user->FirstName. " ". $user->LastName . ", op ". \Carbon\Carbon::parse($user->birthday)->format("d-m-Y")}}
+                                                        <br>
+                                                    @endforeach
+                                                @else
+                                                    Niemand is jarig de komende tijd
+                                                @endif
+                                            </h4>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -92,24 +95,21 @@
 
 
             <div class="col-md-6">
-                <a href="/admin/leden">
+                <a href="/admin/activiteiten">
                     <div class="card adminCard grow">
                         <div class="card-body">
                             <div class="row align-items-center gx-0">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Komende jarige joppies</h6>
-                                    <span class="h2 mb-0">
-                                            <h4 class="dashboard-font">
-                                                @if(!$nextBirthdays->isEmpty())
-                                                    @foreach($nextBirthdays as $user)
-                                                        {{ $user->insertion ? $user->FirstName. " " . $user->insertion . " " . $user->LastName : $user->FirstName. " ". $user->LastName . ", op ". \Carbon\Carbon::parse($user->birthday)->format("d-m-Y")}}
-                                                        <br>
-                                                    @endforeach
-                                                @else
-                                                    Niemand is jarig de komende tijd
-                                                @endif
-                                            </h4>
-                                    </span>
+                                    <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
+                                        activiteiten</h6>
+                                    @foreach($activities as $activity)
+                                        @if($activity->limit > 0)
+                                            <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
+                                        @else
+                                            <span class="h2 mb-0"> <h4
+                                                        class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
