@@ -8,22 +8,6 @@
                         <div class="card-body">
                             <div class="row align-items-center gx-0">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Aantal leden met lidmaatschap /
-                                        totaal:</h6>
-                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p
-                                                    class="dashboard-font"> {{$userCountPaid}} / {{ $userCount }}</p></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 mt-3">
-                <a href="/admin/leden">
-                    <div class="card adminCard grow">
-                        <div class="card-body">
-                            <div class="row align-items-center gx-0">
-                                <div class="col">
                                     <h6 class="text-uppercase text-muted mb-2">Komende jarige joppies</h6>
                                     <span class="h2 mb-0">
                                             <h4 class="dashboard-font">
@@ -37,6 +21,22 @@
                                                 @endif
                                             </h4>
                                     </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mt-3">
+                <a href="/admin/leden">
+                    <div class="card adminCard grow">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted mb-2">Aantal leden met lidmaatschap /
+                                        totaal: </h6>
+                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p
+                                                    class="dashboard-font"> {{$userCountPaid}} / {{ $userCount }}</p></i></span>
                                 </div>
                             </div>
                         </div>
