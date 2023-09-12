@@ -94,31 +94,34 @@
             </div>
 
 
-            <div class="col-md-6">
-                <a href="/admin/activiteiten">
-                    <div class="card adminCard grow">
-                        <div class="card-body">
-                            <div class="row align-items-center gx-0">
-                                <div class="col">
-                                    <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
-                                        activiteiten</h6>
-                                    @foreach($activities as $activity)
-                                        @if($activity->limit > 0)
-                                            <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
-                                        @else
-                                            <span class="h2 mb-0"> <h4
-                                                        class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
-                                        @endif
-                                    @endforeach
-                                </div>
+
+        <div class="col-md-6">
+            <a href="/admin/activiteiten">
+                <div class="card adminCard grow">
+                    <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                            <div class="col">
+                                <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
+                                    activiteiten</h6>
+                                @foreach($activities as $activity)
+                                    @if($activity->limit > 0)
+                                        <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
+                                    @else
+                                        <span class="h2 mb-0"> <h4
+                                                    class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
+        </div>
+
         @if($latestSticker != null)
             <div class="row mb-2">
+
                 <div class="col-md-6">
                     <a href="/stickers">
                         <div class="card adminCard grow">
