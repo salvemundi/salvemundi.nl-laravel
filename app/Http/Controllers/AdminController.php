@@ -11,6 +11,7 @@ use App\Models\Commissie;
 use App\Models\Inschrijving;
 use App\Models\Intro;
 use App\Models\IntroData;
+use App\Models\Pizza;
 use App\Models\Product;
 use App\Models\Sponsor;
 use App\Models\Sticker;
@@ -55,8 +56,8 @@ class AdminController extends Controller
         $usersInCommittees = $this->countMembersInCommittees();
         $newMembersSinceLastMonth = $this->newMembersSinceLastMonth();
         $latestSticker = Sticker::latest()->first();
-        dd($this->nextBirthday());
-        return view('admin/admin',['userCount' => $getAllUsers, 'userCountPaid' => $usersWithActiveMembership,'activities' => $activities, 'membersInCommittees' => $usersInCommittees, 'newMembersSinceLastMonth' => $newMembersSinceLastMonth, 'latestSticker' => $latestSticker]);
+        $pizzas = Pizza::all()->count();
+        return view('admin/admin',['pizzas'=> $pizzas, 'nextBirthdays' => $this->nextBirthday(),'userCount' => $getAllUsers, 'userCountPaid' => $usersWithActiveMembership,'activities' => $activities, 'membersInCommittees' => $usersInCommittees, 'newMembersSinceLastMonth' => $newMembersSinceLastMonth, 'latestSticker' => $latestSticker]);
     }
 
     private function nextBirthday(): Collection

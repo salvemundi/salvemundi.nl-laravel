@@ -45,7 +45,7 @@
                         <div class="row align-items-center gx-0">
                             <div class="col">
                             <h6 class="text-uppercase text-muted mb-2">Aantal pizzas besteld</h6>
-                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-hand-holding-usd"> <p class="dashboard-font"> ik wacht op sanne</p></i></span>
+                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-pizza-slice"> &nbsp;<p class="dashboard-font"> {{$pizzas}}</p></i></span>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="row align-items-center gx-0">
                             <div class="col">
                                 <h6 class="text-uppercase text-muted mb-2">Aantal leden in commissies</h6>
-                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-money-bill-wave"> <p class="dashboard-font"> &nbsp;{{ $membersInCommittees }}</p></i></span>
+                                <span class="h2 mb-0"><i style="display: flex" class="fas fa-chart-pie"> <p class="dashboard-font"> &nbsp;{{ $membersInCommittees }}</p></i></span>
                             </div>
                         </div>
                     </div>
@@ -104,6 +104,30 @@
                 </a>
             </div>
         @endif
+            <div class="col-md-6">
+                <a href="/admin/leden">
+                    <div class="card adminCard grow">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted mb-2">Komende jarige joppies</h6>
+                                    <span class="h2 mb-0">
+                                            <h4 class="dashboard-font">
+                                                @if(!$nextBirthdays->isEmpty())
+                                                    @foreach($nextBirthdays as $user)
+                                                        {{ $user->insertion ? $user->FirstName. " " . $user->insertion . " " . $user->LastName : $user->FirstName. " ". $user->LastName . ", op ". \Carbon\Carbon::parse($user->birthday)->format("d-m-Y")}}
+                                                    @endforeach
+                                                @else
+                                                    Niemand is jarig de komende tijd
+                                                @endif
+                                            </h4>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
     </div>
 </div>
 <script>
