@@ -61,8 +61,8 @@ class AdminController extends Controller
 
     private function nextBirthday(): Collection
     {
-        return User::whereDate('birthday', '>=', now())
-            ->whereDate('birthday', '<=', now()->addDays(30))
+        return User::whereDate('birthday', '>=', Carbon::now())
+            ->whereDate('birthday', '<=', Carbon::now()->addDays(30))
             ->orderByRaw("DATE_FORMAT(birthday, '%m-%d') ASC")
             ->orderBy('birthday')
             ->get();
