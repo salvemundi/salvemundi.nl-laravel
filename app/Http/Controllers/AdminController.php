@@ -61,10 +61,13 @@ class AdminController extends Controller
 
     private function nextBirthday(): Collection
     {
-        return User::whereDate('birthday', '>=', Carbon::now())
-            ->whereDate('birthday', '<=', Carbon::now()->addDays(30))
+        return User::select('*')
+            ->selectRaw("DATE_FORMAT(birthday, '%m-%d') as formatted_birthday")
+            ->whereRaw("DATE_FORMAT(birthday, '%m-%d') >= ?", [now()->format('m-d')])
+            ->whereRaw("DATE_FORMAT(birthday, '%m-%d') <= ?", [now()->addDays(30)->format('m-d')])
             ->orderByRaw("DATE_FORMAT(birthday, '%m-%d') ASC")
             ->orderBy('birthday')
+            ->limit(3)
             ->get();
     }
     private function newMembersSinceLastMonth(): int {
