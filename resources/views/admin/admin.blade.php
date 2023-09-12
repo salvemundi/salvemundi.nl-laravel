@@ -103,7 +103,9 @@
                     </div>
                 </a>
             </div>
+    </div>
         @endif
+        <div class="row mb-2">
             <div class="col-md-6">
                 <a href="/admin/leden">
                     <div class="card adminCard grow">
