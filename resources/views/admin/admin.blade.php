@@ -85,66 +85,63 @@
                                 <div class="col">
                                     <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen in de afgelopen
                                         maand</h6>
-                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p class="dashboard-font"> &nbsp;{{ $newMembersSinceLastMonth }}</p></i></span>
+                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-users"> <p
+                                                    class="dashboard-font"> &nbsp;{{ $newMembersSinceLastMonth }}</p></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-
-
-
-        <div class="col-md-6">
-            <a href="/admin/activiteiten">
-                <div class="card adminCard grow">
-                    <div class="card-body">
-                        <div class="row align-items-center gx-0">
-                            <div class="col">
-                                <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
-                                    activiteiten</h6>
-                                @foreach($activities as $activity)
-                                    @if($activity->limit > 0)
-                                        <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
-                                    @else
-                                        <span class="h2 mb-0"> <h4
-                                                    class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        </div>
-
-        @if($latestSticker != null)
-            <div class="row mb-2">
-
-                <div class="col-md-6">
-                    <a href="/stickers">
-                        <div class="card adminCard grow">
-                            <div class="card-body">
-                                <div class="row align-items-center gx-0">
-                                    <div class="col">
-                                        <h6 class="text-uppercase text-muted mb-2">Laatste sticker</h6>
-                                        <span class="h2 mb-0"><i style="display: flex" class="fas fa-sticky-note">
+            <div class="col-md-6">
+                <a href="/stickers">
+                    <div class="card adminCard grow">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted mb-2">Laatste sticker</h6>
+                                    <span class="h2 mb-0"><i style="display: flex" class="fas fa-sticky-note">
                                             &nbsp;
                                             <h4 class="dashboard-font">
-                                                {{ $latestSticker->user->insertion ? $latestSticker->user->FirstName. " " . $latestSticker->user->insertion . " " . $latestSticker->user->LastName : $latestSticker->user->FirstName. " ". $latestSticker->user->LastName . ", geplakt op ". \Carbon\Carbon::parse($latestSticker->created_at)->format("d-m-Y")}}
+                                                @if($latestSticker !== null)
+                                                    {{ $latestSticker->user->insertion ? $latestSticker->user->FirstName. " " . $latestSticker->user->insertion . " " . $latestSticker->user->LastName : $latestSticker->user->FirstName. " ". $latestSticker->user->LastName . ", geplakt op ". \Carbon\Carbon::parse($latestSticker->created_at)->format("d-m-Y")}}
+                                                @else
+                                                    Nog niemand heeft een sticker geplaatst
+                                                @endif
                                             </h4>
                                         </i>
                                     </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
-        @endif
-
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <a href="/admin/activiteiten">
+                    <div class="card adminCard grow">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted mb-2">Aantal inschrijvingen laatste vier
+                                        activiteiten</h6>
+                                    @foreach($activities as $activity)
+                                        @if($activity->limit > 0)
+                                            <span class="h2 mb-0"><h4 class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}} / {{ $activity->limit }}</h4></span>
+                                        @else
+                                            <span class="h2 mb-0"> <h4
+                                                        class="dashboard-font">{{ $activity->name }}: {{$activity->countSignups()}}</h4></span>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
     <script>
         function CopyMe(oFileInput, sTargetID) {
