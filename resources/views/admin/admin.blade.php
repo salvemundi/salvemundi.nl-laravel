@@ -104,31 +104,29 @@
                 </a>
             </div>
         @endif
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <a href="/admin/leden">
-                        <div class="card adminCard grow">
-                            <div class="card-body">
-                                <div class="row align-items-center gx-0">
-                                    <div class="col">
-                                        <h6 class="text-uppercase text-muted mb-2">Komende jarige joppies</h6>
-                                        <span class="h2 mb-0">
-                                                <h4 class="dashboard-font">
-                                                    @if(!$nextBirthdays->isEmpty())
-                                                        @foreach($nextBirthdays as $user)
-                                                            {{ $user->insertion ? $user->FirstName. " " . $user->insertion . " " . $user->LastName : $user->FirstName. " ". $user->LastName . ", op ". \Carbon\Carbon::parse($user->birthday)->format("d-m-Y")}} <br>
-                                                        @endforeach
-                                                    @else
-                                                        Niemand is jarig de komende tijd
-                                                    @endif
-                                                </h4>
-                                        </span>
-                                    </div>
+            <div class="col-md-6">
+                <a href="/admin/leden">
+                    <div class="card adminCard grow">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-muted mb-2">Komende jarige joppies</h6>
+                                    <span class="h2 mb-0">
+                                            <h4 class="dashboard-font">
+                                                @if(!$nextBirthdays->isEmpty())
+                                                    @foreach($nextBirthdays as $user)
+                                                        {{ $user->insertion ? $user->FirstName. " " . $user->insertion . " " . $user->LastName : $user->FirstName. " ". $user->LastName . ", op ". \Carbon\Carbon::parse($user->birthday)->format("d-m-Y")}} <br>
+                                                    @endforeach
+                                                @else
+                                                    Niemand is jarig de komende tijd
+                                                @endif
+                                            </h4>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
     </div>
 </div>
