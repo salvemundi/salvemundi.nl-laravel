@@ -115,9 +115,6 @@
                 </a>
             </div>
         </div>
-        <div class="row mb-2">
-
-        </div>
         <div class="row mb2">
             <div class="col-md-6 mt-3">
                 <a href="/admin/leden">
