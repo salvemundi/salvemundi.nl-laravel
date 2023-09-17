@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Main page.
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
 Route::get('/februari-intro', function () {
@@ -35,7 +34,6 @@ Route::get('/waarmoetdeprullenbakzak ', function () {
 });
 
 // Commission page
-
 Route::get('/commissies', [App\Http\Controllers\CommitteeController::class, 'index']);
 Route::get('/commissies/{committee_name}', [App\Http\Controllers\CommitteeController::class, 'committee']);
 
@@ -50,20 +48,19 @@ Route::get('/vorigBestuur', [App\Http\Controllers\PreviousBoardController::class
 Route::get('/intro', function() {return redirect("https://intro.salvemundi.nl");})->name('intro');
 
 // Signup for SalveMundi page
-
 Route::get('/inschrijven', [App\Http\Controllers\InschrijfController::class, 'index'])->name('inschrijven')->middleware('signUp.auth');
 Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::class, 'signupprocess'])->name('signupprocess')->middleware('signUp.auth');
 
 // Mollie
-
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
 
 // Declaratie
-
 Route::get('/declaratie', function() {return redirect("https://forms.office.com/r/kN2T95wzRm");})->name('declaratie');
+Route::get('/declareren', function () {
+    return redirect()->route('declaratie');
+});
 
 // MyAccount page
-
 Route::get('/mijnAccount', [App\Http\Controllers\MyAccountController::class, 'index'])->middleware('auth')->name('myAccount');
 Route::post('/mijnAccount/store',[App\Http\Controllers\MyAccountController::class, 'savePreferences'])->middleware('auth');
 Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('auth');
@@ -71,7 +68,6 @@ Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController
 Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\MyAccountController::class,'deletePicture'])->middleware('auth');
 
 // Activiteiten page
-
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
 Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::class, 'signUp']);
 
@@ -79,7 +75,6 @@ Route::post('/activiteiten/signup', [App\Http\Controllers\ActivitiesController::
 Route::get('/nieuws',[App\Http\Controllers\NewsController::class, 'index'] );
 
 // Sticker page
-
 Route::get('/stickers',[App\Http\Controllers\StickerController::class, 'index'] );
 Route::post('/stickers/store', [App\Http\Controllers\StickerController::class, 'store'])->middleware('auth');
 Route::post('/stickers/delete', [App\Http\Controllers\StickerController::class, 'delete'])->middleware('auth');
@@ -91,12 +86,10 @@ Route::get('/financien',[App\Http\Controllers\FinanceController::class, 'index']
 Route::get('/nieuwsbrief',[App\Http\Controllers\NewsLetterController::class, 'index']);
 
 // Pizza
-
 Route::get('/pizza',[App\Http\Controllers\PizzaController::class ,'index'])->middleware('auth');
 Route::post('/pizza/store',[\App\Http\Controllers\PizzaController::class,'store'])->middleware('auth');
 Route::post('/pizza/delete/all',[\App\Http\Controllers\PizzaController::class, 'deleteAllPizzas'])->middleware('auth');
 Route::post('/pizza/delete/{id}',[\App\Http\Controllers\PizzaController::class, 'deleteOwnPizza'])->middleware('auth');
-
 
 // Privacy zooi
 Route::get('/responsible-disclosure', function () {
