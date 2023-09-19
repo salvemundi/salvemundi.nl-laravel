@@ -18,9 +18,8 @@ class Commissie extends Model
             'groups_relation',
             'group_id',
             'user_id'
-        );
+        )->withPivot('isCommitteeLeader');
     }
-
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany

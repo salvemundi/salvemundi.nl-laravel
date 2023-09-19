@@ -16,6 +16,11 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, Billable;
 
+
+    public function getDisplayName(): string
+    {
+        return $this->insertion ? $this->FirstName. " " . $this->insertion . " " . $this->LastName : $this->FirstName. " ". $this->LastName;
+    }
     public function inschrijving()
     {
         return $this->hasOne(
@@ -110,7 +115,7 @@ class User extends Authenticatable
             'groups_relation',
             'user_id',
             'group_id'
-        );
+        )->withPivot('isCommitteeLeader');
     }
     public function activities(): BelongsToMany
     {

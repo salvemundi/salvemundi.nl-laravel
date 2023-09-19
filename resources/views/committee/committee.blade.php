@@ -19,8 +19,17 @@
         @foreach ($committee->users as $committeeMember)
             @if($committeeMember->visibility)
                 <div class="col-12 col-sm-6 col-lg-3 my-2">
-                    <div class="card">
-                            {!! '<img class="img-fluid" src="../storage/'.$committeeMember->ImgPath.'" />' !!}
+                    @if($committeeMember->pivot->isCommitteeLeader)
+                        <div class="card border-3 overflow-hidden cardCommitteeLeaderStyle">
+                    @else
+                        <div class="card">
+                    @endif
+                            @if($committeeMember->pivot->isCommitteeLeader)
+                                <div class="card-img-overlay committeeLeaderOverlay">
+                                    <h5 class="card-title p-2 committeeLeaderTitleOverlay" >Commissieleider</h5>
+                                </div>
+                            @endif
+                                {!! '<img class="img-fluid" src="../storage/'.$committeeMember->ImgPath.'" />' !!}
                         <div class="card-body card-body-no-padding mt-2">
                             <h5 class="card-title text-center">{{$committeeMember->DisplayName}}</h5>
                         </div>

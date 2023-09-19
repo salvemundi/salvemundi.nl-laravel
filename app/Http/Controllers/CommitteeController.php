@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commissie;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Microsoft\Graph\Graph;
@@ -16,6 +17,27 @@ class CommitteeController extends Controller
         // Only bestuur isn't in the committees
         $allCommitteesExceptBestuur = Commissie::where('AzureID', '!=', 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0')->with('users')->get();
         return view('committee.index', ['allCommitteesExceptBestuur' => $allCommitteesExceptBestuur, 'bestuur' => $bestuur]);
+    }
+
+    public function viewMembersGroup(Request $request) {
+        $committee = Commissie::find($request->groupId);
+        return view('admin.committeeMembers', ['committee' => $committee]);
+    }
+
+    public function makeUserCommitteeLeader(Request $request){
+        $committee = Commissie::find($request->groupId);
+        if ($committee) {
+            $userIds = $committee->users->pluck('id')->toArray();
+            foreach ($userIds as $userId) {
+                $committee->users()->updateExistingPivot($userId, ['isCommitteeLeader' => false]);
+            }
+        }
+        $user = $committee->users()->find($request->userId);
+        if ($user) {
+            $user->pivot->isCommitteeLeader = true;
+            $user->pivot->save();
+        }
+        return back()->with('success', 'Nieuwe commissieleider ingesteld!');
     }
 
     public function committee(Request $request) {
