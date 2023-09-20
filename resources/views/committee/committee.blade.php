@@ -16,7 +16,9 @@
 
     <br>
     <div class="row">
-        @foreach ($committee->users as $committeeMember)
+        @foreach ($committee->users->sortBy(function ($user) {
+            return !$user->pivot->isCommitteeLeader;
+        }) as $committeeMember)
             @if($committeeMember->visibility)
                 <div class="col-12 col-sm-6 col-lg-3 my-2">
                     @if($committeeMember->pivot->isCommitteeLeader)

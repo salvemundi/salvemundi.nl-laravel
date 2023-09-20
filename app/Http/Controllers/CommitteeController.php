@@ -31,7 +31,7 @@ class CommitteeController extends Controller
         $committee = Commissie::find($request->groupId);
         if ($committee) {
             foreach ($committee->users as $user) {
-                if($user->pivot->isCommitteeLeader) {
+                if($user->pivot->isCommitteeLeader && !$user->isCommitteeLeaderOfAnyCommittee()) {
                     $this->azureController->removeUserFromGroup($user, null, "91d77972-2695-4b7b-a0a0-df7d6523a087");
                 }
                 $committee->users()->updateExistingPivot($user->id, ['isCommitteeLeader' => false]);

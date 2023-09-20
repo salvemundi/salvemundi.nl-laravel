@@ -165,26 +165,27 @@ class AzureController extends Controller
             "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
         ];
         $graph = AzureController::connectToAzure();
+        $group = $groupObject ? $groupObject->AzureID : $groupId;
         try{
-            $graphRequest = $graph->createRequest("POST",'/groups/'.$groupObject ? $groupObject->AzureID : $groupId.'/members/$ref')
+            $graph->createRequest("POST",'/groups/'.$group.'/members/$ref')
                 ->addHeaders(array("Content-Type" => "application/json"))
                 ->attachBody(json_encode($data))
                 ->execute();
         }
-        catch(GraphException $e){
+        catch(\Exception $e){
             return false;
         }
         return true;
     }
 
-    public static function removeUserFromGroup(User $userObject,Commissie $groupObject, string $groupId = null)
+    public static function removeUserFromGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
     {
         $graph = AzureController::connectToAzure();
+        $group = $groupObject ? $groupObject->AzureID : $groupId;
         try{
-            $graphRequest = $graph->createRequest("DELETE", '/groups/'.$groupObject ? $groupObject->AzureID : $groupId.'/members/'.$userObject->AzureID.'/$ref')
-                ->execute();
+            $graph->createRequest("DELETE", '/groups/'.$group.'/members/'.$userObject->AzureID.'/$ref')->execute();
         }
-        catch(GraphException $e){
+        catch(\Exception $e){
             return false;
         }
         return true;
