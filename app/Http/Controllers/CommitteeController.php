@@ -30,10 +30,11 @@ class CommitteeController extends Controller
     public function makeUserCommitteeLeader(Request $request){
         $committee = Commissie::find($request->groupId);
         if ($committee) {
-            $userIds = $committee->users->pluck('id')->toArray();
-            foreach ($userIds as $userId) {
-                $this->azureController->removeUserFromGroup(User::find($userId), null, "91d77972-2695-4b7b-a0a0-df7d6523a087");
-                $committee->users()->updateExistingPivot($userId, ['isCommitteeLeader' => false]);
+            foreach ($committee->users as $user) {
+                if($user->pivot->isCommitteeLeader) {
+                    $this->azureController->removeUserFromGroup($user, null, "91d77972-2695-4b7b-a0a0-df7d6523a087");
+                }
+                $committee->users()->updateExistingPivot($user->id, ['isCommitteeLeader' => false]);
             }
         }
         $user = $committee->users()->find($request->userId);
