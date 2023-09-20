@@ -11,7 +11,10 @@ use Microsoft\Graph\Model;
 
 class CommitteeController extends Controller
 {
-
+    private  AzureController $azureController;
+    public function __construct() {
+        $this->azureController = new  AzureController();
+    }
     public function index() {
         $bestuur = Commissie::where('AzureID', 'b16d93c7-42ef-412e-afb3-f6cbe487d0e0')->with('users')->first();
         // Only bestuur isn't in the committees
@@ -29,11 +32,13 @@ class CommitteeController extends Controller
         if ($committee) {
             $userIds = $committee->users->pluck('id')->toArray();
             foreach ($userIds as $userId) {
+                $this->azureController->removeUserFromGroup(User::find($userId), null, "91d77972-2695-4b7b-a0a0-df7d6523a087");
                 $committee->users()->updateExistingPivot($userId, ['isCommitteeLeader' => false]);
             }
         }
         $user = $committee->users()->find($request->userId);
         if ($user) {
+            $this->azureController->addUserToGroup($user, null, "91d77972-2695-4b7b-a0a0-df7d6523a087");
             $user->pivot->isCommitteeLeader = true;
             $user->pivot->save();
         }
