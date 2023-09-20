@@ -118,6 +118,12 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/route/{routeId}/store',[App\Http\Controllers\RouteController::class,'storeRoute']);
     Route::post('/admin/route/store',[App\Http\Controllers\RouteController::class,'storeRoute']);
     Route::post('/admin/route/{routeId}/delete',[App\Http\Controllers\RouteController::class,'deleteRoute']);
+    Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class, 'viewPermissionsUser']);
+    Route::post('/admin/leden/{userId}/permissions/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'savePermissionUser']);
+    Route::post('/admin/leden/{userId}/permissions/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermissionUser']);
+    Route::get('/admin/groepen/{groupId}/permissions', [App\Http\Controllers\PermissionController::class, 'viewPermissionsGroup']);
+    Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/store', [App\Http\Controllers\PermissionController::class, 'savePermissionGroup']);
+    Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'deletePermissionGroup']);
 
     // members
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard']);
@@ -202,14 +208,8 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/rules/delete', [App\Http\Controllers\RulesController::class, 'delete']);
 
     // member & group management
-    Route::get('/admin/leden/{userId}/permissions',[App\Http\Controllers\PermissionController::class, 'viewPermissionsUser']);
-    Route::post('/admin/leden/{userId}/permissions/{permissionId}/store',[App\Http\Controllers\PermissionController::class,'savePermissionUser']);
-    Route::post('/admin/leden/{userId}/permissions/{permissionId}/delete',[App\Http\Controllers\PermissionController::class,'deletePermissionUser']);
     Route::get('/admin/groepen', [App\Http\Controllers\CommitteeController::class, 'showAllCommitteesAdmin']);
-    Route::get('/admin/groepen/{groupId}/permissions', [App\Http\Controllers\PermissionController::class, 'viewPermissionsGroup']);
     Route::get('/admin/groepen/{groupId}/members', [App\Http\Controllers\CommitteeController::class, 'viewMembersGroup']);
-    Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/store', [App\Http\Controllers\PermissionController::class, 'savePermissionGroup']);
-    Route::post('/admin/groepen/{groupId}/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'deletePermissionGroup']);
     Route::get('/admin/leden/groepen', [App\Http\Controllers\AdminController::class, 'groupIndex']);
     Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController::class, 'groupStore']);
     Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete']);
