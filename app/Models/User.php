@@ -16,6 +16,24 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, Billable;
 
+
+    public function getDisplayName(): string
+    {
+        return $this->insertion ? $this->FirstName. " " . $this->insertion . " " . $this->LastName : $this->FirstName. " ". $this->LastName;
+    }
+
+    public function isCommitteeLeaderOfAnyCommittee(): bool {
+        foreach($this->commission as $committee) {
+            $isCommitteeLeader =  $this->commission->contains(function ($value, $key) use ($committee) {
+                return $value->id === $committee->id && $value->pivot->isCommitteeLeader;
+            });
+            if($isCommitteeLeader) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function inschrijving()
     {
         return $this->hasOne(
@@ -110,7 +128,7 @@ class User extends Authenticatable
             'groups_relation',
             'user_id',
             'group_id'
-        );
+        )->withPivot('isCommitteeLeader');
     }
     public function activities(): BelongsToMany
     {

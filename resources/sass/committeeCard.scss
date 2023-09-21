@@ -1,0 +1,16 @@
+@import "variables";
+
+.committeeLeaderOverlay {
+  padding: 0 !important;
+  left: auto !important;
+  right: auto !important;
+}
+.committeeLeaderTitleOverlay {
+  border-radius: .25em;
+  background-color: $salveMundi-light;
+}
+.cardCommitteeLeaderStyle {
+  border-radius: .5em;
+  background-color: $salveMundi-light;
+  color: white;
+}

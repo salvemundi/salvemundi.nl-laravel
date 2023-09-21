@@ -13,6 +13,7 @@
     </div>
     @endif
     <div class="col-auto col-md-10 col-sm-8">
+        <h5 class="mt-5">Coupons kunnen niet worden verwijderd als ze al gebruikt zijn (er zit een transactie aan vastgekoppeld).</h5>
         <div class="table-responsive">
             <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
             data-show-columns="true">
@@ -38,7 +39,11 @@
                     <td data-value="{{ $coupon->hasBeenUsed }}">{{$coupon->hasBeenUsed ? 'Ja' : 'Nee' }}</td>
                     <td data-value="{{ $coupon->currency }}">{{$coupon->currency}}</td>
                     <td data-value="{{ $coupon->id }}"><form method="get" action="/admin/coupons/edit/{{$coupon->id}}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
-                    <td data-value="{{ $coupon->id }}"><form method="post" action="/admin/coupons/delete/{{$coupon->id}}">@csrf<button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
+                    @if($coupon->transactions->count() > 1)
+                        <td data-value="{{ $coupon->id }}"><form method="post" action="/admin/coupons/delete/{{$coupon->id}}">@csrf<button disabled class="btn btn-danger">Verwijderen</button></form></td>
+                    @else
+                        <td data-value="{{ $coupon->id }}"><form method="post" action="/admin/coupons/delete/{{$coupon->id}}">@csrf<button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

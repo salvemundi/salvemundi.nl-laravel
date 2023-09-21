@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMailInschrijving;
+use App\Models\Commissie;
 use App\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -158,32 +159,33 @@ class AzureController extends Controller
         return true;
     }
 
-    public static function addUserToGroup($userObject,$groupObject)
+    public static function addUserToGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
     {
         $data = [
             "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
         ];
         $graph = AzureController::connectToAzure();
+        $group = $groupObject ? $groupObject->AzureID : $groupId;
         try{
-            $graphRequest = $graph->createRequest("POST",'/groups/'.$groupObject->AzureID.'/members/$ref')
+            $graph->createRequest("POST",'/groups/'.$group.'/members/$ref')
                 ->addHeaders(array("Content-Type" => "application/json"))
                 ->attachBody(json_encode($data))
                 ->execute();
         }
-        catch(GraphException $e){
+        catch(\Exception $e){
             return false;
         }
         return true;
     }
 
-    public static function removeUserFromGroup($userObject, $groupObject)
+    public static function removeUserFromGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
     {
         $graph = AzureController::connectToAzure();
+        $group = $groupObject ? $groupObject->AzureID : $groupId;
         try{
-            $graphRequest = $graph->createRequest("DELETE", '/groups/'.$groupObject->AzureID.'/members/'.$userObject->AzureID.'/$ref')
-                ->execute();
+            $graph->createRequest("DELETE", '/groups/'.$group.'/members/'.$userObject->AzureID.'/$ref')->execute();
         }
-        catch(GraphException $e){
+        catch(\Exception $e){
             return false;
         }
         return true;
