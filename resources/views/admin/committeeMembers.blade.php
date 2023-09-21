@@ -30,7 +30,7 @@
                                 </td>
                                 <td>
                                     @if(!$user->pivot->isCommitteeLeader)
-                                        <form method="post" action="/admin/groepen/{{$committee->id}}/makeLeader/{{$user->id}}/">
+                                        <form method="post" action="/admin/groepen/{{$committee->id}}/makeLeader/{{$user->id}}">
                                             @csrf
                                             <button type="submit" class="btn btn-primary">Maak Commissieleider</button>
                                         </form>
