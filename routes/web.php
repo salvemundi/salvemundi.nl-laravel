@@ -95,7 +95,7 @@ Route::post('/pizza/delete/{id}',[\App\Http\Controllers\PizzaController::class, 
 Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
-Route::get('/org', [App\Http\Controllers\AzureController::class, 'getVerifiedDomains']);
+
 // Agenda
 Route::get('/agenda', function() {return view('agenda');})->name('agenda');
 
