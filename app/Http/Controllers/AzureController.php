@@ -146,6 +146,50 @@ class AzureController extends Controller
         return true;
     }
 
+    public static function fetchUser(string $userId): ?Model\User
+    {
+        $graph = AzureController::connectToAzure();
+        try {
+            return $graph->createRequest("GET", '/users/' . $userId)
+                ->setReturnType(Model\User::class)
+                ->execute();
+        } catch(\Exception) {
+            return null;
+        }
+    }
+
+    public function changeUserEmailToggle(string $userId) {
+        $graph = AzureController::connectToAzure();
+        $user = $this->fetchUser($userId);
+        $userPrincipalName = $user->getUserPrincipalName();
+        $memberDomain = "@lid.salvemundi.nl";
+        $activeMemberDomain = "@salvemundi.nl";
+        // Check if the userPrincipalName contains the old domain
+        if (strpos($userPrincipalName, $memberDomain)) {
+            // Replace the old domain with the new domain
+            $newUserPrincipalName = str_replace($memberDomain, $activeMemberDomain, $userPrincipalName);
+        } else {
+            $newUserPrincipalName = str_replace($activeMemberDomain, $memberDomain, $userPrincipalName);
+        }
+        // Define the user update data
+        $userUpdateData = [
+            "userPrincipalName" => $newUserPrincipalName
+        ];
+
+        $userModel = User::where('AzureID', $userId)->first();
+        $userModel->email = $newUserPrincipalName;
+        $userModel->save();
+        // Update the user's userPrincipalName
+        try {
+            $graph->createRequest("PATCH", "/users/{$user->getId()}")
+                ->attachBody($userUpdateData)
+                ->execute();
+            return null;
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
     public static function updateProfilePhoto($userObject)
     {
         $graph = AzureController::connectToAzure();
@@ -159,7 +203,7 @@ class AzureController extends Controller
         return true;
     }
 
-    public static function addUserToGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
+    public function addUserToGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
     {
         $data = [
             "@odata.id" => "https://graph.microsoft.com/v1.0/directoryObjects/".$userObject->AzureID,
@@ -171,6 +215,9 @@ class AzureController extends Controller
                 ->addHeaders(array("Content-Type" => "application/json"))
                 ->attachBody(json_encode($data))
                 ->execute();
+            if($userObject->commission->count() == 0) {
+                $this->changeUserEmailToggle($userObject->AzureID);
+            }
         }
         catch(\Exception $e){
             return false;
@@ -178,12 +225,16 @@ class AzureController extends Controller
         return true;
     }
 
-    public static function removeUserFromGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
+    public function removeUserFromGroup(User $userObject,Commissie $groupObject = null, string $groupId = null)
     {
         $graph = AzureController::connectToAzure();
         $group = $groupObject ? $groupObject->AzureID : $groupId;
+
         try{
             $graph->createRequest("DELETE", '/groups/'.$group.'/members/'.$userObject->AzureID.'/$ref')->execute();
+            if($userObject->commission->count() == 0) {
+                $this->changeUserEmailToggle($userObject->AzureID);
+            }
         }
         catch(\Exception $e){
             return false;
