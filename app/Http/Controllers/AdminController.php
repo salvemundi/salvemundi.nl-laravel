@@ -34,6 +34,13 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
+
+    private AzureController $azureController;
+    public function __construct()
+    {
+        $this->azureController = new AzureController();
+    }
+
     public function index()
     {
         $whatsappLinks = WhatsappLink::all();
@@ -168,7 +175,7 @@ class AdminController extends Controller
 
     public function groupIndex(Request $request)
     {
-        $groupUser = User::find($request->input('id'));
+        $groupUser = User::find($request->userId);
         $id = $groupUser->id;
         $groupUsers = $groupUser->commission()->get();
         $groups = Commissie::with('users')->whereDoesntHave('users', function($query) use ($id) {
@@ -181,26 +188,28 @@ class AdminController extends Controller
     {
         $groupUser = User::find($request->input('userId'));
         $groupObject = Commissie::find($request->input('groupId'));
-        $groupUser->commission()->attach($groupObject);
-        if(AzureController::addUserToGroup($groupUser, $groupObject))
+        if($this->azureController->addUserToGroup($groupUser, $groupObject))
         {
-            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Lid is toegevoegd aan de commissie');
-            //return $this->groupIndex($request)->with('message', 'Lid is toegevoegd aan de commissie');
+            $groupUser->commission()->attach($groupObject);
+            $groupUser->save();
+            return redirect('/admin/leden/'.$groupUser->id.'/groepen')->with('message', 'Lid is toegevoegd aan de commissie');
+
         }
-        else{
-            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
+        else {
+            return redirect('/admin/leden/'.$groupUser->id.'/groepen')->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
         }
     }
 
     public function groupDelete(Request $request)
     {
-        $groupUser = User::find($request->input('userId'));
-        $groupObject = Commissie::find($request->input('groupId'));
-        $groupUser->commission()->detach($groupObject);
-        if(AzureController::removeUserFromGroup($groupUser, $groupObject)) {
-            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Lid is verwijderd van de commissie');
+        $user = User::find($request->input('userId'));
+        $committee = Commissie::find($request->input('groupId'));
+        $user->commission()->detach($committee);
+        $user->save();
+        if($this->azureController->removeUserFromGroup($user, $committee)) {
+            return redirect('/admin/leden/'.$user->id.'/groepen')->with('message', 'Lid is verwijderd van de commissie');
         } else {
-            return redirect('/admin/leden/groepen?id='.$groupUser->id)->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
+            return redirect('/admin/leden/'.$user->id.'/groepen')->with('message', 'Er is iets mis gegaan probeer het opnieuw of meld het de ICT commissie');
         }
     }
 
