@@ -11,6 +11,8 @@
                         <th data-field="diplayName" data-sortable="true">Naam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
                         <th data-field="commissie" data-sortable="true">Rechten</th>
+                        <th data-field="leden" data-sortable="true">Leden</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -20,9 +22,11 @@
                                 <td data-value="{{ $committee->email }}">{{$committee->email}}</td>
                                 <td data-value="{{ $committee->id }}">
                                     <form method="get" action="/admin/groepen/{{$committee->id}}/permissions">
-                                        @csrf
                                         <button type="submit" class="btn btn-primary">Rechten</button>
                                     </form>
+                                </td>
+                                <td>
+                                    <a href="/admin/groepen/{{$committee->id}}/members" class="btn btn-primary">Leden</a>
                                 </td>
                             </tr>
                         @endforeach

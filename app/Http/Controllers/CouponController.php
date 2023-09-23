@@ -42,6 +42,14 @@ class CouponController extends Controller
         if($request->id) {
             $coupon = Coupon::findOrFail($request->id);
         }
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'isOneTimeUse' => 'required',
+        ]);
+
         $coupon->name = $request->input('name');
         $coupon->description = $request->input('description');
         $coupon->value = $request->input('price');

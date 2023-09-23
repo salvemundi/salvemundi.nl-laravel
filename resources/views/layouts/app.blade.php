@@ -38,6 +38,7 @@
     <link href="{{ mix('css/custom.css') }}" rel="stylesheet">
     <link href="{{ mix('css/tabs.css') }}" rel="stylesheet">
     <link href="{{ mix('css/party.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/committeeCard.css') }}" rel="stylesheet">
 
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
