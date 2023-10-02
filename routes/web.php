@@ -210,7 +210,7 @@ Route::middleware(['admin.auth'])->group(function () {
     // member & group management
     Route::get('/admin/groepen', [App\Http\Controllers\CommitteeController::class, 'showAllCommitteesAdmin']);
     Route::get('/admin/groepen/{groupId}/members', [App\Http\Controllers\CommitteeController::class, 'viewMembersGroup']);
-    Route::get('/admin/leden/groepen', [App\Http\Controllers\AdminController::class, 'groupIndex']);
+    Route::get('/admin/leden/{userId}/groepen', [App\Http\Controllers\AdminController::class, 'groupIndex']);
     Route::post('/admin/leden/groepen/store', [App\Http\Controllers\AdminController::class, 'groupStore']);
     Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete']);
     Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync');

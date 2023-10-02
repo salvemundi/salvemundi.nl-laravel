@@ -50,7 +50,7 @@
                             <td data-value="{{ $user2->PhoneNumber }}">{{$user2->PhoneNumber}}</td>
                             <td data-value="{{ $user2->birthday }}">{{$user2->birthday}}</td>
                             <td data-value="{{ $user2->id }}"><a href="/admin/leden/{{ $user2->id }}/permissions/" class="btn btn-primary">Rechten</a></td>
-                            <td data-value="{{ $user2->id }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user2->id }}"><button class="btn btn-primary">Commissies</button></form></td>
+                            <td data-value="{{ $user2->id }}"><form method="get" action="/admin/leden/{{$user2->id}}/groepen"><button class="btn btn-primary">Commissies</button></form></td>
                             <td data-value="{{ $user2->AzureID }}"><button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal1{{ $user2->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
                         </tr>
                         <div class="modal fade" id="deleteModal1{{ $user2->AzureID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,7 +105,7 @@
                             <td data-value="{{ $user->email }}">{{$user->email}}</td>
                             <td data-value="{{ $user->PhoneNumber }}">{{$user->PhoneNumber}}</td>
                             <td data-value="{{ $user->birthday }}">{{$user->birthday}}</td>
-                            <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/groepen">@csrf<input type="hidden" name="id" id="id" value="{{ $user->id }}"><button class="btn btn-primary">Commissies</button></form></td>
+                            <td data-value="{{ $user->commissie }}"><form method="get" action="/admin/leden/{{$user->id}}/groepen"><button class="btn btn-primary">Commissies</button></form></td>
                             <td data-value="{{ $user->id }}"><a href="/admin/leden/{{ $user->id }}/permissions/" class="btn btn-primary">Rechten</a></td>
                             <td data-value="{{ $user->AzureID }}"><button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->AzureID }}" class="btn btn-danger">Verwijderen</button></td>
                             <td data-value="{{ $user->AzureID }}"><button type="button" data-bs-toggle="modal" data-bs-target="#disableModal{{ $user->AzureID }}" class="btn btn-secondary">Bijwerken</button></td>
