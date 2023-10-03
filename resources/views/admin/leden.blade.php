@@ -90,7 +90,7 @@
                         <th data-field="lastName" data-sortable="true">Achternaam</th>
                         <th data-field="email" data-sortable="true">E-mail</th>
                         <th data-field="phone" data-sortable="true">Telefoon</th>
-                        <th data-field="birthday" data-sorter="dateSorter" data-sortable="true">Geboortedatum</th>
+                        <th data-field="birthday" data-sortable="true" data-sorter="dateSorter">Geboortedatum</th>
                         <th data-field="commissieLeden" data-sortable="true">Commissies</th>
                         <th data-field="permissions" data-sortable="true">Rechten</th>
                         <th data-field="removeLeden" data-sortable="true">Leden verwijderen</th>
