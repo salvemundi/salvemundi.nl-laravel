@@ -96,6 +96,10 @@ Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
+Route::get('/cobo', function () {
+    return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/Eb9cAIvGq3pEvwL4qETDNUgBjzrcmZCLqfYwlbCUrHGDlg?e=H6YJy0');
+});
+
 // Agenda
 Route::get('/agenda', function() {return view('agenda');})->name('agenda');
 
