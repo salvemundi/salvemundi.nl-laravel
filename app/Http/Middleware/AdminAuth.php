@@ -42,6 +42,6 @@ class AdminAuth
             }
             return back();
         }
-        return back();
+        return redirect('/signin');
     }
 }
