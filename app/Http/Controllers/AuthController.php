@@ -30,7 +30,7 @@ class AuthController extends Controller
           return redirect('/');
     }
 
-    public function signIn(): RedirectResponse
+    public function signIn(Request $request): RedirectResponse
     {
       // Initialize the OAuth client
       $oauthClient = new GenericProvider([
@@ -48,6 +48,7 @@ class AuthController extends Controller
       // Save client state so we can validate in callback
       session(['oauthState' => $oauthClient->getState()]);
       // Redirect to AAD signin page
+      session(['intended_url' => parse_url(url()->previous(), PHP_URL_PATH)]);
       return redirect()->away($authUrl);
     }
 
@@ -107,7 +108,9 @@ class AuthController extends Controller
           $AzureUser->save();
 
           Auth::login($AzureUser);
-          return redirect('/');
+          $intendedUrl = session('intended_url', '/');
+          session()->forget('intended_url');
+          return redirect($intendedUrl);
         }
         catch (IdentityProviderException $e)
         {
