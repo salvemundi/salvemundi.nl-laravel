@@ -93,6 +93,9 @@ class MyAccountController extends Controller
         if ($request->input('phoneNumber') != null) {
             $user->PhoneNumber = $request->input('phoneNumber');
         }
+
+
+
         $user->save();
 
         if ($request->file('photo') != null) {
