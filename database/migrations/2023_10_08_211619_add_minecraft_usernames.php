@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('sticker', function ($table) {
+            $table->dropColumn('minecraftUsername');
+        });
     }
 };
