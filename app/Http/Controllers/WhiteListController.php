@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 class WhiteListController extends Controller
 {
     public function getWhiteList(){
-        $list = User::select('minecraftUsername')
-            ->where('minecraftUsername', '!=', 'NULL')
-            ->pluck('minecraftUsername');
-        return response()->json($list);
+        $arr = [];
+        $list = User::where('minecraftUsername', '!=', 'NULL')->get();
+        foreach($list as $user) {
+            if($user->hasActiveSubscription()) {
+               $arr[] = $user->minecraftUsername;
+            }
+        }
+        return response()->json($arr);
     }
 }
