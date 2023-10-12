@@ -87,7 +87,6 @@ class AdminController extends Controller
             ->latest()
             ->count();
     }
-
     private function countMembersInCommittees(): int
     {
         $users = User::all();

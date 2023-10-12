@@ -11,7 +11,7 @@ use Microsoft\Graph\Model;
 
 class CommitteeController extends Controller
 {
-    private  AzureController $azureController;
+    private AzureController $azureController;
     public function __construct() {
         $this->azureController = new  AzureController();
     }

@@ -80,7 +80,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'birthday'
+        'birthday',
+        'minecraftUsername'
     ];
 
     public function mollieCustomerFields(): array

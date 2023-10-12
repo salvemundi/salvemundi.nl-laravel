@@ -70,6 +70,7 @@ class MyAccountController extends Controller
     public function savePreferences(Request $request) {
         $request->validate([
             'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
+            'minecraft' => 'regex:/^[a-zA-Z0-9_]{3,16}$/'
         ]);
 
         $user = User::find($request->input('user_id'));
@@ -94,6 +95,11 @@ class MyAccountController extends Controller
             $user->PhoneNumber = $request->input('phoneNumber');
         }
         $user->save();
+
+        if($request->input('minecraft') != null) {
+            $user->minecraftUsername = $request->input('minecraft');
+        }
+
 
         if ($request->file('photo') != null) {
             $request->file('photo')->storeAs('public/users/',$user->AzureID);

@@ -97,6 +97,12 @@
                         @endif
                     </div>
                     <div class="form-group">
+                        <label for="minecraft"><b>Minecraft Gebruikersnaam</b></label>
+                        <input type="tel" class="w-auto form-control{{ $errors->has('minecraft') ? ' is-invalid' : '' }}"
+                               value="{{ $user->minecraftUsername ?:(old('minecraft')) }}" id="minecraft" name="minecraft"
+                               placeholder="Minecraft naam...">
+                    </div>
+                    <div class="form-group">
                         @if($user->birthday === null)
                             <label for="birthday">Geboortedatum</label>
                             <input type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}"
