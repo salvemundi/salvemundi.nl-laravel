@@ -98,7 +98,7 @@
                     </div>
                     <div class="form-group">
                         <label for="minecraft"><b>Minecraft Gebruikersnaam</b></label>
-                        <input type="tel" class="w-auto form-control{{ $errors->has('minecraft') ? ' is-invalid' : '' }}"
+                        <input type="text" class="w-auto form-control{{ $errors->has('minecraft') ? ' is-invalid' : '' }}"
                                value="{{ $user->minecraftUsername ?:(old('minecraft')) }}" id="minecraft" name="minecraft"
                                placeholder="Minecraft naam...">
                     </div>
