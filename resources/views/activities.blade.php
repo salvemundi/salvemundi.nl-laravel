@@ -118,8 +118,16 @@
                                                                     @csrf
                                                                     @if($activiteit->isGroupSignup)
                                                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                        <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
                                                                         <input required type="number" min="1" max="" class="form-control" id="amountOfTickets" name="amountOfTickets" aria-describedby="basic-addon3">
+                                                                        <select class="form-select" name="select" aria-label="Default select example">
+                                                                            <option value="1">One</option>
+                                                                            <option value="2">Two</option>
+                                                                            <option value="3">Three</option>
+                                                                        </select>
+                                                                        <div id="ticketInputs">
 
+                                                                        </div>
                                                                     @else
                                                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                         <div class="input-group mb-3 me-4">
@@ -154,4 +162,6 @@
         @endforeach
     </div>
 </div>
+<script src="{{ mix('js/GroupSelectTickets.js') }}"></script>
+
 @endsection

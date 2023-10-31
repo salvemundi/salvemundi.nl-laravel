@@ -78,6 +78,11 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('membersOnlyContent') ? ' is-invalid' : '' }}" name="membersOnlyContent" placeholder="Beschrijving...">{{{ $activities->membersOnlyContent }}}</textarea>
             </div>
 
+            <div class="form-group" id="ticketsPerRound" >
+                <label for="exampleFormControlTextarea1">Hoeveel Tickets mogen er per keer besteld worden?</label>
+                <input type="number" min="0"  class="form-control{{ $errors->has('maxTicketOrderAmount') ? ' is-invalid' : '' }}" name="maxTicketOrderAmount" placeholder="Tickets per keer..." value="{{ $activities->maxTicketOrderAmount }}"/>
+            </div>
+
             <label for="photo">Foto</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -103,13 +108,23 @@
 
             @if($activities->membersOnly)
                 <input class="inp-cbx" id="cbx2" name="cbxMembers" type="checkbox" checked style="display: none"/>
-            @elseif(!$activities->membersOnly)
+            @else
                 <input class="inp-cbx" id="cbx2" name="cbxMembers" type="checkbox" style="display: none"/>
             @endif
             <label class="cbx" for="cbx2"><span>
             <svg width="12px" height="10px" viewbox="0 0 12 10">
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Alleen Salve Mundi leden?</span></label>
+
+            @if($activities->isGroupSignup)
+                <input class="inp-cbx" id="cbx3" name="cbxGroup" type="checkbox" checked style="display: none"/>
+            @else
+                <input class="inp-cbx" id="cbx3" name="cbxGroup" type="checkbox" style="display: none"/>
+            @endif
+            <label class="cbx" for="cbx3"><span>
+            <svg width="12px" height="10px" viewbox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg></span><span>Is op basis groep reservering?</span></label>
 
             <div class="form-group py-3">
                 <input class="btn btn-primary" type="submit" value="Bewerken">
@@ -120,5 +135,15 @@
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
 <script>
     new MultiSelectTag('tags')  // id
+    function UpdateForm() {
+        let input = document.getElementById('ticketsPerRound');
+        if(!document.getElementById("cbx3").checked) {
+            input.style.display = "none"
+        } else {
+            input.style.display = "block"
+        }
+    }
+    document.getElementById("cbx3").addEventListener("input", UpdateForm);
+
 </script>
 @endsection

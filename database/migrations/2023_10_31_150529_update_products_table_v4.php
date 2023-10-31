@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function ($table) {
-            $table->boolean('isGroupSignup')->default('false');
+            $table->boolean('isGroupSignup')->default(false);
             $table->integer('maxTicketOrderAmount')->default(0);
         });
     }
@@ -25,7 +25,6 @@ return new class extends Migration
         Schema::table('products', function ($table) {
             $table->dropColumn('isGroupSignup');
             $table->dropColumn('maxTicketOrderAmount');
-
         });
     }
 };

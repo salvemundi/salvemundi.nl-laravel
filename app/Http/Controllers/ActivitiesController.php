@@ -40,10 +40,7 @@ class ActivitiesController extends Controller {
 
     public function editActivities(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $request->validate([
-            'id' => ['required'],
-        ]);
-        return view('admin/activitiesEdit', ['activities' => Product::findOrFail($request->input('id')),'tags' => CommitteeTags::all()]);
+        return view('admin/activitiesEdit', ['activities' => Product::findOrFail($request->activityId),'tags' => CommitteeTags::all()]);
     }
 
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
@@ -106,13 +103,12 @@ class ActivitiesController extends Controller {
             $products->membersOnlyContent = $request->input('membersOnlyContent');
             $products->amount    = $request->input('price');
             $products->limit     = $request->input('limit');
-
+            $products->isGroupSignup = (bool)$request->input('cbxGroup');
             if($request->input('cbx')){
                 $products->oneTimeOrder = true;
             } else {
                 $products->oneTimeOrder = false;
             }
-
             if ($request->input('cbxMembers')) {
                 $products->membersOnly = true;
             } else {
@@ -153,18 +149,10 @@ class ActivitiesController extends Controller {
         $productObject->membersOnlyContent = $request->input('membersOnlyContent');
         $productObject->amount    = $request->input('price');
         $productObject->limit     = $request->input('limit');
+        $productObject->isGroupSignup = (bool)$request->input('cbxGroup');
+        $productObject->oneTimeOrder = (bool)$request->input('cbx');
+        $productObject->membersOnly = (bool)$request->input('cbxMembers');
 
-        if($request->input('cbx')){
-            $productObject->oneTimeOrder = true;
-        } else {
-            $productObject->oneTimeOrder = false;
-        }
-
-        if ($request->input('cbxMembers')) {
-            $productObject->membersOnly = true;
-        } else {
-            $productObject->membersOnly = false;
-        }
 
         if ($request->input('price2') != null || $request->input('price2') != "") {
             $productObject->amount_non_member = $request->input('price2');

@@ -42,9 +42,9 @@
                     <td data-value="{{ $activity->imgPath }}">{{$activity->imgPath}}</td>
                     <td data-value="{{ $activity->membersOnly }}">{{$converted_res = $activity->membersOnly ? 'Ja' : 'Nee' }}</td>
                     <td data-value="{{ $activity->tags }}">@foreach($activity->tags as $tag) <span class="badge {{ $tag->colorClass }}"><i class="{{ $tag->icon }}"></i> {{ $tag->name }}</span> @endforeach</td>
-                    <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/edit">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-primary">Bewerken</button></form></td>
+                    <td data-value="{{ $activity->id }}"><a class="btn btn-primary" href="/admin/activities/{{$activity->id}}/edit">Bewerken</a></td>
                     <td data-value="{{ $activity->id }}"><form method="post" action="/admin/activities/delete">@csrf<input type="hidden" name="id" id="id" value="{{ $activity->id }}"><button type="submit" class="btn btn-danger">Verwijderen</button></form></td>
-                    <td data-value="{{ $activity->id }}"><a href="/admin/activities/{{$activity->id}}/signups" type="submit" class="btn btn-primary">Inschrijvingen</a></td>
+                    <td data-value="{{ $activity->id }}"><a href="/admin/activities/{{$activity->id}}/signups" class="btn btn-primary">Inschrijvingen</a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -134,6 +134,12 @@
             <svg width="12px" height="10px" viewbox="0 0 12 10">
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
             </svg></span><span>Alleen Salve Mundi leden?</span></label>
+
+            <input class="inp-cbx" id="cbx3" name="cbxGroup" type="checkbox" style="display: none"/>
+            <label class="cbx" for="cbx3"><span>
+            <svg width="12px" height="10px" viewbox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg></span><span>Is op basis groep reservering?</span></label>
 
             <div class="form-group mx-auto my-3">
                 <input class="btn btn-primary" type="submit" value="Toevoegen">
