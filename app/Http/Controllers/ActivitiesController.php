@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ActivitiesController extends Controller {
 
-    public function addMemberToAcitivty(Request $request) {
+    public function addMemberToAcitivty(Request $request): RedirectResponse
+    {
         $activity = Product::find($request->activityId);
         $user = User::find($request->input('addUser'));
 
@@ -28,7 +29,8 @@ class ActivitiesController extends Controller {
         return back()->with('success',"Gebruiker is toegevoegd aan activiteit");
     }
 
-    public function removeMemberFromActivity(Request $request) {
+    public function removeMemberFromActivity(Request $request): RedirectResponse
+    {
         $activity = Product::find($request->activityId);
         $user = User::find($request->userId);
 
@@ -36,7 +38,8 @@ class ActivitiesController extends Controller {
         return back()->with('success',"Gebruiker is verwijderd van activiteit");
     }
 
-    public function editActivities(Request $request) {
+    public function editActivities(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
         $request->validate([
             'id' => ['required'],
         ]);
@@ -49,7 +52,8 @@ class ActivitiesController extends Controller {
         return view('admin/activities', ['activities' => $activities, 'tags' => CommitteeTags::all()]);
     }
 
-    public function getActivities() {
+    public function getActivities(): \Illuminate\Database\Eloquent\Collection|array
+    {
         return Product::with('transactions')->whereHas('payment', function (Builder $query) {
             return $query->where('paymentStatus', PaymentStatus::paid);
         })->get();
@@ -172,7 +176,8 @@ class ActivitiesController extends Controller {
         return redirect('admin/activiteiten')->with('message', 'Activiteit is bijgewerkt');
     }
 
-    public function run() {
+    public function run(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
         $halfYearAgo = Carbon::now()->subMonths(6);
         $activiteiten = Product::latest()->where('index', null)->whereDate('created_at', '>=', $halfYearAgo)->get();
         $user = Auth::user();

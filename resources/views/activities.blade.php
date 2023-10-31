@@ -116,17 +116,23 @@
                                                             <div class="card card-body">
                                                                 <form method="POST" action="/activiteiten/signup">
                                                                     @csrf
-                                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                                    <div class="input-group mb-3 me-4">
-                                                                        <span class="input-group-text" id="basic-addon3">Naam</span>
-                                                                        <input required type="text" class="form-control" id="nameActivity" name="nameActivity" aria-describedby="basic-addon3">
-                                                                        <br>
-                                                                    </div>
-                                                                    <div class="input-group mb-3 me-4">
-                                                                        <span class="input-group-text" id="basic-addon3">Email</span>
-                                                                        <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
-                                                                    </div>
-                                                                    <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
+                                                                    @if($activiteit->isGroupSignup)
+                                                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                        <input required type="number" min="1" max="" class="form-control" id="amountOfTickets" name="amountOfTickets" aria-describedby="basic-addon3">
+
+                                                                    @else
+                                                                        <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                        <div class="input-group mb-3 me-4">
+                                                                            <span class="input-group-text" id="basic-addon3">Naam</span>
+                                                                            <input required type="text" class="form-control" id="nameActivity" name="nameActivity" aria-describedby="basic-addon3">
+                                                                            <br>
+                                                                        </div>
+                                                                        <div class="input-group mb-3 me-4">
+                                                                            <span class="input-group-text" id="basic-addon3">Email</span>
+                                                                            <input required type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon3">
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary buttonActiviteiten float-right">Afrekenen € {{ $activiteit->amount_non_member }}</button>
+                                                                    @endif
                                                                 </form>
                                                             </div>
                                                         </div>
