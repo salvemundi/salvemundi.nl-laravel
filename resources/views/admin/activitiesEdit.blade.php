@@ -87,7 +87,12 @@
                 <label for="name">verenigingen die meedoen</label>
                 <a class="btn btn-primary" id="addInputField"><i class="fas fa-plus fa-sm"></i></a>
                 <div id="associationInputs">
-
+                    @foreach($activities->associations as $association)
+                        <div class="d-flex" id="{{$association->id}}">
+                            <input type="text" name="associationName[]" class="form-control mb-2" value="{{$association->name}}">
+                            <a onclick="document.getElementById({{$association->id}}).remove()" class="btn btn-primary mb-2"><i class="fas fa-minus fa-sm"></i></a>
+                        </div>
+                    @endforeach
                 </div>
 {{--                <input type="text" name="associationName[]" class="form-control">--}}
             </div>

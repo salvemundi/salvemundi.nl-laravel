@@ -2,6 +2,7 @@
 @section('title', 'Activiteiten – ' . config('app.name'))
 @section('content')
 <script src="js/scrollonload.js"></script>
+
 <div class="overlap">
     <div class="container">
         @if(session()->has('message'))
@@ -83,18 +84,66 @@
                                                         @if($activiteit->oneTimeOrder)
                                                             <button class="btn btn-success disabled"><i class="fas fa-check"></i> Ingeschreven</button>
                                                         @else
+                                                            @if($activiteit->isGroupSignup)
+                                                                <form method="POST" action="/activiteiten/signup">
+                                                                    @csrf
+                                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                    <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
+                                                                    <input required type="number" min="1" max=" @if($activiteit->maxTicketOrderAmount > 0) {{$activiteit->maxTicketOrderAmount}} @endif " value="1" class="form-control" id="amountOfTickets{{$activiteit->id}}" name="amountOfTickets" aria-describedby="basic-addon3">
+
+                                                                    <label for="association" class="form-label">Welke vereniging?</label>
+                                                                    <select class="form-select" id="association" name="association" aria-label="Default select example">
+                                                                        @foreach($activiteit->associations as $association)
+                                                                            <option value="{{$association->id}}">{{ $association->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <div id="ticketInputs{{$activiteit->id}}">
+
+                                                                    </div>
+                                                                    <button type="submit" id="submitGroupTicketSignup{{$activiteit->id}}" class="btn btn-primary mt-2">Inschrijven € {{ $activiteit->amount }}</button>
+                                                                    <script>
+                                                                        document.getElementById("amountOfTickets{{$activiteit->id}}").addEventListener("input", function () {generateTicketInputs({{$activiteit->id}}, {{$activiteit->amount}})});
+                                                                    </script>
+                                                                </form>
+                                                            @else
+                                                                <form method="POST" action="/activiteiten/signup">
+                                                                    @csrf
+                                                                    <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                    <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
+                                                                </form>
+                                                            @endif
+                                                         @endif
+                                                    @else
+                                                        @if($activiteit->isGroupSignup)
+                                                            <form method="POST" action="/activiteiten/signup">
+                                                                @csrf
+                                                                <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
+                                                                <input required type="number" min="1" max="@if($activiteit->maxTicketOrderAmount > 0) {{$activiteit->maxTicketOrderAmount}} @endif" value="1" class="form-control" id="amountOfTickets{{$activiteit->id}}" name="amountOfTickets" aria-describedby="basic-addon3">
+
+                                                                <label for="association" class="form-label">Welke vereniging?</label>
+                                                                <select class="form-select" id="association" name="association" aria-label="Default select example">
+                                                                    @foreach($activiteit->associations as $association)
+                                                                        <option value="{{$association->id}}">{{ $association->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <div id="ticketInputs{{$activiteit->id}}">
+
+
+                                                                </div>
+                                                                <button type="submit" id="submitGroupTicketSignup{{$activiteit->id}}" class="btn btn-primary mt-2">Inschrijven € {{ $activiteit->amount }}</button>
+                                                                <script>
+                                                                    document.getElementById("amountOfTickets{{$activiteit->id}}").addEventListener("input", function () {generateTicketInputs({{$activiteit->id}}, {{$activiteit->amount}})});
+                                                                </script>
+                                                            </form>
+
+                                                        @else
                                                             <form method="POST" action="/activiteiten/signup">
                                                                 @csrf
                                                                 <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                 <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
                                                             </form>
-                                                         @endif
-                                                    @else
-                                                        <form method="POST" action="/activiteiten/signup">
-                                                            @csrf
-                                                            <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
-                                                            <button type="submit" class="btn btn-primary">Inschrijven € {{ $activiteit->amount }}</button>
-                                                        </form>
+                                                        @endif
                                                      @endif
                                                 @else
                                                     @if(session('id'))
@@ -104,7 +153,7 @@
                                                     @endif
 
                                                     @if($activiteit->membersOnly && !$userIsActive)
-                                                        <button class="btn btn-danger">Alleen voor Leden</button>
+                                                        <button class="btn btn-danger" disabled>Alleen voor Leden</button>
                                                     @else
                                                         <div class="col-12">
                                                             <button class="btn btn-primary buttonActiviteiten" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $activiteit->id }}" aria-expanded="false" aria-controls="collapseExample">
@@ -119,7 +168,7 @@
                                                                     @if($activiteit->isGroupSignup)
                                                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                         <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
-                                                                        <input required type="number" min="1" max="" value="1" class="form-control" id="amountOfTickets" name="amountOfTickets" aria-describedby="basic-addon3">
+                                                                        <input required type="number" min="1" max="@if($activiteit->maxTicketOrderAmount > 0) {{$activiteit->maxTicketOrderAmount}} @endif" value="1" class="form-control" id="amountOfTickets{{$activiteit->id}}" name="amountOfTickets" aria-describedby="basic-addon3">
 
                                                                         <label for="association" class="form-label">Welke vereniging?</label>
                                                                         <select class="form-select" id="association" name="association" aria-label="Default select example">
@@ -127,9 +176,14 @@
                                                                                 <option value="{{$association->id}}">{{ $association->name }}</option>
                                                                             @endforeach
                                                                         </select>
-                                                                        <div id="ticketInputs">
+                                                                        <div id="ticketInputs{{$activiteit->id}}">
 
                                                                         </div>
+                                                                        <button type="submit" id="submitGroupTicketSignup{{$activiteit->id}}" class="btn btn-primary mt-2">Inschrijven € {{ $activiteit->amount }}</button>
+
+                                                                        <script>
+                                                                            document.getElementById("amountOfTickets{{$activiteit->id}}").addEventListener("input", function () {generateTicketInputs({{$activiteit->id}}, {{$activiteit->amount}})});
+                                                                        </script>
                                                                     @else
                                                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                         <div class="input-group mb-3 me-4">
@@ -165,5 +219,4 @@
     </div>
 </div>
 <script src="{{ mix('js/GroupSelectTickets.js') }}"></script>
-
 @endsection

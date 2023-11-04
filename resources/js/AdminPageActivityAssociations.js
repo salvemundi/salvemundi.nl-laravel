@@ -9,12 +9,12 @@ function addInputField() {
     const input = document.createElement("input");
     input.required = true;
     input.type = "text";
-    input.className = "form-control";
+    input.className = "form-control mb-2";
     input.name = "associationName[]";
     input.setAttribute("aria-describedby", "basic-addon3");
 
     const removeButton = document.createElement('a');
-    removeButton.className = "btn btn-primary";
+    removeButton.className = "btn btn-primary mb-2";
     removeButton.innerHTML = `<i class="fas fa-minus fa-sm"></i>`;
     removeButton.onclick = function () {
         removeInputField(inputContainer.id);

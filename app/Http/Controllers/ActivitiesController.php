@@ -110,8 +110,8 @@ class ActivitiesController extends Controller {
         $products->isGroupSignup = (bool)$request->input('cbxGroup');
         $products->oneTimeOrder = (bool)$request->input('cbx');
         $products->membersOnly = (bool)$request->input('cbxMembers');
-
         if($request->input('cbxGroup') && $request->input('associationName')) {
+            $products->associations()->delete();
             foreach ($request->input('associationName') as $key => $item) {
                 $association = new ActivityAssociation();
                 $association->name = $item;

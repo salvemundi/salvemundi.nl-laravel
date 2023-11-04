@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Log;
 class Product extends Model
 {
     use HasFactory;
+
+    /**
+     * @var bool|\Illuminate\Support\HigherOrderCollectionProxy|mixed
+     */
     protected $table = 'products';
     protected $fillable = ['imgPath','membersOnlyContent','isGroupSignup'];
 
