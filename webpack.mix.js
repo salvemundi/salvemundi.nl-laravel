@@ -24,5 +24,6 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/scrollonload.js', 'public/js')
     .js('resources/js/party.js', 'public/js')
     .js('resources/js/GroupSelectTickets.js','public/js')
+    .js('resources/js/AdminPageActivityAssociations.js','public/js')
     .vue()
     .version();

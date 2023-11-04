@@ -26,6 +26,16 @@ class Product extends Model
         );
     }
 
+    public function associations(): HasMany
+    {
+        return $this->hasMany
+        (
+            ActivityAssociation::class,
+            'activityId',
+            'id'
+        );
+    }
+
     public function members(): BelongsToMany
     {
         return $this->belongsToMany

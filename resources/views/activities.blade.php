@@ -119,11 +119,13 @@
                                                                     @if($activiteit->isGroupSignup)
                                                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                                                         <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
-                                                                        <input required type="number" min="1" max="" class="form-control" id="amountOfTickets" name="amountOfTickets" aria-describedby="basic-addon3">
-                                                                        <select class="form-select" name="select" aria-label="Default select example">
-                                                                            <option value="1">One</option>
-                                                                            <option value="2">Two</option>
-                                                                            <option value="3">Three</option>
+                                                                        <input required type="number" min="1" max="" value="1" class="form-control" id="amountOfTickets" name="amountOfTickets" aria-describedby="basic-addon3">
+
+                                                                        <label for="association" class="form-label">Welke vereniging?</label>
+                                                                        <select class="form-select" id="association" name="association" aria-label="Default select example">
+                                                                            @foreach($activiteit->associations as $association)
+                                                                                <option value="{{$association->id}}">{{ $association->name }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                         <div id="ticketInputs">
 

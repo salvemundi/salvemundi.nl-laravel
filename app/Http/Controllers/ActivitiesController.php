@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\paymentStatus;
 use App\Enums\paymentType;
+use App\Models\ActivityAssociation;
 use App\Models\CommitteeTags;
 use App\Models\NonUserActivityParticipant;
 use App\Models\Product;
@@ -89,79 +90,48 @@ class ActivitiesController extends Controller {
 
         if ($request->input('id') === null) {
             $products = new Product;
-
-            if ($request->file('photo') !== null) {
-                $request->file('photo')->storeAs(
-                    'public/activities', $request->input('name') . ".png"
-                );
-
-                $products->imgPath = 'activities/' . $request->input('name') . ".png";
-            }
-
-            $products->name      = $request->input('name');
-            $products->formsLink = $request->input('link');
-            $products->membersOnlyContent = $request->input('membersOnlyContent');
-            $products->amount    = $request->input('price');
-            $products->limit     = $request->input('limit');
-            $products->isGroupSignup = (bool)$request->input('cbxGroup');
-            if($request->input('cbx')){
-                $products->oneTimeOrder = true;
-            } else {
-                $products->oneTimeOrder = false;
-            }
-            if ($request->input('cbxMembers')) {
-                $products->membersOnly = true;
-            } else {
-                $products->membersOnly = false;
-            }
-
-            if ($request->input('price2') != null || $request->input('price2') != "") {
-                $products->amount_non_member = $request->input('price2');
-            }
-
-            $products->description = $request->input('description');
-            $products->save();
-            $products->tags()->detach();
-            if ($request->input('tags') !== null){
-                foreach ($request->input('tags') as $key => $item) {
-                    $products->tags()->attach($item);
-                }
-            }
-            return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
+        } else {
+            $products = Product::find($request->input('id'));
         }
 
-        $productObject = Product::find($request->input('id'));
-        if ($request->file('photo') != null) {
-            $path                   = $request->file('photo')->storeAs(
+        if ($request->file('photo') !== null) {
+            $request->file('photo')->storeAs(
                 'public/activities', $request->input('name') . ".png"
             );
-            $productObject->imgPath = 'activities/' . $request->input('name') . ".png";
+
+            $products->imgPath = 'activities/' . $request->input('name') . ".png";
         }
-        $productObject->tags()->detach();
-        if ($request->input('tags') !== null){
-            foreach ($request->input('tags') as $key => $item) {
-                $productObject->tags()->attach($item);
+
+        $products->name      = $request->input('name');
+        $products->formsLink = $request->input('link');
+        $products->membersOnlyContent = $request->input('membersOnlyContent');
+        $products->amount    = $request->input('price');
+        $products->limit     = $request->input('limit');
+        $products->isGroupSignup = (bool)$request->input('cbxGroup');
+        $products->oneTimeOrder = (bool)$request->input('cbx');
+        $products->membersOnly = (bool)$request->input('cbxMembers');
+
+        if($request->input('cbxGroup') && $request->input('associationName')) {
+            foreach ($request->input('associationName') as $key => $item) {
+                $association = new ActivityAssociation();
+                $association->name = $item;
+                $association->product()->associate($products)->save();
             }
         }
 
-        $productObject->name      = $request->input('name');
-        $productObject->formsLink = $request->input('link');
-        $productObject->membersOnlyContent = $request->input('membersOnlyContent');
-        $productObject->amount    = $request->input('price');
-        $productObject->limit     = $request->input('limit');
-        $productObject->isGroupSignup = (bool)$request->input('cbxGroup');
-        $productObject->oneTimeOrder = (bool)$request->input('cbx');
-        $productObject->membersOnly = (bool)$request->input('cbxMembers');
-
-
         if ($request->input('price2') != null || $request->input('price2') != "") {
-            $productObject->amount_non_member = $request->input('price2');
+            $products->amount_non_member = $request->input('price2');
         }
 
-        $productObject->description = $request->input('description');
-
-        $productObject->save();
-        return redirect('admin/activiteiten')->with('message', 'Activiteit is bijgewerkt');
+        $products->description = $request->input('description');
+        $products->save();
+        $products->tags()->detach();
+        if ($request->input('tags') !== null){
+            foreach ($request->input('tags') as $key => $item) {
+                $products->tags()->attach($item);
+            }
+        }
+        return redirect('admin/activiteiten')->with('message', 'Activiteit gemaakt');
     }
 
     public function run(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

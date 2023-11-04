@@ -78,9 +78,18 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('membersOnlyContent') ? ' is-invalid' : '' }}" name="membersOnlyContent" placeholder="Beschrijving...">{{{ $activities->membersOnlyContent }}}</textarea>
             </div>
 
-            <div class="form-group" id="ticketsPerRound" >
+            <div class="form-group" id="ticketsPerRound">
                 <label for="exampleFormControlTextarea1">Hoeveel Tickets mogen er per keer besteld worden?</label>
                 <input type="number" min="0"  class="form-control{{ $errors->has('maxTicketOrderAmount') ? ' is-invalid' : '' }}" name="maxTicketOrderAmount" placeholder="Tickets per keer..." value="{{ $activities->maxTicketOrderAmount }}"/>
+            </div>
+
+            <div class="form-group" id="associations">
+                <label for="name">verenigingen die meedoen</label>
+                <a class="btn btn-primary" id="addInputField"><i class="fas fa-plus fa-sm"></i></a>
+                <div id="associationInputs">
+
+                </div>
+{{--                <input type="text" name="associationName[]" class="form-control">--}}
             </div>
 
             <label for="photo">Foto</label>
@@ -133,6 +142,8 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script src="{{ mix('js/AdminPageActivityAssociations.js') }}"></script>
+
 <script>
     new MultiSelectTag('tags')  // id
     function UpdateForm() {
