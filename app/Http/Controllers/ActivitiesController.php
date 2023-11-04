@@ -108,6 +108,7 @@ class ActivitiesController extends Controller {
         $products->amount    = $request->input('price');
         $products->limit     = $request->input('limit');
         $products->isGroupSignup = (bool)$request->input('cbxGroup');
+        $products->maxTicketOrderAmount = $request->input('maxTicketOrderAmount');
         $products->oneTimeOrder = (bool)$request->input('cbx');
         $products->membersOnly = (bool)$request->input('cbxMembers');
         if($request->input('cbxGroup') && $request->input('associationName')) {
