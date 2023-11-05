@@ -173,7 +173,7 @@
             input2.style.display = "none"
         } else {
             input.style.display = "block"
-            input2.style.display = "none"
+            input2.style.display = "block"
         }
     }
     document.getElementById("cbx3").addEventListener("input", UpdateForm);
