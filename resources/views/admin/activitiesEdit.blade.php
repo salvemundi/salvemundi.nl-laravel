@@ -94,7 +94,6 @@
                         </div>
                     @endforeach
                 </div>
-{{--                <input type="text" name="associationName[]" class="form-control">--}}
             </div>
 
             <label for="photo">Foto</label>

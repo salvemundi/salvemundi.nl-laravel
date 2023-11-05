@@ -111,6 +111,19 @@
                 <textarea type="textarea" class="form-control{{ $errors->has('membersOnlyContent') ? ' is-invalid' : '' }}" name="membersOnlyContent" placeholder="Beschrijving...">{{{ old('membersOnlyContent') }}}</textarea>
             </div>
 
+            <div class="form-group" id="ticketsPerRound">
+                <label for="exampleFormControlTextarea1">Hoeveel Tickets mogen er per keer besteld worden?</label>
+                <input type="number" min="0"  class="form-control{{ $errors->has('maxTicketOrderAmount') ? ' is-invalid' : '' }}" name="maxTicketOrderAmount" placeholder="Tickets per keer..." />
+            </div>
+
+            <div class="form-group" id="associations">
+                <label for="name">verenigingen die meedoen</label>
+                <a class="btn btn-primary" id="addInputField"><i class="fas fa-plus fa-sm"></i></a>
+                <div id="associationInputs">
+
+                </div>
+            </div>
+
             <label for="photo">Foto</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -148,7 +161,18 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script src="{{ mix('js/AdminPageActivityAssociations.js') }}"></script>
+
 <script>
     new MultiSelectTag('tags')  // id
+    function UpdateForm() {
+        let input = document.getElementById('ticketsPerRound');
+        if(!document.getElementById("cbx3").checked) {
+            input.style.display = "none"
+        } else {
+            input.style.display = "block"
+        }
+    }
+    document.getElementById("cbx3").addEventListener("input", UpdateForm);
 </script>
 @endsection
