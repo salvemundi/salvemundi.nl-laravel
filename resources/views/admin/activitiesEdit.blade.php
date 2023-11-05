@@ -152,10 +152,14 @@
     new MultiSelectTag('tags')  // id
     function UpdateForm() {
         let input = document.getElementById('ticketsPerRound');
+        let input2 = document.getElementById('associations');
+
         if(!document.getElementById("cbx3").checked) {
             input.style.display = "none"
+            input2.style.display = "none"
         } else {
             input.style.display = "block"
+            input2.style.display = "block"
         }
     }
     document.getElementById("cbx3").addEventListener("input", UpdateForm);
