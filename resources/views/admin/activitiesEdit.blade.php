@@ -150,6 +150,8 @@
 
 <script>
     new MultiSelectTag('tags')  // id
+    document.getElementById('associations').style.display = "none"
+    
     function UpdateForm() {
         let input = document.getElementById('ticketsPerRound');
         let input2 = document.getElementById('associations');
