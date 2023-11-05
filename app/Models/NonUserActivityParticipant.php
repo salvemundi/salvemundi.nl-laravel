@@ -16,7 +16,7 @@ class NonUserActivityParticipant extends Model
     use HasFactory;
 
     protected $table = "non_member_activity_signup";
-    protected $fillable = ['name', 'email'];
+    protected $fillable = ['name', 'email', 'groupId'];
 
     public function activity(): BelongsTo
     {
@@ -27,4 +27,24 @@ class NonUserActivityParticipant extends Model
             'id',
         );
     }
+    public function transaction(): BelongsTo
+    {
+        return $this->belongsTo
+        (
+            Transaction::class,
+            'transactionId',
+            'id',
+        );
+    }
+
+    public function association(): BelongsTo
+    {
+        return $this->belongsTo
+        (
+            ActivityAssociation::class,
+            'associationId',
+            'id',
+        );
+    }
+
 }

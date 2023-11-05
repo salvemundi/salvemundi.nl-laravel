@@ -89,6 +89,10 @@
                                                                 <form method="POST" action="/activiteiten/signup">
                                                                     @csrf
                                                                     <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+                                                                    @if(!\Illuminate\Support\Facades\Auth::check())
+                                                                        <label for="email" class="form-label">Email</label>
+                                                                        <input type="text" class="form-control" required name="email">
+                                                                    @endif
                                                                     <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
                                                                     <input required type="number" min="1" max="@if($activiteit->maxTicketOrderAmount > 0){{$activiteit->maxTicketOrderAmount}}@endif" value="1" class="form-control" id="amountOfTickets{{$activiteit->id}}" name="amountOfTickets" aria-describedby="basic-addon3">
 
@@ -120,6 +124,12 @@
                                                             <form method="POST" action="/activiteiten/signup">
                                                                 @csrf
                                                                 <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+
+                                                                @if(!\Illuminate\Support\Facades\Auth::check())
+                                                                    <label for="email" class="form-label">Email</label>
+                                                                    <input type="text" class="form-control" required name="email">
+                                                                @endif
+
                                                                 <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
                                                                 <input required type="number" min="1" max="@if($activiteit->maxTicketOrderAmount > 0){{$activiteit->maxTicketOrderAmount}}@endif" value="1" class="form-control" id="amountOfTickets{{$activiteit->id}}" name="amountOfTickets" aria-describedby="basic-addon3">
 
@@ -170,6 +180,12 @@
                                                                     @csrf
                                                                     @if($activiteit->isGroupSignup)
                                                                         <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
+
+                                                                        @if(!\Illuminate\Support\Facades\Auth::check())
+                                                                            <label for="email" class="form-label">Email</label>
+                                                                            <input type="text" class="form-control" required name="email">
+                                                                        @endif
+
                                                                         <label for="amountOfTickets" class="form-label">Aantal Tickets</label>
                                                                         <input required type="number" min="1" max="@if($activiteit->maxTicketOrderAmount > 0){{$activiteit->maxTicketOrderAmount}}@endif" value="1" class="form-control" id="amountOfTickets{{$activiteit->id}}" name="amountOfTickets" aria-describedby="basic-addon3">
 

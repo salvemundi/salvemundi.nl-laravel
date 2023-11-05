@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class ActivitiesController extends Controller {
 
@@ -64,6 +66,9 @@ class ActivitiesController extends Controller {
 
         foreach($activity->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
+                foreach ($transaction->nonMembers as $signup) {
+                    $nonMembers[] = [$signup->email, $signup->name,$transaction->transactionId, $signup->id,$signup->groupId, $signup->association->name];
+                }
                 if($transaction->email != null && $transaction->email != ""){
                     $userTransaction = [$transaction->email, $transaction->name, $transaction->transactionId];
                     $nonMembers[] = $userTransaction;
@@ -187,15 +192,16 @@ class ActivitiesController extends Controller {
         }
 
         $user = null;
-
-        if (!Auth::check())
+        $groupPrice = null;
+        $uuid = null;
+        // individual signups
+        if (!Auth::check() && !$activity->isGroupSignup)
         {
             if ((!$activity->nonMembers()->where('email', $request->input('email'))->exists() && $activity->oneTimeOrder) || !$activity->oneTimeOrder) {
                 $non_member = new NonUserActivityParticipant();
                 $non_member->activity()->associate($activity);
                 $non_member->name = $request->input('nameActivity');
                 $non_member->email = $request->input('email');
-
                 $non_member->save();
             } else {
                 return back()->with('message', 'Je kunt je maar één keer aanmelden voor de activiteit: ' . $activity->name . '!');
@@ -204,6 +210,22 @@ class ActivitiesController extends Controller {
             $user = Auth::user();
         }
 
-        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'));
+        // Group signups
+        if($activity->isGroupSignup) {
+            if($request->input('amountOfTickets') > $activity->maxTicketOrderAmount) {
+                return back()->with('error','Maximum signups per round exceeded');
+            }
+            $groupPrice = $request->input('amountOfTickets') * $activity->amount;
+            $uuid = Str::uuid()->toString();
+            foreach ($request->input('participant') as $key => $item) {
+                $groupMember = new NonUserActivityParticipant();
+                $groupMember->name = $item;
+                $groupMember->groupId = $uuid;
+                $groupMember->association()->associate(ActivityAssociation::find($request->input('association')));
+                $groupMember->activity()->associate($activity)->save();
+            }
+        }
+
+        return MolliePaymentController::processRegistration($activity, paymentType::activity, $activity->formsLink, null, $user, $request->input('email'), $request->input('nameActivity'),$groupPrice, $uuid);
     }
 }

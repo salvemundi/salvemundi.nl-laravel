@@ -23,4 +23,5 @@ class ActivityAssociation extends Model
             'products'
         );
     }
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transaction extends Model
@@ -13,6 +14,17 @@ class Transaction extends Model
     use HasFactory;
     protected $table = 'transaction';
     protected $fillable = ['formsLink'];
+
+    public function nonMembers(): HasMany
+    {
+        return $this->hasMany
+        (
+            NonUserActivityParticipant::class,
+            'transactionId',
+            'id'
+        );
+    }
+
     public function introRelation(): HasOne
     {
         return $this->hasOne
