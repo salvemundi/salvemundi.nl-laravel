@@ -117,7 +117,7 @@
             </div>
 
             <div class="form-group" id="associations">
-                <label for="name">verenigingen die meedoen</label>
+                <label for="name">Verenigingen die meedoen</label>
                 <a class="btn btn-primary" id="addInputField"><i class="fas fa-plus fa-sm"></i></a>
                 <div id="associationInputs">
 
@@ -168,6 +168,8 @@
     function UpdateForm() {
         let input = document.getElementById('ticketsPerRound');
         let input2 = document.getElementById('associations');
+
+        input2.style.display = "none"
         if(!document.getElementById("cbx3").checked) {
             input.style.display = "none"
             input2.style.display = "none"

@@ -154,6 +154,7 @@
         let input = document.getElementById('ticketsPerRound');
         let input2 = document.getElementById('associations');
 
+        input2.style.display = "none"
         if(!document.getElementById("cbx3").checked) {
             input.style.display = "none"
             input2.style.display = "none"
