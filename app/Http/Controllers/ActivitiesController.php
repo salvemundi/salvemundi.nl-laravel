@@ -116,6 +116,9 @@ class ActivitiesController extends Controller {
         $products->maxTicketOrderAmount = $request->input('maxTicketOrderAmount');
         $products->oneTimeOrder = (bool)$request->input('cbx');
         $products->membersOnly = (bool)$request->input('cbxMembers');
+        $products->description = $request->input('description');
+        $products->save();
+        
         if($request->input('cbxGroup') && $request->input('associationName')) {
             $products->associations()->delete();
             foreach ($request->input('associationName') as $key => $item) {
@@ -129,7 +132,6 @@ class ActivitiesController extends Controller {
             $products->amount_non_member = $request->input('price2');
         }
 
-        $products->description = $request->input('description');
         $products->save();
         $products->tags()->detach();
         if ($request->input('tags') !== null){
