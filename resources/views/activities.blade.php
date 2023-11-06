@@ -74,7 +74,7 @@
                             @endif
                         </div>
 
-                        <div class="modal-footer overflow-scroll">
+                        <div class="modal-footer overflow-scroll" style="max-height: 10rem !important;">
                             <div class="col row">
                                 <div class="col-12">
                                     <p class="card-text textCard text-muted">Geplaatst op {{date('d-m-Y', strtotime($activiteit->created_at))}}</p>
