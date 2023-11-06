@@ -64,7 +64,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         @if($activiteit->imgPath != null)
-                            {!! '<img style="max-width: 50%;" class="mx-auto img-fluid" src="/'. Thumbnailer::generate("storage/" . $activiteit->imgPath, "60%") .'" />' !!}
+                            {!! '<img style="max-width: 25%;" class="mx-auto img-fluid" src="/'. Thumbnailer::generate("storage/" . $activiteit->imgPath, "60%") .'" />' !!}
                         @endif
                         <h1 class="mt-3 center"> {{ $activiteit->name }} </h1>
                         <div class="modal-body">
