@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Coupon;
+use App\Models\NonUserActivityParticipant;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
@@ -27,7 +28,7 @@ use Laravel\Cashier\Exceptions;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, $userObject = null, $email = null, $nameNotMember = null): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, $userObject = null, $email = null, $nameNotMember = null, $groupSignupPrice = null, $groupId = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
             $checkIfUserExists = User::where([
@@ -87,7 +88,7 @@ class MolliePaymentController extends Controller
             if($route === null) {
                 $route = env("APP_URL");
             }
-            $createPayment = MolliePaymentController::preparePayment($orderObject->id, Auth::user(), $route, null, $email, $nameNotMember, false);
+            $createPayment = MolliePaymentController::preparePayment($orderObject->id, Auth::user(), $route, null, $email, $nameNotMember, false, $groupSignupPrice);
             if($createPayment === null) {
                 if($route === null) {
                     return redirect('/');
@@ -105,11 +106,17 @@ class MolliePaymentController extends Controller
                     $transaction->name = $nameNotMember;
                     $transaction->email = $email;
                 }
+
+
                 $transaction->transactionId = $createPayment->id;
 
                 $transaction->product()->associate($getProductObject);
                 $transaction->save();
-
+                if($getProductObject->isGroupSignup) {
+                    foreach(NonUserActivityParticipant::where('groupId', $groupId)->get() as $participant) {
+                        $participant->transaction()->associate($transaction)->save();
+                    }
+                }
                 if($userObject != null){
                     $userObject->payment()->attach($transaction);
                     $userObject->save();
@@ -120,7 +127,7 @@ class MolliePaymentController extends Controller
         return redirect('/');
     }
 
-    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null, $isSubscription = true)
+    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null, $isSubscription = true, $groupSignupPrice = null)
     {
         $product = Product::where('index', $productIndex)->first();
         if($product == null)
@@ -145,9 +152,9 @@ class MolliePaymentController extends Controller
             if($product->amount == 0) {
                 return null;
             }
-            $formattedPrice = number_format($product->amount, 2, '.', '');
+            $formattedPrice = number_format($groupSignupPrice ?:$product->amount, 2, '.', '');
         } else {
-            $formattedPrice = number_format($product->amount_non_member, 2, '.', '');
+            $formattedPrice = number_format($groupSignupPrice ?: $product->amount_non_member, 2, '.', '');
             if($product->amount_non_member == 0) {
                 return null;
             }

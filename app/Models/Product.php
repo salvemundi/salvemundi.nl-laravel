@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Log;
-
 
 class Product extends Model
 {
     use HasFactory;
+
+    /**
+     * @var bool|\Illuminate\Support\HigherOrderCollectionProxy|mixed
+     */
     protected $table = 'products';
-    protected $fillable = ['imgPath','membersOnlyContent'];
+    protected $fillable = ['imgPath','membersOnlyContent','isGroupSignup'];
 
     public function transactions(): HasMany
     {
@@ -22,6 +26,16 @@ class Product extends Model
         (
             Transaction::class,
             'productId',
+            'id'
+        );
+    }
+
+    public function associations(): HasMany
+    {
+        return $this->hasMany
+        (
+            ActivityAssociation::class,
+            'activityId',
             'id'
         );
     }
@@ -47,7 +61,7 @@ class Product extends Model
         );
     }
 
-    public function users()
+    public function users(): HasManyThrough
     {
         return $this->hasManyThrough(Transaction::class, User::class);
     }

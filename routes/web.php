@@ -144,7 +144,7 @@ Route::middleware(['admin.auth'])->group(function () {
     // activities
     Route::get('/admin/activiteiten', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('Activities');
     Route::post('/admin/activities/store', [App\Http\Controllers\ActivitiesController::class, 'store']);
-    Route::post('/admin/activities/edit', [App\Http\Controllers\ActivitiesController::class, 'editActivities']);
+    Route::get('/admin/activities/{activityId}/edit', [App\Http\Controllers\ActivitiesController::class, 'editActivities']);
     Route::post('/admin/activities/edit/store', [App\Http\Controllers\ActivitiesController::class, 'store']);
     Route::post('/admin/activities/delete', [App\Http\Controllers\ActivitiesController::class, 'deleteActivity']);
     Route::get('/admin/activities/{activityId}/signups', [App\Http\Controllers\ActivitiesController::class, 'signupsActivity']);

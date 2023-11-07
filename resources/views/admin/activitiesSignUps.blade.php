@@ -4,6 +4,20 @@
     function CopyMe(oFileInput, sTargetID) {
         document.getElementById(sTargetID).value = oFileInput.value;
     }
+
+    const stringToColour = (string) => {
+        let hash = 0;
+        string.split('').forEach(char => {
+            hash = char.charCodeAt(0) + ((hash << 5) - hash)
+        })
+        let colour = '#'
+        for (let i = 0; i < 3; i++) {
+            const value = (hash >> (i * 8)) & 0xff
+            colour += value.toString(16).padStart(2, '0')
+        }
+        return colour
+    }
+
 </script>
 <div class="row widthFix adminOverlap center removeAutoMargin">
     @if(session()->has('information'))
@@ -52,14 +66,22 @@
                 </tr>
                 @endforeach
                 @foreach ($userTransactionInfo as $user)
+
                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                        <td data-value=""></td>
-                        <td data-value="{{ $user[1] }}">{{ $user[1] }}</td>
-                        <td data-value=""></td>
-                        <td data-value="{{ $user[0] }}">{{ $user[0] }}</td>
-                        <td data-value=""></td>
-                        <td data-value=""></td>
+                        <td class="tr-id-3{{ isset($user[4]) ? $user[4] : '' }}" data-value=""></td>
+                        <td class="tr-id-3{{ isset($user[4]) ? $user[4] : '' }}"  data-value="{{ $user[1] }}">{{ $user[1] }} @isset($user[5]) {{" - ".$user[5]}}@endisset</td>
+                        <td class="tr-id-3{{ isset($user[4]) ? $user[4] : '' }}" data-value=""></td>
+                        <td class="tr-id-3{{ isset($user[4]) ? $user[4] : '' }}" data-value="{{ $user[0] }}">{{ $user[0] }}</td>
+                        <td class="tr-id-3{{ isset($user[4]) ? $user[4] : '' }}" data-value=""></td>
+                        <td class="tr-id-3{{ isset($user[4]) ? $user[4] : '' }}" data-value=""></td>
                     </tr>
+                    @isset($user[4])
+                        <script>
+                            console.log(stringToColour("{{$user[4]}}"))
+                            var elements = document.getElementsByClassName('tr-id-3{{$user[4]}}')
+                            Array.from(elements).forEach(element => element.style.backgroundColor = stringToColour("{{$user[4]}}"))
+                        </script>
+                    @endisset
                 @endforeach
                 @if($activity->amount_non_member == 0)
                     @foreach ($nonMembersFree as $user)
