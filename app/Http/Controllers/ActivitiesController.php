@@ -120,11 +120,13 @@ class ActivitiesController extends Controller {
         $products->save();
         
         if($request->input('cbxGroup') && $request->input('associationName')) {
-            $products->associations()->delete();
             foreach ($request->input('associationName') as $key => $item) {
-                $association = new ActivityAssociation();
-                $association->name = $item;
-                $association->product()->associate($products)->save();
+                $association = ActivityAssociation::firstOrNew(['name' => $item]);
+                // If it's a new association, associate it with the product and save it
+                if ($association->isDirty()) {
+                    $association->product()->associate($products);
+                    $association->save();
+                }
             }
         }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $name
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class NonUserActivityParticipant extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = "non_member_activity_signup";
     protected $fillable = ['name', 'email', 'groupId'];
