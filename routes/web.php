@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 // Main page.
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
+// Merch
+Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
+Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'view']);
+
+
 Route::get('/februari-intro', function () {
     return redirect('https://fontys.nl/Goede-Start-februari/Welkom-bij-AD-ICT-en-HBO-ICT-Locatie-Eindhoven.htm');
 });
@@ -134,6 +139,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc']);
     Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser');
     Route::post('/admin/leden/unpaid/notify', [App\Http\Controllers\AdminController::class, 'sendEmailToUnpaidMembers']);
+    Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->name('removeLeden');
 
     // sponsors
     Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->name('admin.sponsors');
@@ -219,7 +225,6 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete']);
     Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync');
     Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden']);
-    Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->name('removeLeden');
     Route::post('/admin/groepen/{groupId}/makeLeader/{userId}', [App\Http\Controllers\CommitteeController::class,'makeUserCommitteeLeader']);
 
     // newsletter
