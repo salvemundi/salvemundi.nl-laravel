@@ -18,7 +18,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('
 
 // Merch
 Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
-Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'view']);
+Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'adminView']);
 
 
 Route::get('/februari-intro', function () {

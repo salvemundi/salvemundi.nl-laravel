@@ -10,4 +10,8 @@ class MerchController extends Controller
         dd($request->getRequestUri());
     }
 
+    public function adminView(Request $request) {
+
+    }
+
 }
