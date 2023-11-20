@@ -17,6 +17,24 @@ class User extends Authenticatable
     use HasFactory, Notifiable, Billable;
 
 
+    public function merchOrders(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            Merch::class,
+            'user_merch_transaction',
+            'user_id',
+            'merch_id'
+        )->withPivot('transaction_id')
+            ->withTimestamps()
+            ->with('merchTransactions');
+    }
+
+    public function merchTransactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
     public function getDisplayName(): string
     {
         return $this->insertion ? $this->FirstName. " " . $this->insertion . " " . $this->LastName : $this->FirstName. " ". $this->LastName;
