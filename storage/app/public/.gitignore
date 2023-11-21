@@ -6,4 +6,6 @@
 !cache/
 !cache/thumbs/
 !cache/thumbs/.gitkeep
+!merch/
+!merch/.gitkeep
 cache/thumbs/*.jpg

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('imgPath')->nullable();
-            $table->double('price');
+            $table->double('price')->default(0);
             $table->string('currency')->default('EUR');
             $table->softDeletes();
             $table->timestamps();
@@ -30,8 +30,8 @@ return new class extends Migration
 
         Schema::create('merch_sizes', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('size');
-            $table->tinyInteger('merch_gender');
+            $table->tinyInteger('size')->default(0);
+            $table->tinyInteger('merch_gender')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
