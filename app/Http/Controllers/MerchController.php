@@ -16,9 +16,13 @@ class MerchController extends Controller
         return view('merch', ['products' => Merch::all()]);
     }
 
-    public function viewItem(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function viewItem(Request $request): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        return view('merchSingleProduct',['merch' => Merch::find($request->id)]);
+        $merch = Merch::find($request->id);
+        if($merch == null) {
+            return back()->with('error','Merch item not found');
+        }
+        return view('merchSingleProduct',['merch' => $merch]);
     }
 
     public function adminView(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

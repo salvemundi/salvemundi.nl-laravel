@@ -12,7 +12,7 @@ class MerchSize extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'merch_sizes';
-
+    protected $fillable = ['size'];
     public function merch(): BelongsToMany
     {
         return $this->belongsToMany

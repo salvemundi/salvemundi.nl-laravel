@@ -17,13 +17,8 @@ class DatabaseSeeder extends Seeder {
             ProductSeeder::class,
             AdminSettings::class,
             ADUsers::class,
-            PermissionsSeeder::class
+            PermissionsSeeder::class,
+            MerchSizeSeeder::class
         ]);
-
-        if (App::isProduction()) {
-            $this->call([
-                ADUsers::class
-            ]);
-        }
     }
 }

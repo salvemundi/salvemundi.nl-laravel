@@ -4,6 +4,7 @@
     <script src="js/scrollonload.js"></script>
     <link href="{{ mix('css/merch.css') }}" rel="stylesheet">
     <div class="overlap">
+        @include('include.messageStatus')
         <h1 class="center">Webshop</h1>
         <div class="container mt-5">
             <div class="row">
