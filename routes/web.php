@@ -18,7 +18,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('
 
 // Merch
 Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
-Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'adminView']);
+Route::get('/merch/{id}', [App\Http\Controllers\MerchController::class, 'viewItem']);
 
 
 Route::get('/februari-intro', function () {
@@ -245,4 +245,11 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/coupons/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete']);
     Route::post('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'store']);
     Route::get('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'editView']);
+
+    // merch
+    Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'adminView']);
+    Route::post('/admin/merch/store', [App\Http\Controllers\MerchController::class,'store']);
+    Route::post('/admin/merch/store/{id}', [App\Http\Controllers\MerchController::class,'store']);
+    Route::post('/admin/merch/delete/{id}', [App\Http\Controllers\MerchController::class,'delete']);
+
 });

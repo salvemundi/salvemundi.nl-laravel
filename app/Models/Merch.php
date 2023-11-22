@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,28 @@ class Merch extends Model
 
     protected $table = 'merch';
 
+    public bool $isNew;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        //dd($this->calculateIsNew());
+        $this->isNew = $this->calculateIsNew();
+    }
+
+    public function calculateDiscount(){
+        // TODO: calculate discount and return the new price
+    }
+
+    public function calculateDiscountPercentage(){
+        // TODO: calculate discount and return the discount percentage
+    }
+
+    private function calculateIsNew(): bool
+    {
+        return Carbon::parse($this->created_at)->diffInDays(Carbon::now()) < 15;
+    }
+
     public function merchSizes(): BelongsToMany
     {
         return $this->belongsToMany
@@ -23,6 +46,17 @@ class Merch extends Model
             'merch_id',
             'size_id'
         )->withPivot('amount');
+    }
+
+    public function merchColor(): BelongsToMany
+    {
+        return $this->belongsToMany
+        (
+            MerchColor::class,
+            'merch_color_rel',
+            'merch_id',
+            'color_id'
+        );
     }
 
     public function userOrders(): BelongsToMany

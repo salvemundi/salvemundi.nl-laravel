@@ -1,10 +1,10 @@
 // Body
 $body-bg: #f8fafc;
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+//// Typography
+//$font-family-sans-serif: 'Nunito', sans-serif;
+//$font-size-base: 0.9rem;
+//$line-height-base: 1.6;
 
 // Colors
 $blue: #3490dc;
@@ -24,3 +24,62 @@ $salveMundi-dark: #39203B;
 $salveMundi-boxShadow: rgba(102, 50, 101, 0.6);
 $salveMundi-boxShadowWhite: rgba(255, 255, 255, 0.24);
 $slick-arrow-color: green !important;
+
+// bootstrap variable overrides
+$bs-btn-active-color: #000 !important;
+
+
+$btn-outline-primary-color: $salveMundi-primary;
+$btn-outline-primary-bg: transparent;
+$btn-outline-primary-border: $salveMundi-primary;
+
+//.btn-check:checked + .btn-outline-primary,
+//:not(.btn-check) + .btn-outline-primary:active,
+//.btn-outline-primary:first-child:active,
+//.btn-outline-primary.active,
+//.btn-outline-primary.show {
+//  color: white;
+//  background-color: $btn-outline-primary-color;
+//  border-color: $btn-outline-primary-color;
+//}
+
+.btn-check:checked + .btn-outline-primary,
+:not(.btn-check) + .btn-outline-primary:active,
+.btn-outline-primary:first-child:active,
+.btn-outline-primary.active,
+.btn-outline-primary.show,
+.btn-check + .btn-outline-primary:hover {
+  color: white;
+  background-color: $btn-outline-primary-color;
+  border-color: $btn-outline-primary-color;
+}
+
+
+.btn-outline-primary {
+  color: $btn-outline-primary-color;
+  background-color: $btn-outline-primary-bg;
+  border-color: $btn-outline-primary-border;
+
+  &:hover,
+  &.hover {
+    color: $btn-outline-primary-color;
+    background-color: $btn-outline-primary-color;
+    border-color: $btn-outline-primary-color;
+  }
+
+  &:focus,
+  &.focus,
+  &:active,
+  &.active {
+    color: $btn-outline-primary-color;
+    background-color: $btn-outline-primary-color;
+    border-color: $btn-outline-primary-color;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-outline-primary-color;
+    background-color: $btn-outline-primary-color;
+    border-color: $btn-outline-primary-color;
+  }
+}

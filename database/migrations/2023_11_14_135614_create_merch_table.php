@@ -23,8 +23,17 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('imgPath')->nullable();
             $table->double('price')->default(0);
-            $table->string('currency')->default('EUR');
+            $table->double('discount')->default(0);
             $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('merch_color_rel', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('color_id');
+            $table->foreign('color_id')->references('id')->on('merch_color')->cascadeOnDelete();
+            $table->unsignedBigInteger('merch_id');
+            $table->foreign('merch_id')->references('id')->on('merch');
             $table->timestamps();
         });
 
