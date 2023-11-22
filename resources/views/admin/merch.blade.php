@@ -6,11 +6,7 @@
         }
     </script>
     <div class="row widthFix adminOverlap center removeAutoMargin">
-        @if (session()->has('information'))
-            <div class="alert alert-primary">
-                {{ session()->get('information') }}
-            </div>
-        @endif
+        @include('include.messageStatus')
         <div class="col-auto col-md-6 col-sm-8">
             <div class="table-responsive">
                 <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Merch;
+use App\Models\MerchSize;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -22,12 +23,19 @@ class MerchController extends Controller
         if($merch == null) {
             return back()->with('error','Merch item not found');
         }
-        return view('merchSingleProduct',['merch' => $merch]);
+        return view('merchSingleProduct',['merch' => $merch,'sizes' => MerchSize::all()]);
     }
 
     public function adminView(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.merch', ['products' => Merch::all()]);
+    }
+
+    public function viewInventory(Request $request) {
+        $merch = Merch::find($request->id);
+        $merchSizes = MerchSize::all();
+//        dd($merch->merchSizes->first()->pivot->amount);
+        return view('admin.merchInventory',['merch' => $merch,'allSizes' => $merchSizes]);
     }
 
     public function store(Request $request): RedirectResponse

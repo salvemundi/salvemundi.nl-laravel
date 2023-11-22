@@ -3,8 +3,7 @@
 @section('content')
     <script src="js/scrollonload.js"></script>
     <div class="overlap">
-        {{--        <h1 class="center">Webshop</h1> --}}
-        <section class="py-5 w-75">
+        <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">{!! '<img class="card-img-top mb-5 mb-md-0" src="/' .
@@ -22,15 +21,19 @@
                         <p style="white-space: pre-line" class="lead">{{ $merch->description }}</p>
                         <h4>Maat / Size:</h4>
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
-                                checked>
-                            <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
-
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
-
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+                            @php
+                                // TODO: Improve this templating mechanism. It is here to automatically check the first available size option.
+                                $count = 0;
+                            @endphp
+                            @foreach($sizes as $size)
+                                @foreach($merch->merchSizes as $merchSize)
+                                    <input type="radio" class="btn-check" @if($count == 0 && $merchSize->id == $size->id && $merchSize->pivot->amount > 0) checked @endif @if(($merchSize->id == $size->id && $merchSize->pivot->amount == 0) || $merchSize->id != $size->id) disabled @endif name="btnradio" id="{{$size->id}}" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="{{$size->id}}">{{$size->size}}</label>
+                                @endforeach
+                                @php
+                                    $count++;
+                                @endphp
+                            @endforeach
                         </div>
                         <div class="d-flex mt-2">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
