@@ -1,4 +1,5 @@
-<div class="modal fade" style="z-index: 1000000;" id="addPermission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" style="z-index: 1000000;" id="addPermission" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +11,8 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Naam:</label>
-                        <input type="text" name="description" class="form-control" id="exampleFormControlInput1" placeholder="naam...">
+                        <input type="text" name="description" class="form-control" id="exampleFormControlInput1"
+                            placeholder="naam...">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -1,5 +1,3 @@
-
-
 Hallo $firstName $lastName,
 
 Bedankt voor het inschrijven bij de intro van Salve Mundi!

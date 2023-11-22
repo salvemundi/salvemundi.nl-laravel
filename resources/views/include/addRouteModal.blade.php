@@ -1,4 +1,5 @@
-<div class="modal fade" style="z-index: 1000000;" id="addRoute" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" style="z-index: 1000000;" id="addRoute" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,11 +11,13 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Route pad:</label>
-                        <input type="text" name="route" class="form-control"  id="exampleFormControlInput1" placeholder="/admin/...">
+                        <input type="text" name="route" class="form-control" id="exampleFormControlInput1"
+                            placeholder="/admin/...">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Route beschrijving:</label>
-                        <input type="text" name="description" class="form-control" id="exampleFormControlInput1" placeholder="/admin/...">
+                        <input type="text" name="description" class="form-control" id="exampleFormControlInput1"
+                            placeholder="/admin/...">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,9 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/custom.css') }}" rel="stylesheet">
     <link href="{{ mix('css/adminCards.css') }}" rel="stylesheet">
     <link href="{{ mix('css/tabs.css') }}" rel="stylesheet">
@@ -31,10 +34,12 @@
     <link rel="icon" sizes="32x32" href="{{ asset('images/favicons/favicon-32x32.png') }}">
     <link rel="icon" sizes="16x16" href="{{ asset('images/favicons/favicon-16x16.png') }}">
 </head>
+
 <body>
     <div id="app">
         @include('include/adminNavbar')
         @yield('content')
     </div>
 </body>
+
 </html>

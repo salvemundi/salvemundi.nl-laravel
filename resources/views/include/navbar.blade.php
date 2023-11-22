@@ -4,7 +4,7 @@
             <img class="imgNavbar" src="{{ asset('/images/logo_old.svg') }}" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse showCom" id="navbarSupportedContent">
@@ -18,7 +18,7 @@
                         <a class="nav-link" href="/inschrijven">Inschrijven</a>
                     </li>
                 @endif
-                @if($introSetting->settingValue === 1)
+                @if ($introSetting->settingValue === 1)
                     <li class="nav-item">
                         <a class="nav-link" href="https://intro.salvemundi.nl/">Intro</a>
                     </li>
@@ -73,7 +73,7 @@
 {{-- <img class="navImg" src="/images/headerLogoSamu.jpg"> --}}
 <div class="overlayVideo">
     <video class="navImg" autoplay muted playsinline loop disablePictureInPicture id="vid">
-        <source src="{{asset('/images/intro2023.mp4')}}" type="video/mp4">
+        <source src="{{ asset('/images/intro2023.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 </div>
