@@ -31,11 +31,15 @@ class MerchController extends Controller
         return view('admin.merch', ['products' => Merch::all()]);
     }
 
-    public function viewInventory(Request $request) {
+    public function viewInventory(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
         $merch = Merch::find($request->id);
         $merchSizes = MerchSize::all();
-//        dd($merch->merchSizes->first()->pivot->amount);
         return view('admin.merchInventory',['merch' => $merch,'allSizes' => $merchSizes]);
+    }
+
+    public function linkSize() {
+
     }
 
     public function store(Request $request): RedirectResponse
