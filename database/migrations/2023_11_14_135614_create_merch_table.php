@@ -40,7 +40,6 @@ return new class extends Migration
         Schema::create('merch_sizes', function (Blueprint $table) {
             $table->id();
             $table->string('size');
-            $table->tinyInteger('merch_gender')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -52,6 +51,7 @@ return new class extends Migration
             $table->unsignedBigInteger('size_id');
             $table->foreign('size_id')->references('id')->on('merch_sizes')->cascadeOnDelete();
             $table->integer('amount')->default(0);
+            $table->tinyInteger('merch_gender')->default(0);
             $table->timestamps();
         });
 

@@ -24,16 +24,26 @@
                                     @endif
                                     <!-- "Discount" Tag -->
                                     @if ($merch->discount > 0)
-                                        <span class="badge bg-primary tag">-20% Korting!</span>
+                                        <span class="badge bg-primary tag">{{ $merch->calculateDiscountPercentage() }}%
+                                            Korting!</span>
                                     @endif
                                 </div>
                                 <p class="card-text">
                                     {{ $merch->description }}
                                 </p>
                                 @if ($merch->discount > 0)
-                                    <p class="card-text"><strong>{{ $merch->calculateDiscount() }}</strong> <del
-                                            class="text-muted">
-                                            {{ $merch->price }}</del></p>
+                                    <a href="/merch/{{ $merch->id }}"
+                                        class="btn btn-primary mb-4 w-100 d-flex align-items-center">
+                                        <div>
+                                            <i class="fas fa-shopping-cart"></i>
+                                            Bestellen
+                                        </div>
+                                        <p class="card-text ms-auto text-white">
+                                            <strong>€ {{ $merch->calculateDiscount() }}</strong> <del class="text-muted"
+                                                style="color: white !important;">
+                                                € {{ $merch->price }}</del>
+                                        </p>
+                                    </a>
                                 @else
                                     <a href="/merch/{{ $merch->id }}"
                                         class="btn btn-primary mb-4 w-100 d-flex align-items-center">
@@ -43,10 +53,8 @@
                                         </div>
                                         <strong class="ms-auto">€ {{ $merch->price }}</strong>
                                     </a>
-
                                     <p class="card-text"></p>
                                 @endif
-
                             </div>
                         </div>
                     </div>

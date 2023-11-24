@@ -1,5 +1,8 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Merch – ' . config('app.name'))
+
 @section('content')
+
     <script>
         function CopyMe(oFileInput, sTargetID) {
             document.getElementById(sTargetID).value = oFileInput.value;
@@ -18,6 +21,8 @@
                             <th data-field="discount" data-sortable="true">Korting</th>
                             <th data-field="inventory" data-sortable="false">Inventaris</th>
                             <th data-field="delete" data-sortable="false">Verwijderen</th>
+                            <th data-field="edit" data-sortable="false">Bewerken</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +39,9 @@
                                         <button type="submit" class="btn btn-danger">Verwijderen</button>
                                     </form>
                                 </td>
+                                <td data-value="{{ $merch->id }}">
+                                    <a href="/admin/merch/edit/{{ $merch->id }}" class="btn btn-primary">Bewerken</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -44,11 +52,6 @@
 
     <div class="row widthFix adminOverlap center removeAutoMargin">
         <div id="contact" class="col-auto col-md-4 col-sm-8">
-            @if (session()->has('message'))
-                <div class="alert alert-primary">
-                    {{ session()->get('message') }}
-                </div>
-            @endif
             <form method="POST" action="/admin/merch/store" enctype="multipart/form-data">
                 @csrf
                 <br>

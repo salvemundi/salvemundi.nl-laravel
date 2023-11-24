@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Whatsapp – ' . config('app.name'))
 @section('content')
     <div class="row widthFix adminOverlap center removeAutoMargin">
         @if (session()->has('information'))

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\MerchGender;
 use App\Models\Merch;
 use App\Models\MerchSize;
 use Illuminate\Contracts\View\Factory;
@@ -31,6 +32,11 @@ class MerchController extends Controller
         return view('admin.merch', ['products' => Merch::all()]);
     }
 
+    public function adminEditView(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('admin.merchEdit',['merch' => Merch::find($request->id)]);
+    }
+
     public function viewInventory(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $merch = Merch::find($request->id);
@@ -38,8 +44,28 @@ class MerchController extends Controller
         return view('admin.merchInventory',['merch' => $merch,'allSizes' => $merchSizes]);
     }
 
-    public function linkSize() {
+    public function storeSize(Request $request): RedirectResponse
+    {
+        $merch = Merch::find($request->id);
 
+        $size = $merch->merchSizes->find($request->sizeId);
+        $size->pivot->amount = $request->input('amount');
+        $size->pivot->save();
+        return back()->with('success','Aantal opgeslagen!');
+    }
+
+    public function attachSize(Request $request): RedirectResponse
+    {
+        $merch = Merch::find($request->id);
+        $merch->merchSizes()->attach($request->input('size'), ['amount'=> $request->input('amount'),'merch_gender' => MerchGender::coerce((int)$request->input('gender'))->value]);
+        return back()->with('success','Inventaris opgeslagen!');
+    }
+
+    public function deleteSize(Request $request): RedirectResponse
+    {
+        $merch = Merch::find($request->id);
+        $merch->merchSizes()->detach((int)$request->sizeId);
+        return back()->with('success','Inventaris bijgewerkt!');
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,10 +78,12 @@ class MerchController extends Controller
         $merch->description = $request->input('description');
         $merch->price = $request->input('price') ?? 0;
         $merch->discount = $request->input('discount') ?? 0;
-        $merch->imgPath = $request->file('filePath')->store('public/merch');
+        if($request->hasFile('filePath')) {
+            $merch->imgPath = $request->file('filePath')->store('public/merch');
+        }
         $merch->save();
 
-        return back()->with('succes','Merch is opgeslagen!');
+        return redirect('/admin/merch')->with('succes','Merch is opgeslagen!');
     }
 
     public function delete(Request $request): RedirectResponse

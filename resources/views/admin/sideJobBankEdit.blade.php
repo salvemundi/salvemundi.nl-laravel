@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Bijbanen bank – ' . config('app.name'))
 @section('content')
     {{-- <script>
     function CopyMe(oFileInput, sTargetID) {

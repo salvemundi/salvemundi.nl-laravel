@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Rechten – ' . config('app.name'))
 @section('content')
     <div class="row widthFix adminOverlap mijnSlider">
         <div class="col-md-12 center groot">

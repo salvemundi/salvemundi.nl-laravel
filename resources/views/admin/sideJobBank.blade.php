@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Bijbanen bank – ' . config('app.name'))
 @section('content')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <script>

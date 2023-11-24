@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Clubs – ' . config('app.name'))
 @section('content')
     <div class="row widthFix adminOverlap center removeAutoMargin">
         <div id="contact" class="col-auto col-lg-6 col-md-6 col-sm-8 mb-2">

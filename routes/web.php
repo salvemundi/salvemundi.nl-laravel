@@ -101,6 +101,7 @@ Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
+// Cobo aanmeld pagina
 Route::get('/cobo', function () {
     return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/Eb9cAIvGq3pEvwL4qETDNUgBjzrcmZCLqfYwlbCUrHGDlg?e=H6YJy0');
 });
@@ -248,10 +249,12 @@ Route::middleware(['admin.auth'])->group(function () {
 
     // merch
     Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'adminView']);
+    Route::get('/admin/merch/edit/{id}', [App\Http\Controllers\MerchController::class, 'adminEditView']);
     Route::post('/admin/merch/store', [App\Http\Controllers\MerchController::class,'store']);
     Route::post('/admin/merch/store/{id}', [App\Http\Controllers\MerchController::class,'store']);
     Route::post('/admin/merch/delete/{id}', [App\Http\Controllers\MerchController::class,'delete']);
     Route::get('/admin/merch/inventory/{id}', [App\Http\Controllers\MerchController::class, 'viewInventory']);
-    Route::post('/admin/merch/inventory/{id}/add/{sizeId}',[App\Http\Controllers\MerchController::class,'linkSize']);
-
+    Route::post('/admin/merch/inventory/{id}/save/{sizeId}',[App\Http\Controllers\MerchController::class,'storeSize']);
+    Route::post('/admin/merch/inventory/{id}/attach',[App\Http\Controllers\MerchController::class,'attachSize']);
+    Route::post('/admin/merch/inventory/{id}/delete/{sizeId}',[App\Http\Controllers\MerchController::class,'deleteSize']);
 });

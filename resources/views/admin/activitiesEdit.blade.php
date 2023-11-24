@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Activiteiten – ' . config('app.name'))
 @section('content')
     @if (session()->has('information'))
         <div class="alert alert-primary">

@@ -24,12 +24,13 @@ class Merch extends Model
         $this->isNew = $this->calculateIsNew();
     }
 
-    public function calculateDiscount(){
-        // TODO: calculate discount and return the new price
+    public function calculateDiscount() {
+        return $this->price - $this->discount;
     }
 
-    public function calculateDiscountPercentage(){
-        // TODO: calculate discount and return the discount percentage
+    public function calculateDiscountPercentage(): float|int
+    {
+        return round((($this->price - $this->calculateDiscount()) / $this->price) * 100);
     }
 
     private function calculateIsNew(): bool
@@ -45,7 +46,7 @@ class Merch extends Model
             'merch_sizes_rel',
             'merch_id',
             'size_id'
-        )->withPivot('amount');
+        )->withPivot(['amount','merch_gender']);
     }
 
     public function merchColor(): BelongsToMany

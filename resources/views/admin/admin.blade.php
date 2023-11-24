@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Dashboard – ' . config('app.name'))
 @section('content')
     <div class="adminOverlap container">
         <div class="row mb-2">

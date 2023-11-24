@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | ' . $committee->DisplayName . ' – ' . config('app.name'))
 @section('content')
     <div class="row widthFix adminOverlap center removeAutoMargin">
         <div class="col-auto col-md-10 col-sm-8 mt-5">

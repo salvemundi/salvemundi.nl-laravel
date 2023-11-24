@@ -21,6 +21,6 @@ class MerchSize extends Model
             'merch_sizes_rel',
             'size_id',
             'merch_id'
-        )->withPivot('amount');
+        )->withPivot(['amount','merch_gender']);
     }
 }

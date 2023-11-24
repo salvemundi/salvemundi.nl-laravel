@@ -1,4 +1,5 @@
 @extends('layouts.appmin')
+@section('title', 'Admin | Leden – ' . config('app.name'))
 @section('content')
     <div class="row widthFix adminOverlap center removeAutoMargin">
 
