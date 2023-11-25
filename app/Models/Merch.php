@@ -20,11 +20,10 @@ class Merch extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        //dd($this->calculateIsNew());
         $this->isNew = $this->calculateIsNew();
     }
 
-    public function calculateDiscount() {
+    public function calculateDiscount(): float {
         return $this->price - $this->discount;
     }
 
@@ -59,7 +58,15 @@ class Merch extends Model
             'color_id'
         );
     }
-
+    public function tranactions(): hasMany
+    {
+        return $this->hasMany
+        (
+            Transaction::class,
+            'merchId',
+            'id'
+        );
+    }
     public function userOrders(): BelongsToMany
     {
         return $this->belongsToMany
@@ -68,13 +75,8 @@ class Merch extends Model
             'user_merch_transaction',
             'merch_id',
             'user_id'
-        )->withPivot('transaction_id')
-            ->withTimestamps()
-            ->with('transactions');
+        );
     }
 
-    public function transactions(): HasMany
-    {
-        return $this->hasMany(Transaction::class);
-    }
+
 }

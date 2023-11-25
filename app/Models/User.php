@@ -25,14 +25,7 @@ class User extends Authenticatable
             'user_merch_transaction',
             'user_id',
             'merch_id'
-        )->withPivot('transaction_id')
-            ->withTimestamps()
-            ->with('merchTransactions');
-    }
-
-    public function merchTransactions(): HasMany
-    {
-        return $this->hasMany(Transaction::class);
+        );
     }
 
     public function getDisplayName(): string

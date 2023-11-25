@@ -19,7 +19,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('
 // Merch
 Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
 Route::get('/merch/{id}', [App\Http\Controllers\MerchController::class, 'viewItem']);
-
+Route::post('/merch/purchase/{id}', [App\Http\Controllers\MerchPaymentController::class, 'HandlePurchase']);
 
 Route::get('/februari-intro', function () {
     return redirect('https://fontys.nl/Goede-Start-februari/Welkom-bij-AD-ICT-en-HBO-ICT-Locatie-Eindhoven.htm');
@@ -58,6 +58,7 @@ Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::cla
 
 // Mollie
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
+Route::post('webhooks/mollie/merch', [App\Http\Controllers\MerchPaymentController::class,'HandlePayment'])->name('webhooks.mollie.merch');
 
 // Declaratie
 Route::get('/declaratie', function() {return redirect("https://forms.office.com/r/kN2T95wzRm");})->name('declaratie');

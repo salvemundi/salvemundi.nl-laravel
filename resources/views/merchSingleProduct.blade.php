@@ -20,37 +20,40 @@
                         </div>
                         <p style="white-space: pre-line" class="lead">{{ $merch->description }}</p>
                         <h4>Maat / Size:</h4>
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            @php
-                                // TODO: Improve this templating mechanism. It is here to automatically check the first available size option.
-                                $count = 0;
-                            @endphp
-                            @foreach ($sizes as $size)
-                                @foreach ($merch->merchSizes as $merchSize)
-                                    @if ($merchSize->id == $size->id)
-                                        <input type="radio" class="btn-check"
-                                            @if ($count == 0 && $merchSize->id == $size->id && $merchSize->pivot->amount > 0) checked @endif
-                                            @if (($merchSize->id == $size->id && $merchSize->pivot->amount == 0) || $merchSize->id != $size->id) disabled @endif name="btnradio"
-                                            id="{{ $size->id }}" autocomplete="off">
-                                        <label class="btn btn-outline-primary"
-                                            for="{{ $size->id }}">{{ $size->size }}</label>
-                                    @endif
-                                @endforeach
+                        <form method="post" action="/merch/purchase/{{ $merch->id }}">
+                            @csrf
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                 @php
-                                    $count++;
+                                    // TODO: Improve this templating mechanism. It is here to automatically check the first available size option.
+                                    $count = 0;
                                 @endphp
-                            @endforeach
-                            @if ($merch->merchSizes->count() == 0)
-                                <p class="text-danger">Helaas is alles uitverkocht!</p>
-                            @endif
-                        </div>
-                        <div class="d-flex mt-2">
-                            <button class="btn btn-primary flex-shrink-0" type="button"
-                                @if ($merch->merchSizes->count() == 0) disabled @endif>
-                                <i class="fas fa-shopping-basket"></i>
-                                Nu kopen
-                            </button>
-                        </div>
+                                @foreach ($sizes as $size)
+                                    @foreach ($merch->merchSizes as $merchSize)
+                                        @if ($merchSize->id == $size->id)
+                                            <input type="radio" class="btn-check"
+                                                @if ($count == 0 && $merchSize->id == $size->id && $merchSize->pivot->amount > 0) checked @endif
+                                                @if (($merchSize->id == $size->id && $merchSize->pivot->amount == 0) || $merchSize->id != $size->id) disabled @endif name="merchSize"
+                                                value="{{ $merchSize->id }}" id="{{ $size->id }}" autocomplete="off">
+                                            <label class="btn btn-outline-primary"
+                                                for="{{ $size->id }}">{{ $size->size }}</label>
+                                        @endif
+                                    @endforeach
+                                    @php
+                                        $count++;
+                                    @endphp
+                                @endforeach
+                                @if ($merch->merchSizes->count() == 0)
+                                    <p class="text-danger">Helaas is alles uitverkocht!</p>
+                                @endif
+                            </div>
+                            <div class="d-flex mt-2">
+                                <button class="btn btn-primary flex-shrink-0" type="submit"
+                                    @if ($merch->merchSizes->count() == 0) disabled @endif>
+                                    <i class="fas fa-shopping-basket"></i>
+                                    Nu kopen
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

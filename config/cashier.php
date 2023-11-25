@@ -6,7 +6,7 @@ return [
      * The default webhook url is called by Mollie on payment status updates. You can use either a relative or
      * absolute url.
      */
-    'webhook_url' => env('NGROK_LINK') ? env('NGROK_LINK') : '/webhooks/mollie',
+    'webhook_url' => env('NGROK_LINK') ? env('NGROK_LINK')."/webhooks/mollie" : '/webhooks/mollie',
     'aftercare_webhook_url' => env('NGROK_LINK') ? env('NGROK_LINK') .'/aftercare': '/webhooks/mollie/aftercare',
     /**
      * The default locale passed to Mollie for configuring the checkout screen. Set to null to let Mollie handle it for

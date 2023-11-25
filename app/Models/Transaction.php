@@ -15,6 +15,27 @@ class Transaction extends Model
     protected $table = 'transaction';
     protected $fillable = ['formsLink'];
 
+//    public function merch(): HasMany
+//    {
+//        return $this->hasMany
+//        (
+//            Merch::class,
+//            'transaction_id',
+//            'id'
+//        );
+//    }
+
+    public function merch(): belongsTo
+    {
+        return $this->belongsTo
+        (
+            Merch::class,
+            'merchId',
+            'id',
+            'merch'
+        );
+    }
+
     public function nonMembers(): HasMany
     {
         return $this->hasMany

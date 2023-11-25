@@ -57,12 +57,12 @@ return new class extends Migration
 
         Schema::create('user_merch_transaction', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('merch_id');
             $table->foreign('merch_id')->references('id')->on('merch');
-            $table->unsignedBigInteger('transaction_id');
-            $table->foreign('transaction_id')->references('id')->on('transaction');
+//            $table->unsignedBigInteger('transaction_id');
+//            $table->foreign('transaction_id')->references('id')->on('transaction');
             $table->timestamps();
         });
     }
