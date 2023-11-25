@@ -21,9 +21,11 @@ class MerchController extends Controller
     public function viewItem(Request $request): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $merch = Merch::find($request->id);
+
         if($merch == null) {
             return back()->with('error','Merch item not found');
         }
+
         return view('merchSingleProduct',['merch' => $merch,'sizes' => MerchSize::all()]);
     }
 
@@ -41,6 +43,7 @@ class MerchController extends Controller
     {
         $merch = Merch::find($request->id);
         $merchSizes = MerchSize::all();
+
         return view('admin.merchInventory',['merch' => $merch,'allSizes' => $merchSizes]);
     }
 
@@ -49,8 +52,14 @@ class MerchController extends Controller
         $merch = Merch::find($request->id);
 
         $size = $merch->merchSizes->find($request->sizeId);
+
+        if ($request->input('amount') < 0) {
+            return back()->with('error', 'Aantal kan niet kleiner dan 0 zijn!');
+        }
+
         $size->pivot->amount = $request->input('amount');
         $size->pivot->save();
+
         return back()->with('success','Aantal opgeslagen!');
     }
 
@@ -58,6 +67,7 @@ class MerchController extends Controller
     {
         $merch = Merch::find($request->id);
         $merch->merchSizes()->attach($request->input('size'), ['amount'=> $request->input('amount'),'merch_gender' => MerchGender::coerce((int)$request->input('gender'))->value]);
+
         return back()->with('success','Inventaris opgeslagen!');
     }
 
@@ -65,6 +75,7 @@ class MerchController extends Controller
     {
         $merch = Merch::find($request->id);
         $merch->merchSizes()->detach((int)$request->sizeId);
+
         return back()->with('success','Inventaris bijgewerkt!');
     }
 
@@ -73,23 +84,30 @@ class MerchController extends Controller
         $request->validate([
             'filePath' => 'image|mimes:jpeg,png,jpg,svg,webp',
         ]);
+
+        $id = $request->id;
+
         $merch = Merch::findOrNew($request->id ?? null);
         $merch->name = $request->input('name');
         $merch->description = $request->input('description');
         $merch->price = $request->input('price') ?? 0;
         $merch->discount = $request->input('discount') ?? 0;
-        if($request->hasFile('filePath')) {
+
+        if ($request->hasFile('filePath')) {
             $merch->imgPath = $request->file('filePath')->store('public/merch');
         }
+
         $merch->save();
 
-        return redirect('/admin/merch')->with('succes','Merch is opgeslagen!');
+        $message = $id ? 'Merch has been updated!' : 'Merch has been created!';
+
+        return redirect('/admin/merch')->with('success', $message);
     }
 
     public function delete(Request $request): RedirectResponse
     {
         Merch::find($request->id)->delete();
+
         return back()->with('succes','Merch is verwijderd!');
     }
-
 }

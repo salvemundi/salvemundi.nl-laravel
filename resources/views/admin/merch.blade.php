@@ -9,8 +9,8 @@
         }
     </script>
     <div class="row widthFix adminOverlap center removeAutoMargin">
-        @include('include.messageStatus')
         <div class="col-auto col-md-6 col-sm-8">
+            @include('include.messageStatus')
             <div class="table-responsive">
                 <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                     data-show-columns="true">
@@ -20,8 +20,8 @@
                             <th data-field="price" data-sortable="true">Prijs</th>
                             <th data-field="discount" data-sortable="true">Korting</th>
                             <th data-field="inventory" data-sortable="false">Inventaris</th>
-                            <th data-field="delete" data-sortable="false">Verwijderen</th>
                             <th data-field="edit" data-sortable="false">Bewerken</th>
+                            <th data-field="delete" data-sortable="false">Verwijderen</th>
 
                         </tr>
                     </thead>
@@ -34,14 +34,15 @@
                                 <td data-value="{{ $merch->id }}"><a href="/admin/merch/inventory/{{ $merch->id }}"
                                         class="btn btn-primary">Inventaris</a></td>
                                 <td data-value="{{ $merch->id }}">
+                                    <a href="/admin/merch/edit/{{ $merch->id }}" class="btn btn-primary">Bewerken</a>
+                                </td>
+                                <td data-value="{{ $merch->id }}">
                                     <form method="post" action="/admin/merch/delete/{{ $merch->id }}">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Verwijderen</button>
                                     </form>
                                 </td>
-                                <td data-value="{{ $merch->id }}">
-                                    <a href="/admin/merch/edit/{{ $merch->id }}" class="btn btn-primary">Bewerken</a>
-                                </td>
+
                             </tr>
                         @endforeach
                     </tbody>

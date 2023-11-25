@@ -32,7 +32,7 @@
                                         action="/admin/merch/inventory/{{ $merch->id }}/save/{{ $size->id }}">
                                         @csrf
                                         <div class="d-flex">
-                                            <input name="amount" type="number" value="{{ $size->pivot->amount }}"
+                                            <input name="amount" type="number" min=0 value="{{ $size->pivot->amount }}"
                                                 class="form-control text-center me-3" />
                                             <button type="submit" class="btn-primary btn">Opslaan</button>
                                         </div>
