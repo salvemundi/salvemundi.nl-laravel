@@ -48,6 +48,16 @@ class Merch extends Model
         )->withPivot(['amount','merch_gender']);
     }
 
+    public function availableGendersAndSizes()
+    {
+        // Get unique merch_gender values along with associated MerchSize options where amount is higher than 0
+        return $this->belongsToMany(MerchSize::class, 'merch_sizes_rel', 'merch_id', 'size_id')
+            ->select('merch_gender', 'merch_sizes.id as size_id', 'merch_sizes.size')
+            ->wherePivot('amount', '>', 0)
+            ->distinct()
+            ->get();
+    }
+
     public function merchColor(): BelongsToMany
     {
         return $this->belongsToMany
