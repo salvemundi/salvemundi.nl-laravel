@@ -40,7 +40,7 @@
                                 </td>
                                 <td data-value="{{ $size->id }}">
                                     <form method="post"
-                                        action="/admin/merch/inventory/{{ $merch->id }}/delete/{{ $size->id }}">
+                                        action="/admin/merch/inventory/{{ $merch->id }}/delete/{{ $size->id }}/{{ $size->pivot->merch_gender }}">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Verwijder</button>
                                     </form>

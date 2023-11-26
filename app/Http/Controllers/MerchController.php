@@ -80,7 +80,8 @@ class MerchController extends Controller
     public function deleteSize(Request $request): RedirectResponse
     {
         $merch = Merch::find($request->id);
-        $merch->merchSizes()->detach((int)$request->sizeId);
+        $merch->merchSizes()->wherePivot('size_id', (int)$request->sizeId)->wherePivot('merch_gender', (int)$request->genderId)->detach();
+
 
         return back()->with('success','Inventaris bijgewerkt!');
     }
