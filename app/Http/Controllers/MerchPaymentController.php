@@ -71,9 +71,12 @@ class MerchPaymentController extends Controller
         {
             // Deduce the inventory amount by one.
             $merch = Merch::find($payment->metadata->merchId);
-            $pivot = $merch->merchSizes->where('id',$payment->metadata->sizeId)->where('pivot.merch_gender',$payment->metadata->genderId)->first()->pivot;
-            $pivot->amount = --$pivot->amount;
-            $pivot->save();
+
+            $merch->merchSizes()
+                ->where('merch_id',$payment->metadata->merchId)
+                ->where('size_id', $payment->metadata->sizeId)
+                ->where('merch_gender', $payment->metadata->genderId)
+                ->decrement('amount', 1);
             // Update the payment status
             $transaction = Transaction::where('transactionId',$payment->id)->first();
             $transaction->paymentStatus = paymentStatus::paid()->value;
