@@ -20,8 +20,19 @@
                             @endif
                         </div>
                         <p style="white-space: pre-line" class="lead">{{ $merch->description }}</p>
+
+                        <div class="form-group">
+                            <label for="gender">Pasvorm*</label>
+                            <select id="genderSelect" class="form-select" name="gender"
+                                aria-label="Default select example">
+                                @foreach (App\Enums\MerchGender::asSelectArray() as $key => $gender)
+                                    <option value="{{ $key }}">{{ $gender }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <h4>Maat / Size:</h4>
-                        <form method="post" action="/merch/purchase/{{ $merch->id }}">
+                        <form method="post" action="/merch/purchase/{{ $merch->id }}" id="merchForm">
                             @csrf
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                 @php
@@ -43,27 +54,22 @@
                                     @endphp
 
                                     <input type="radio" class="btn-check"
-                                        {{ ($firstAvailableSize && $size->id == $firstAvailableSize->id) ? 'checked' : '' }}
-                                        {{ $disabled ? 'disabled' : '' }}
-                                        name="merchSize" value="{{ optional($selected)->id }}" id="{{ $size->id }}" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="{{ $size->id }}">{{ $size->size }}</label>
+                                        {{ $firstAvailableSize && $size->id == $firstAvailableSize->id ? 'checked' : '' }}
+                                        {{ $disabled ? 'disabled' : '' }} name="merchSize"
+                                        value="{{ optional($selected)->id }}" id="{{ $size->id }}" autocomplete="off">
+                                    <label class="btn btn-outline-primary"
+                                        for="{{ $size->id }}">{{ $size->size }}</label>
 
                                 @empty
-                                    <p class="text-danger">{{ $atLeastOneAvailable ? 'Helaas is alles uitverkocht!' : 'Selecteer een maat' }}</p>
+                                    <p class="text-danger">
+                                        {{ $atLeastOneAvailable ? 'Helaas is alles uitverkocht!' : 'Selecteer een maat' }}
+                                    </p>
                                 @endforelse
                             </div>
 
-                            <div class="form-group">
-                                <label for="gender">Pasvorm*</label>
-                                <select class="form-select" name="gender" aria-label="Default select example">
-                                    @foreach (App\Enums\MerchGender::asSelectArray() as $key => $gender)
-                                        <option value="{{ $key }}">{{ $gender }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
                             <div class="d-flex mt-2">
-                                <button class="btn btn-primary flex-shrink-0" type="submit" {{ !$atLeastOneAvailable ? 'disabled' : '' }}>
+                                <button class="btn btn-primary flex-shrink-0" type="submit"
+                                    {{ !$atLeastOneAvailable ? 'disabled' : '' }}>
                                     <i class="fas fa-shopping-basket"></i>
                                     {{ $atLeastOneAvailable ? 'Nu kopen' : 'Helaas is alles uitverkocht!' }}
                                 </button>
@@ -74,4 +80,42 @@
             </div>
         </section>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var genderSelect = document.getElementById('genderSelect');
+            var merchForm = document.getElementById('merchForm');
+            var sizeRadios = merchForm.querySelectorAll('input[name="merchSize"]');
+            var availableSizes = @json($merch->merchSizes);
+
+            // Function to update the checked state and enabled/disabled state of radio buttons based on the selected gender
+            function updateSizes() {
+                var selectedGender = genderSelect.value;
+
+                sizeRadios.forEach(function(radio) {
+                    var sizeId = radio.id;
+
+                    // Check if the size is available for the selected gender
+                    var sizeAvailable = availableSizes.some(function(size) {
+                        return size.id == sizeId && size.pivot.merch_gender == selectedGender &&
+                            size.pivot.amount > 0;
+                    });
+
+                    // Update the checked state based on whether the size is available
+                    radio.checked = sizeAvailable;
+
+                    // Update the disabled state based on whether the size is available
+                    radio.disabled = !sizeAvailable;
+                });
+            }
+
+            // Attach an event listener to the gender select to update sizes on change
+            genderSelect.addEventListener('change', function() {
+                updateSizes();
+            });
+
+            // Initial update based on the default selected gender
+            updateSizes();
+        });
+    </script>
+
 @endsection

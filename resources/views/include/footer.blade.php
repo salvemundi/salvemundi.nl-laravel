@@ -5,12 +5,14 @@
              <div class="col-xs-6 col-md-3">
                  <h6>Informatie</h6>
                  <ul class="footer-links">
-                     <li><a href="https://goo.gl/maps/dnv849aVPd8DyXqa8"
-                             target="https://goo.gl/maps/dnv849aVPd8DyXqa8">Rachelsmolen 1</li></a>
-                     <li><a href="https://goo.gl/maps/dnv849aVPd8DyXqa8"
-                             target="https://goo.gl/maps/dnv849aVPd8DyXqa8">5612 MA Eindhoven</li></a>
-                     <li>KvK nr. 70280606</li>
-                     <li><a href="/responsible-disclosure">Responsible Disclosure</li></a>
+                     <li><a href="https://goo.gl/maps/dnv849aVPd8DyXqa8" target="https://goo.gl/maps/dnv849aVPd8DyXqa8">
+                             <i class="fas fa-map-pin"></i> Rachelsmolen 1, 5612MA Eindhoven
+                         </a></li>
+
+                     <li><i class="far fa-building"></i> KvK nr. 70280606</li>
+
+                     <li><br><b>Documenten:</b></li>
+                     <li><a href="/responsible-disclosure">Responsible Disclosure</a></li>
                      <li><a href="{{ asset('storage/Files/privacy.pdf') }}" download>Download privacyvoorwaarden</a>
                      </li>
                      <li><a href="{{ asset('storage/Files/Huisregelement.pdf') }}" download>Download huisregelement</a>
@@ -23,8 +25,8 @@
              <div class="col-sm-6 col-md-3">
                  <h6 name="Wat is het eendrecord van vouweenbak.nl?">Contact</h6>
                  <ul class="footer-links">
-                     <li><a href="mailto:info@salvemundi.nl">info@salvemundi.nl</a></li>
-                     <li><a href="tel:+31 6 24827777">+31 6 24827777</a></li>
+                     <li><a href="mailto:info@salvemundi.nl"><i class="fas fa-envelope"></i> info@salvemundi.nl</a></li>
+                     <li><a href="tel:+31 6 24827777"><i class="fas fa-phone"></i> +31 6 24827777</a></li>
                      <li><a href="https://api.whatsapp.com/send/?phone=%2B31624827777&text&app_absent=0"
                              target="_blank">
                              <i class="fab fa-whatsapp"></i> Whatsapp</a></li>
@@ -37,7 +39,7 @@
                      <li><a href="/commissies#Bestuur">Bestuur</a></li>
                      @foreach ($Commissies as $commissie)
                          @if (str_contains($commissie->DisplayName, 'commissie'))
-                             <li><a href="/commissies#{{ $commissie->DisplayName }}">{{ $commissie->DisplayName }}</a>
+                             <li><a href="/commissies/{{ $commissie->DisplayName }}">{{ $commissie->DisplayName }}</a>
                              </li>
                          @endif
                      @endforeach
@@ -53,6 +55,8 @@
                              target="_blank">Facebook</a></li>
                      <li><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/company/salve-mundi/"
                              target="_blank">LinkedIn</a></li>
+                     <li><i class="fa fa-youtube"></i> <a href="https://www.youtube.com/@salvemundi5800"
+                             target="_blank">Youtube</a></li>
                  </ul>
              </div>
          </div>
