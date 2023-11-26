@@ -29,7 +29,7 @@
                                     {{ App\Enums\MerchGender::coerce($size->pivot->merch_gender)->description }}</td>
                                 <td data-value="{{ $size->pivot->amount }}">
                                     <form method="post"
-                                        action="/admin/merch/inventory/{{ $merch->id }}/save/{{ $size->id }}">
+                                        action="/admin/merch/inventory/{{ $merch->id }}/save/{{ $size->id }}/{{ $size->pivot->merch_gender }}">
                                         @csrf
                                         <div class="d-flex">
                                             <input name="amount" type="number" min=0 value="{{ $size->pivot->amount }}"

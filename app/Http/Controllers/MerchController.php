@@ -51,14 +51,14 @@ class MerchController extends Controller
     {
         $merch = Merch::find($request->id);
 
-        $size = $merch->merchSizes->find($request->sizeId);
-
         if ($request->input('amount') < 0) {
             return back()->with('error', 'Aantal kan niet kleiner dan 0 zijn!');
         }
 
-        $size->pivot->amount = $request->input('amount');
-        $size->pivot->save();
+        $merch->merchSizes()
+            ->where('size_id', $request->sizeId)
+            ->where('merch_gender', $request->genderId)
+            ->update(['amount' => $request->input('amount')]);
 
         return back()->with('success','Aantal opgeslagen!');
     }
@@ -66,6 +66,12 @@ class MerchController extends Controller
     public function attachSize(Request $request): RedirectResponse
     {
         $merch = Merch::find($request->id);
+        foreach($merch->merchSizes as $size){
+            if($size->id == $request->id && $size->pivot->merch_gender == $request->input('gender')){
+                return back()->with('error','Deze maat wordt al bijgehouden voor dit product.');
+            }
+        }
+
         $merch->merchSizes()->attach($request->input('size'), ['amount'=> $request->input('amount'),'merch_gender' => MerchGender::coerce((int)$request->input('gender'))->value]);
 
         return back()->with('success','Inventaris opgeslagen!');

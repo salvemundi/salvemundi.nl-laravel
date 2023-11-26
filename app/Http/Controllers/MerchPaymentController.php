@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\MerchGender;
 use App\Enums\paymentStatus;
 use App\Models\Merch;
 use App\Models\MerchSize;
@@ -21,16 +22,17 @@ class MerchPaymentController extends Controller
     {
         $merch = Merch::find($request->id);
         $size = MerchSize::find($request->input('merchSize'));
+        $gender = MerchGender::coerce((int)$request->input('gender'));
         if($merch == null || $size == null) return back()->with('error','Het item wat u probeert te kopen bestaat niet in ons systeem');
 
         if($merch->merchSizes->find($request->input('merchSize'))->pivot->amount > 0) {
-            return redirect($this->CreatePayment($merch, $size)->getCheckoutUrl());
+            return redirect($this->CreatePayment($merch, $size, $gender)->getCheckoutUrl());
         } else {
             return back()->with('error','Dit item is intussen helaas niet meer op voorraad.');
         }
     }
 
-    private function CreatePayment(Merch $merch, MerchSize $merchSize): Payment
+    private function CreatePayment(Merch $merch, MerchSize $merchSize, MerchGender $gender): Payment
     {
         $user = Auth::user();
         $transaction = new Transaction();
@@ -52,6 +54,7 @@ class MerchPaymentController extends Controller
                 ($user ? "userId" : null) => $user->id,
                 "merchId" => $merch->id,
                 "sizeId" => $merchSize->id,
+                "genderId" => $gender->value
             ],
             "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK')."/webhooks/mollie/merch" : route('webhooks.mollie.merch'),
         ]);
@@ -68,7 +71,7 @@ class MerchPaymentController extends Controller
         {
             // Deduce the inventory amount by one.
             $merch = Merch::find($payment->metadata->merchId);
-            $pivot = $merch->merchSizes->find($payment->metadata->sizeId)->pivot;
+            $pivot = $merch->merchSizes->where('id',$payment->metadata->sizeId)->where('pivot.merch_gender',$payment->metadata->genderId)->first()->pivot;
             $pivot->amount = --$pivot->amount;
             $pivot->save();
             // Update the payment status

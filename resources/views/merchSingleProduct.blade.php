@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Webshop – ' . config('app.name'))
+@section('title', $merch->name . ' | Merch – ' . config('app.name'))
 @section('content')
     <script src="js/scrollonload.js"></script>
     <div class="overlap">
@@ -20,20 +20,20 @@
                             @endif
                         </div>
                         <p style="white-space: pre-line" class="lead">{{ $merch->description }}</p>
-
-                        <div class="form-group">
-                            <label for="gender">Pasvorm*</label>
-                            <select id="genderSelect" class="form-select" name="gender"
-                                aria-label="Default select example">
-                                @foreach (App\Enums\MerchGender::asSelectArray() as $key => $gender)
-                                    <option value="{{ $key }}">{{ $gender }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <h4>Maat / Size:</h4>
                         <form method="post" action="/merch/purchase/{{ $merch->id }}" id="merchForm">
                             @csrf
+                            <div class="form-group">
+                                <label for="gender">Pasvorm*</label>
+                                <select id="genderSelect" class="form-select" name="gender"
+                                    aria-label="Default select example">
+                                    @foreach (App\Enums\MerchGender::asSelectArray() as $key => $gender)
+                                        <option value="{{ $key }}">{{ $gender }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <h4>Maat / Size:</h4>
+
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                 @php
                                     $firstAvailableSize = null;
