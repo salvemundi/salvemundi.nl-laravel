@@ -25,7 +25,7 @@ class MerchPaymentController extends Controller
         $gender = MerchGender::coerce((int)$request->input('gender'));
         if($merch == null || $size == null) return back()->with('error','Het item wat u probeert te kopen bestaat niet in ons systeem');
 
-        if($merch->merchSizes->find($request->input('merchSize'))->pivot->amount > 0) {
+        if($merch->merchSizes->where('id',$request->input('merchSize'))->where('merch_gender', $gender->value)->first()->pivot->amount > 0) {
             return redirect($this->CreatePayment($merch, $size, $gender)->getCheckoutUrl());
         } else {
             return back()->with('error','Dit item is intussen helaas niet meer op voorraad.');
