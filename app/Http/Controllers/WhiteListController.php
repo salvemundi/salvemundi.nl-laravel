@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class WhiteListController extends Controller
 {
-    public function getWhiteList(){
+    public function getWhiteList(): JsonResponse
+    {
         $arr = [];
         $list = User::where('minecraftUsername', '!=', 'NULL')->get();
         foreach($list as $user) {
