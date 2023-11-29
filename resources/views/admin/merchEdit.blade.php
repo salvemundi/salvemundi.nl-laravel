@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-group py-3">
-                    <input class="btn btn-primary" type="submit" value="Toevoegen">
+                    <input class="btn btn-primary" type="submit" value="Opslaan">
                 </div>
             </form>
         </div>

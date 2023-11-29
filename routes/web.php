@@ -252,6 +252,8 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'adminView']);
     Route::get('/admin/merch/edit/{id}', [App\Http\Controllers\MerchController::class, 'adminEditView']);
     Route::post('/admin/merch/store', [App\Http\Controllers\MerchController::class,'store']);
+    Route::get('/admin/merch/orders',[App\Http\Controllers\MerchController::class,'adminAllOrders']);
+    Route::post('/admin/merch/orders/pickedUp/{orderId}',[App\Http\Controllers\MerchController::class,'pickedUpToggle']);
     Route::post('/admin/merch/store/{id}', [App\Http\Controllers\MerchController::class,'store']);
     Route::post('/admin/merch/delete/{id}', [App\Http\Controllers\MerchController::class,'delete']);
     Route::get('/admin/merch/inventory/{id}', [App\Http\Controllers\MerchController::class, 'viewInventory']);

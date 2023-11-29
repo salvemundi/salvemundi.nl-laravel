@@ -25,7 +25,7 @@ class User extends Authenticatable
             'user_merch_transaction',
             'user_id',
             'merch_id'
-        );
+        )->withPivot(['merch_gender','merch_size_id','id','isPickedUp']);
     }
 
     public function getDisplayName(): string

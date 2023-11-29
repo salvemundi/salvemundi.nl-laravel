@@ -85,7 +85,7 @@ class Merch extends Model
             'user_merch_transaction',
             'merch_id',
             'user_id'
-        );
+        )->withPivot(['merch_gender','merch_size_id','id','isPickedUp']);
     }
 
 

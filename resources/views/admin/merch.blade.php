@@ -11,6 +11,7 @@
     <div class="row widthFix adminOverlap center removeAutoMargin">
         <div class="col-auto col-md-6 col-sm-8">
             @include('include.messageStatus')
+            <a class="btn-primary btn mt-4" href="/admin/merch/orders"><i class="fas fa-list"></i> Alle bestellingen</a>
             <div class="table-responsive">
                 <table id="table" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true"
                     data-show-columns="true">

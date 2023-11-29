@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('merchId')->nullable();
             $table->foreign('merchId')->references('id')->on('merch');
             $table->double('amount',8,2)->default(0);
+            $table->softDeletes();
         });
     }
 

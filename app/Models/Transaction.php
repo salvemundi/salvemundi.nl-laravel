@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'transaction';
     protected $fillable = ['formsLink'];
 

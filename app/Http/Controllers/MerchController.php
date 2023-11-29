@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MerchController extends Controller
 {
@@ -37,6 +38,25 @@ class MerchController extends Controller
     public function adminEditView(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.merchEdit',['merch' => Merch::find($request->id)]);
+    }
+
+    public function adminAllOrders(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('admin.merchAllOrders',['allMerch' => Merch::all()]);
+    }
+
+    public function pickedUpToggle(Request $request): RedirectResponse
+    {
+
+        foreach(Merch::all() as $merch) {
+            foreach($merch->userOrders as $order) {
+                if($order->pivot->id == $request->orderId) {
+                    $order->pivot->isPickedUp = !$order->pivot->isPickedUp;
+                    $order->pivot->save();
+                }
+            }
+        }
+        return back()->with('succes','Order status is bijgewerkt!');
     }
 
     public function viewInventory(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

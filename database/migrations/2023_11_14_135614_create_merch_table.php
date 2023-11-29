@@ -61,8 +61,10 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('merch_id');
             $table->foreign('merch_id')->references('id')->on('merch');
-//            $table->unsignedBigInteger('transaction_id');
-//            $table->foreign('transaction_id')->references('id')->on('transaction');
+            $table->tinyInteger('merch_gender')->default(0);
+            $table->unsignedBigInteger('merch_size_id');
+            $table->foreign('merch_size_id')->references('id')->on('merch_sizes')->cascadeOnDelete();
+            $table->boolean('isPickedUp')->default(false);
             $table->timestamps();
         });
     }
