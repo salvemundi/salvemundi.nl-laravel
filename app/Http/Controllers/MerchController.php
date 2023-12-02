@@ -26,7 +26,6 @@ class MerchController extends Controller
         if($merch == null) {
             return back()->with('error','Merch item not found.');
         }
-//        dd(json_encode($merch->merchSizes));
         return view('merchSingleProduct',['merch' => $merch,'sizes' => MerchSize::all()]);
     }
 
