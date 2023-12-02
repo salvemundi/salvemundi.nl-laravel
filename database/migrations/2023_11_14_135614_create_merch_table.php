@@ -77,6 +77,7 @@ return new class extends Migration
         Schema::dropIfExists('user_merch_transaction');
         Schema::dropIfExists('merch_sizes_rel');
         Schema::dropIfExists('merch_sizes');
+        Schema::dropIfExists('merch_color_rel');
         Schema::dropIfExists('merch_color');
         Schema::dropIfExists('merch');
     }
