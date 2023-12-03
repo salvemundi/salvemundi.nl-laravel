@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -242,7 +243,7 @@ class AzureController extends Controller
         return true;
     }
 
-    public static function DeleteUser(Request $request)
+    public static function DeleteUser(Request $request): RedirectResponse
     {
         #$userObject = User::where('id', $request->input('id'))->first();
         $userObject = User::find($request->input('id'));

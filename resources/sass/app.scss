@@ -1,14 +1,15 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 //icons (font-awesome)
 @import "node_modules/font-awesome/scss/font-awesome.scss";
+
+// Variables
+@import 'variables';
+
 .mult-select-tag .item-container {
   display: flex;
   justify-content: center;
@@ -67,3 +68,5 @@
   -moz-appearance: none;
   appearance: none;
 }
+
+

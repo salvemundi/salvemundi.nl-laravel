@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 // Main page.
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
+// Merch
+Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
+Route::get('/merch/{id}', [App\Http\Controllers\MerchController::class, 'viewItem']);
+Route::post('/merch/purchase/{id}', [App\Http\Controllers\MerchPaymentController::class, 'HandlePurchase']);
+
 Route::get('/februari-intro', function () {
     return redirect('https://fontys.nl/Goede-Start-februari/Welkom-bij-AD-ICT-en-HBO-ICT-Locatie-Eindhoven.htm');
 });
@@ -53,6 +58,7 @@ Route::post('/inschrijven/store', [App\Http\Controllers\InschrijfController::cla
 
 // Mollie
 Route::post('webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])->name('webhooks.mollie');
+Route::post('webhooks/mollie/merch', [App\Http\Controllers\MerchPaymentController::class,'HandlePayment'])->name('webhooks.mollie.merch');
 
 // Declaratie
 Route::get('/declaratie', function() {return redirect("https://forms.office.com/r/kN2T95wzRm");})->name('declaratie');
@@ -96,6 +102,7 @@ Route::get('/responsible-disclosure', function () {
     return view("privacyZooi");
 });
 
+// Cobo aanmeld pagina
 Route::get('/cobo', function () {
     return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/Eb9cAIvGq3pEvwL4qETDNUgBjzrcmZCLqfYwlbCUrHGDlg?e=H6YJy0');
 });
@@ -134,6 +141,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post("/admin/leden/disableall", [App\Http\Controllers\AdminController::class,'DisableAllAzureAcc']);
     Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser');
     Route::post('/admin/leden/unpaid/notify', [App\Http\Controllers\AdminController::class, 'sendEmailToUnpaidMembers']);
+    Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->name('removeLeden');
 
     // sponsors
     Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->name('admin.sponsors');
@@ -219,7 +227,6 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/leden/groepen/delete', [App\Http\Controllers\AdminController::class, 'groupDelete']);
     Route::post('/admin/leden/sync', [App\Http\Controllers\AdminController::class, 'sync'])->name('admin.sync');
     Route::get('/admin/leden', [App\Http\Controllers\AdminController::class, 'viewRemoveLeden']);
-    Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->name('removeLeden');
     Route::post('/admin/groepen/{groupId}/makeLeader/{userId}', [App\Http\Controllers\CommitteeController::class,'makeUserCommitteeLeader']);
 
     // newsletter
@@ -240,4 +247,17 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/coupons/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete']);
     Route::post('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'store']);
     Route::get('/admin/coupons/edit/{id}', [App\Http\Controllers\CouponController::class, 'editView']);
+
+    // merch
+    Route::get('/admin/merch', [App\Http\Controllers\MerchController::class, 'adminView']);
+    Route::get('/admin/merch/edit/{id}', [App\Http\Controllers\MerchController::class, 'adminEditView']);
+    Route::post('/admin/merch/store', [App\Http\Controllers\MerchController::class,'store']);
+    Route::get('/admin/merch/orders',[App\Http\Controllers\MerchController::class,'adminAllOrders']);
+    Route::post('/admin/merch/orders/pickedUp/{orderId}',[App\Http\Controllers\MerchController::class,'pickedUpToggle']);
+    Route::post('/admin/merch/store/{id}', [App\Http\Controllers\MerchController::class,'store']);
+    Route::post('/admin/merch/delete/{id}', [App\Http\Controllers\MerchController::class,'delete']);
+    Route::get('/admin/merch/inventory/{id}', [App\Http\Controllers\MerchController::class, 'viewInventory']);
+    Route::post('/admin/merch/inventory/{id}/save/{sizeId}/{genderId}',[App\Http\Controllers\MerchController::class,'storeSize']);
+    Route::post('/admin/merch/inventory/{id}/attach',[App\Http\Controllers\MerchController::class,'attachSize']);
+    Route::post('/admin/merch/inventory/{id}/delete/{sizeId}/{genderId}',[App\Http\Controllers\MerchController::class,'deleteSize']);
 });

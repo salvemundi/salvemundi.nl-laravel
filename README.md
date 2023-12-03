@@ -10,7 +10,8 @@ If you don't want to run a webserver and database on your own computer you may u
 If you have Docker installed on your machine, you may use [Laravel Sail](https://laravel.com/docs/10.x/sail) to run various Docker containers for local
 development. By default, port 80 is used for the web server, making the application reachable on `http://localhost` in your browser.
 
-> WARNING: For Windows users it is HIGHLY recommended to use WSL for running this application.
+> WARNING: For Windows users it is HIGHLY recommended to use WSL for running this application. Also MAKE SURE that the project lives on your WSL2 filesystem AND NOT on a windows based filesystem (NTFS), otherwise it will be very slow and cumbersome to work with.
+> Also when using WSL2 make sure you have your own account and DO NOT USE ROOT.
 
 Commands:
 - Laravel sail is installed using PHP, to install it without having PHP on your machine, run the following command:

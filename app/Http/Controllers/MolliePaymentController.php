@@ -69,6 +69,7 @@ class MolliePaymentController extends Controller
 
             $getProductObject = Product::where('index', paymentType::contribution)->first();
             $transaction = new Transaction();
+            $transaction->amount = $getProductObject->amount;
             $transaction->product()->associate($getProductObject);
             $transaction->save();
             $newUser->payment()->attach($transaction);
@@ -105,6 +106,9 @@ class MolliePaymentController extends Controller
                 if($email != null && $nameNotMember != null){
                     $transaction->name = $nameNotMember;
                     $transaction->email = $email;
+                    $transaction->amount = $getProductObject->amount_non_member;
+                } else {
+                    $transaction->amount = $getProductObject->amount;
                 }
 
 
@@ -172,7 +176,7 @@ class MolliePaymentController extends Controller
                 "userId" => $userObject ? $userObject->id : "null",
                 "email" => $email ?: "null"
             ],
-            "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK') : route('webhooks.mollie'),
+            "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK')."/webhooks/mollie" : route('webhooks.mollie'),
         ]);
     }
 
@@ -191,6 +195,7 @@ class MolliePaymentController extends Controller
             $getProductObject = Product::where('index',$plan)->first();
             $transaction = new Transaction();
             $transaction->product()->associate($getProductObject);
+            $transaction->amount = $getProductObject->amount;
             $transaction->save();
             $transaction->contribution()->attach($user);
             $transaction->save();

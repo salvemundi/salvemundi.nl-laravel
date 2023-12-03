@@ -12,7 +12,7 @@
             <img class="imgNavbar" src="{{ asset('/images/logo_old.svg') }}">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <i id="hamburgerMenu" class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -67,12 +67,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/coupons">Coupons</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/merch">Merch</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav m-lg-auto">
                 <!-- Authentication Links -->
                 @guest
-                    @if(session('userName') != null)
+                    @if (session('userName') != null)
                         <li class="nav-item">
                             <a class="nav-link" href="/mijnAccount">Mijn account</a>
                         </li>

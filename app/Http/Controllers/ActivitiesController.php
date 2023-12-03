@@ -170,7 +170,7 @@ class ActivitiesController extends Controller {
             }
         }
         foreach($user->payment as $transaction){
-            if($transaction->product->id == $activityId) {
+            if($transaction->product != null && $transaction->product->id == $activityId) {
                 $status = paymentStatus::coerce($transaction->paymentStatus);
                 return $status->is(paymentStatus::paid);
             }

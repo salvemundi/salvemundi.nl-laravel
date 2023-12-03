@@ -11,26 +11,27 @@ tasks:
     desc: Shutdown docker containers
     cmds:
       - ./vendor/bin/sail down
-  d:build:
-    desc: (re)-build Docker image
-    cmds:
-      - docker build . --no-cache
   w:prep:
     desc: Prepare dev environment (composer install, npm run, etc.)
     cmds:
-      - ./composer.phar install
+      - docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/var/www/html -w /var/www/html laravelsail/php82-composer:latest composer install --ignore-platform-reqs
       - npm install
       - npm run dev
+      - echo "Please rename the .env.example file to .env and populate the empty fields for your environment."
   w:db:migrate:
     desc: Run pending migrations
     cmds:
-      - docker exec -it app php artisan migrate
+      - ./vendor/bin/sail artisan migrate
   w:db:reset:
     desc: Reset database
     cmds:
-      - docker exec -it app php artisan migrate:fresh
-      - docker exec -it app php artisan db:seed
+      - ./vendor/bin/sail artisan artisan migrate:fresh
+      - ./vendor/bin/sail artisan artisan db:seed
   d:sql:
     desc: Get into sql console
     cmds:
       - docker exec -it salvemundinl-laravel-mysql-1 mysql -u $DB_USERNAME --password=$DB_PASSWORD $DB_DATABASE
+  d:sql:sh:
+    desc: Get into sql console with bash
+    cmds:
+      - docker exec -it salvemundinl-laravel-mysql-1 /bin/bash

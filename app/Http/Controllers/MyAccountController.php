@@ -50,7 +50,7 @@ class MyAccountController extends Controller
         $whatsappLinks = WhatsappLink::all();
         $rules = Rules::all();
 
-        return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment, 'rules' => $rules, 'expiryDate' => $expiryDate]);
+        return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment()->withTrashed()->get(), 'rules' => $rules, 'expiryDate' => $expiryDate]);
     }
 
     public function deletePicture() {
