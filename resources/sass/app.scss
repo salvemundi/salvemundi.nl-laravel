@@ -1,14 +1,193 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-
 //icons (font-awesome)
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
+
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
 // Variables
 @import 'variables';
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: $salveMundi-darkMode-text;
+    background-color: $salveMundi-darkMode-background !important;
+  }
+  .overlap {
+    background-color: $salveMundi-darkMode-background !important;
+  }
+  .tabber {
+    color: $salveMundi-darkMode-text !important;
+  }
+  .tabcontent {
+    border: 1px solid $salveMundi-formInput-background !important;
+  }
+  .form-control, .form-control::placeholder {
+    background-color: $salveMundi-formInput-background !important;
+    color: $salveMundi-darkMode-text !important;
+  }
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link .nav {
+    background-color: $salveMundi-selected-background !important;
+    color: $salveMundi-darkMode-text !important;
+  }
+  .nav-tabs {
+    border-bottom: none !important;
+    border-color: $salveMundi-formInput-background !important;
+  }
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    border-color: $salveMundi-formInput-background !important;
+  }
+  .nav-item:hover, .nav-link:hover {
+    border-color: $salveMundi-darkMode-text !important;
+  }
+
+  .table {
+    background-color: $salveMundi-formInput-background !important;
+    --bs-table-bg: $salveMundi-darkMode-background !important;
+    --bs-table-border-color: #585858 !important;
+  }
+  .table > :not(caption) > * > * {
+    color: $salveMundi-darkMode-text !important;
+  }
+  .card {
+    background-color: $salveMundi-card-background;
+  }
+  .card-text, .card-title {
+    color: $salveMundi-darkMode-text !important;
+  }
+  .card-body {
+    overflow: hidden;
+
+    // button styles
+    >.btn {
+      margin-top: 0.5em;
+    }
+
+    // body text
+    >p {
+      white-space: pre-line;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      margin-top: 0.5rem;
+
+      // body shadow
+      &:after {
+        content: ' ';
+        background: linear-gradient(to top, $salveMundi-darkMode-background 20%, transparent) !important;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+
+  .text-muted, .dashboard-font,{
+    color: $salveMundi-darkMode-text !important;
+  }
+  .fas {
+    color: white !important;
+  }
+  .page-link.disabled, .disabled > .page-link {
+    color: #{$salveMundi-darkMode-text};
+    pointer-events: none;
+    background-color: #{$salveMundi-formInput-background};
+
+  }
+  .pagination {
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.375rem;
+    --bs-pagination-font-size: 1rem;
+    --bs-pagination-color: $salveMundi-darkMode-text;
+    --bs-pagination-bg: #{$salveMundi-formInput-background};
+    --bs-pagination-border-width: var(--bs-border-width);
+    --bs-pagination-border-color: #{$salveMundi-light};
+    --bs-pagination-border-radius: var(--bs-border-radius);
+    --bs-pagination-hover-color: $salveMundi-darkMode-text;
+    --bs-pagination-hover-bg: #585858;
+    --bs-pagination-hover-border-color: #{$salveMundi-link};
+    --bs-pagination-focus-color: $salveMundi-darkMode-text;
+    --bs-pagination-focus-bg: var(--bs-secondary-bg);
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(185, 13, 253, 0.25);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #{$salveMundi-dark};
+    --bs-pagination-active-border-color: #{$salveMundi-light};
+    --bs-pagination-disabled-color: var(--bs-secondary-color);
+    --bs-pagination-disabled-bg: var(--bs-secondary-bg);
+    --bs-pagination-disabled-border-color: #{$salveMundi-light};
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .dropdown-menu {
+    --bs-dropdown-bg: #{$salveMundi-formInput-background};
+    --bs-dropdown-link-active-bg: #{$salveMundi-light};
+    --bs-dropdown-link-active-color: #fff;
+    --bs-dropdown-link-hover-color: $salveMundi-darkMode-text;
+    --bs-dropdown-link-hover-bg: #585858;
+    --bs-dropdown-color: $salveMundi-darkMode-text;
+    --bs-dropdown-link-color: $salveMundi-darkMode-text;
+  }
+  .input-group-text {
+    background-color: $salveMundi-formInput-background;
+    color: $salveMundi-darkMode-text;
+    border-color: $salveMundi-primary;
+  }
+
+  .form-control {
+    $input-group-addon-bg: #{$salveMundi-formInput-background} !important;
+    background-color: $salveMundi-formInput-background !important;
+    color: $salveMundi-darkMode-text !important;
+    border-color: $salveMundi-primary !important;
+  }
+
+  .mult-select-tag .body {
+    background: $salveMundi-formInput-background !important;
+    border-color:  $salveMundi-primary !important
+  }
+  .mult-select-tag .btn-container {
+    border-left: 1px solid $salveMundi-primary !important;
+  }
+
+  .mult-select-tag .drawer {
+    background: $salveMundi-formInput-background !important;
+    border: 1px solid $salveMundi-primary !important;
+  }
+
+  .mult-select-tag {
+    --border-color: $salveMundi-primary !important;
+  }
+
+  .mult-select-tag .input {
+    color: $salveMundi-darkMode-text !important;
+    border: 1px solid $salveMundi-primary !important;
+  }
+  .mult-select-tag .input::placeholder {
+    color: $salveMundi-darkMode-text !important;
+  }
+  .mult-select-tag ul li:hover {
+    background-color: #585858 !important;
+  }
+  $bs-body-bg: $salveMundi-darkMode-background !important;
+  .modal-content {
+    background-color: $salveMundi-darkMode-background !important;
+  }
+  .btn-close {
+    color: $salveMundi-darkMode-text !important;
+    --bs-btn-close-color: #{$salveMundi-darkMode-text};
+    filter: invert(100%) sepia(16%) saturate(7463%) hue-rotate(222deg) brightness(119%) contrast(115%);
+
+  }
+}
+
 
 .mult-select-tag .item-container {
   display: flex;

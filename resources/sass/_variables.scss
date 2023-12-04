@@ -25,6 +25,16 @@ $salveMundi-boxShadow: rgba(102, 50, 101, 0.6);
 $salveMundi-boxShadowWhite: rgba(255, 255, 255, 0.24);
 $slick-arrow-color: green !important;
 
+// Dark theme
+$salveMundi-darkMode-background: #141414;
+$salveMundi-darkMode-text: #E5B8F4;
+$salveMundi-selected-background: #230046;
+$salveMundi-formInput-background: #282828;
+$salveMundi-card-background: #434343;
+
+$bs-table-bg: $salveMundi-formInput-background;
+
+
 // bootstrap variable overrides
 $bs-btn-active-color: #000 !important;
 
@@ -41,7 +51,7 @@ $btn-outline-primary-border: $salveMundi-primary;
 //  color: white;
 //  background-color: $btn-outline-primary-color;
 //  border-color: $btn-outline-primary-color;
-//}
+//
 
 .btn-check:checked + .btn-outline-primary,
 :not(.btn-check) + .btn-outline-primary:active,

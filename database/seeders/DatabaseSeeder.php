@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder {
             AdminSettings::class,
             ADUsers::class,
             PermissionsSeeder::class,
-            MerchSizeSeeder::class
+            MerchSizeSeeder::class,
+            ActivityTagsSeeder::class
         ]);
     }
 }
