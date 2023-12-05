@@ -1,4 +1,4 @@
-<nav id="TopNavbar" class="navbar navbar-expand-md" style="background-color: #663366 !important;">
+<nav id="TopNavbar" class="navbar navbar-expand-md">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="imgNavbar" src="{{ asset('/images/logo_old.svg') }}" alt="">

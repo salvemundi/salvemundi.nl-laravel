@@ -1,17 +1,18 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-//icons (font-awesome)
-@import "node_modules/font-awesome/scss/font-awesome.scss";
-
-
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//icons (font-awesome)
+@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Variables
 @import 'variables';
 
+.tabber {
+  color: black !important;
+}
 @media (prefers-color-scheme: dark) {
   body {
     color: $salveMundi-darkMode-text;
