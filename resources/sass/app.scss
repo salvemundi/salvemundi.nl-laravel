@@ -14,10 +14,14 @@
   color: black !important;
 }
 @media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
   body {
     color: $salveMundi-darkMode-text;
     background-color: $salveMundi-darkMode-background !important;
   }
+
   .overlap {
     background-color: $salveMundi-darkMode-background !important;
   }
@@ -27,7 +31,7 @@
   .tabcontent {
     border: 1px solid $salveMundi-formInput-background !important;
   }
-  .form-control, .form-control::placeholder {
+  .form-control, .form-control::placeholder,.form-select {
     background-color: $salveMundi-formInput-background !important;
     color: $salveMundi-darkMode-text !important;
   }
@@ -64,10 +68,17 @@
   .card-text, .card-title {
     color: $salveMundi-darkMode-text !important;
   }
+  .text-danger {
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+  }
   .card,
   .cardNews {
     border-radius: 5px !important;
-    box-shadow: 0 0 10px 0 rgba(189, 35, 195, 0.3) !important;
+    box-shadow:
+            /* offset-x | offset-y | blur-radius | spread-radius | color */
+            0px 24px 38px 3px hsla(0,0%,0%,0.14),
+            0px 9px 46px 8px hsla(0,0%,0%,0.12),
+            0px 11px 15px -7px hsla(0,0%,0%,0.2) !important;
     transition: all .2s ease-in-out;
   }
   .card-body {
@@ -153,7 +164,7 @@
     border-color: $salveMundi-primary;
   }
 
-  .form-control {
+  .form-control,.form-select {
     $input-group-addon-bg: #{$salveMundi-formInput-background} !important;
     background-color: $salveMundi-formInput-background !important;
     color: $salveMundi-darkMode-text !important;
@@ -196,6 +207,10 @@
     --bs-btn-close-color: #{$salveMundi-darkMode-text};
     filter: invert(100%) sepia(16%) saturate(7463%) hue-rotate(222deg) brightness(119%) contrast(115%);
 
+  }
+  .modal {
+    --bs-modal-header-border-color: #{$salveMundi-card-background};
+    --bs-modal-footer-border-color: #{$salveMundi-card-background};
   }
 }
 

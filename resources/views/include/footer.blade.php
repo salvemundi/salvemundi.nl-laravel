@@ -27,9 +27,10 @@
                  <ul class="footer-links">
                      <li><a href="mailto:info@salvemundi.nl"><i class="fas fa-envelope"></i> info@salvemundi.nl</a></li>
                      <li><a href="tel:+31 6 24827777"><i class="fas fa-phone"></i> +31 6 24827777</a></li>
-                     <li><a href="https://api.whatsapp.com/send/?phone=%2B31624827777&text&app_absent=0"
+                     <li><i class="fab fa-whatsapp"></i><a
+                             href="https://api.whatsapp.com/send/?phone=%2B31624827777&text&app_absent=0"
                              target="_blank">
-                             <i class="fab fa-whatsapp"></i> Whatsapp</a></li>
+                             Whatsapp</a></li>
                  </ul>
              </div>
 

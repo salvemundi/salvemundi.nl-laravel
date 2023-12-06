@@ -86,7 +86,7 @@
                                 @endif
                             </div>
 
-                            <div class="modal-footer overflow-scroll" style="max-height: 20vh !important;">
+                            <div class="modal-footer overflow-y-scroll" style="max-height: 20vh !important;">
                                 <div class="col row">
                                     <div class="col-12">
                                         <p class="card-text textCard text-muted">Geplaatst op
@@ -206,11 +206,11 @@
                                                 @endif
                                             @else
                                                 @if (session('id'))
-                                                    <p class="card-text textCard text-danger"><u>Je lidmaatschap is niet
+                                                    <p class="text-danger card-text textCard "><u>Je lidmaatschap is niet
                                                             meer geldig, verleng deze voor korting op deze activiteit!</u>
                                                     </p>
                                                 @else
-                                                    <p class="card-text textCard text-danger"><u>Je hebt geen lidmaatschap,
+                                                    <p class="text-danger card-text textCard"><u>Je hebt geen lidmaatschap,
                                                             word lid voor korting op deze activiteit!</u></p>
                                                 @endif
 
