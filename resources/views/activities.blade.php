@@ -6,11 +6,7 @@
 
     <div class="overlap">
         <div class="container">
-            @if (session()->has('message'))
-                <div class="alert alert-primary">
-                    {{ session()->get('message') }}
-                </div>
-            @endif
+            @include('include.messageStatus')
             @if (!$activiteiten->isEmpty())
                 <div class="container-fluid">
                     <div class="row justify-content-center">
