@@ -118,8 +118,8 @@
                                                     <div>
                                                         @if (isset($job->emailContact))
                                                             <div>
-                                                                <i class="far fa-envelope"></i><a
-                                                                    class="me-1 text-decoration-underline"
+                                                                <i class="far fa-envelope" style="color: white;"></i>
+                                                                <a class="me-1 text-decoration-underline"
                                                                     href="mailto:{{ $job->emailContact }}">
                                                                     {{ $job->emailContact }}</a>
                                                             </div>

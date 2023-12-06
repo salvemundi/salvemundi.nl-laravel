@@ -81,9 +81,12 @@
             0px 11px 15px -7px hsla(0,0%,0%,0.2) !important;
     transition: all .2s ease-in-out;
   }
+  a {
+    color: $salveMundi-darkMode-text !important;
+  }
   .card-body {
     overflow: hidden;
-
+    color: $salveMundi-darkMode-text;
     // button styles
     >.btn {
       margin-top: 0.5em;
@@ -95,6 +98,7 @@
       text-overflow: ellipsis;
       word-break: break-all;
       margin-top: 0.5rem;
+      color: $salveMundi-darkMode-text;
 
       // body shadow
       &:after {
@@ -211,6 +215,17 @@
   .modal {
     --bs-modal-header-border-color: #{$salveMundi-card-background};
     --bs-modal-footer-border-color: #{$salveMundi-card-background};
+  }
+  .list-group {
+    --bs-list-group-bg: #{$salveMundi-card-background};
+    --bs-list-group-active-bg: #{$salveMundi-card-background};
+    --bs-list-group-action-hover-bg: #{$salveMundi-card-background};
+    --bs-list-group-action-active-bg: #{$salveMundi-card-background};
+    --bs-list-group-active-border-color: #{$salveMundi-link};
+    --bs-list-group-color: #{$salveMundi-darkMode-text};
+  }
+  h5 {
+    color: $salveMundi-darkMode-text;
   }
 }
 
