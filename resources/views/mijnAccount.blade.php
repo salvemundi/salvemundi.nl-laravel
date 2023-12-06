@@ -216,7 +216,8 @@
                     <tbody>
                         @foreach ($whatsapplink as $whatsapp)
                             <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                <td data-value="link"><a href="{{ $whatsapp->link }}">{{ $whatsapp->link }}</a></td>
+                                <td data-value="link"><a class="text-decoration-underline"
+                                        href="{{ $whatsapp->link }}">{{ $whatsapp->link }}</a></td>
                                 <td data-value="naam">{{ $whatsapp->name }}</td>
                                 <td data-value="beschrijving">{{ $whatsapp->description }}</td>
                             </tr>
@@ -239,7 +240,8 @@
                         @foreach ($rules as $rule)
                             <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                                 <td data-value="naam">{{ $rule->name }}</td>
-                                <td data-value="link"><a href="{{ $rule->link }}">{{ $rule->link }}</a></td>
+                                <td data-value="link"><a class="text-decoration-underline"
+                                        href="{{ $rule->link }}">{{ $rule->link }}</a></td>
                             </tr>
                         @endforeach
                     </tbody>
