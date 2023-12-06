@@ -87,11 +87,13 @@ class Product extends Model
             }
         }
         $count = $this->members->count();
+        $count += $this->nonMembers->count();
         if($this->amount_non_member > 0) {
             $count += count($nonMembers);
         } else {
             $count += $this->nonMembers->count();
         }
+
         return $count;
     }
     public function isFull(): bool
