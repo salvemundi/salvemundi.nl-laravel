@@ -120,9 +120,6 @@ html {
 
 /* Begin navbar */
 
-.tabber {
-  color: black !important;
-}
 
 .nav-link {
     white-space: nowrap;
@@ -526,7 +523,7 @@ html {
   }
 }
 
-.form-control {
+.form-control,.form-select {
   border-color: $salveMundi-primary;
 
   &:focus {
@@ -546,8 +543,8 @@ html {
 .card,
 .cardNews {
   border-radius: 5px;
-  box-shadow: 0 4px 10px 0 rgb(112 112 112 / 30%) !important;
-  // transition: all .2s ease-in-out;
+  box-shadow: 0 4px 10px 0 rgb(112 112 112 / 30%);
+   transition: all .2s ease-in-out;
   // overflow: hidden;
 }
 

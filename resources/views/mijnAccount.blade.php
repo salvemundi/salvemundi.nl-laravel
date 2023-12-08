@@ -2,7 +2,7 @@
 @section('title', 'Mijn account – ' . config('app.name'))
 @section('content')
     <script src="js/scrollonload.js"></script>
-    <div class="overlap" id="navlink" style="color: black;">
+    <div class="overlap" id="navlink">
         @if (session()->has('message'))
             <div class="alert alert-primary">
                 {{ session()->get('message') }}
@@ -18,7 +18,7 @@
                 </li>
             @endif
             <li class="nav-item">
-                <button class="nav-link tabber" id="gegevens-tab" data-bs-toggle="tab" data-bs-target="#gegevens"
+                <button class="nav-link tabber active" id="gegevens-tab" data-bs-toggle="tab" data-bs-target="#gegevens"
                     type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-user"></i>
                     Gegevens</button>
             </li>
@@ -183,8 +183,8 @@
                         @if ($transactions->count() > 0)
                             @foreach ($transactions as $transaction)
                                 <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                    <td data-value="toegekend"><a
-                                            href="{{ $user->FirstName }}">{{ $user->FirstName }}</a>
+                                    <td data-value="toegekend">
+                                        {{ $user->FirstName }}
                                     </td>
                                     <td data-value="inschrijving">
                                         {{ $transaction->product? $transaction->product->name: $transaction->merch()->withTrashed()->first()->name }}
@@ -216,7 +216,8 @@
                     <tbody>
                         @foreach ($whatsapplink as $whatsapp)
                             <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                <td data-value="link"><a href="{{ $whatsapp->link }}">{{ $whatsapp->link }}</a></td>
+                                <td data-value="link"><a class="text-decoration-underline"
+                                        href="{{ $whatsapp->link }}">{{ $whatsapp->link }}</a></td>
                                 <td data-value="naam">{{ $whatsapp->name }}</td>
                                 <td data-value="beschrijving">{{ $whatsapp->description }}</td>
                             </tr>
@@ -239,7 +240,8 @@
                         @foreach ($rules as $rule)
                             <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                                 <td data-value="naam">{{ $rule->name }}</td>
-                                <td data-value="link"><a href="{{ $rule->link }}">{{ $rule->link }}</a></td>
+                                <td data-value="link"><a class="text-decoration-underline"
+                                        href="{{ $rule->link }}">{{ $rule->link }}</a></td>
                             </tr>
                         @endforeach
                     </tbody>

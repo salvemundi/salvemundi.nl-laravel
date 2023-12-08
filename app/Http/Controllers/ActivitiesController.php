@@ -192,7 +192,7 @@ class ActivitiesController extends Controller {
         $activity = Product::find($request->input('activityId'));
 
         if($this->countSignUps($request->input('activityId')) >= $activity->limit && $activity->limit != 0){
-            return back();
+            return back()->with('error','Deze activiteit zit helaas al vol!');
         }
 
         $user = null;

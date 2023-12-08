@@ -10,7 +10,7 @@
                             <h4><b>
                                     <p class="card-title">{{ $bestuur->year }}</p>
                                 </b></h4>
-                            <p class="card-text" style="white-space: pre-line">{{ $bestuur->bestuur }}</p>
+                            <p class="card-text mb-5" style="white-space: pre-line">{{ $bestuur->bestuur }}</p>
                         </div>
                     </div>
                 @else
@@ -20,7 +20,7 @@
                             <h4><b>
                                     <p class="card-title">{{ $bestuur->year }}</p>
                                 </b></h4>
-                            <p class="card-text" style="white-space: pre-line">{{ $bestuur->bestuur }}</p>
+                            <p class="card-text mb-5" style="white-space: pre-line">{{ $bestuur->bestuur }}</p>
                         </div>
                     </div>
                 @endif

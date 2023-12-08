@@ -78,20 +78,23 @@ class Product extends Model
     }
     public function countSignups(): int {
         $nonMembers = [];
+        $count = $this->members->count();
         foreach($this->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
                 if($transaction->email != null && $transaction->email != ""){
                     $userTransaction = [$transaction->email, $transaction->name, $transaction->transactionId];
                     $nonMembers[] = $userTransaction;
+                } else {
+                    $count += $transaction->nonMembers->count();
                 }
             }
         }
-        $count = $this->members->count();
         if($this->amount_non_member > 0) {
             $count += count($nonMembers);
         } else {
             $count += $this->nonMembers->count();
         }
+
         return $count;
     }
     public function isFull(): bool
