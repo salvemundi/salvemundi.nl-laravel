@@ -23,6 +23,12 @@ use Ramsey\Uuid\Uuid;
 
 class ActivitiesController extends Controller {
 
+
+    public function pubcrawl(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $product = Product::where('isGroupSignup', true)->latest()->first();
+        return view('pubcrawl', ['product' => $product]);
+    }
     public function addMemberToAcitivty(Request $request): RedirectResponse
     {
         $activity = Product::find($request->activityId);
