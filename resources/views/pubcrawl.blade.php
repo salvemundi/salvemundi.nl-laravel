@@ -35,7 +35,7 @@
                                 <select class="form-select" id="association" name="association"
                                     aria-label="Default select example">
                                     @foreach ($product->associations as $association)
-                                        <option va lue="{{ $association->id }}">
+                                        <option value="{{ $association->id }}">
                                             {{ $association->name }}</option>
                                     @endforeach
                                 </select>
