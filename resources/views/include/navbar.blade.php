@@ -49,6 +49,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/merch">Merch</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/kroegentocht">Kroegentocht</a>
+                </li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav w-50 d-flex justify-content-end">
