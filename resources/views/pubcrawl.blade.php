@@ -35,7 +35,7 @@
                                 <select class="form-select" id="association" name="association"
                                     aria-label="Default select example">
                                     @foreach ($product->associations as $association)
-                                        <option value="{{ $association->id }}">
+                                        <option va lue="{{ $association->id }}">
                                             {{ $association->name }}</option>
                                     @endforeach
                                 </select>
@@ -43,6 +43,7 @@
 
                                 </div>
                                 <button type="submit" id="submitGroupTicketSignup{{ $product->id }}"
+                                    @if ($product->isFull()) disabled @endif
                                     class="btn btn-primary mt-2">Inschrijven €
                                     {{ $product->amount }}</button>
                                 <script>
