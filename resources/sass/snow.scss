@@ -1,0 +1,41 @@
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.snowflake {
+    position: absolute;
+    background: #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+    /* Media query to adjust snowflakes on smaller screens (e.g., phones) */
+    @media (max-width: 767px) {
+        .snowflake {
+            width: 5px; /* Reduce snowflake size */
+            height: 5px;
+            opacity: 0.6; /* Reduce opacity */
+        }
+    }
