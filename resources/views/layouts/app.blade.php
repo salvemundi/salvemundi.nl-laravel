@@ -18,35 +18,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="kL20HpcKk8V9pG8cZXgGIuM3PYoPJ2BmV76lrElRIPw" />
+
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#663265" />
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', config('app.name'))</title>
 
     <!-- Scripts -->
-
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/party.js') }}"></script>
+    <script src="{{ mix('js/snow.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <!-- Styles -->
 
-    {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> --}}
-    {{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" --}}
-    {{--        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> --}}
+    <!-- Styles -->
     <link href="{{ mix('css/checkbox.css') }}" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/custom.css') }}" rel="stylesheet">
     <link href="{{ mix('css/tabs.css') }}" rel="stylesheet">
     <link href="{{ mix('css/party.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/snow.css') }}" rel="stylesheet">
     <link href="{{ mix('css/committeeCard.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
+
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
+
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
@@ -64,6 +66,7 @@
 
 <body>
     <div id="app">
+        <div class="snowflakes" aria-hidden="true"></div>
         @include('include/navbar')
         @yield('content')
         @include('include/footer')
