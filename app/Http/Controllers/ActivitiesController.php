@@ -228,6 +228,9 @@ class ActivitiesController extends Controller {
             }
             $groupPrice = $request->input('amountOfTickets') * $activity->amount;
             $uuid = Str::uuid()->toString();
+            if($request->input('amountOfTickets') != 1) {
+                $activity->formsLink = route('home');
+            }
             foreach ($request->input('participant') as $key => $item) {
                 $groupMember = new NonUserActivityParticipant();
                 $groupMember->name = $item;
