@@ -24,7 +24,8 @@
         "mollie/laravel-cashier-mollie": "^2.0",
         "mollie/laravel-mollie": "^2.0",
         "mxl/laravel-job": "^1.2",
-        "pbmedia/laravel-ffmpeg": "^8.0"
+        "pbmedia/laravel-ffmpeg": "^8.0",
+        "spatie/icalendar-generator": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
