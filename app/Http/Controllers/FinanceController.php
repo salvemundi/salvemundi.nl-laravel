@@ -10,7 +10,6 @@ class FinanceController extends Controller
     public function index()
     {
         $financeDocument = FinanceDocuments::latest()->first();
-        //dd($financeDocument);
         return view('finance', ['financeDocument' => $financeDocument]);
     }
 

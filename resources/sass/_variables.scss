@@ -17,18 +17,34 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$salveMundi-primary: #663265;
-$salveMundi-light: #864485;
-$salveMundi-link: #BA5EB8;
-$salveMundi-dark: #39203B;
-$salveMundi-boxShadow: rgba(102, 50, 101, 0.6);
+
+// Default color scheme
+//$salveMundi-primary: #663265;
+//$salveMundi-light: #864485;
+//$salveMundi-link: #BA5EB8;
+//$salveMundi-dark: #39203B;
+//$salveMundi-boxShadow: rgba(102, 50, 101, 0.6);
+
+// Innovum color scheme
+$salveMundi-primary: #bb6a13;
+$salveMundi-light: #f18b1e;
+$salveMundi-link: #ffb260;
+$salveMundi-dark: #a65f19;
+$salveMundi-boxShadow: rgba(102, 73, 50, 0.6);
+
+
 $salveMundi-boxShadowWhite: rgba(255, 255, 255, 0.24);
 $slick-arrow-color: green !important;
 
 // Dark theme
 $salveMundi-darkMode-background: #141414;
-$salveMundi-darkMode-text: #f6d8ff;
-$salveMundi-selected-background: #230046;
+// salve
+//$salveMundi-darkMode-text: #f6d8ff;
+//$salveMundi-selected-background: #230046;
+//innovum
+$salveMundi-darkMode-text: #ffe0b6;
+$salveMundi-selected-background: #462e00;
+
 $salveMundi-formInput-background: #282828;
 $salveMundi-card-background: #434343;
 
