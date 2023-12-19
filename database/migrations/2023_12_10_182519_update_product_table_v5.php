@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::table('products', function(Blueprint $table)
         {
-            $table->dateTime('eventDate')->nullable();
+            $table->dateTime('startDate')->nullable();
+            $table->dateTime('endDate')->nullable();
+
         });
     }
 
@@ -22,6 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('products', function(Blueprint $table)
+        {
+            $table->dropColumn('startDate');
+            $table->dropColumn('endDate');
+        });
     }
 };
