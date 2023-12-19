@@ -15,7 +15,6 @@ return new class extends Migration
         {
             $table->dateTime('startDate')->nullable();
             $table->dateTime('endDate')->nullable();
-
         });
     }
 

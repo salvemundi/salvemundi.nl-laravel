@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\IcalendarGenerator\Components\Calendar;
+use Spatie\IcalendarGenerator\Components\Event;
 
 class CalendarController extends Controller
 {
-    public function generateICal()
+    public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $calendar = Calendar::create('Your Calendar');
 
@@ -23,7 +27,7 @@ class CalendarController extends Controller
             ->header('Content-Type', 'text/calendar');
     }
 
-    private function createICalEvent($eventData)
+    private function createICalEvent($eventData): Event
     {
         // Create and return an iCalendar event using Spatie\IcalendarGenerator
         // Refer to the library's documentation for details
