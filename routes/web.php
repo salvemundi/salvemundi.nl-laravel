@@ -214,7 +214,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/finance/delete', [App\Http\Controllers\FinanceController::class, 'delete']);
 
     // activity and membership management
-    Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index    ']);
+    Route::get('/admin/products', [App\Http\Controllers\ProductController::class, 'index']);
     Route::get('/admin/products/edit',[App\Http\Controllers\ProductController::class, 'editPage']);
     Route::post('/admin/products/edit/store', [App\Http\Controllers\ProductController::class, 'store']);
     Route::post('/admin/products/delete', [App\Http\Controllers\ProductController::class, 'delete']);
