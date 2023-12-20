@@ -40,7 +40,7 @@ class CalendarController extends Controller
         return Event::create()
             ->name($eventData->name)
             ->description($eventData->description)
-            ->startsAt($eventData->startDate->setTimezone('Europe/Amsterdam'))
-            ->endsAt($eventData->endDate->setTimezone('Europe/Amsterdam'));
+            ->startsAt(new DateTime($eventData->startDate,new \DateTimeZone('Europe/Amsterdam')))
+            ->endsAt(new DateTime($eventData->endDate,new \DateTimeZone('Europe/Amsterdam')));
     }
 }

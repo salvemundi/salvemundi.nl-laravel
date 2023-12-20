@@ -9,6 +9,7 @@ use App\Models\CommitteeTags;
 use App\Models\NonUserActivityParticipant;
 use App\Models\Product;
 use App\Models\User;
+use DateTime;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -123,8 +124,8 @@ class ActivitiesController extends Controller {
         $products->oneTimeOrder = (bool)$request->input('cbx');
         $products->membersOnly = (bool)$request->input('cbxMembers');
         $products->description = $request->input('description');
-        $products->startDate = $request->input('startDate') ? Carbon::createFromFormat('Y-m-d\TH:i', $request->input('startDate'))->setTimezone('Europe/Amsterdam') : null;
-        $products->endDate = $request->input('endDate') ? Carbon::createFromFormat('Y-m-d\TH:i', $request->input('endDate'))->setTimezone('Europe/Amsterdam'): null;
+        $products->startDate = $request->input('startDate') ? new DateTime($request->input('startDate'), new \DateTimeZone('Europe/Amsterdam')) : null;
+        $products->endDate = $request->input('endDate') ? new DateTime($request->input('endDate'), new \DateTimeZone('Europe/Amsterdam')): null;
         $products->save();
         
         if($request->input('cbxGroup') && $request->input('associationName')) {
