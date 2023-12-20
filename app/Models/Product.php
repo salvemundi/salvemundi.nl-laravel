@@ -20,6 +20,7 @@ class Product extends Model
     protected $table = 'products';
     protected $fillable = ['imgPath','membersOnlyContent','isGroupSignup'];
     protected $dates = ['startDate', 'endDate'];
+    protected $timezone = 'Europe/Amsterdam';
 
     protected $casts = [
         'startDate' => 'datetime', // or 'datetime:Y-m-d H:i:s' if your format is different
