@@ -9,12 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
+use Spatie\IcalendarGenerator\Components\TimezoneEntry;
 
 class CalendarController extends Controller
 {
     public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
-        $calendar = Calendar::create('Your Calendar');
+        $calendar = Calendar::create('Salve Mundi')->withoutTimezone();
 
         // Add events to the calendar
         $events = Product::where('startDate', "!=", null)->get();
