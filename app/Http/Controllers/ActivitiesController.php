@@ -123,8 +123,8 @@ class ActivitiesController extends Controller {
         $products->oneTimeOrder = (bool)$request->input('cbx');
         $products->membersOnly = (bool)$request->input('cbxMembers');
         $products->description = $request->input('description');
-        $products->startDate = Carbon::createFromFormat('Y-m-d\TH:i', $request->input('startDate'));
-        $products->endDate = Carbon::createFromFormat('Y-m-d\TH:i', $request->input('endDate'));
+        $products->startDate = $request->input('startDate') ? Carbon::createFromFormat('Y-m-d\TH:i', $request->input('startDate')) : null;
+        $products->endDate = $request->input('endDate') ? Carbon::createFromFormat('Y-m-d\TH:i', $request->input('endDate')): null;
         $products->save();
         
         if($request->input('cbxGroup') && $request->input('associationName')) {
