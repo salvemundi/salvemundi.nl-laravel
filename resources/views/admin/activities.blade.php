@@ -133,6 +133,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Datum van / tot</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Van</span>
+                        <input type="datetime-local" name="startDate" class="form-control" placeholder="Vanaf"
+                            aria-label="from">
+                        <span class="input-group-text">Tot</span>
+                        <input type="datetime-local" name="endDate" class="form-control" placeholder="Tot"
+                            aria-label="until">
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="exampleFormControlTextarea1">Beschrijving voor actieve leden</label>
                     <textarea type="textarea" class="form-control{{ $errors->has('membersOnlyContent') ? ' is-invalid' : '' }}"
                         name="membersOnlyContent" placeholder="Beschrijving...">{{ old('membersOnlyContent') }}</textarea>

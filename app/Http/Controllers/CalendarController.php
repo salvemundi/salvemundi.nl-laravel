@@ -17,7 +17,7 @@ class CalendarController extends Controller
         $calendar = Calendar::create('Your Calendar');
 
         // Add events to the calendar
-        $events = Product::all();
+        $events = Product::where('startDate', "!=", null)->get();
 
         foreach ($events as $event) {
             $calendar->event($this->createICalEvent($event));
@@ -27,15 +27,15 @@ class CalendarController extends Controller
             ->header('Content-Type', 'text/calendar');
     }
 
-    private function createICalEvent($eventData): Event
+    private function createICalEvent(Product $eventData): Event
     {
         // Create and return an iCalendar event using Spatie\IcalendarGenerator
         // Refer to the library's documentation for details
-
+//        dd($eventData->startDate);
         return Event::create()
             ->name($eventData->name)
             ->description($eventData->description)
-            ->startsAt($eventData['start_date'])
-            ->endsAt($eventData['end_date']);
+            ->startsAt($eventData->startDate)
+            ->endsAt($eventData->endDate);
     }
 }
