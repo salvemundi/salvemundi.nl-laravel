@@ -31,7 +31,6 @@ class CalendarController extends Controller
     {
         // Create and return an iCalendar event using Spatie\IcalendarGenerator
         // Refer to the library's documentation for details
-//        dd($eventData->startDate);
         return Event::create()
             ->name($eventData->name)
             ->description($eventData->description)
