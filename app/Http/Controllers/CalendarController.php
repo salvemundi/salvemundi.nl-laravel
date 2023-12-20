@@ -18,9 +18,7 @@ class CalendarController extends Controller
 {
     public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
-
-
-        $calendar = Calendar::create('Salve Mundi');
+        $calendar = Calendar::create('SalveMundi');
 
         // Add events to the calendar
         $events = Product::where('startDate', "!=", null)->get();
