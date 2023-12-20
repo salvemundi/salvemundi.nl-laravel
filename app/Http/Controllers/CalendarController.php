@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use DateTime;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
+use Spatie\IcalendarGenerator\Components\Timezone;
 use Spatie\IcalendarGenerator\Components\TimezoneEntry;
+use Spatie\IcalendarGenerator\Enums\TimezoneEntryType;
 
 class CalendarController extends Controller
 {
     public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
+
+
         $calendar = Calendar::create('Salve Mundi');
 
         // Add events to the calendar
@@ -35,7 +40,7 @@ class CalendarController extends Controller
         return Event::create()
             ->name($eventData->name)
             ->description($eventData->description)
-            ->startsAt($eventData->startDate)
-            ->endsAt($eventData->endDate);
+            ->startsAt($eventData->startDate->setTimezone('Europe/Amsterdam'))
+            ->endsAt($eventData->endDate->setTimezone('Europe/Amsterdam'));
     }
 }
