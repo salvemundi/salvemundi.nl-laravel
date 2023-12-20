@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Main page.
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
+// Calendar
+Route::get('/ical', [App\Http\Controllers\CalendarController::class, 'generateICal']);
+
 // Merch
 Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
 Route::get('/merch/{id}', [App\Http\Controllers\MerchController::class, 'viewItem']);
