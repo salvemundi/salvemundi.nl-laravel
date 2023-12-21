@@ -88,14 +88,13 @@
             for (let i = 0; i < 7; i++) {
                 const cell = document.createElement('td');
 
-
                 // Highlight the cell if it is the current day
                 if (currentDate.toDateString() === new Date().toDateString()) {
                     cell.classList.add('today');
                 }
 
                 // Check if the current date is within any events
-                let res = isDateInEvents(currentDate, events);
+                let res = isDateInEvents(currentDate, events, new Date(currentDate));
                 if (res[0]) {
                     const a = document.createElement('a');
                     a.setAttribute('data-bs-toggle', 'modal')
@@ -108,7 +107,6 @@
                     cell.textContent = currentDate.getDate();
                 }
 
-
                 row.appendChild(cell);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
@@ -117,22 +115,17 @@
         }
     }
 
-    function isDateInEvents(date, events) {
-        let newdate = new Date;
-
-        if (newdate.getMonth() !== currentMonth || newdate.getFullYear() !== currentYear) {
-            return false;
-        }
+    function isDateInEvents(date, events, currentDate) {
         let id = null;
         const result = events.some(event => {
-
             const startUTC = new Date(event.start);
             const endUTC = new Date(event.end);
 
             startUTC.setUTCHours(0, 0, 0, 0);
             endUTC.setUTCHours(23, 59, 59, 999);
-            newdate.setDate(date.getDate());
-            let comparison = newdate.getTime() >= startUTC.getTime() && newdate.getTime() <= endUTC.getTime();
+            currentDate.setDate(date.getDate() + 1);
+            let comparison = currentDate.getTime() >= startUTC.getTime() && currentDate.getTime() <= endUTC
+                .getTime();
             if (comparison) {
                 id = event.id;
             }
