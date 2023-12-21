@@ -31,11 +31,23 @@ class CalendarController extends Controller
             ->header('Content-Type', 'text/calendar');
     }
 
-    private function removeTzidUtc($icalData): string
+    private function removeTzidUtc($icalData)
     {
-        // Remove TZID:UTC from the iCalendar data
-        $modifiedIcalData = preg_replace('/\s*TZID:UTC\s*\r?\n?/', '', $icalData);
-        return $modifiedIcalData;
+        // Define the pattern for the TZID:UTC block
+        $explode = explode("\n", $icalData);
+        foreach($explode as $index => $value) {
+            if(str_contains($value,'TZID:UTC')){
+                unset($explode[$index]);
+                unset($explode[$index - 1]);
+                unset($explode[$index + 1]);
+                unset($explode[$index + 2]);
+                unset($explode[$index + 3]);
+                unset($explode[$index + 4]);
+                unset($explode[$index + 5]);
+                unset($explode[$index + 6]);
+            }
+        }
+        return implode("\n",$explode);
     }
 
     private function createICalEvent(Product $eventData): Event
