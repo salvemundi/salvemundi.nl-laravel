@@ -18,7 +18,7 @@ class CalendarController extends Controller
 {
     public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
-        $calendar = Calendar::create('Salve Mundi');
+        $calendar = Calendar::create('Salve Mundi')->refreshInterval(5);
 
         // Add events to the calendar
         $events = Product::where('startDate', "!=", null)->get();
@@ -31,7 +31,7 @@ class CalendarController extends Controller
             ->header('Content-Type', 'text/calendar');
     }
 
-    private function removeTzidUtc($icalData)
+    private function removeTzidUtc($icalData): string
     {
         // Define the pattern for the TZID:UTC block
         $explode = explode("\n", $icalData);

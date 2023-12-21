@@ -2,16 +2,10 @@
 @section('content')
     <script src="js/scrollonload.js"></script>
     <div class="overlap">
-        <p>
-        <h1 class="center"> We hebben geen agenda meer dankzij deze geweldig mooie nieuwe website</h1> <br>
-        <h3 class="center">dus hier heb je een rickroll </h3><br>
-        <h3 class="center">Ohja de planning is keihard zuipen!!</h3>
-        </p>
-        <div>
-            <video class="navImg center mijnSlider" autoplay muted loop disablePictureInPicture id="vid">
-                <source src="{{ asset('/images/rickroll.mp4') }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+        <h1 class="center">Voeg de Salve Mundi agenda toe!</h1> <br>
+        <h3 class="center">Je kunt dit integreren met bijna elke kalender client, o.a. dus ook google calendar.</h3><br>
+        <h3 class="center">Doe dit door in je agenda client een agenda toe te voegen via URL, en voer dan
+            https://salvemundi.nl/ical in.</h3>
+
     </div>
 @endsection
