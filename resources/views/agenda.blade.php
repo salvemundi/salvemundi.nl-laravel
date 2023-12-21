@@ -9,5 +9,6 @@
         <h4 class="center">Waarschuwing: google calendar en enkele andere kalender apps doen er lang over om te
             synchroniseren, hier kunnen wij niks aan
             doen ;-;</h4>
+        @include('include.calendar', ['activities' => $activities])
     </div>
 @endsection

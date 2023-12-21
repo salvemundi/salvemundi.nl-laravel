@@ -16,6 +16,11 @@ use Spatie\IcalendarGenerator\Enums\TimezoneEntryType;
 
 class CalendarController extends Controller
 {
+    public function index()
+    {
+        $products = Product::where('startDate', "!=", null)->get();
+        return view('agenda',['activities' => $products]);
+    }
     public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $calendar = Calendar::create('Salve Mundi')->refreshInterval(5);

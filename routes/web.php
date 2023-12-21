@@ -113,7 +113,7 @@ Route::get('/cobo', function () {
 });
 
 // Agenda
-Route::get('/agenda', function() {return view('agenda');})->name('agenda');
+Route::get('/agenda', [App\Http\Controllers\CalendarController::class, 'index'])->name('agenda');
 
 //SideJobBank page
 Route::get('/bijbaanbank',[App\Http\Controllers\SideJobBankController::class, 'index']);
