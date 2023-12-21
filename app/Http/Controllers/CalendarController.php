@@ -26,9 +26,18 @@ class CalendarController extends Controller
         foreach ($events as $event) {
             $calendar->event($this->createICalEvent($event));
         }
-
-        return response($calendar->get())
+        $cal = $this->removeLine($calendar->get(), "TZID:UTC");
+        return response($cal)
             ->header('Content-Type', 'text/calendar');
+    }
+
+    private function removeLine($text, $lineToRemove): string
+    {
+        $lines = preg_split("/\r\n|\r|\n/", $text);
+        $modifiedLines = array_filter($lines, function ($line) use ($lineToRemove) {
+            return $line !== $lineToRemove;
+        });
+        return implode("\n", $modifiedLines);
     }
 
     private function createICalEvent(Product $eventData): Event
