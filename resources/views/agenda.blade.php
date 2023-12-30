@@ -6,9 +6,10 @@
         <h3 class="center">Je kunt dit integreren met bijna elke kalender client, o.a. dus ook google calendar.</h3><br>
         <h3 class="center">Doe dit door in je agenda client een agenda toe te voegen via URL, en voer dan
             https://salvemundi.nl/ical in.</h3>
-        <h4 class="center">Waarschuwing: google calendar en enkele andere kalender apps doen er lang over om te
+        <h4 class="center text-center mt-5">Waarschuwing: google calendar en enkele andere kalender apps doen er lang over om
+            te
             synchroniseren, hier kunnen wij niks aan
-            doen ;-;</h4>
+            doen dus het kan een of 2 dagen duren voordat een nieuwe activiteit in je agenda staat.</h4>
         @include('include.calendar', ['activities' => $activities])
     </div>
 @endsection
