@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use DateTime;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,7 +18,7 @@ use Spatie\IcalendarGenerator\Enums\TimezoneEntryType;
 
 class CalendarController extends Controller
 {
-    public function index()
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         $products = Product::where('startDate', "!=", null)->get();
         return view('agenda',['activities' => $products]);
