@@ -31,7 +31,6 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/party.js') }}"></script>
-    <script src="{{ mix('js/snow.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
