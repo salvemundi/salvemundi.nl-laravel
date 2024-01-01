@@ -17,16 +17,14 @@
                 @endif
                 @if (session('userName'))
                     @if ($bday == true)
-                        <h4>Gefeliciteerd <b>{{ session('userName') }}!!</h4></b>
+                        <h4>Gefeliciteerd <b>{{ session('userName') }}!!</b></h4>
                     @else
-                        <h4>Welkom <b>{{ session('userName') }}!</h4></b>
+                        <h4>Welkom <b>{{ session('userName') }}!</b></h4>
                     @endif
                 @endif
                 <br>
                 <h2 class="h2">Over ons</h2> <br>
-                <p>Salve Mundi is de studievereniging van Fontys Hogenscholen ICT, opgericht in 2017 door Mohammed Mighiss
-                    en Luuk Hendriks. Het is Latijn voor "Hello World", een typische zin die menig programmeur maar al te
-                    goed kent.</p>
+                <p>Welkom bij Salve Novum, de nieuwe studievereniging van Fontys Engineering en ICT! Wij zijn ontstaan uit de fusie van Salve Mundi en Innovum, twee verenigingen die elkaar altijd hebben gerespecteerd en bewonderd. Wij vertegenwoordigen alle HBO Engineering en ICT studies aan de Fontys en bieden onze leden een breed scala aan activiteiten & studenten voordelen. Echter zijn de stickers nog wel apart, die van Salve Mundi zijn groter en over het algemeen gewoon beter en die van Innovum zijn ook nog een optie als je op een lager niveau mee wil doen! De kroegentochten & introductie weken zijn ook nog steeds apart, alweer geld dat die van Salve Mundi simpelweg beter is en als je zin hebt in iets minder lol dan doe je mee aan die van Innovum.</p>
                 <p>De vereniging organiseert veel activiteiten, zowel studiebemiddelend als voor de lol, of een combinatie
                     van de twee. Denk hierbij aan: <br></p>
                 <div class="row">
@@ -39,7 +37,7 @@
                         <br>
                         <p> Voor de uitgaande studenten:</p>
 
-                        <li> Op stap bij onze stamkroeg Villa Fiësta op Stratumseind </li>
+                        <li> Op stap bij onze stamkroeg Villa Tenders op Stratumseind </li>
                         <li> Casinoavonden </li>
                         <li> Pubquiz-avonden </li>
                         <li> Willekeurige spontane activiteiten </li>

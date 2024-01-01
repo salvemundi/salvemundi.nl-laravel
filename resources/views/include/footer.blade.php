@@ -12,7 +12,7 @@
                      <li><i class="far fa-building"></i> KvK nr. 70280606</li>
                      <li><a href="/agenda"><i class="fas fa-calendar"></i> Kalender</a></li>
 
-                     <li><br><b>Documenten:</b></li>
+                     <li><br><h6>Documenten</h6></li>
                      <li><a href="/responsible-disclosure">Responsible Disclosure</a></li>
                      <li><a href="{{ asset('storage/Files/privacy.pdf') }}" download>Download privacyvoorwaarden</a>
                      </li>
