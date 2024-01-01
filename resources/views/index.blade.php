@@ -47,7 +47,7 @@
                         <li> Game Nights (bordspellen & eSports) </li>
                         <li> Uitjes naar bijvoorbeeld pretparken </li>
                         <br>
-                        <p>Naast deze activiteiten verzorgt Salve Mundi ook de introductie van FICT van top tot teen.
+                        <p>Naast deze activiteiten verzorgt Salve Novum ook de introductie van FICT van top tot teen.
                     </div>
 
                     <div class="col-md-6">
