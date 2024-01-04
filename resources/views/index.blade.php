@@ -24,30 +24,43 @@
                 @endif
                 <br>
                 <h2 class="h2">Over ons</h2> <br>
-                <p>Welkom bij Salve Novum, de nieuwe studievereniging van Fontys Engineering en ICT! Wij zijn ontstaan uit de fusie van Salve Mundi en Innovum, twee verenigingen die elkaar altijd hebben gerespecteerd en bewonderd. Wij vertegenwoordigen alle HBO Engineering en ICT studies aan de Fontys en bieden onze leden een breed scala aan activiteiten & studenten voordelen. Echter zijn de stickers nog wel apart, die van Salve Mundi zijn groter en over het algemeen gewoon beter en die van Innovum zijn ook nog een optie als je op een lager niveau mee wil doen! De kroegentochten & introductie weken zijn ook nog steeds apart, alweer geld dat die van Salve Mundi simpelweg beter is en als je zin hebt in iets minder lol dan doe je mee aan die van Innovum.</p>
+                <p>Welkom bij Salve Novum, de nieuwe studievereniging van Fontys Engineering en ICT die niet opgericht is
+                    door Luuk Hendriks en Mohammed Mighiss! Wij zijn ontstaan uit
+                    de fusie van Salve Mundi en Innovum, twee verenigingen die elkaar altijd hebben gerespecteerd en
+                    bewonderd. Wij vertegenwoordigen alle HBO Engineering en ICT studies aan de Fontys en bieden onze leden
+                    een breed scala aan activiteiten & studenten voordelen. Echter zijn de stickers nog wel apart, die van
+                    Salve Mundi zijn groter en over het algemeen gewoon beter en die van Innovum zijn ook nog een optie als
+                    je op een lager niveau mee wil doen! De kroegentochten & introductie weken zijn ook nog steeds apart,
+                    alweer geld dat die van Salve Mundi simpelweg beter is en als je zin hebt in iets minder lol dan doe je
+                    mee aan die van Innovum.</p>
                 <p>De vereniging organiseert veel activiteiten, zowel studiebemiddelend als voor de lol, of een combinatie
                     van de twee. Denk hierbij aan: <br></p>
                 <div class="row">
                     <div class="col-md-6">
+                        <p> Voor de uitgaande studenten:</p>
+
                         <li>Lezingen</li>
                         <li> Excursies </li>
                         <li> Workshops </li>
                         <li> Bedrijfsbezoeken </li>
                         <li> Elke dinsdag bijlessen </li>
                         <br>
-                        <p> Voor de uitgaande studenten:</p>
+                        <p> Voor de gepassioneerde studie studenten:</p>
 
-                        <li> Op stap bij onze stamkroeg Villa Tenders op Stratumseind </li>
+                        <li> Op stap bij onze stamkroeg Villa Tenders op Stratumsbegin </li>
                         <li> Casinoavonden </li>
                         <li> Pubquiz-avonden </li>
                         <li> Willekeurige spontane activiteiten </li>
                         <br>
-                        <p> En voor de wat minder uitgaande studenten:</p>
+                        <p> En voor de wat baldadige studenten:</p>
                         <li> Jaarlijks op kamp </li>
                         <li> Game Nights (bordspellen & eSports) </li>
                         <li> Uitjes naar bijvoorbeeld pretparken </li>
                         <br>
-                        <p>Naast deze activiteiten verzorgt Salve Novum ook de introductie van FICT van top tot teen.
+                        <p>Naast deze activiteiten verzorgt Salve Novum ook de introductie van FICT en Fontys Engineering
+                            van top tot teen.</p>
+                        <p>Als laatste willen we jullie nog herinneren om aan het spel te denken en wie dit leest, ✨vouw een
+                            bak✨</p>
                     </div>
 
                     <div class="col-md-6">

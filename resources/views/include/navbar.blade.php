@@ -11,11 +11,11 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav justify-content-lg-start">
                 <li class="nav-item">
-                    <a class="nav-link" href="/commissies">Commissies</a>
+                    <a class="nav-link" href="/activiteiten">Commissies</a>
                 </li>
                 @if (session('id') === null)
                     <li class="nav-item">
-                        <a class="nav-link" href="/inschrijven">Inschrijven</a>
+                        <a class="nav-link" href="https://ikwilhierweg.nl">Inschrijven</a>
                     </li>
                 @endif
                 @if ($introSetting->settingValue === 1)
@@ -24,7 +24,7 @@
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="/activiteiten">Activiteiten</a>
+                    <a class="nav-link" href="/commissies">Activiteiten</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/nieuws">Nieuws</a>
@@ -41,16 +41,16 @@
                     <a class="nav-link" href="/bijbaanbank">Bijbanen bank</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/clubs">Clubs</a>
+                    <a class="nav-link" href="/stickers">Clubs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/stickers">Stickers</a>
+                    <a class="nav-link" href="/clubs">Stickers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/merch">Merch</a>
+                    <a class="nav-link" href="/kroegentocht">Merch</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/kroegentocht">Kroegentocht</a>
+                    <a class="nav-link" href="/merch">Kroegentocht</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->
