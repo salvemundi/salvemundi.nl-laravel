@@ -21,7 +21,7 @@
     <meta name="google-site-verification" content="kL20HpcKk8V9pG8cZXgGIuM3PYoPJ2BmV76lrElRIPw" />
 
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#663265" />
+    <meta name="theme-color" content="#bb6a13" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
