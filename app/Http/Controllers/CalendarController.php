@@ -16,9 +16,14 @@ use Spatie\IcalendarGenerator\Enums\TimezoneEntryType;
 
 class CalendarController extends Controller
 {
+    public function index()
+    {
+        $products = Product::where('startDate', "!=", null)->get();
+        return view('agenda',['activities' => $products]);
+    }
     public function generateICal(): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
-        $calendar = Calendar::create('Salve Mundi');
+        $calendar = Calendar::create('Salve Mundi')->refreshInterval(5);
 
         // Add events to the calendar
         $events = Product::where('startDate', "!=", null)->get();
@@ -26,9 +31,28 @@ class CalendarController extends Controller
         foreach ($events as $event) {
             $calendar->event($this->createICalEvent($event));
         }
-
-        return response($calendar->get())
+        $cal = $this->removeTzidUtc($calendar->get());
+        return response($cal)
             ->header('Content-Type', 'text/calendar');
+    }
+
+    private function removeTzidUtc($icalData): string
+    {
+        // Define the pattern for the TZID:UTC block
+        $explode = explode("\n", $icalData);
+        foreach($explode as $index => $value) {
+            if(str_contains($value,'TZID:UTC')){
+                unset($explode[$index]);
+                unset($explode[$index - 1]);
+                unset($explode[$index + 1]);
+                unset($explode[$index + 2]);
+                unset($explode[$index + 3]);
+                unset($explode[$index + 4]);
+                unset($explode[$index + 5]);
+                unset($explode[$index + 6]);
+            }
+        }
+        return implode("\n",$explode);
     }
 
     private function createICalEvent(Product $eventData): Event
@@ -37,7 +61,7 @@ class CalendarController extends Controller
         // Refer to the library's documentation for details
         return Event::create()
             ->name($eventData->name)
-            ->description($eventData->description)
+            ->description(preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n",$eventData->description))
             ->startsAt(new DateTime($eventData->startDate,new \DateTimeZone('Europe/Amsterdam')))
             ->endsAt(new DateTime($eventData->endDate,new \DateTimeZone('Europe/Amsterdam')));
     }
