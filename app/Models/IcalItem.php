@@ -10,5 +10,5 @@ class IcalItem extends Model
     use HasFactory;
 
     protected $table = 'calendar';
-    protected $fillable = ['title','description','start','end'];
+    protected $fillable = ['title','description','startDate','endDate'];
 }
