@@ -246,6 +246,13 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/clubs/edit/store', [App\Http\Controllers\ClubsController::class, 'store']);
     Route::post('/admin/clubs/delete', [App\Http\Controllers\ClubsController::class, 'delete']);
 
+    // calendar
+    Route::get('/admin/calendar', [App\Http\Controllers\CalendarController::class, 'admin']);
+    Route::post('/admin/calendar/store', [App\Http\Controllers\CalendarController::class, 'store']);
+    Route::post('/admin/calendar/{id}/store', [App\Http\Controllers\CalendarController::class, 'store']);
+    Route::get('/admin/calendar/{id}/edit', [App\Http\Controllers\CalendarController::class, 'adminEdit']);
+    Route::post('/admin/calendar/{id}/delete', [App\Http\Controllers\CalendarController::class, 'delete']);
+
     // coupons
     Route::get('/admin/coupons', [App\Http\Controllers\CouponController::class, 'index']);
     Route::post('/admin/coupons/create', [App\Http\Controllers\CouponController::class, 'store']);
