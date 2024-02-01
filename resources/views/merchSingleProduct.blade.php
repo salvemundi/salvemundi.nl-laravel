@@ -43,9 +43,9 @@
                                 @forelse ($sizes as $size)
                                     @php
                                         $selected = $merch->merchSizes->first(function ($merchSize) use ($size) {
-                                            return $merchSize->id == $size->id && $merchSize->pivot->amount > 0;
+                                            return $merchSize->id == $size->id && $merchSize->pivot->amount > 0 || $merch->isPreOrder;
                                         });
-                                        $disabled = !$selected || $selected->pivot->amount == 0;
+                                        $disabled = (!$selected || $selected->pivot->amount == 0) && !$merch->isPreOrder;
 
                                         if (!$firstAvailableSize && !$disabled) {
                                             $firstAvailableSize = $size;
@@ -85,7 +85,13 @@
             var genderSelect = document.getElementById('genderSelect');
             var merchForm = document.getElementById('merchForm');
             var sizeRadios = merchForm.querySelectorAll('input[name="merchSize"]');
+            @if(!$merch->isPreOrder){
             var availableSizes = @json($merch->merchSizes);
+            }
+            @else{
+              var availableSizes = @json($sizes);
+            }
+            @endif
 
             // Function to update the checked state and enabled/disabled state of radio buttons based on the selected gender
             function updateSizes() {
@@ -93,16 +99,20 @@
 
                 sizeRadios.forEach(function(radio) {
                     var sizeId = radio.id;
+                    var isPreOrder = {{$merch->isPreOrder}};
 
                     // Check if the size is available for the selected gender
                     var sizeAvailable = availableSizes.some(function(size) {
+                      if(isPreOrder > 0) {
+                        return true;
+                      } else {
                         return size.id == sizeId && size.pivot.merch_gender == selectedGender &&
                             size.pivot.amount > 0;
+                      }
                     });
 
                     // Update the checked state based on whether the size is available
                     radio.checked = sizeAvailable;
-
                     // Update the disabled state based on whether the size is available
                     radio.disabled = !sizeAvailable;
                 });
