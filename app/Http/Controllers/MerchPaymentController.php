@@ -28,7 +28,7 @@ class MerchPaymentController extends Controller
         $size = MerchSize::find($request->input('merchSize'));
         $gender = MerchGender::coerce((int)$request->input('gender'));
         if ($merch == null || $size == null) return back()->with('error', 'Het item wat u probeert te kopen bestaat niet in ons systeem');
-        if ($merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0 || $merch->isPreOrder) {
+        if ($merch->isPreOrder || $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0) {
             return redirect($this->CreatePayment($merch, $size, $gender)->getCheckoutUrl());
         } else {
             return back()->with('error', 'Dit item is intussen helaas niet meer op voorraad.');
@@ -102,7 +102,7 @@ class MerchPaymentController extends Controller
     {
         Mail::to($user)->send(new MerchOrderPaid($user, $merch, $size, $merchGender, $transaction));
 
-        if ($merch->transaction->count() % (int)$merch->amountPreOrdersBeforeNotification == 0) {
+        if ($merch->transactions->where('paymentStatus', paymentStatus::paid) % (int)$merch->amountPreOrdersBeforeNotification == 0) {
             Mail::to(explode(',', env('MAIL_NOTIFICATION_MERCH_PREORDER')))->send(new MerchMinimumPreOrdersReached($merch));
         }
         return;

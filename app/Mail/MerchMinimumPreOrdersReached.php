@@ -41,7 +41,7 @@ class MerchMinimumPreOrdersReached extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.PreOrdersReachedNotification',
+            markdown: 'mail.PreOrdersReachedNotification',
         );
     }
 

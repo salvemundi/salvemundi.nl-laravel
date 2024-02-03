@@ -5,6 +5,7 @@
     <div class="overlap">
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
+                @include('include.messageStatus')
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">{!! '<img class="card-img-top mb-5 mb-md-0" src="/' .
                         Thumbnailer::generate('storage/' . str_replace('public/', '', $merch->imgPath), '60%') .
@@ -56,7 +57,7 @@
                                     <input type="radio" class="btn-check"
                                         {{ $firstAvailableSize && $size->id == $firstAvailableSize->id ? 'checked' : '' }}
                                         {{ $disabled ? 'disabled' : '' }} name="merchSize"
-                                        value="{{ optional($selected)->id }}" id="{{ $size->id }}" autocomplete="off">
+                                        value="{{ $size->id }}" id="{{ $size->id }}" autocomplete="off">
                                     <label class="btn btn-outline-primary"
                                         for="{{ $size->id }}">{{ $size->size }}</label>
 

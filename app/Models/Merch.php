@@ -67,7 +67,7 @@ class Merch extends Model
             'color_id'
         );
     }
-    public function tranactions(): hasMany
+    public function transactions(): hasMany
     {
         return $this->hasMany(
             Transaction::class,

@@ -20,10 +20,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('
 Route::get('/ical', [App\Http\Controllers\CalendarController::class, 'generateICal']);
 
 // Merch
-Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
-Route::get('/merch/{id}', [App\Http\Controllers\MerchController::class, 'viewItem']);
-Route::post('/merch/purchase/{id}', [App\Http\Controllers\MerchPaymentController::class, 'HandlePurchase']);
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/merch', [App\Http\Controllers\MerchController::class, 'view']);
+    Route::get('/merch/{id}', [App\Http\Controllers\MerchController::class, 'viewItem']);
+    Route::post('/merch/purchase/{id}', [App\Http\Controllers\MerchPaymentController::class, 'HandlePurchase']);
+});
 Route::get('/februari-intro', function () {
     return redirect('https://fontys.nl/Goede-Start-februari/Welkom-bij-AD-ICT-en-HBO-ICT-Locatie-Eindhoven.htm');
 });
