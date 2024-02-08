@@ -10,6 +10,7 @@ use App\Models\Merch;
 use App\Models\MerchSize;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 use Mollie\Api\Resources\Payment;
 use Mollie\Laravel\Facades\Mollie;
 
@@ -29,10 +31,19 @@ class MerchPaymentController extends Controller
         $gender = MerchGender::coerce((int)$request->input('gender'));
         if ($merch == null || $size == null) return back()->with('error', 'Het item wat u probeert te kopen bestaat niet in ons systeem');
         if ($merch->isPreOrder || $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0) {
-            return redirect($this->CreatePayment($merch, $size, $gender)->getCheckoutUrl());
+            if($merch->preOrderNeedsPayment) {
+                return redirect($this->CreatePayment($merch, $size, $gender)->getCheckoutUrl());
+            } else {
+                $this->HandlePreOrder();
+                return back()->with('success','Je pre order is geregistreerd!');
+            }
         } else {
             return back()->with('error', 'Dit item is intussen helaas niet meer op voorraad.');
         }
+    }
+
+    private function HandlePreOrder() {
+
     }
 
     private function CreatePayment(Merch $merch, MerchSize $merchSize, MerchGender $gender): Payment
@@ -66,7 +77,7 @@ class MerchPaymentController extends Controller
         return $payment;
     }
 
-    public function HandlePayment(Request $request)
+    public function HandlePayment(Request $request): ResponseFactory
     {
         $paymentId = $request->input('id');
         $payment = Mollie::api()->payments->get($paymentId);

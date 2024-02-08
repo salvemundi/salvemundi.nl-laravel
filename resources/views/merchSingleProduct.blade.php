@@ -67,12 +67,30 @@
                                     </p>
                                 @endforelse
                             </div>
+                            @if($merch->preOrderNeedsPayment)
+                            <div class="mt-2">
+                                <p>Voor deze pre-order hoef je niet meteen te betalen, je krijgt later een betaal verzoek.</p>
+                            </div>
 
+                            <div class="input-group mb-3 test">
+                                <input class="inp-cbx" id="cbx1" required name="acceptPayment" type="checkbox" style="display: none" />
+                                <label class="cbx" for="cbx1"><span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg></span><span>Ik accepteer dat ik bij deze pre-order de aangegeven prijs achteraf betaal.</span></label>
+                            </div>
+                            @endif
                             <div class="d-flex mt-2">
-                                <button class="btn btn-primary flex-shrink-0" type="submit"
+
+                                <button class="btn btn-primary flex-shrink-0" type="submit">
+                                    @if($merch->preOrderNeedsPayment || $merch->isPreOrder)
+                                        <i class="fas fa-shopping-basket"></i>
+                                        Pre order
+                                    @else
                                     {{ !$atLeastOneAvailable ? 'disabled' : '' }}>
                                     <i class="fas fa-shopping-basket"></i>
                                     {{ $atLeastOneAvailable ? 'Nu kopen' : 'Helaas is alles uitverkocht!' }}
+                                    @endif
                                 </button>
                             </div>
                         </form>

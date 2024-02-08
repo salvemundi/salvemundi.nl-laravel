@@ -44,13 +44,20 @@
                     </div>
                 </div>
             </div>
-
-            <input @if($merch->isPreOrder) checked @endif class="inp-cbx" id="cbx3" name="isPreOrder" type="checkbox" style="display: none" />
-            <label class="cbx" for="cbx3"><span>
-                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                    </svg></span><span>Dit product is op basis van pre orders.</span></label>
-
+            <div class="input-group mb-3 test">
+                <input @if($merch->isPreOrder) checked @endif class="inp-cbx" id="cbx3" name="isPreOrder" type="checkbox" style="display: none" />
+                <label class="cbx" for="cbx3"><span>
+                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg></span><span>Dit product is op basis van pre orders.</span></label>
+            </div>
+            <div class="input-group mb-3 test">
+                <input @if($merch->preOrderNeedsPayment) checked @endif class="inp-cbx" id="cbx1" name="preOrderNeedsPayment" type="checkbox" style="display: none" />
+                <label class="cbx" for="cbx1"><span>
+                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg></span><span>Pre order betalingen aan / uit.</span></label>
+            </div>
             <div class="form-group">
                 <label for="year">Aantal orders voor pre order notificatie (als de optie hierboven aan staat)*</label>
                 <input class="form-control{{ $errors->has('amountPreOrdersBeforeNotification') ? ' is-invalid' : '' }}" value="{{ old('year') ?? $merch->amountPreOrdersBeforeNotification }}" type="number" min="0" id="price" name="amountPreOrdersBeforeNotification" placeholder="Aantal voor notificatie...">

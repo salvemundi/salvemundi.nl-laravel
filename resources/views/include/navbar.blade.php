@@ -13,11 +13,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/commissies">Commissies</a>
                 </li>
-                @if (session('id') === null)
+                @auth
                     <li class="nav-item">
                         <a class="nav-link" href="/inschrijven">Inschrijven</a>
                     </li>
-                @endif
+                @endauth
                 @if ($introSetting->settingValue === 1)
                     <li class="nav-item">
                         <a class="nav-link" href="https://intro.salvemundi.nl/">Intro</a>
@@ -32,11 +32,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/nieuwsbrief">Nieuwsbrief</a>
                 </li>
-                @if (session('id') !== null)
+                @auth
                     <li class="nav-item">
                         <a class="nav-link" href="/financien">Financiën</a>
                     </li>
-                @endif
+                @endauth
                 <li class="nav-item">
                     <a class="nav-link" href="/bijbaanbank">Bijbanen bank</a>
                 </li>
@@ -46,9 +46,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/stickers">Stickers</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/merch">Merch</a>
-                </li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="/merch">Merch</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="/kroegentocht">Kroegentocht</a>
                 </li>

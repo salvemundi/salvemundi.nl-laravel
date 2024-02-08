@@ -46,7 +46,6 @@ class MerchController extends Controller
 
     public function pickedUpToggle(Request $request): RedirectResponse
     {
-
         foreach (Merch::all() as $merch) {
             foreach ($merch->userOrders as $order) {
                 if ($order->pivot->id == $request->orderId) {
@@ -119,6 +118,7 @@ class MerchController extends Controller
         $merch->price = $request->input('price') ?? 0;
         $merch->discount = $request->input('discount') ?? 0;
         $merch->isPreOrder = $request->input('isPreOrder') ? true : false;
+        $merch->preOrderNeedsPayment = $request->input('preOrderNeedsPayment') ? true : false;
         $merch->amountPreOrdersBeforeNotification = $request->input('amountPreOrdersBeforeNotification') ?? 0;
 
         if ($request->hasFile('filePath')) {
