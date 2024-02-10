@@ -27,26 +27,28 @@
                     <tbody>
                         @foreach ($allMerch as $merch)
                             @foreach ($merch->userOrders as $order)
-                                <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
-                                    <td data-value="{{ $order->getDisplayName() }}">{{ $order->getDisplayName() }}</td>
-                                    <td data-value="{{ $merch->name }}">{{ $merch->name }}</td>
-                                    <td data-value="{{ $order->merch_size_id }}">
-                                        {{ \App\Models\MerchSize::find($order->pivot->merch_size_id)->size }}</td>
-                                    <td data-value="{{ $order->pivot->merch_gender }}">
-                                        {{ \App\Enums\MerchGender::coerce($order->pivot->merch_gender)->description }}</td>
-                                    <td data-value="{{ $order->id }}">
-                                        <form method="post" action="/admin/merch/orders/pickedUp/{{ $order->pivot->id }}">
-                                            @csrf
-                                            @if (!$order->pivot->isPickedUp)
-                                                <button type="submit" class="btn btn-danger"><i
-                                                        class="fas fa-times"></i></button>
-                                            @else
-                                                <button type="submit" class="btn btn-success"><i
-                                                        class="fas fa-check"></i></button>
-                                            @endif
-                                        </form>
-                                    </td>
-                                </tr>
+                                @if(App\Models\Transaction::find($order->pivot->transaction_id)->first()->paymentStatus == App\Enums\PaymentStatus::paid || !$merch->preOrderNeedsPayment)
+                                    <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
+                                        <td data-value="{{ $order->getDisplayName() }}">{{ $order->getDisplayName() }}</td>
+                                        <td data-value="{{ $merch->name }}">{{ $merch->name }}</td>
+                                        <td data-value="{{ $order->merch_size_id }}">
+                                            {{ \App\Models\MerchSize::find($order->pivot->merch_size_id)->size }}</td>
+                                        <td data-value="{{ $order->pivot->merch_gender }}">
+                                            {{ \App\Enums\MerchGender::coerce($order->pivot->merch_gender)->description }}</td>
+                                        <td data-value="{{ $order->id }}">
+                                            <form method="post" action="/admin/merch/orders/pickedUp/{{ $order->pivot->id }}">
+                                                @csrf
+                                                @if (!$order->pivot->isPickedUp)
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fas fa-times"></i></button>
+                                                @else
+                                                    <button type="submit" class="btn btn-success"><i
+                                                            class="fas fa-check"></i></button>
+                                                @endif
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         @endforeach
                     </tbody>

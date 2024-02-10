@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::table('user_merch_transaction', function (Blueprint $table) {
             $table->boolean('isPreOrder')->default(false);
+            $table->unsignedBigInteger('transaction_id')->nullable();
+            $table->foreign('transaction_id')->references('id')->on('transaction');
+
         });
 
         Schema::table('merch', function (Blueprint $table) {
@@ -29,6 +32,8 @@ return new class extends Migration
     {
         Schema::table('user_merch_transaction', function (Blueprint $table) {
             $table->dropColumn('isPreOrder');
+            $table->dropForeign('user_merch_transaction_transaction_id_foreign');
+            $table->dropColumn('transaction_id');
         });
 
         Schema::table('merch', function (Blueprint $table) {
