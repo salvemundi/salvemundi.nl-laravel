@@ -58,6 +58,7 @@ class MerchPaymentController extends Controller
         $this->transaction->save();
         $this->transaction->contribution()->attach($user);
         $this->transaction->merch()->associate($merch);
+        $this->transaction->save();
         $merch->userOrders()->attach($user, ['transaction_id' => $this->transaction->id,'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
     }
 
