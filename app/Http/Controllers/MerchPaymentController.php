@@ -97,9 +97,23 @@ class MerchPaymentController extends Controller
     public function HandlePayment(Request $request): ResponseFactory|Res
     {
         $paymentId = $request->input('id');
+
+        /** @var Payment */
         $payment = Mollie::api()->payments->get($paymentId);
 
-        if ($payment->isPaid()) {
+        $transaction = Transaction::where('transactionId', $payment->id)->first();
+
+        if ($payment->isCanceled()) {
+            $transaction->paymentStatus = paymentStatus::canceled()->value;
+        } elseif ($payment->isFailed()) {
+            $transaction->paymentStatus = paymentStatus::failed()->value;
+        } elseif ($payment->isExpired()) {
+            $transaction->paymentStatus = paymentStatus::expired()->value;
+        } elseif ($payment->isPending()) {
+            $transaction->paymentStatus = paymentStatus::pending()->value;
+        } elseif ($payment->isOpen()) {
+            $transaction->paymentStatus = paymentStatus::open()->value;
+        } elseif ($payment->isPaid()) {
             // Deduce the inventory amount by one.
             $merch = Merch::find($payment->metadata->merchId);
             if (!$merch->isPreOrder) {
@@ -110,11 +124,6 @@ class MerchPaymentController extends Controller
                     ->decrement('amount', 1);
             }
 
-            // Update the payment status
-            $transaction = Transaction::where('transactionId', $payment->id)->first();
-            $transaction->paymentStatus = paymentStatus::paid()->value;
-            $transaction->save();
-
             // send email
             $size = MerchSize::find($payment->metadata->sizeId);
             $merchGender = MerchGender::coerce($payment->metadata->genderId);
@@ -122,8 +131,9 @@ class MerchPaymentController extends Controller
 
             $this->HandleEmail($user, $merch, $size, $merchGender, $transaction);
 
-            return response(null, 200);
         }
+        $transaction->save();
+        return response(null, 200);
     }
 
     private function HandleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction): void

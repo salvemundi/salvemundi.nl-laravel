@@ -27,7 +27,7 @@
                     <tbody>
                         @foreach ($allMerch as $merch)
                             @foreach ($merch->userOrders as $order)
-                                @if(App\Models\Transaction::find($order->pivot->transaction_id)->first()->paymentStatus == App\Enums\PaymentStatus::paid || !$merch->preOrderNeedsPayment)
+                                @if(App\Models\Transaction::find($order->pivot->transaction_id)->paymentStatus == App\Enums\PaymentStatus::paid || !$merch->preOrderNeedsPayment)
                                     <tr id="tr-id-3" class="tr-class-2" data-title="bootstrap table">
                                         <td data-value="{{ $order->getDisplayName() }}">{{ $order->getDisplayName() }}</td>
                                         <td data-value="{{ $merch->name }}">{{ $merch->name }}</td>
