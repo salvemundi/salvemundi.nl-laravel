@@ -13,11 +13,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/commissies">Commissies</a>
                 </li>
-                @auth
+                @guest
                     <li class="nav-item">
                         <a class="nav-link" href="/inschrijven">Inschrijven</a>
                     </li>
-                @endauth
+                @endguest
                 @if ($introSetting->settingValue === 1)
                     <li class="nav-item">
                         <a class="nav-link" href="https://intro.salvemundi.nl/">Intro</a>
@@ -46,11 +46,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/stickers">Stickers</a>
                 </li>
-                @if(\Illuminate\Support\Facades\Auth::check())
+                @auth
                     <li class="nav-item">
                         <a class="nav-link" href="/merch">Merch</a>
                     </li>
-                @endif
+                @endauth
                 <li class="nav-item">
                     <a class="nav-link" href="/kroegentocht">Kroegentocht</a>
                 </li>

@@ -105,7 +105,7 @@ class AuthController extends Controller
           $tokenCache = new TokenCache();
           $tokenCache->storeTokens($accessToken, $user);
           $AzureUser = User::where('AzureID',$user->getId())->first();
-          $AzureUser->api_token = hash('sha256', $accessToken);
+          $AzureUser->api_token = hash('sha256', strval($accessToken));
           $AzureUser->save();
 
           Auth::login($AzureUser);

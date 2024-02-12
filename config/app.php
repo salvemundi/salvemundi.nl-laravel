@@ -13,7 +13,7 @@ return [
     |
     */
     'ngrok_link' => env('NGROK_LINK'),
-    'merch_pre_order_mail_notification' => env('MAIL_NOTIFICATION_MERCH_PREORDER')
+    'merch_pre_order_mail_notification' => env('MAIL_NOTIFICATION_MERCH_PREORDER'),
 
     /*
     |--------------------------------------------------------------------------

@@ -7,6 +7,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 @include('include.messageStatus')
+                @if(isset($product))
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">{!! '<img class="card-img-top mb-5 mb-md-0" src="/' .
                         Thumbnailer::generate('storage/' . str_replace('public/', '', $product->imgPath), '60%') .
@@ -53,6 +54,9 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <h2 class="center">Er is nog geen kroegentocht aangekondigd, probeer het later opnieuw!</h2>
+                @endif
             </div>
         </section>
     </div>

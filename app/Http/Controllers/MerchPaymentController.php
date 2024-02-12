@@ -14,15 +14,11 @@ use App\Models\MerchSize;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as Res;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Response;
 use Mollie\Api\Resources\Payment;
 use Mollie\Laravel\Facades\Mollie;
 
