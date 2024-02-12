@@ -31,50 +31,42 @@ class MerchPaymentController extends Controller
 
     private Transaction $transaction;
 
-
-    public function __construct()
+    public function handlePurchase(Request $request, Transaction $transaction): RedirectResponse
     {
-        $this->transaction = new Transaction();
-    }
-
-    public function HandlePurchase(Request $request): Application|Redirector|\Illuminate\Contracts\Foundation\Application|RedirectResponse
-    {
-        $merch = Merch::find($request->id);
-        $size = MerchSize::find($request->input('merchSize'));
+        $merch = Merch::findOrFail($request->id);
+        $size = MerchSize::findOrFail($request->input('merchSize'));
         $gender = MerchGender::coerce((int)$request->input('gender'));
-        if ($merch == null || $size == null) return back()->with('error', 'Het item wat u probeert te kopen bestaat niet in ons systeem');
+        $user = Auth::user();
         if ($merch->isPreOrder || $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0) {
+            $this->saveData($merch, $size, $gender, $transaction, $user);
             if($merch->preOrderNeedsPayment) {
-                return redirect($this->CreatePayment($merch, $size, $gender)->getCheckoutUrl());
+                return redirect($this->createPayment($merch, $size, $gender, $transaction, $user)->getCheckoutUrl());
             } else {
-                return $this->HandlePreOrder($merch, $size, $gender);
+                return $this->handlePreOrder($merch, $size, $gender, $transaction);
             }
         } else {
             return back()->with('error', 'Dit item is intussen helaas niet meer op voorraad.');
         }
     }
 
-    private function SaveData(Merch $merch, MerchSize $merchSize, MerchGender $gender): void {
-        $user = Auth::user();
-        $this->transaction->amount = $merch->calculateDiscount();
-        $this->transaction->save();
-        $this->transaction->contribution()->attach($user);
-        $this->transaction->merch()->associate($merch);
-        $this->transaction->save();
+    private function saveData(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): void {
+        $transaction->amount = $merch->calculateDiscount();
+        $transaction->save();
+        $transaction->contribution()->attach($user);
+        $transaction->merch()->associate($merch);
+        $transaction->save();
         $merch->userOrders()->attach($user, ['transaction_id' => $this->transaction->id,'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
     }
 
-    private function HandlePreOrder(Merch $merch, MerchSize $merchSize, MerchGender $gender){
-        $this->SaveData($merch, $merchSize, $gender);
-        $this->HandleEmail(Auth::user(), $merch, $merchSize, $gender, $this->transaction);
+    private function handlePreOrder(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction): RedirectResponse
+    {
+        $this->handleEmail(Auth::user(), $merch, $merchSize, $gender, $transaction);
         return back()->with('success','Je pre order is geregistreerd!');
 
     }
 
-    private function CreatePayment(Merch $merch, MerchSize $merchSize, MerchGender $gender): Payment
+    private function createPayment(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): Payment
     {
-        $user = Auth::user();
-        $this->SaveData($merch, $merchSize, $gender);
         $priceFormatted = number_format($merch->calculateDiscount(), 2, '.', '');
         $payment = Mollie::api()->payments()->create([
             "amount" => [
@@ -89,14 +81,14 @@ class MerchPaymentController extends Controller
                 "sizeId" => $merchSize->id,
                 "genderId" => $gender->value
             ],
-            "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK') . "/webhooks/mollie/merch" : route('webhooks.mollie.merch'),
+            "webhookUrl" => config('app.ngrok_link') ? config('app.ngrok_link') . "/webhooks/mollie/merch" : route('webhooks.mollie.merch'),
         ]);
-        $this->transaction->transactionId = $payment->id;
-        $this->transaction->save();
+        $transaction->transactionId = $payment->id;
+        $transaction->save();
         return $payment;
     }
 
-    public function HandlePayment(Request $request): ResponseFactory|Res
+    public function handlePayment(Request $request): ResponseFactory|Res
     {
         $paymentId = $request->input('id');
 
@@ -135,11 +127,11 @@ class MerchPaymentController extends Controller
         $merchGender = MerchGender::coerce($payment->metadata->genderId);
         $user = User::find($payment->metadata->userId);
 
-        $this->HandleEmail($user, $merch, $size, $merchGender, $transaction);
+        $this->handleEmail($user, $merch, $size, $merchGender, $transaction);
         return;
     }
 
-    private function HandleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction): void
+    private function handleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction): void
     {
 
         if(!$merch->isPreOrder) {
@@ -149,7 +141,7 @@ class MerchPaymentController extends Controller
         }
 
         if ($merch->transactions->where('paymentStatus', paymentStatus::paid)->count() % (int)$merch->amountPreOrdersBeforeNotification == 0) {
-            Mail::to(explode(',', env('MAIL_NOTIFICATION_MERCH_PREORDER')))->send(new MerchMinimumPreOrdersReached($merch));
+            Mail::to(explode(',', config('app.merch_pre_order_mail_notification')))->send(new MerchMinimumPreOrdersReached($merch));
         }
         return;
     }
