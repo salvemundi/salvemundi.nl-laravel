@@ -1,6 +1,7 @@
 <?php
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 

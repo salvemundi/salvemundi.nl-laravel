@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -127,7 +128,7 @@ class ActivitiesController extends Controller {
         $products->startDate = $request->input('startDate') ? new DateTime($request->input('startDate'), new \DateTimeZone('Europe/Amsterdam')) : null;
         $products->endDate = $request->input('endDate') ? new DateTime($request->input('endDate'), new \DateTimeZone('Europe/Amsterdam')): null;
         $products->save();
-        
+
         if($request->input('cbxGroup') && $request->input('associationName')) {
             foreach ($request->input('associationName') as $key => $item) {
                 $association = ActivityAssociation::firstOrNew(['name' => $item]);
