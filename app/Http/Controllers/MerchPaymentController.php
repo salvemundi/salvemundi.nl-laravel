@@ -33,36 +33,44 @@ class MerchPaymentController extends Controller
 
     public function handlePurchase(Request $request, Transaction $transaction): RedirectResponse
     {
+        $request->validate([
+            'id' => 'required|integer',
+            'merchSize' => 'required|integer',
+            'gender' => 'required|integer',
+        ]);
+
         $merch = Merch::findOrFail($request->id);
         $size = MerchSize::findOrFail($request->input('merchSize'));
         $gender = MerchGender::coerce((int)$request->input('gender'));
         $user = Auth::user();
-        if ($merch->isPreOrder || $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0) {
+
+        $isInStock = $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0;
+        if ($merch->isPreOrder || $isInStock) {
             $this->saveData($merch, $size, $gender, $transaction, $user);
-            if($merch->preOrderNeedsPayment) {
+            if ($merch->preOrderNeedsPayment) {
                 return redirect($this->createPayment($merch, $size, $gender, $transaction, $user)->getCheckoutUrl());
             } else {
-                return $this->handlePreOrder($merch, $size, $gender, $transaction);
+                return $this->handlePreOrder($merch, $size, $gender, $transaction, $user);
             }
         } else {
-            return back()->with('error', 'Dit item is intussen helaas niet meer op voorraad.');
+            return back()->with('error', __('Dit item is intussen helaas niet meer op voorraad.'));
         }
     }
 
-    private function saveData(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): void {
+    private function saveData(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): void
+    {
         $transaction->amount = $merch->calculateDiscount();
         $transaction->save();
         $transaction->contribution()->attach($user);
         $transaction->merch()->associate($merch);
         $transaction->save();
-        $merch->userOrders()->attach($user, ['transaction_id' => $this->transaction->id,'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
+        $merch->userOrders()->attach($user, ['transaction_id' => $this->transaction->id, 'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
     }
 
-    private function handlePreOrder(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction): RedirectResponse
+    private function handlePreOrder(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): RedirectResponse
     {
-        $this->handleEmail(Auth::user(), $merch, $merchSize, $gender, $transaction);
-        return back()->with('success','Je pre order is geregistreerd!');
-
+        $this->handleEmail($user, $merch, $merchSize, $gender, $transaction);
+        return back()->with('success', 'Je pre order is geregistreerd!');
     }
 
     private function createPayment(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): Payment
@@ -111,7 +119,8 @@ class MerchPaymentController extends Controller
         return response(null, 200);
     }
 
-    private function isPaid(Payment $payment, Transaction $transaction): void {
+    private function isPaid(Payment $payment, Transaction $transaction): void
+    {
         // Deduce the inventory amount by one.
         $merch = Merch::find($payment->metadata->merchId);
         if (!$merch->isPreOrder) {
@@ -134,7 +143,7 @@ class MerchPaymentController extends Controller
     private function handleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction): void
     {
 
-        if(!$merch->isPreOrder) {
+        if (!$merch->isPreOrder) {
             Mail::to($user)->send(new MerchOrderPaid($user, $merch, $size, $merchGender, $transaction));
         } else {
             Mail::to($user)->send(new MerchPreOrderReceived($user, $merch, $size, $merchGender, $transaction));
