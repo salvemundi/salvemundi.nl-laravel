@@ -14,6 +14,7 @@ use DateTime;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ use Illuminate\Routing\Redirector;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
 
 class ActivitiesController extends Controller {
 
@@ -60,7 +60,7 @@ class ActivitiesController extends Controller {
         return view('admin/activities', ['activities' => $activities, 'tags' => CommitteeTags::all()]);
     }
 
-    public function getActivities(): \Illuminate\Database\Eloquent\Collection|array
+    public function getActivities(): Collection|array
     {
         return Product::with('transactions')->whereHas('payment', function (Builder $query) {
             return $query->where('paymentStatus', PaymentStatus::paid);
