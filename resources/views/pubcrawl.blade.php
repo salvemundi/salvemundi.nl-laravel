@@ -17,7 +17,7 @@
 
                         <form method="POST" action="/activiteiten/signup">
                             @csrf
-                            <input type="hidden" name="activityId" id="activityId" value="{{ $product->id }}">
+                            <input type="hidden" required name="activityId" id="activityId" value="{{ $product->id }}">
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control" required name="email">
                                 <label for="amountOfTickets" class="form-label">Aantal
