@@ -73,8 +73,8 @@ class CalendarController extends Controller
         return Event::create()
             ->name($eventData->title ?: $eventData->name)
             ->description(preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n",$eventData->description))
-            ->startsAt(new DateTime($eventData->startDate,new \DateTimeZone('Europe/Amsterdam')))
-            ->endsAt(new DateTime($eventData->endDate,new \DateTimeZone('Europe/Amsterdam')));
+            ->startsAt(new DateTime(strval($eventData->startDate),new \DateTimeZone('Europe/Amsterdam')))
+            ->endsAt(new DateTime(strval($eventData->endDate),new \DateTimeZone('Europe/Amsterdam')));
     }
 
     public function admin(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
