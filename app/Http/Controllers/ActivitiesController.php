@@ -226,11 +226,8 @@ class ActivitiesController extends Controller {
 
         // Group signups
         if($activity->isGroupSignup) {
-            if(Auth::check()) {
-                $user = Auth::user();
-            }  else {
-                $user = null;
-            }
+            // This is intentional, do not touch :D
+            $user = null;
             if($request->input('amountOfTickets') > $activity->maxTicketOrderAmount) {
                 return back()->with('error','Maximum signups per round exceeded');
             }
