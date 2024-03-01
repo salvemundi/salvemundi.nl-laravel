@@ -18,11 +18,9 @@
                         <form method="POST" action="/activiteiten/signup">
                             @csrf
                             <input type="hidden" name="activityId" id="activityId" value="{{ $product->id }}">
-                            @if (!\Illuminate\Support\Facades\Auth::check())
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" required name="email">
-                            @endif
-                            <label for="amountOfTickets" class="form-label">Aantal
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" required name="email">
+                                <label for="amountOfTickets" class="form-label">Aantal
                                 Tickets</label>
                             <input required type="number" min="1"
                                 @if ($product->maxTicketOrderAmount > 0) max="{{ $product->maxTicketOrderAmount }}"
