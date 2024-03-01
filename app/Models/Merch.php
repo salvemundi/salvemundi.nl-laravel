@@ -14,7 +14,7 @@ class Merch extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'merch';
-
+    protected $fillable = ['isPreOrder', 'amountPreOrdersBeforeNotification'];
     public bool $isNew;
 
     public function __construct(array $attributes = [])
@@ -23,7 +23,8 @@ class Merch extends Model
         $this->isNew = $this->calculateIsNew();
     }
 
-    public function calculateDiscount(): float {
+    public function calculateDiscount(): float
+    {
         return $this->price - $this->discount;
     }
 
@@ -39,13 +40,12 @@ class Merch extends Model
 
     public function merchSizes(): BelongsToMany
     {
-        return $this->belongsToMany
-        (
+        return $this->belongsToMany(
             MerchSize::class,
             'merch_sizes_rel',
             'merch_id',
             'size_id'
-        )->withPivot(['amount','merch_gender']);
+        )->withPivot(['amount', 'merch_gender']);
     }
 
     public function availableGendersAndSizes()
@@ -60,18 +60,16 @@ class Merch extends Model
 
     public function merchColor(): BelongsToMany
     {
-        return $this->belongsToMany
-        (
+        return $this->belongsToMany(
             MerchColor::class,
             'merch_color_rel',
             'merch_id',
             'color_id'
         );
     }
-    public function tranactions(): hasMany
+    public function transactions(): hasMany
     {
-        return $this->hasMany
-        (
+        return $this->hasMany(
             Transaction::class,
             'merchId',
             'id'
@@ -79,14 +77,11 @@ class Merch extends Model
     }
     public function userOrders(): BelongsToMany
     {
-        return $this->belongsToMany
-        (
+        return $this->belongsToMany(
             User::class,
             'user_merch_transaction',
             'merch_id',
             'user_id'
-        )->withPivot(['merch_gender','merch_size_id','id','isPickedUp']);
+        )->withPivot(['transaction_id', 'merch_gender', 'merch_size_id', 'id', 'isPickedUp']);
     }
-
-
 }

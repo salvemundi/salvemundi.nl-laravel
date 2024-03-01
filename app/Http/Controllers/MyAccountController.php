@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -36,8 +37,8 @@ class MyAccountController extends Controller
         $planCommissieLid = paymentType::fromValue(1);
 
         $plan = paymentType::fromValue(2);
-        $name = ucfirst($plan) . ' membership';
-        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+        $name = ucfirst(strval($plan->value)) . ' membership';
+        $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
         if ($user->subscribed($name,$plan->key) || $user->subscribed($nameCommissieLid,$planCommissieLid->key)) {
             $status = 1;
         }
