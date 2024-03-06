@@ -250,8 +250,8 @@ class AdminController extends Controller
         {
             $planCommissieLid = paymentType::fromValue(1);
             $plan = paymentType::fromValue(2);
-            $name = ucfirst($plan) . ' membership';
-            $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+            $name = ucfirst(strval($plan)) . ' membership';
+            $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
             if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
             {
                 $userCollectionPaid->push($userObject);

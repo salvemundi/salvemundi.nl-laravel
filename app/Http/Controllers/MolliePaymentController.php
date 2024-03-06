@@ -142,7 +142,7 @@ class MolliePaymentController extends Controller
         if($isSubscription)
         {
             $plan = paymentType::fromValue(2);
-            $name = ucfirst($plan) . ' membership';
+            $name = ucfirst(strval($plan)) . ' membership';
             if ($coupon != null){
                 return $userObject->newSubscription($name,'contribution')->withCoupon($coupon)->create();
             } else{
@@ -247,7 +247,7 @@ class MolliePaymentController extends Controller
     {
         $user = Auth::user();
         $plan = paymentType::fromValue(3);
-        $name = ucfirst($plan) . ' membership';
+        $name = ucfirst(strval($plan)) . ' membership';
         if($user->subscribed($name, $plan->key))
         {
             $user->subscription($name,$plan->key)->cancel();
