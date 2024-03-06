@@ -190,7 +190,7 @@ class MolliePaymentController extends Controller
     {
         $user = Auth::user();
         $plan = paymentType::fromValue($plan);
-        $name = ucfirst($plan) . ' membership';
+        $name = ucfirst(strval($plan)) . ' membership';
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
