@@ -134,7 +134,7 @@ class AzureController extends Controller
         return $randomPass;
     }
 
-    public static function fetchSpecificUser($userId)
+    public static function fetchSpecificUser($userId): bool
     {
         $graph = AzureController::connectToAzure();
 

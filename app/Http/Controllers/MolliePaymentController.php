@@ -29,54 +29,27 @@ use Laravel\Cashier\Exceptions;
 
 class MolliePaymentController extends Controller
 {
-    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null,User $userObject = null, $email = null, $nameNotMember = null, $groupSignupPrice = null, $groupId = null): RedirectResponse
+    public static function processRegistration($orderObject, $productIndex, $route = null, $coupon = null, User $userObject = null, $email = null, $nameNotMember = null, $groupSignupPrice = null, $groupId = null): RedirectResponse
     {
         if($productIndex == paymentType::contribution){
-            $checkIfUserExists = User::where([
-                ['FirstName', $orderObject->firstName],
-                ['LastName', $orderObject->lastName]
-                ])->first();
-
-            $newUser = new User;
-            $firstName = str_replace(' ', '_', $orderObject->firstName);
-            $lastName = str_replace(' ', '_', $orderObject->lastName);
-            if($orderObject->insertion == null || $orderObject->insertion == "") {
-                $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
-                if($checkIfUserExists == null){
-                    $newUser->email = $firstName.".".$lastName."@lid.salvemundi.nl";
-                } else {
-                    $birthDayDay = date("d", strtotime($orderObject->birthday));
-                    $newUser->email = $firstName.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
-                }
-            } else {
-                $newUser->DisplayName = $orderObject->firstName." ".$orderObject->insertion." ".$orderObject->lastName;
-                $insertion = str_replace(' ', '.', $orderObject->insertion);
-                if($checkIfUserExists == null){
-                    $newUser->email = $firstName.".".$insertion.".".$lastName."@lid.salvemundi.nl";
-                } else {
-                    $birthDayDay = date("d", strtotime($orderObject->birthday));
-                    $newUser->email = $firstName.".".$insertion.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
-                }
-            }
-            $newUser->FirstName = $orderObject->firstName;
-            $newUser->LastName = $orderObject->lastName;
-            $newUser->phoneNumber = $orderObject->phoneNumber;
-
-            $newUser->ImgPath = "images/logo.svg";
-            $newUser->birthday = date("Y-m-d", strtotime($orderObject->birthday));
-            $newUser->save();
-            $newUser->inschrijving()->save($orderObject);
-            $newUser->save();
+            $newUser = User::firstOrCreate(
+                ['FirstName' => $orderObject->firstName, 'LastName' => $orderObject->lastName],
+                ['DisplayName' => $orderObject->firstName." ".$orderObject->insertion." ".$orderObject->lastName,
+                    'email' => str_replace(' ', '_', $orderObject->firstName).".".str_replace(' ', '.', $orderObject->insertion).".".str_replace(' ', '_', $orderObject->lastName)."@lid.salvemundi.nl",
+                    'phoneNumber' => $orderObject->phoneNumber,
+                    'ImgPath' => "images/logo.svg",
+                    'birthday' => date("Y-m-d", strtotime($orderObject->birthday))]);
 
             $getProductObject = Product::where('index', paymentType::contribution)->first();
-            $transaction = new Transaction();
-            $transaction->amount = $getProductObject->amount;
+            $transaction = new Transaction(['amount' => $getProductObject->amount]);
             $transaction->product()->associate($getProductObject);
             $transaction->save();
+
             $newUser->payment()->attach($transaction);
-            $newUser->save();
+            $newUser->inschrijving()->save($orderObject);
             $orderObject->payment()->associate($transaction);
             $orderObject->save();
+
             if($coupon != null){
                 $couponObject = Coupon::where('name',$coupon)->first();
                 $transaction->coupon()->associate($couponObject);
@@ -87,36 +60,16 @@ class MolliePaymentController extends Controller
             }
             return $createPayment;
         } else{
-            if($route === null) {
-                $route = env("APP_URL");
-            }
+            $route = $route ?? env("APP_URL");
             $createPayment = MolliePaymentController::preparePayment($orderObject->id, $userObject, $route, null, $email, $nameNotMember, false, $groupSignupPrice);
             if($createPayment === null) {
-                if($route === null) {
-                    return redirect('/');
-                } else {
-                    return redirect($route);
-                }
+                return redirect($route);
             } else {
-                $getProductObject = Product::find($orderObject->id);
-                if($getProductObject == null)
-                {
-                    $getProductObject = Product::where('index', $productIndex)->first();
-                }
-                $transaction = new Transaction();
-                if($email != null && $nameNotMember != null){
-                    $transaction->name = $nameNotMember;
-                    $transaction->email = $email;
-                    $transaction->amount = $getProductObject->amount_non_member;
-                } else {
-                    $transaction->amount = $getProductObject->amount;
-                }
-
-
-                $transaction->transactionId = $createPayment->id;
-
+                $getProductObject = Product::find($orderObject->id) ?? Product::where('index', $productIndex)->first();
+                $transaction = new Transaction(['amount' => $email != null && $nameNotMember != null ? $getProductObject->amount_non_member : $getProductObject->amount, 'transactionId' => $createPayment->id]);
                 $transaction->product()->associate($getProductObject);
                 $transaction->save();
+
                 if($getProductObject->isGroupSignup) {
                     foreach(NonUserActivityParticipant::where('groupId', $groupId)->get() as $participant) {
                         $participant->transaction()->associate($transaction)->save();
@@ -124,7 +77,6 @@ class MolliePaymentController extends Controller
                 }
                 if($userObject != null){
                     $userObject->payment()->attach($transaction);
-                    $userObject->save();
                 }
                 return redirect()->away($createPayment->getCheckoutUrl(), 303);
             }
