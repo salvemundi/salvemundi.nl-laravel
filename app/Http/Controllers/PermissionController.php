@@ -63,12 +63,24 @@ class PermissionController extends Controller
 
     private function getPermissionsUserDoesNotHave(User $user): Collection
     {
-        return Permission::all()->diff($user->permissions);
+        $permissions = [];
+        foreach(Permission::all() as $permission){
+            if(!$user->permissions->contains($permission)){
+                array_push($permissions,$permission);
+            }
+        }
+        return collect($permissions);
     }
 
     private function getPermissionsGroupDoesNotHave(Commissie $commissie): Collection
     {
-        return Permission::all()->diff($commissie->permissions);
+        $permissions = [];
+        foreach(Permission::all() as $permission){
+            if(!$commissie->permissions->contains($permission)){
+                array_push($permissions,$permission);
+            }
+        }
+        return collect($permissions);
     }
 
     public function savePermissionUser(Request $request): RedirectResponse

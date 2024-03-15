@@ -10,9 +10,7 @@ use App\Models\Rules;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use DB;
@@ -33,39 +31,44 @@ class MyAccountController extends Controller
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
-        $plan = paymentType::fromValue(2);
+        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
+        $status = 0;
+        $expiryDate = null;
         $planCommissieLid = paymentType::fromValue(1);
 
-        $status = $user->subscribed(ucfirst(strval($plan->value)) . ' membership', $plan->key)
-        || $user->subscribed(ucfirst(strval($planCommissieLid)) . ' membership', $planCommissieLid->key)
-            ? 1 : 0;
+        $plan = paymentType::fromValue(2);
+        $name = ucfirst(strval($plan->value)) . ' membership';
+        $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
+        if ($user->subscribed($name,$plan->key) || $user->subscribed($nameCommissieLid,$planCommissieLid->key)) {
+            $status = 1;
+        }
 
-        $expiryDate = Subscription::where('owner_id', $user->id)->latest()->first()?->cycle_ends_at;
+        $subscription = Subscription::where('owner_id',$user->id)->latest()->first();
+        if ($subscription != null) {
+            $expiryDate = $subscription->cycle_ends_at;
+        }
 
-        return view('mijnAccount', [
-            'user' => $user,
-            'authorized' => $this->permissionController->checkIfUserIsAdmin($user),
-            'whatsapplink' => WhatsappLink::all(),
-            'subscriptionActive' => $status,
-            'transactions' => $user->payment()->withTrashed()->get(),
-            'rules' => Rules::all(),
-            'expiryDate' => $expiryDate
-        ]);
+        $whatsappLinks = WhatsappLink::all();
+        $rules = Rules::all();
+
+        return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment()->withTrashed()->get(), 'rules' => $rules, 'expiryDate' => $expiryDate]);
     }
 
-    public function deletePicture(): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
-    {
-        $loggedInUser = Auth::user()->update(['ImgPath' => "images/logo.svg"]);
+    public function deletePicture() {
+        $loggedInUser = Auth::user();
+        $loggedInUser->ImgPath = "images/logo.svg";
+        $loggedInUser->save();
 
         if (!AzureController::updateProfilePhoto($loggedInUser)) {
             return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw');
         }
 
-        return redirect('/mijnAccount')->with('message', 'Je instellingen zijn bijgewerkt.');
+        $message = 'Je instellingen zijn bijgewerkt.';
+
+        return redirect('/mijnAccount')->with('message', $message);
     }
 
-    public function savePreferences(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
-    {
+    public function savePreferences(Request $request) {
         $request->validate([
             'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
             'minecraft' => 'regex:/^[a-zA-Z0-9_]{3,16}$/'
@@ -73,10 +76,31 @@ class MyAccountController extends Controller
 
         $user = User::find($request->input('user_id'));
 
-        $user->visibility = $request->input('cbx') ? 1 : 0;
-        $user->birthday = $request->input('birthday') ? date("Y-m-d", strtotime($request->input('birthday'))) : $user->birthday;
-        $user->PhoneNumber = $request->input('phoneNumber') ?? $user->PhoneNumber;
-        $user->minecraftUsername = $request->input('minecraft') ?? $user->minecraftUsername;
+        if ($request->input('cbx')) {
+            $user->visibility = 1;
+            $message = 'Je bent nu te zien op de website';
+        }
+        else {
+            $user->visibility = 0;
+            $message = 'Je bent nu niet meer te zien op de website';
+        }
+        $user->save();
+
+        if ($request->input('birthday') != null) {
+            $user->birthday = $request->input('birthday');
+            $user->birthday = date("Y-m-d", strtotime($user->birthday));
+        }
+        $user->save();
+
+        if ($request->input('phoneNumber') != null) {
+            $user->PhoneNumber = $request->input('phoneNumber');
+        }
+        $user->save();
+
+        if($request->input('minecraft') != null) {
+            $user->minecraftUsername = $request->input('minecraft');
+        }
+
 
         if ($request->file('photo') != null) {
             $request->file('photo')->storeAs('public/users/',$user->AzureID);
@@ -86,9 +110,10 @@ class MyAccountController extends Controller
                 return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
             }
         }
-
         $user->save();
 
-        return redirect('/mijnAccount')->with('message', 'Je instellingen zijn bijgewerkt.');
+        $message = 'Je instellingen zijn bijgewerkt.';
+
+        return redirect('/mijnAccount')->with('message', $message);
     }
 }
