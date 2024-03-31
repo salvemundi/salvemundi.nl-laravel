@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +33,12 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        $this->reportable(function (ModelNotFoundException $e, $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Resource not found'], 404);
+            }
+
+            return back()->with('error','Het item wat we proberen te vinden bestaat niet, probeer het later of probeer Quint lastig te vallen!');
+        });
     }
 }

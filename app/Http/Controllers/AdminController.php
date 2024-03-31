@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -103,8 +104,8 @@ class AdminController extends Controller
     {
         $plan = paymentType::fromValue(2);
         $planCommissieLid = paymentType::fromValue(1);
-        $name = ucfirst($plan) . ' membership';
-        $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+        $name = ucfirst(strval($plan)) . ' membership';
+        $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
         $count = 0;
         foreach(User::all() as $user)
         {
@@ -221,8 +222,8 @@ class AdminController extends Controller
         {
             $planCommissieLid = paymentType::fromValue(1);
             $plan = paymentType::fromValue(2);
-            $name = ucfirst($plan) . ' membership';
-            $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+            $name = ucfirst(strval($plan)) . ' membership';
+            $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
             if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
             {
                 $userCollectionPaid->push($userObject);
@@ -249,8 +250,8 @@ class AdminController extends Controller
         {
             $planCommissieLid = paymentType::fromValue(1);
             $plan = paymentType::fromValue(2);
-            $name = ucfirst($plan) . ' membership';
-            $nameCommissieLid = ucfirst($planCommissieLid) . ' membership';
+            $name = ucfirst(strval($plan)) . ' membership';
+            $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
             if($userObject->subscribed($name,$plan->key) || $userObject->subscribed($nameCommissieLid,$planCommissieLid->key))
             {
                 $userCollectionPaid->push($userObject);

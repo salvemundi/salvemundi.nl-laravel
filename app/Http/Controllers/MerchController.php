@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -23,10 +24,10 @@ class MerchController extends Controller
     {
         $merch = Merch::find($request->id);
 
-        if($merch == null) {
-            return back()->with('error','Merch item not found.');
+        if ($merch == null) {
+            return back()->with('error', 'Merch item not found.');
         }
-        return view('merchSingleProduct',['merch' => $merch,'sizes' => MerchSize::all()]);
+        return view('merchSingleProduct', ['merch' => $merch, 'sizes' => MerchSize::all()]);
     }
 
     public function adminView(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -36,26 +37,25 @@ class MerchController extends Controller
 
     public function adminEditView(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('admin.merchEdit',['merch' => Merch::find($request->id)]);
+        return view('admin.merchEdit', ['merch' => Merch::find($request->id)]);
     }
 
     public function adminAllOrders(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('admin.merchAllOrders',['allMerch' => Merch::all()]);
+        return view('admin.merchAllOrders', ['allMerch' => Merch::all()]);
     }
 
     public function pickedUpToggle(Request $request): RedirectResponse
     {
-
-        foreach(Merch::all() as $merch) {
-            foreach($merch->userOrders as $order) {
-                if($order->pivot->id == $request->orderId) {
+        foreach (Merch::all() as $merch) {
+            foreach ($merch->userOrders as $order) {
+                if ($order->pivot->id == $request->orderId) {
                     $order->pivot->isPickedUp = !$order->pivot->isPickedUp;
                     $order->pivot->save();
                 }
             }
         }
-        return back()->with('succes','Order status is bijgewerkt!');
+        return back()->with('succes', 'Order status is bijgewerkt!');
     }
 
     public function viewInventory(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -63,7 +63,7 @@ class MerchController extends Controller
         $merch = Merch::find($request->id);
         $merchSizes = MerchSize::all();
 
-        return view('admin.merchInventory',['merch' => $merch,'allSizes' => $merchSizes]);
+        return view('admin.merchInventory', ['merch' => $merch, 'allSizes' => $merchSizes]);
     }
 
     public function storeSize(Request $request): RedirectResponse
@@ -79,21 +79,21 @@ class MerchController extends Controller
             ->where('merch_gender', $request->genderId)
             ->update(['amount' => $request->input('amount')]);
 
-        return back()->with('success','Aantal opgeslagen!');
+        return back()->with('success', 'Aantal opgeslagen!');
     }
 
     public function attachSize(Request $request): RedirectResponse
     {
         $merch = Merch::find($request->id);
-        foreach($merch->merchSizes as $size){
-            if($size->id == $request->id && $size->pivot->merch_gender == $request->input('gender')){
-                return back()->with('error','Deze maat wordt al bijgehouden voor dit product.');
+        foreach ($merch->merchSizes as $size) {
+            if ($size->id == $request->id && $size->pivot->merch_gender == $request->input('gender')) {
+                return back()->with('error', 'Deze maat wordt al bijgehouden voor dit product.');
             }
         }
 
-        $merch->merchSizes()->attach($request->input('size'), ['amount'=> $request->input('amount'),'merch_gender' => MerchGender::coerce((int)$request->input('gender'))->value]);
+        $merch->merchSizes()->attach($request->input('size'), ['amount' => $request->input('amount'), 'merch_gender' => MerchGender::coerce((int)$request->input('gender'))->value]);
 
-        return back()->with('success','Inventaris opgeslagen!');
+        return back()->with('success', 'Inventaris opgeslagen!');
     }
 
     public function deleteSize(Request $request): RedirectResponse
@@ -102,7 +102,7 @@ class MerchController extends Controller
         $merch->merchSizes()->wherePivot('size_id', (int)$request->sizeId)->wherePivot('merch_gender', (int)$request->genderId)->detach();
 
 
-        return back()->with('success','Inventaris bijgewerkt!');
+        return back()->with('success', 'Inventaris bijgewerkt!');
     }
 
     public function store(Request $request): RedirectResponse
@@ -118,6 +118,9 @@ class MerchController extends Controller
         $merch->description = $request->input('description');
         $merch->price = $request->input('price') ?? 0;
         $merch->discount = $request->input('discount') ?? 0;
+        $merch->isPreOrder = $request->input('isPreOrder') ? true : false;
+        $merch->preOrderNeedsPayment = $request->input('preOrderNeedsPayment') ? true : false;
+        $merch->amountPreOrdersBeforeNotification = $request->input('amountPreOrdersBeforeNotification') ?? 0;
 
         if ($request->hasFile('filePath')) {
             $merch->imgPath = $request->file('filePath')->store('public/merch');
@@ -134,6 +137,6 @@ class MerchController extends Controller
     {
         Merch::find($request->id)->delete();
 
-        return back()->with('succes','Merch is verwijderd!');
+        return back()->with('succes', 'Merch is verwijderd!');
     }
 }

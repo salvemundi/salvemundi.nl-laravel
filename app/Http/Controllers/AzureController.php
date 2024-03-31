@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -133,7 +134,7 @@ class AzureController extends Controller
         return $randomPass;
     }
 
-    public static function fetchSpecificUser($userId)
+    public static function fetchSpecificUser($userId): bool
     {
         $graph = AzureController::connectToAzure();
 

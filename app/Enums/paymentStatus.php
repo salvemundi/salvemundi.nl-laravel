@@ -22,4 +22,12 @@ final class paymentStatus extends Enum
     const canceled = 4;
     const expired = 5;
     const pending = 6;
+
+    // Mollie compatability
+    const isCanceled = 4;
+    const isFailed = 3;
+    const isExpired = 5;
+    const isPending = 6;
+    const isOpen = 2;
+    const isPaid = 1;
 }

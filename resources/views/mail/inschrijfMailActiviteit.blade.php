@@ -1,13 +1,19 @@
 @component('mail::message')
-    Beste,
+Beste,
 
-    Bedankt voor het inschrijven voor {{ $activity }}!
+Bedankt voor het inschrijven voor {{ $activity }}!
 
-    We hopen je te ontvangen op de aangegeven tijden.
+We hopen je te ontvangen op de aangegeven tijden.
 
-    Met vriendelijke groet,
+@if($productObject->isGroupSignup)
 
-    Salve Mundi<br>
-    Rachelsmolen 1<br>
-    5612 MA Eindhoven
+Join de whatsapp community en join je groepje!
+https://chat.whatsapp.com/IqXMe1y04YvHgQSgfGquY4
+
+@endif
+Met vriendelijke groet,
+
+Salve Mundi <br>
+Rachelsmolen 1 <br>
+5612 MA Eindhoven
 @endcomponent

@@ -7,6 +7,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 @include('include.messageStatus')
+                @if(isset($product))
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">{!! '<img class="card-img-top mb-5 mb-md-0" src="/' .
                         Thumbnailer::generate('storage/' . str_replace('public/', '', $product->imgPath), '60%') .
@@ -16,12 +17,10 @@
 
                         <form method="POST" action="/activiteiten/signup">
                             @csrf
-                            <input type="hidden" name="activityId" id="activityId" value="{{ $product->id }}">
-                            @if (!\Illuminate\Support\Facades\Auth::check())
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" required name="email">
-                            @endif
-                            <label for="amountOfTickets" class="form-label">Aantal
+                            <input type="hidden" required name="activityId" id="activityId" value="{{ $product->id }}">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" required name="email">
+                                <label for="amountOfTickets" class="form-label">Aantal
                                 Tickets</label>
                             <input required type="number" min="1"
                                 @if ($product->maxTicketOrderAmount > 0) max="{{ $product->maxTicketOrderAmount }}"
@@ -53,6 +52,9 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <h2 class="center">Er is nog geen kroegentocht aangekondigd, probeer het later opnieuw!</h2>
+                @endif
             </div>
         </section>
     </div>

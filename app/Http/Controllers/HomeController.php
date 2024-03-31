@@ -1,6 +1,7 @@
 <?php
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -30,7 +31,7 @@ class HomeController extends Controller
     if(Auth::check())
     {
       $user = Auth::user();
-      if (date("m-d", strtotime($user->birthday)) == date("m-d", strtotime(Carbon::now()->toDateString())))
+      if ($user->birthday != null && date("m-d", strtotime($user->birthday)) == date("m-d", strtotime(Carbon::now()->toDateString())))
       {
         $bday = true;
       }

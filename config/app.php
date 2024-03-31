@@ -4,6 +4,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Salve Mundi specific settings
+    |--------------------------------------------------------------------------
+    |
+    | The following values are using in various parts of the application
+    | and are specific to the salvemundi.nl project.
+    | Please use the env file to define these values.
+    |
+    */
+    'ngrok_link' => env('NGROK_LINK'),
+    'merch_pre_order_mail_notification' => env('MAIL_NOTIFICATION_MERCH_PREORDER'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
     |

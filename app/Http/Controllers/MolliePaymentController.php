@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -34,7 +35,7 @@ class MolliePaymentController extends Controller
             $checkIfUserExists = User::where([
                 ['FirstName', $orderObject->firstName],
                 ['LastName', $orderObject->lastName]
-                ])->first();
+            ])->first();
 
             $newUser = new User;
             $firstName = str_replace(' ', '_', $orderObject->firstName);
@@ -141,7 +142,7 @@ class MolliePaymentController extends Controller
         if($isSubscription)
         {
             $plan = paymentType::fromValue(2);
-            $name = ucfirst($plan) . ' membership';
+            $name = ucfirst(strval($plan)) . ' membership';
             if ($coupon != null){
                 return $userObject->newSubscription($name,'contribution')->withCoupon($coupon)->create();
             } else{
@@ -189,7 +190,7 @@ class MolliePaymentController extends Controller
     {
         $user = Auth::user();
         $plan = paymentType::fromValue($plan);
-        $name = ucfirst($plan) . ' membership';
+        $name = ucfirst(strval($plan)) . ' membership';
         if(!$user->subscribed($name, $plan->key)) {
 
             $getProductObject = Product::where('index',$plan)->first();
@@ -246,7 +247,7 @@ class MolliePaymentController extends Controller
     {
         $user = Auth::user();
         $plan = paymentType::fromValue(3);
-        $name = ucfirst($plan) . ' membership';
+        $name = ucfirst(strval($plan)) . ' membership';
         if($user->subscribed($name, $plan->key))
         {
             $user->subscription($name,$plan->key)->cancel();
