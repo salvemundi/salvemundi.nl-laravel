@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $merch->name . ' | Merch – ' . config('app.name'))
+@section('title', ucfirst($merch->name) . ' | Merch – ' . config('app.name'))
 @section('content')
     <script src="js/scrollonload.js"></script>
     <div class="overlap">
@@ -11,7 +11,7 @@
                         Thumbnailer::generate('storage/' . str_replace('public/', '', $merch->imgPath), '60%') .
                         '" />' !!}</div>
                     <div class="col-md-6">
-                        <h1 class="display-5 fw-bolder">{{ $merch->name }}</h1>
+                        <h1 class="display-5 fw-bolder">{{ ucfirst($merch->name) }}</h1>
                         <div class="fs-5 mb-5">
                             @if ($merch->discount > 0)
                                 <span class="text-decoration-line-through">€ {{ $merch->price }}</span>
@@ -23,16 +23,17 @@
                         <p style="white-space: pre-line" class="lead">{{ $merch->description }}</p>
                         <form method="post" action="/merch/purchase/{{ $merch->id }}" id="merchForm">
                             @csrf
-                            <div class="form-group">
-                                <label for="gender">Pasvorm*</label>
-                                <select id="genderSelect" class="form-select" name="gender"
-                                    aria-label="Default select example">
-                                    @foreach (App\Enums\MerchGender::asSelectArray() as $key => $gender)
-                                        <option value="{{ $key }}">{{ $gender }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
+                            @if($merch->type == \App\Enums\MerchType::generic)
+                                <div class="form-group">
+                                    <label for="gender">Pasvorm*</label>
+                                    <select id="genderSelect" class="form-select" name="gender"
+                                        aria-label="Default select example">
+                                        @foreach (App\Enums\MerchGender::asSelectArray() as $key => $gender)
+                                            <option value="{{ $key }}">{{ $gender }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                             <h4>Maat / Size:</h4>
 
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -53,21 +54,31 @@
                                             $atLeastOneAvailable = true;
                                         }
                                     @endphp
-
-                                    <input type="radio" class="btn-check"
-                                        {{ $firstAvailableSize && $size->id == $firstAvailableSize->id ? 'checked' : '' }}
-                                        {{ $disabled ? 'disabled' : '' }} name="merchSize"
-                                        value="{{ $size->id }}" id="{{ $size->id }}" autocomplete="off">
-                                    <label class="btn btn-outline-primary"
-                                        for="{{ $size->id }}">{{ $size->size }}</label>
-
+                                    @if($merch->type == \App\Enums\MerchType::generic)
+                                        <input type="radio" class="btn-check"
+                                               {{ $firstAvailableSize && $size->id == $firstAvailableSize->id ? 'checked' : '' }}
+                                               {{ $disabled ? 'disabled' : '' }} name="merchSize"
+                                               value="{{ $size->id }}" id="{{ $size->id }}" autocomplete="off">
+                                        <label class="btn btn-outline-primary"
+                                               for="{{ $size->id }}">{{ $size->size }}</label>
+                                    @endif
                                 @empty
                                     <p class="text-danger">
                                         {{ $atLeastOneAvailable ? 'Helaas is alles uitverkocht!' : 'Selecteer een maat' }}
                                     </p>
                                 @endforelse
+                                @if($merch->type == \App\Enums\MerchType::shoe)
+                                    <div class="form-group">
+                                        <select id="typeSelect" class="form-select" name="merchSize"
+                                                aria-label="Default select example">
+                                            @foreach ($sizes as $theSize)
+                                                <option value="{{ $theSize->id }}">{{ $theSize->size }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                             </div>
-                            @if($merch->preOrderNeedsPayment)
+                            @if(!$merch->preOrderNeedsPayment)
                             <div class="mt-2">
                                 <p>Voor deze pre-order hoef je niet meteen te betalen, je krijgt later een betaal verzoek.</p>
                             </div>

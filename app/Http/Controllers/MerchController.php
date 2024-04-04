@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\MerchGender;
+use App\Enums\MerchType;
 use App\Models\Merch;
 use App\Models\MerchSize;
 use Illuminate\Contracts\View\Factory;
@@ -27,7 +28,7 @@ class MerchController extends Controller
         if ($merch == null) {
             return back()->with('error', 'Merch item not found.');
         }
-        return view('merchSingleProduct', ['merch' => $merch, 'sizes' => MerchSize::all()]);
+        return view('merchSingleProduct', ['merch' => $merch, 'sizes' => MerchSize::where('type',$merch->type)->get()]);
     }
 
     public function adminView(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -116,6 +117,7 @@ class MerchController extends Controller
         $merch = Merch::findOrNew($request->id ?? null);
         $merch->name = $request->input('name');
         $merch->description = $request->input('description');
+        $merch->type = MerchType::fromValue((int)$request->input('type'))->value ?? 0;
         $merch->price = $request->input('price') ?? 0;
         $merch->discount = $request->input('discount') ?? 0;
         $merch->isPreOrder = $request->input('isPreOrder') ? true : false;

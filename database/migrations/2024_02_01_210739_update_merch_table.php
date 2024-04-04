@@ -22,7 +22,13 @@ return new class extends Migration
             $table->boolean('isPreOrder')->default(false);
             $table->boolean('preOrderNeedsPayment')->default(false);
             $table->tinyInteger('amountPreOrdersBeforeNotification')->default(0);
+            $table->tinyInteger('type')->default(0);
         });
+
+        Schema::table('merch_sizes', function (Blueprint $table) {
+            $table->tinyInteger('type')->default(0);
+        });
+
     }
 
     /**
@@ -40,6 +46,11 @@ return new class extends Migration
             $table->dropColumn('isPreOrder');
             $table->dropColumn('preOrderNeedsPayment');
             $table->dropColumn('amountPreOrdersBeforeNotification');
+            $table->dropColumn('type');
+        });
+
+        Schema::table('merch_sizes', function (Blueprint $table) {
+            $table->dropColumn('type');
         });
     }
 };

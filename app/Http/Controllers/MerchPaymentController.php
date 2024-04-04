@@ -30,17 +30,16 @@ class MerchPaymentController extends Controller
     public function handlePurchase(Request $request, Transaction $transaction): RedirectResponse
     {
         $request->validate([
-            'id' => 'required|integer',
             'merchSize' => 'required|integer',
-            'gender' => 'required|integer',
+            'gender' => 'nullable|integer',
         ]);
 
         $merch = Merch::findOrFail($request->id);
         $size = MerchSize::findOrFail($request->input('merchSize'));
-        $gender = MerchGender::coerce((int)$request->input('gender'));
+        $gender = MerchGender::coerce((int)$request->input('gender') ?? 0);
         $user = Auth::user();
 
-        $isInStock = $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()->pivot->amount > 0;
+        $isInStock = $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()?->pivot->amount > 0;
         if ($merch->isPreOrder || $isInStock) {
             $this->saveData($merch, $size, $gender, $transaction, $user);
             if ($merch->preOrderNeedsPayment) {
@@ -60,7 +59,7 @@ class MerchPaymentController extends Controller
         $transaction->contribution()->attach($user);
         $transaction->merch()->associate($merch);
         $transaction->save();
-        $merch->userOrders()->attach($user, ['transaction_id' => $this->transaction->id, 'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
+        $merch->userOrders()->attach($user, ['transaction_id' => $transaction->id, 'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
     }
 
     private function handlePreOrder(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): RedirectResponse
@@ -96,7 +95,7 @@ class MerchPaymentController extends Controller
     {
         $paymentId = $request->input('id');
 
-        /** @var Payment */
+        /** @var Payment $payment */
         $payment = Mollie::api()->payments->get($paymentId);
 
         $transaction = Transaction::where('transactionId', $payment->id)->first();
@@ -104,7 +103,7 @@ class MerchPaymentController extends Controller
         $statusMethods = ['isCanceled', 'isFailed', 'isExpired', 'isPending', 'isOpen', 'isPaid'];
         foreach ($statusMethods as $method) {
             if ($payment->$method()) {
-                $transaction->paymentStatus = constant("paymentStatus::{$method}()->value");
+                $transaction->paymentStatus = constant("App\Enums\paymentStatus::{$method}");
                 if (method_exists($this, $method)) {
                     $this->$method($payment, $transaction);
                 }

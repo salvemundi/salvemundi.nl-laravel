@@ -58,6 +58,17 @@
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                         </svg></span><span>Pre order betalingen aan / uit.</span></label>
             </div>
+
+            <div class="form-group">
+                <label for="gender">Type*</label>
+                <select id="typeSelect" class="form-select" name="type"
+                        aria-label="Default select example">
+                    @foreach (App\Enums\MerchType::asSelectArray() as $key => $type)
+                        <option @if($merch->type == $key) selected @endif value="{{ $key }}">{{ $type }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="year">Aantal orders voor pre order notificatie (als de optie hierboven aan staat)*</label>
                 <input class="form-control{{ $errors->has('amountPreOrdersBeforeNotification') ? ' is-invalid' : '' }}" value="{{ old('year') ?? $merch->amountPreOrdersBeforeNotification }}" type="number" min="0" id="price" name="amountPreOrdersBeforeNotification" placeholder="Aantal voor notificatie...">
