@@ -137,6 +137,12 @@ class MerchPaymentController extends Controller
 
     private function handleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction): void
     {
+        // Count orders based on payments or, if no pre-payment is required, based on user orders.
+        if($merch->preOrderNeedsPayment) {
+            $ordersCount = $merch->transactions->where('paymentStatus', paymentStatus::paid)->count();
+        } else {
+            $ordersCount = $merch->userOrders->count();
+        }
 
         if (!$merch->isPreOrder) {
             Mail::to($user)->send(new MerchOrderPaid($user, $merch, $size, $merchGender, $transaction));
@@ -144,7 +150,8 @@ class MerchPaymentController extends Controller
             Mail::to($user)->send(new MerchPreOrderReceived($user, $merch, $size, $merchGender, $transaction));
         }
 
-        if ($merch->transactions->where('paymentStatus', paymentStatus::paid)->count() % (int)$merch->amountPreOrdersBeforeNotification == 0) {
+        // Send pre-order quota reached notifications every x amount of pre-orders.
+        if ($ordersCount != 0 && $ordersCount % (int)$merch->amountPreOrdersBeforeNotification == 0) {
             Mail::to(explode(',', config('app.merch_pre_order_mail_notification')))->send(new MerchMinimumPreOrdersReached($merch));
         }
         return;
