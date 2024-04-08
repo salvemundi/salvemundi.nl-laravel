@@ -6,7 +6,8 @@
         Merch: {{ $merch->name }}<br>
         Maat: {{ $size->size }}<br>
         Pasvorm: {{ $gender->description }}<br>
-        Prijs: € {{ $transaction->amount }}
+        Prijs: € {{ $transaction->amount }}<br>
+        Notities: {{ $note ?? 'niet opgegeven' }}
     </p>
     <br>
     Met vriendelijke groet,<br><br>

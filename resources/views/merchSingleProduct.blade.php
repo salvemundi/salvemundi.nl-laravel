@@ -78,18 +78,40 @@
                                     </div>
                                 @endif
                             </div>
+                            @if($merch->canSetNote)
+                                <div class="form-group mt-3">
+                                    <label for="note">Notitie</label>
+                                    <textarea class="form-control" name="note" id="note" rows="3"></textarea>
+                                </div>
+                            @endif
+
                             @if(!$merch->preOrderNeedsPayment)
+                            <hr>
+
                             <div class="mt-2">
-                                <p>Voor deze pre-order hoef je niet meteen te betalen, je krijgt later een betaal verzoek.</p>
+                                <p>Voor deze pre-order hoef je niet meteen te betalen, je krijgt later een betaal verzoek. Dit product wordt op basis van een quota besteld. Dus het kan zijn dat het even duurt voordat jou bestelling word besteld of zelfs helemaal niet word besteld.</p>
                             </div>
 
-                            <div class="input-group mb-3 test">
+
+                            <div class="input-group mb-3" style="display: flex;">
                                 <input class="inp-cbx" id="cbx1" required name="acceptPayment" type="checkbox" style="display: none" />
-                                <label class="cbx" for="cbx1"><span>
+                                <label class="cbx" for="cbx1" style="display: flex;"><span style="min-width: 18px">
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
                                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                        </svg></span><span>Ik accepteer dat ik bij deze pre-order de aangegeven prijs achteraf betaal.</span></label>
+                                        </svg></span><span>Ik accepteer dat ik bij deze pre-order, het product op R10 ophaal, de aangegeven prijs achteraf betaal en dat het lang kan duren voordat mijn bestelling besteld wordt of zelfs niet besteld wordt.</span></label>
                             </div>
+                            @else
+                                <hr>
+                                <div class="mt-2">
+                                    <p>Dit product wordt op basis van een quota besteld. Dus het kan zijn dat het even duurt voordat jou bestelling word besteld of zelfs helemaal niet word besteld.</p>
+                                </div>
+                                <div class="input-group mb-3" style="display: flex;">
+                                    <input class="inp-cbx" id="cbx1" required name="acceptPayment" type="checkbox" style="display: none" />
+                                    <label class="cbx" for="cbx1" style="display: flex;"><span style="min-width: 18px">
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg></span><span>Ik accepteer dat ik bij deze pre-order, het product op R10 ophaal, en dat het lang kan duren voordat mijn bestelling besteld wordt of zelfs niet besteld wordt (je ontvangt dan je geld terug).</span></label>
+                                </div>
                             @endif
                             <div class="d-flex mt-2">
 

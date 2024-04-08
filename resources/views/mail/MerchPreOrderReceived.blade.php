@@ -2,13 +2,14 @@
     Beste {{ $user->getDisplayName() }},
     <p>Ontzettend bedankt voor je merch pre order!</p>
     @if(!$merch->preOrderNeedsPayment)
-    <p>Je ontvangt later een betaalverzoek!</p>
+    <p>Je ontvangt later een betaalverzoek! Een reminder dat het even kan duren voordat jou bestelling wordt besteld gezien er met quota's word gewerkt. Dit houd in dat er eem minimaal aantal bestellingen moet worden behaald voordat de producten besteld worden.</p>
     @endif
     <p>
         Merch: {{ $merch->name }}<br>
         Maat: {{ $size->size }}<br>
         Pasvorm: {{ $gender->description }}<br>
-        Prijs: € {{ $transaction->amount }}
+        Prijs: € {{ $transaction->amount }}<br>
+        Notities: {{ $note ?? 'niet opgegeven' }}
     </p>
     <br>
     Met vriendelijke groet,<br><br>

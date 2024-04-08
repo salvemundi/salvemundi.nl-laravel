@@ -15,7 +15,6 @@ return new class extends Migration
             $table->boolean('isPreOrder')->default(false);
             $table->unsignedBigInteger('transaction_id')->nullable();
             $table->foreign('transaction_id')->references('id')->on('transaction');
-
         });
 
         Schema::table('merch', function (Blueprint $table) {

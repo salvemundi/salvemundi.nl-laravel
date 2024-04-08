@@ -21,6 +21,7 @@
                             <th data-field="merch" data-sortable="true">Merch</th>
                             <th data-field="size" data-sortable="true">Maat</th>
                             <th data-field="gender" data-sortable="true">Pasvorm</th>
+                            <th data-field="note" data-sortable="true">Notitie</th>
                             <th data-field="pickedUp" data-sortable="false">Opgehaald</th>
                         </tr>
                     </thead>
@@ -35,6 +36,7 @@
                                             {{ \App\Models\MerchSize::find($order->pivot->merch_size_id)->size }}</td>
                                         <td data-value="{{ $order->pivot->merch_gender }}">
                                             {{ \App\Enums\MerchGender::coerce($order->pivot->merch_gender)->description }}</td>
+                                        <td data-value="{{ $order->pivot->note }}">{{ $order->pivot->note }}</td>
                                         <td data-value="{{ $order->id }}">
                                             <form method="post" action="/admin/merch/orders/pickedUp/{{ $order->pivot->id }}">
                                                 @csrf

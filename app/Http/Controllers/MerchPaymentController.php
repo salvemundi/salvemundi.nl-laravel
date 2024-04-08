@@ -24,9 +24,6 @@ use Mollie\Laravel\Facades\Mollie;
 
 class MerchPaymentController extends Controller
 {
-
-    private Transaction $transaction;
-
     public function handlePurchase(Request $request, Transaction $transaction): RedirectResponse
     {
         $request->validate([
@@ -41,9 +38,9 @@ class MerchPaymentController extends Controller
 
         $isInStock = $merch->merchSizes()->where('size_id', $size->id)->where('merch_gender', $gender->value)->first()?->pivot->amount > 0;
         if ($merch->isPreOrder || $isInStock) {
-            $this->saveData($merch, $size, $gender, $transaction, $user);
+            $this->saveData($merch, $size, $gender, $transaction, $user, $request->input('note'));
             if ($merch->preOrderNeedsPayment) {
-                return redirect($this->createPayment($merch, $size, $gender, $transaction, $user)->getCheckoutUrl());
+                return redirect($this->createPayment($merch, $size, $gender, $transaction, $user, $request->input('note'))->getCheckoutUrl());
             } else {
                 return $this->handlePreOrder($merch, $size, $gender, $transaction, $user);
             }
@@ -52,14 +49,14 @@ class MerchPaymentController extends Controller
         }
     }
 
-    private function saveData(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): void
+    private function saveData(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user, string $note = null): void
     {
         $transaction->amount = $merch->calculateDiscount();
         $transaction->save();
         $transaction->contribution()->attach($user);
         $transaction->merch()->associate($merch);
         $transaction->save();
-        $merch->userOrders()->attach($user, ['transaction_id' => $transaction->id, 'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id]);
+        $merch->userOrders()->attach($user, ['transaction_id' => $transaction->id, 'merch_gender' => $gender->value, 'merch_size_id' => $merchSize->id, 'note' => $note	]);
     }
 
     private function handlePreOrder(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): RedirectResponse
@@ -68,7 +65,7 @@ class MerchPaymentController extends Controller
         return back()->with('success', 'Je pre order is geregistreerd!');
     }
 
-    private function createPayment(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user): Payment
+    private function createPayment(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user, string $note = null): Payment
     {
         $priceFormatted = number_format($merch->calculateDiscount(), 2, '.', '');
         $payment = Mollie::api()->payments()->create([
@@ -82,7 +79,8 @@ class MerchPaymentController extends Controller
                 ($user ? "userId" : null) => $user->id,
                 "merchId" => $merch->id,
                 "sizeId" => $merchSize->id,
-                "genderId" => $gender->value
+                "genderId" => $gender->value,
+                ($note ? "note" : null) => $note,
             ],
             "webhookUrl" => config('app.ngrok_link') ? config('app.ngrok_link') . "/webhooks/mollie/merch" : route('webhooks.mollie.merch'),
         ]);
@@ -135,7 +133,7 @@ class MerchPaymentController extends Controller
         return;
     }
 
-    private function handleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction): void
+    private function handleEmail(User $user, Merch $merch, MerchSize $size, MerchGender $merchGender, Transaction $transaction, string $note = null): void
     {
         // Count orders based on payments or, if no pre-payment is required, based on user orders.
         if($merch->preOrderNeedsPayment) {
@@ -145,9 +143,9 @@ class MerchPaymentController extends Controller
         }
 
         if (!$merch->isPreOrder) {
-            Mail::to($user)->send(new MerchOrderPaid($user, $merch, $size, $merchGender, $transaction));
+            Mail::to($user)->send(new MerchOrderPaid($user, $merch, $size, $merchGender, $transaction, $note));
         } else {
-            Mail::to($user)->send(new MerchPreOrderReceived($user, $merch, $size, $merchGender, $transaction));
+            Mail::to($user)->send(new MerchPreOrderReceived($user, $merch, $size, $merchGender, $transaction, $note));
         }
 
         // Send pre-order quota reached notifications every x amount of pre-orders.

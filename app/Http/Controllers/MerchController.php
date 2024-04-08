@@ -121,6 +121,7 @@ class MerchController extends Controller
         $merch->price = $request->input('price') ?? 0;
         $merch->discount = $request->input('discount') ?? 0;
         $merch->isPreOrder = $request->input('isPreOrder') ? true : false;
+        $merch->canSetNote = $request->input('canSetNote') ? true : false;
         $merch->preOrderNeedsPayment = $request->input('preOrderNeedsPayment') ? true : false;
         $merch->amountPreOrdersBeforeNotification = $request->input('amountPreOrdersBeforeNotification') ?? 0;
 

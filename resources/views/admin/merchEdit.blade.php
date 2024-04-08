@@ -59,6 +59,14 @@
                         </svg></span><span>Pre order betalingen aan / uit.</span></label>
             </div>
 
+            <div class="input-group mb-3 test">
+                <input @if($merch->canSetNote) checked @endif class="inp-cbx" id="cbx5" name="canSetNote" type="checkbox" style="display: none" />
+                <label class="cbx" for="cbx5"><span>
+                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg></span><span>Laat klanten een optionele notitie toevoegen.</span></label>
+            </div>
+
             <div class="form-group">
                 <label for="gender">Type*</label>
                 <select id="typeSelect" class="form-select" name="type"

@@ -23,16 +23,18 @@ class MerchPreOrderReceived extends Mailable
     public MerchSize $size;
     public MerchGender $gender;
     public Transaction $transaction;
+    public ?string $note = null;
     /**
      * Create a new message instance.
      */
-     public function __construct(User $user, Merch $merch, MerchSize $size, MerchGender $gender, Transaction $transaction)
+     public function __construct(User $user, Merch $merch, MerchSize $size, MerchGender $gender, Transaction $transaction, string $note = null)
      {
          $this->user = $user;
          $this->merch = $merch;
          $this->size = $size;
          $this->gender = $gender;
          $this->transaction = $transaction;
+         $this->note = $note ?? $this->note;
      }
 
     /**
