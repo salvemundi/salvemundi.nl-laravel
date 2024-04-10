@@ -116,7 +116,7 @@
 
             <div class="form-group">
                 <label for="year">Aantal orders voor pre order notificatie (als de optie hierboven aan staat)*</label>
-                <input class="form-control{{ $errors->has('amountPreOrdersBeforeNotification') ? ' is-invalid' : '' }}" value="{{ old('year') }}" type="number" min="0" id="price" name="amountPreOrdersBeforeNotification" placeholder="Aantal voor notificatie...">
+                <input class="form-control{{ $errors->has('amountPreOrdersBeforeNotification') ? ' is-invalid' : '' }}" value="{{ old('amountPreOrdersBeforeNotification') }}" type="number" min="0" id="price" name="amountPreOrdersBeforeNotification" placeholder="Aantal voor notificatie...">
             </div>
 
             <div class="form-group py-3">
