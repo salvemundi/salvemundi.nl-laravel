@@ -23,7 +23,7 @@
                 @if ($committeeMember->visibility)
                     <div class="col-12 col-sm-6 col-lg-3 my-2">
                         @if ($committeeMember->pivot->isCommitteeLeader)
-                            <div class="card border-3 overflow-hidden cardCommitteeLeaderStyle">
+                                <div class="card border-3 overflow-hidden cardCommitteeLeaderStyle">
                             @else
                                 <div class="card">
                         @endif
@@ -32,7 +32,9 @@
                                 <h5 class="card-title p-2 committeeLeaderTitleOverlay">Commissieleider</h5>
                             </div>
                         @endif
-                        {!! '<img class="img-fluid" src="../storage/' . $committeeMember->ImgPath . '" />' !!}
+                        <img class="img-fluid"
+                             src="{{ '/' . Thumbnailer::generate('storage/' . $committeeMember->ImgPath, '240x240') }}"
+                             onerror="this.src='../storage/images/SalveMundi-Vector.svg'">
                         <div class="card-body card-body-no-padding mt-2">
                             <h5 class="card-title text-center">{{ $committeeMember->DisplayName }}</h5>
                         </div>
