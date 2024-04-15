@@ -62,7 +62,15 @@
                             </div>
                             <div>
                                 <img class="imgIndex"
-                                    src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/intro102.jpg', '50%') }}>
+                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/2023-05-01_Budapest-35.jpg', '50%') }}>
+                            </div>
+                            <div>
+                                <img class="imgIndex"
+                                    src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/IMG_2784.jpg', '50%') }}>
+                            </div>
+                            <div>
+                                <img class="imgIndex"
+                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/IMG_2508.jpg', '50%') }}>
                             </div>
                             <div>
                                 <img class="imgIndex"
@@ -70,19 +78,28 @@
                             </div>
                             <div>
                                 <img class="imgIndex"
+                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/IMG_3418.jpg', '50%') }}>
+                            </div>
+                            <div>
+                                <img class="imgIndex"
+                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/20230705_140302.jpg', '50%') }}>
+                            </div>
+                            <div>
+                                <img class="imgIndex"
                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/intro239.jpg', '50%') }}>
                             </div>
                             <div>
                                 <img class="imgIndex"
-                                    src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/intro259.jpg', '50%') }}>
+                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/Karten-9494.jpg', '50%') }}>
                             </div>
                             <div>
                                 <img class="imgIndex"
                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/intro282.jpg', '50%') }}>
                             </div>
+
                             <div>
                                 <img class="imgIndex"
-                                    src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/intro288.jpg', '50%') }}>
+                                     src={{ Thumbnailer::generate('images/SaMuFotos/Intro2023/Karten-9224.jpg', '50%') }}>
                             </div>
                         </div>
                     </div>
