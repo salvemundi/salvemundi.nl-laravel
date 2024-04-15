@@ -14,6 +14,10 @@
   color: black !important;
 }
 @media (prefers-color-scheme: dark) {
+  a {
+    color: white !important;
+  }
+
   :root {
     color-scheme: dark;
   }
@@ -288,5 +292,3 @@
   -moz-appearance: none;
   appearance: none;
 }
-
-
