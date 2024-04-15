@@ -24,32 +24,34 @@
                 @endif
                 <br>
                 <h2 class="h2">Over ons</h2> <br>
-                <p>Salve Mundi is de studievereniging van Fontys Hogenscholen ICT, opgericht in 2017 door Mohammed Mighiss
-                    en Luuk Hendriks. Het is Latijn voor "Hello World", een typische zin die menig programmeur maar al te
-                    goed kent.</p>
+                <p>Salve Mundi is de studievereniging van Fontys ICT sinds 2017. Het is Latijn voor "Hello World", een typische zin die menig programmeur maar al te
+                    goed kent!</p>
                 <p>De vereniging organiseert veel activiteiten, zowel studiebemiddelend als voor de lol, of een combinatie
                     van de twee. Denk hierbij aan: <br></p>
                 <div class="row">
                     <div class="col-md-6">
-                        <li>Lezingen</li>
-                        <li> Excursies </li>
+                        <p> Voor de uitgaande studenten:</p>
+
+                        <li> Op stap bij onze stamkroegen Villa Fiësta, Villa Karaoke en Witte gij't op Stratumseind </li>
+                        <li> Thema feesten zoals de befaamde carnavals duo bingo borrel </li>
+                        <li> Karten </li>
+                        <li> Bowlen </li>
+                        <li> 2x per jaar op kamp </li>
+                        <li> En nog veel meer! </li>
+                        <br>
+                        <p> En voor de wat minder uitgaande studenten:</p>
+                        <li> Online game sessies in discord </li>
+                        <li> Uitjes naar bijvoorbeeld pretparken </li>
+                        <li> <u><a href="/clubs">Gezelligheids clubs</a></u> in vele categorieën! </li>
+                        <br>
+                        <p> En studie gerelateerde activiteiten:</p>
+                        <li> Lezingen </li>
                         <li> Workshops </li>
                         <li> Bedrijfsbezoeken </li>
                         <li> Elke dinsdag bijlessen </li>
                         <br>
-                        <p> Voor de uitgaande studenten:</p>
 
-                        <li> Op stap bij onze stamkroeg Villa Fiësta op Stratumseind </li>
-                        <li> Casinoavonden </li>
-                        <li> Pubquiz-avonden </li>
-                        <li> Willekeurige spontane activiteiten </li>
-                        <br>
-                        <p> En voor de wat minder uitgaande studenten:</p>
-                        <li> Jaarlijks op kamp </li>
-                        <li> Game Nights (bordspellen & eSports) </li>
-                        <li> Uitjes naar bijvoorbeeld pretparken </li>
-                        <br>
-                        <p>Naast deze activiteiten verzorgt Salve Mundi ook de introductie van FICT van top tot teen.
+                        <p>Naast deze activiteiten verzorgt Salve Mundi ook de introductie van FICT van top tot teen.</p>
                     </div>
 
                     <div class="col-md-6">

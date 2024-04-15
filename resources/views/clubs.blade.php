@@ -6,7 +6,7 @@
         <div class="row">
             <div class="d-flex row col-md-10 col-lg-8 mx-auto">
                 <h1 class="center">Gezelligheidsclubs</h1>
-                <p>
+                <p class="text-center">
                     Salve Mundi heeft verschillende clubs waar leden aan deel kunnen nemen. Clubs zijn een vorm om te
                     connecten met andere leden van de vereniging met vergelijkbare interesses. Zie jij hier een leuke club
                     tussen staan waar jij deel van uit wil maken? Neem dan contact op met de club of join de groepsapp! <br>
