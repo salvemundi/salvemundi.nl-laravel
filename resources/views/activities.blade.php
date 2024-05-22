@@ -15,7 +15,7 @@
                                 <input type="hidden" name="id" id="id" value="{{ session('id') }}">
                                 <input type="hidden" name="activityId" id="activityId" value="{{ $activiteit->id }}">
                                 <a data-bs-toggle="modal" data-bs-target="#showModal{{ $activiteit->id }}">
-                                    <div class="card" style="min-height: 50vh; max-height: 50vh;" data-toggle="tooltip"
+                                    <div class="card" style="min-height: 50vh; cursor: pointer; max-height: 50vh;" data-toggle="tooltip"
                                         data-placement="top" title="Klik om volledig te lezen!" style="">
                                         @if ($activiteit->imgPath != null)
                                             {!! '<img class="img-fluid mx-auto card-img-top" src="/' .
@@ -47,6 +47,8 @@
                         @endforeach
                     </div>
                 </div>
+            @else
+                <h1 class="center">Geen activiteiten gevonden</h1>
             @endif
 
             <!-- Button trigger modal -->
