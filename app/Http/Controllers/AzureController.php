@@ -222,6 +222,7 @@ class AzureController extends Controller
             }
         }
         catch(\Exception $e){
+            Log::error($e->getMessage());
             return false;
         }
         return true;
