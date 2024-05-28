@@ -11,7 +11,7 @@ window.generateTicketInputs = function (id, price) {
     const label = document.createElement("label");
     label.setAttribute("for", `participant_${i}`);
     label.className = "form-label";
-    label.innerText = `Naam deelnemer ${i + 1}`;
+    label.innerText = `Naam + eerste letter achternaam ${i + 1}`;
 
     // Create input element
     const input = document.createElement("input");
