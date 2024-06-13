@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// important endpoint
-Route::get('/teapot', function() {
-    return response("I'm a teapot <br><br> <a href='https://forms.office.com/e/pQdrueLSzf'>Bestel hier je hoodie!</a>", 418);
-});
-
 // Main page.
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
@@ -81,6 +76,11 @@ Route::post('/mijnAccount/store',[App\Http\Controllers\MyAccountController::clas
 Route::post('/mijnAccount/pay', [App\Http\Controllers\MolliePaymentController::class,'handleContributionPaymentFirstTime'])->middleware('auth');
 Route::post('/mijnAccount/cancel', [App\Http\Controllers\MolliePaymentController::class,'cancelSubscription'])->middleware('auth');
 Route::post('/mijnAccount/deletePicture', [App\Http\Controllers\MyAccountController::class,'deletePicture'])->middleware('auth');
+
+// important endpoint
+Route::get('/teapot', function() {
+    return response("I'm a teapot <br><br> <a href='https://forms.office.com/e/pQdrueLSzf'>Bestel hier je hoodie!</a>", 418);
+})->middleware('auth');
 
 // Activiteiten page
 Route::get('/activiteiten',[App\Http\Controllers\ActivitiesController::class, 'run'] );
