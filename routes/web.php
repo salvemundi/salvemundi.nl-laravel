@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// important endpoint
+Route::get('/teapot', function() {
+    return response("I'm a teapot <br><br> <a href='https://forms.office.com/e/pQdrueLSzf'>Bestel hier je hoodie!</a>", 418);
+});
+
 // Main page.
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
