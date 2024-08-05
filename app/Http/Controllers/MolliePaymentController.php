@@ -166,7 +166,7 @@ class MolliePaymentController extends Controller
         }
 
         $priceToString = strval($formattedPrice);
-        return Mollie::api()->payments()->create([
+        return Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
                 "value" => "$priceToString"

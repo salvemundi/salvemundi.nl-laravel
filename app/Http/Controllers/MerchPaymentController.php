@@ -68,7 +68,7 @@ class MerchPaymentController extends Controller
     private function createPayment(Merch $merch, MerchSize $merchSize, MerchGender $gender, Transaction $transaction, User $user, string $note = null): Payment
     {
         $priceFormatted = number_format($merch->calculateDiscount(), 2, '.', '');
-        $payment = Mollie::api()->payments()->create([
+        $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
                 "value" => "$priceFormatted"
