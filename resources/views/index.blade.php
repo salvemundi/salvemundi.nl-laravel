@@ -32,7 +32,7 @@
                     <div class="col-md-6">
                         <p> Voor de uitgaande studenten:</p>
 
-                        <li> Op stap bij onze stamkroegen Villa Fiësta, Villa Karaoke en Witte gij't op Stratumseind </li>
+                        <li> Op stap bij onze stamkroegen Borrelbar op Stratumseind </li>
                         <li> Thema feesten zoals de befaamde carnavals duo bingo borrel </li>
                         <li> Karten </li>
                         <li> Bowlen </li>
