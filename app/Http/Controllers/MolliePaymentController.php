@@ -38,8 +38,8 @@ class MolliePaymentController extends Controller
             ])->first();
 
             $newUser = new User;
-            $firstName = str_replace(' ', '_', $orderObject->firstName);
-            $lastName = str_replace(' ', '_', $orderObject->lastName);
+            $firstName = str_replace(' ', '.', $orderObject->firstName);
+            $lastName = str_replace(' ', '.', $orderObject->lastName);
             if($orderObject->insertion == null || $orderObject->insertion == "") {
                 $newUser->DisplayName = $orderObject->firstName." ".$orderObject->lastName;
                 if($checkIfUserExists == null){
