@@ -63,7 +63,7 @@ class MolliePaymentController extends Controller
             $newUser->phoneNumber = $orderObject->phoneNumber;
 
             $newUser->ImgPath = "images/logo.svg";
-            $newUser->birthday = $orderObject->birthday ?? date("Y-m-d", strtotime($orderObject->birthday));
+            $newUser->birthday = $orderObject->birthday ? date("Y-m-d", strtotime($orderObject->birthday)) : null;
             $newUser->save();
             $newUser->inschrijving()->save($orderObject);
             $newUser->save();
