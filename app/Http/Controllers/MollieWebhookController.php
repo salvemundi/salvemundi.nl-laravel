@@ -32,7 +32,7 @@ class MollieWebhookController extends BaseWebhookController
         $paymentId = $request->input('id') ?? $paymentIdParam;
         $payment = Mollie::api()->payments->get($paymentId);
         $order = $this->getTransactionObject($paymentId);
-        $paymentRegister = $this->getMolliePaymentById($request->get('id'));
+        $paymentRegister = $this->getMolliePaymentById($paymentId);
         if ($payment->isPaid()) {
             if($order != null){
                 if ($order->paymentStatus != paymentStatus::paid) {
