@@ -107,7 +107,7 @@ class AzureController extends Controller
             'displayName' => $registration ? $registration->firstName." ". $registration->lastName : $user->FirstName . " " . $user->LastName,
             'givenName' => $registration ? $registration->firstName : $user->FirstName,
             'surname' => $registration ? $registration->lastName : $user->LastName,
-            'mailNickname' => $registration ? $registration->firstName : str_replace(' ', '.', $user->FirstName),
+            'mailNickname' => $registration ? str_replace(' ', '.', $registration->firstName) : str_replace(' ', '.', $user->FirstName),
             'mobilePhone' => $registration ? $registration->phoneNumber : $user->phoneNumber,
             'userPrincipalName' => $userObject->email,
             'passwordProfile' => [
