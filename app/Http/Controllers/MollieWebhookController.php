@@ -24,12 +24,12 @@ class MollieWebhookController extends BaseWebhookController
             $query->orderBy('created_at', 'asc')->take(1);
         }])->where('transactionId', $pid)->first();
     }
-    public function handle(Request $request) {
-        if (! $request->has('id')) {
+    public function handle(Request $request = null , $paymentIdParam = null) {
+        if ($request == null || !$request->has('id') && $paymentIdParam == null) {
             return;
         }
 
-        $paymentId = $request->input('id');
+        $paymentId = $request->input('id') ?? $paymentIdParam;
         $payment = Mollie::api()->payments->get($paymentId);
         $order = $this->getTransactionObject($paymentId);
         $paymentRegister = $this->getMolliePaymentById($request->get('id'));

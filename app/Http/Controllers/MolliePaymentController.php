@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
@@ -218,12 +219,6 @@ class MolliePaymentController extends Controller
         return back()->with('message', 'You are already on the ' . $plan . ' plan');
     }
 
-    /**
-     * After the customer has completed the transaction,
-     * you can fetch, check and process the payment.
-     * This logic typically goes into the controller handling the inbound webhook request.
-     * See the webhook docs in /docs and on mollie.com for more information.
-     */
     public static function handleContributionPaymentFirstTime(Request $request)
     {
         $user = Auth::user();
@@ -243,7 +238,7 @@ class MolliePaymentController extends Controller
         }
     }
 
-    public function cancelSubscription(Request $request)
+    public function cancelSubscription(Request $request): Application|Redirector|RedirectResponse
     {
         $user = Auth::user();
         $plan = paymentType::fromValue(3);
