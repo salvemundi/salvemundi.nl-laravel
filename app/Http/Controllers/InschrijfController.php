@@ -9,6 +9,7 @@ use App\Mail\SendMailInschrijvingTransactie;
 use App\Models\Inschrijving;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Http\Controllers\AzureController;
@@ -52,14 +53,13 @@ class InschrijfController extends Controller
     {
         $registerObject = $orderObject->registerRelation;
         if($registerObject == null) {
+            Log::info('No register object found for order with id: ' . $orderObject->id);
             return;
         }
-
-        if(!Azurecontroller::fetchSpecificUser($registerObject->user->AzureID))
-        {
-            if($registerObject->user->AzureID == null || strlen($registerObject->user->AzureID) < 1) {
-                AzureController::createAzureUser($registerObject, $orderObject);
-            }
+        Log::info('checking');
+        if($registerObject->user->AzureID == null || strlen($registerObject->user->AzureID) < 1) {
+            Log::info('creating account for user with id: ' . $registerObject->user->id);
+            AzureController::createAzureUser($registerObject, $orderObject);
         }
     }
 }

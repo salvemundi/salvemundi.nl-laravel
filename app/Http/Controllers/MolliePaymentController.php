@@ -46,7 +46,7 @@ class MolliePaymentController extends Controller
                 if($checkIfUserExists == null){
                     $newUser->email = $firstName.".".$lastName."@lid.salvemundi.nl";
                 } else {
-                    $birthDayDay = date("d", strtotime($orderObject->birthday));
+                    $birthDayDay =  rand(1, 31);
                     $newUser->email = $firstName.".".$lastName.$birthDayDay."@lid.salvemundi.nl";
                 }
             } else {
@@ -86,6 +86,8 @@ class MolliePaymentController extends Controller
             } else{
                 $createPayment = MolliePaymentController::preparePayment($productIndex, $newUser);
             }
+            $transaction->transactionId = $createPayment->payment()->id;
+            $transaction->save();
             return $createPayment;
         } else{
             if($route === null) {
@@ -133,7 +135,7 @@ class MolliePaymentController extends Controller
         return redirect('/');
     }
 
-    private static function preparePayment($productIndex, $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null, $isSubscription = true, $groupSignupPrice = null)
+    private static function preparePayment($productIndex,User $userObject = null, $route = null, $coupon = null, $email = null, $nameNotMember = null, $isSubscription = true, $groupSignupPrice = null)
     {
         $product = Product::where('index', $productIndex)->first();
         if($product == null)
@@ -176,7 +178,8 @@ class MolliePaymentController extends Controller
             "redirectUrl" => "$route",
             "metadata" => [
                 "userId" => $userObject ? $userObject->id : "null",
-                "email" => $email ?: "null"
+                "email" => $email ?: "null",
+                "notContribution" => "true"
             ],
             "webhookUrl" => env('NGROK_LINK') ? env('NGROK_LINK')."/webhooks/mollie" : route('webhooks.mollie'),
         ]);
@@ -210,6 +213,8 @@ class MolliePaymentController extends Controller
                 $result = $user->newSubscription($name, $plan->key)->create();
             }
 
+            $transaction->transactionId = $result->payment()->id;
+            $transaction->save();
 
             if(is_a($result, RedirectToCheckoutResponse::class)) {
                 return $result;

@@ -24,9 +24,9 @@ class MollieWebhookController extends BaseWebhookController
             $query->orderBy('created_at', 'asc')->take(1);
         }])->where('transactionId', $pid)->first();
     }
-    public function handle(Request $request = null , string $paymentIdParam = null) {
-        if ($request == null || !$request->has('id') && $paymentIdParam == null) {
-            return "No payment id provided";
+    public function handle(Request $request, string $paymentIdParam = null) {
+        if (!$request->has('id') && $paymentIdParam == null) {
+            abort(500,"No payment id provided");
         }
 
         $paymentId = $request->input('id') ?? $paymentIdParam;
@@ -34,7 +34,7 @@ class MollieWebhookController extends BaseWebhookController
         $order = $this->getTransactionObject($paymentId);
         $paymentRegister = $this->getMolliePaymentById($paymentId);
         if ($payment->isPaid()) {
-            if($order != null){
+            if(isset($payment->metadata->notContribution) && $payment->metadata->notContribution == "true") {
                 if ($order->paymentStatus != paymentStatus::paid) {
                     $order->paymentStatus = paymentStatus::paid;
                     $order->save();
@@ -68,7 +68,6 @@ class MollieWebhookController extends BaseWebhookController
             {
                 $order = (new FirstPaymentHandler($paymentRegister))->execute();
                 $orderReg = Transaction::where('transactionId', $paymentId)->first();
-                $orderReg->transactionId = $paymentId;
                 $orderReg->paymentStatus = paymentStatus::paid;
                 if($orderReg->coupon != null) {
                     if(!$orderReg->coupon->hasBeenUsed && $orderReg->coupon->isOneTimeUse) {

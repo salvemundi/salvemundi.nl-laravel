@@ -184,7 +184,7 @@ class Plan extends Model implements PlanImplements
      */
     public function firstPaymentWebhookUrl()
     {
-        return env("NGROK_LINK") ? env("NGROK_LINK") : route('webhooks.mollie');
+        return env("NGROK_LINK") ? env("NGROK_LINK") . "/webhooks/mollie" : route('webhooks.mollie');
     }
 
     /**

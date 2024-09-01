@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\MollieWebhookController;
 use Illuminate\Console\Command;
+use Illuminate\Http\Request;
 use Laravel\Cashier\Mollie\GetMolliePayment;
 use Mollie\Api\MollieApiClient;
 
@@ -28,7 +29,10 @@ class reconfigureAccount extends Command
      */
     public function handle(): void
     {
-        $webhookController = new MollieWebhookController(new GetMolliePayment(new MollieApiClient()));
-        $webhookController->handle(null, $this->argument('transactionId'));
+        $mollieApiClient = new MollieApiClient();
+        $mollieApiClient->setApiKey(env('MOLLIE_KEY'));
+
+        $webhookController = new MollieWebhookController(new GetMolliePayment($mollieApiClient));
+        $webhookController->handle(new Request(), $this->argument('transactionId'));
     }
 }
