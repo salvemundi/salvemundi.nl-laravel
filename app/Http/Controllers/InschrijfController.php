@@ -55,7 +55,7 @@ class InschrijfController extends Controller
             return;
         }
 
-        if(Azurecontroller::fetchSpecificUser($registerObject->user->AzureID))
+        if(!Azurecontroller::fetchSpecificUser($registerObject->user->AzureID))
         {
             if($registerObject->user->AzureID == null || strlen($registerObject->user->AzureID) < 1) {
                 AzureController::createAzureUser($registerObject, $orderObject);

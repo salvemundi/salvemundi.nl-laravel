@@ -24,9 +24,9 @@ class MollieWebhookController extends BaseWebhookController
             $query->orderBy('created_at', 'asc')->take(1);
         }])->where('transactionId', $pid)->first();
     }
-    public function handle(Request $request = null , $paymentIdParam = null) {
+    public function handle(Request $request = null , string $paymentIdParam = null) {
         if ($request == null || !$request->has('id') && $paymentIdParam == null) {
-            return;
+            return "No payment id provided";
         }
 
         $paymentId = $request->input('id') ?? $paymentIdParam;
