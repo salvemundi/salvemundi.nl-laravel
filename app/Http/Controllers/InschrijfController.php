@@ -49,7 +49,7 @@ class InschrijfController extends Controller
         return MolliePaymentController::processRegistration($inschrijving, paymentType::contribution, null, $request->input('coupon'));
     }
 
-    public static function processPayment($orderObject)
+    public static function processPayment($orderObject): void
     {
         $registerObject = $orderObject->registerRelation;
         if($registerObject == null) {
