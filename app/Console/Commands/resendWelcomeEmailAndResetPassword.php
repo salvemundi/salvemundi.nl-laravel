@@ -45,11 +45,11 @@ class resendWelcomeEmailAndResetPassword extends Command
             $passwordProfile->setPassword($password);
             $passwordProfile->setForceChangePasswordNextSignIn(true);
 
-            $user = new Model\User();
-            $user->setPasswordProfile($passwordProfile);
+            $userOffice = new Model\User();
+            $userOffice->setPasswordProfile($passwordProfile);
 
             $graphInstance->createRequest('PATCH', '/users/' . $user->AzureID)
-                ->attachBody($user)
+                ->attachBody($userOffice)
                 ->setReturnType(Model\User::class)
                 ->execute();
             Mail::to($user->inschrijving->email)
