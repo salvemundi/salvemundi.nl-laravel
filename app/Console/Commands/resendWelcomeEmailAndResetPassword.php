@@ -41,7 +41,7 @@ class resendWelcomeEmailAndResetPassword extends Command
             $password = Str::random(41);
             $graphInstance = AzureController::connectToAzure();
             // reset password using graph api
-            $graphInstance->createRequest("POST", "/users/" . $user->AzureID . "/passwordProfile")
+            $graphInstance->createRequest("POST", "/users/" . $user->AzureID . "/authentication/methods/28c10230-6103-485e-b985-444c60001490/resetPassword")
                 ->addHeaders(array("Content-Type" => "application/json"))
                 ->setReturnType(Model\User::class)
                 ->attachBody(json_encode(array("password" => $password, "forceChangePasswordNextSignIn" => true)))
