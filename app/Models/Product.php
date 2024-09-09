@@ -85,7 +85,7 @@ class Product extends Model
     }
     public function countSignups(): int {
         $nonMembers = [];
-        $count = $this->members->count();
+        $count = $this->members->unique()->count();
         foreach($this->transactions as $transaction) {
             if($transaction->paymentStatus == paymentStatus::paid) {
                 if($transaction->email != null && $transaction->email != ""){
