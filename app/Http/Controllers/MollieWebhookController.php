@@ -96,7 +96,7 @@ class MollieWebhookController extends BaseWebhookController
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
                 $user = $orderReg->contribution()->first();
-                Log::info('deleting user '.$user->getDisplayName() . ' with azure id: ' . $user->AzureID ?? 'null' . ' and id' . $user->id);
+                Log::info('attempting to delete user '.$user->getDisplayName() . ' with azure id: ' . $user->AzureID ?? 'null' . ' and id' . $user->id);
 //                $user->forceDelete();
             }
         }
@@ -115,7 +115,7 @@ class MollieWebhookController extends BaseWebhookController
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
                 $user = $orderReg->contribution()->first();
-                Log::info('deleting user '.$user->getDisplayName() . ' with azure id: ' . $user->AzureID ?? 'null' . ' and id' . $user->id);
+                Log::info('attempting to delete user '.$user->getDisplayName() . ' with azure id: ' . $user->AzureID ?? 'null' . ' and id' . $user->id);
 
 //                $user->forceDelete();
             }
@@ -128,7 +128,7 @@ class MollieWebhookController extends BaseWebhookController
             } else {
                 $orderReg = Transaction::where('transactionId', null)->with('contribution')->latest()->first();
                 $user = $orderReg->contribution()->first();
-                Log::info('deleting user '.$user->getDisplayName() . ' with azure id: ' . $user->AzureID ?? 'null' . ' and id' . $user->id);
+                Log::info('attempting to delete user '.$user->getDisplayName() . ' with azure id: ' . $user->AzureID ?? 'null' . ' and id' . $user->id);
 
 //                $user->forceDelete();
             }
