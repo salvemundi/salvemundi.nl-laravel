@@ -248,7 +248,10 @@ class AzureController extends Controller
     public static function DeleteUser(Request $request): RedirectResponse
     {
         #$userObject = User::where('id', $request->input('id'))->first();
+
         $userObject = User::find($request->input('id'));
+        Log::info('deleting user '.$userObject->getDisplayName() . ' with azure id: ' . $userObject->AzureID . ' and id' . $userObject->id);
+
         $graph = AzureController::connectToAzure();
         $userObject->forceDelete();
         try{
