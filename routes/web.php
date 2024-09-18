@@ -115,7 +115,7 @@ Route::get('/responsible-disclosure', function () {
 
 // Cobo aanmeld pagina
 Route::get('/cobo', function () {
-    return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/Eb9cAIvGq3pEvwL4qETDNUgBjzrcmZCLqfYwlbCUrHGDlg?e=H6YJy0');
+    return redirect('https://salvemundi.sharepoint.com/:x:/s/cobo/ERIGuC1InlFNkW_VrTRMx34BA7YCjceojCr6Ue0nld2J3A?e=v9dJ7h');
 });
 
 // Agenda
