@@ -70,7 +70,7 @@
                  <p class="center d-flex align-items-center">Copyright &copy; <?php echo date('Y'); ?>&nbsp;
                      <a href="#">Salve Mundi</a>&nbsp;alle rechten voorbehouden.
                      &nbsp;<i class="fab fa-github ml-2"></i>&nbsp;
-                     <a href="https://github.com/salvemundi/salvemundi.nl-laravel" target="_blank" class="ml-2">Source code</a>
+                     <a href="https://github.com/salvemundi/salvemundi.nl-laravel" target="_blank" class="ml-2 github-link">Source code</a>
                  </p>
              </div>
          </div>

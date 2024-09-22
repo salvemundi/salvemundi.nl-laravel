@@ -9,7 +9,9 @@
 
 // Variables
 @import 'variables';
-
+.github-link:hover  {
+  color: $salveMundi-link !important;
+}
 .tabber {
   color: black !important;
 }

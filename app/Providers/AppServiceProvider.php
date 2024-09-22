@@ -4,6 +4,8 @@ namespace App\Providers;
 use App\DatabaseCouponRespository;
 use App\DatabasePlanRepository;
 use App\Models\AdminSetting;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Commissie;
 use Laravel\Cashier\Coupon\Contracts\CouponRepository;
@@ -30,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Gate::define('viewPulse', function (User $user) {
+            return $user->isAdmin();
+        });
+
         try {
             view()->share(['Commissies'=> Commissie::all(),'introSetting' => AdminSetting::where('settingName','intro')->first(),'introConfirmSetting' => AdminSetting::where('settingName','introConfirm')->first()]);
         }
