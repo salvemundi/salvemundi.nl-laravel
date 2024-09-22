@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Commissie;
 use Laravel\Cashier\Coupon\Contracts\CouponRepository;
 use Laravel\Cashier\Plan\Contracts\PlanRepository;
+use Laravel\Pulse\Facades\Pulse;
 use mysql_xdevapi\Exception;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Pulse::user(fn ($user) => [
+            'name' => $user->getDisplayName(),
+            'extra' => $user->email
+        ]);
         Gate::define('viewPulse', function (User $user) {
             return $user->isAdmin();
         });
