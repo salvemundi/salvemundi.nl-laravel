@@ -150,8 +150,21 @@
                     </div>
                 </a>
             </div>
-
-        </div>
+                <div class="col-md-6">
+                    <a href="/admin/pulse">
+                        <div class="card adminCard grow">
+                            <div class="card-body">
+                                <div class="row align-items-center gx-0">
+                                    <div class="col">
+                                        <h6 class="text-uppercase text-muted mb-2"></h6>
+                                        <span class="h2 mb-0"><i style="display: flex" class="fas fa-chart-bar"> &nbsp;<p
+                                                        class="dashboard-font"> Pulse monitoring</p></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
     </div>
     <script>
         function CopyMe(oFileInput, sTargetID) {
