@@ -28,7 +28,7 @@
                 </li>
             </ul>
         </div>
-        <h4 class="center">We streven ernaar dat deze personen verschillen van geslacht en dat 1 persoon in het bestuur zit en 1 buiten het bestuur. Zo hopen we dat er altijd iemand is waar je je veilig genoeg bij voelt om je klachten of meldingen mee te delen. Als dit niet het geval is kan je altijd naar Fontys. </h4>
+        <h4 class="center">We streven ernaar dat deze personen verschillen van geslacht en dat 1 persoon in het bestuur zit en 1 buiten het bestuur. Zo hopen we dat er altijd iemand is waar je je veilig genoeg bij voelt om je klachten of meldingen mee te delen. Als dit niet het geval is ben vooral niet bang om naar Fontys zelf te stappen.</h4>
         <a class="btn btn-primary" href="https://www.fontys.nl/fontyshelpt.htm">Fontys vertrouwenspersonen</a>
 
     </div>
