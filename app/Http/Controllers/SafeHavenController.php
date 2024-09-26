@@ -18,7 +18,7 @@ class SafeHavenController extends Controller
         return view('safehavens', ['safeHavens' => $safeHavens]);
     }
 
-    public  function toggle(Request $request): RedirectResponse
+    public  function toggleSafeHaven(Request $request): RedirectResponse
     {
         $user = User::find($request->id);
         $user->is_safe_haven = !$user->is_safe_haven;
