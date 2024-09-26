@@ -2,7 +2,7 @@
 @section('content')
 <script src="js/scrollonload.js"></script>
 <div class="overlap text-center">
-    <h1 class="center">Vetrouwlijk contact</h1> <br>
+    <h1 class="center">Safehavens</h1> <br>
     <div class="container">
         <h3 class="center">Binnen Salve Mundi vinden wij een veilige en comfortable omgeving heel belangrijk voor al onze leden. Hierom hebben wij Safe havens aangesteld die een luisterend oor bieden, begrip tonen, en advies geven voor jouw situatie. Een Safe haven heeft een geheimhoudingsplicht dus je klachten of meldingen zullen nooit verspreid worden, ook niet naar het bestuur; Tenzij door jou anders aangegeven.</h3><br>
         <h3 class="center"> Onze safe havens zijn er voor (maar niet gelimiteerd tot) de volgende onderwerpen:</h3>
@@ -28,7 +28,7 @@
                 </li>
             </ul>
         </div>
-        <h4 class="center">We streven ernaar dat deze personen verschillen van geslacht en dat 1 persoon in het bestuur zit en 1 buiten het bestuur. Zo hopen we dat er altijd iemand is waar je je veilig genoeg bij voelt om je klachten of meldingen mee te delen. Als dit niet het geval is ben vooral niet bang om naar Fontys zelf te stappen.</h4>
+        <h4 class="center">We streven ernaar dat deze personen verschillen van geslacht en dat wij safehavens zowel binnen als buiten het bestuur hebben. Zo hopen we dat er altijd iemand is waar je je veilig genoeg bij voelt om je klachten of meldingen mee te delen. Als dit niet het geval is ben vooral niet bang om naar Fontys zelf te stappen.</h4>
         <a class="btn btn-primary" href="https://www.fontys.nl/fontyshelpt.htm">Fontys vertrouwenspersonen</a>
 
     </div>
