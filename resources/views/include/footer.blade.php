@@ -32,6 +32,7 @@
                              href="https://api.whatsapp.com/send/?phone=%2B31624827777&text&app_absent=0"
                              target="_blank">
                              Whatsapp</a></li>
+                     <li><i class="fas fa-hands-helping"></i><a href="/hulp"> Safehavens</a></li>
                  </ul>
              </div>
 

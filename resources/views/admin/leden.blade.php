@@ -39,6 +39,7 @@
                             <th data-field="email" data-sortable="true">E-mail</th>
                             <th data-field="phone" data-sortable="true">Telefoon</th>
                             <th data-field="birthday" data-sortable="true" data-sorter="dateSorter">Geboortedatum</th>
+                            <th data-field="safehaven" data-sortable="true">Safe haven</th>
                             <th data-field="permissions" data-sortable="true">Rechten</th>
                             <th data-field="commissie" data-sortable="true">Commissies</th>
                             <th data-field="removeLeden" data-sortable="true">Verwijderen</th>
@@ -52,6 +53,12 @@
                                 <td data-value="{{ $user2->email }}">{{ $user2->email }}</td>
                                 <td data-value="{{ $user2->PhoneNumber }}">{{ $user2->PhoneNumber }}</td>
                                 <td data-value="{{ $user2->birthday }}">{{ $user2->birthday }}</td>
+                                <td data-value="{{$user2->is_safe_haven}}">
+                                    <form method="POST" action="/admin/safehavens/toggle/{{$user2->id}}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">{{$user2->is_safe_haven ? 'Ja' : 'Nee'}}</button>
+                                    </form>
+                                </td>
                                 <td data-value="{{ $user2->id }}"><a
                                         href="/admin/leden/{{ $user2->id }}/permissions/"
                                         class="btn btn-primary">Rechten</a></td>

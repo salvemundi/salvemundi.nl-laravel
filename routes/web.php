@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Main page.
 Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('home');
 
+// Safe havens
+Route::get('/hulp', [App\Http\Controllers\SafeHavenController::class, 'index']);
+
 // Calendar
 Route::get('/ical', [App\Http\Controllers\CalendarController::class, 'generateICal']);
 
@@ -153,6 +156,9 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/leden/disable', [App\Http\Controllers\AdminController::class, 'disableAzureAcc'])->name('disableUser');
     Route::post('/admin/leden/unpaid/notify', [App\Http\Controllers\AdminController::class, 'sendEmailToUnpaidMembers']);
     Route::post('/admin/leden/delete', [App\Http\Controllers\AzureController::class, 'DeleteUser'])->name('removeLeden');
+
+    // safe havens
+    Route::post('/admin/safehavens/toggle/{id}', [App\Http\Controllers\SafeHavenController::class, 'toggleSafeHaven']);
 
     // sponsors
     Route::get('/admin/sponsors', [App\Http\Controllers\AdminController::class, 'getSponsors'])->name('admin.sponsors');
