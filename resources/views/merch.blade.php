@@ -11,9 +11,11 @@
                 @foreach ($products as $merch)
                     <div class="col-md-4">
                         <div class="card product-card">
+                            @if($merch->imgPath)
                             {!! '<img class="card-img-top" src="/' .
                                 Thumbnailer::generate('storage/' . str_replace('public/', '', $merch->imgPath), '60%') .
                                 '" />' !!}
+                            @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{ $merch->name }}</h5>
 
