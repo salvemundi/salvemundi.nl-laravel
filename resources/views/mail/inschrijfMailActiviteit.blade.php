@@ -8,7 +8,7 @@ We hopen je te ontvangen op de aangegeven tijden.
 @if($productObject->isGroupSignup)
 
 Join de whatsapp community en join je groepje!
-https://chat.whatsapp.com/IqXMe1y04YvHgQSgfGquY4
+https://chat.whatsapp.com/E6OekecqaE6DHX1JbjuDFa
 
 @endif
 Met vriendelijke groet,
