@@ -187,7 +187,11 @@
 
     <script>
         new MultiSelectTag('tags') // id
-        document.getElementById('associations').style.display = "none"
+        @if($activities->isGroupSignup)
+            document.getElementById('ticketsPerRound').style.display = "block"
+            document.getElementById('associations').style.display = "block"
+        @endif
+        // document.getElementById('associations').style.display = "none"
 
         function UpdateForm() {
             let input = document.getElementById('ticketsPerRound');

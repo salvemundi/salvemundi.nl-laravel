@@ -130,10 +130,15 @@ class ActivitiesController extends Controller {
         $products->save();
 
         if($request->input('cbxGroup') && $request->input('associationName')) {
+            $existingAssociations = ActivityAssociation::where('activityId', $products->id)->get();
+            foreach ($existingAssociations as $existingAssociation) {
+                if (!in_array($existingAssociation->name, $request->input('associationName'))) {
+                    $existingAssociation->delete();
+                }
+            }
             foreach ($request->input('associationName') as $key => $item) {
-                $association = ActivityAssociation::firstOrNew(['name' => $item]);
-                // If it's a new association, associate it with the product and save it
-                if ($association->isDirty()) {
+                $association = ActivityAssociation::firstOrNew(['name' => $item, 'activityId' => $products->id]);
+                if (!$association->exists) {
                     $association->product()->associate($products);
                     $association->save();
                 }
