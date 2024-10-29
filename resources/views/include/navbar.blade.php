@@ -78,7 +78,7 @@
 {{-- <img class="navImg" src="/images/headerLogoSamu.jpg"> --}}
 <div class="overlayVideo">
     <video class="navImg" autoplay muted playsinline loop disablePictureInPicture id="vid">
-        <source src="{{ asset('/images/intro2023.mp4') }}" type="video/mp4">
+        <source src="{{ asset('/images/intro2024.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 </div>
