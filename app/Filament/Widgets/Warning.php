@@ -11,7 +11,7 @@ class Warning extends Widget
     protected function getViewData(): array
     {
         return [
-            'warningText' => "This dashboard is new and under development. \n DO NOT use this dashboard for changes.",
+            'warningText' => "This dashboard is new and under development. \n DO NOT use this dashboard for changes. \n P.S. If you do anyway, fuck you. ~ Quint",
         ];
     }
 }
