@@ -30,7 +30,7 @@ class User extends Authenticatable
 
     public function getDisplayName(): string
     {
-        return $this->insertion ? $this->FirstName. " " . $this->insertion . " " . $this->LastName : $this->FirstName. " ". $this->LastName;
+        return $this->DisplayName;
     }
 
     public function isCommitteeLeaderOfAnyCommittee(): bool {
