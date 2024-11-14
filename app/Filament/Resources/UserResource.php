@@ -49,9 +49,13 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('birthday'),
-                IconColumn::make('Membership status')
-                    ->boolean()
-                    ->getStateUsing(fn (User $record): bool => $record->hasActiveSubscription()),
+                TextColumn::make('Membership status')
+                    ->getStateUsing(fn (User $record): string => $record->hasActiveSubscription() ? 'Active' : 'Expired')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Active' => 'success',
+                        'Expired' => 'danger',
+                    }),
                 IconColumn::make('visibility')->label('Public visibility')
                     ->boolean()
                     ->sortable(),
