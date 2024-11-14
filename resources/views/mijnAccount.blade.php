@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link tabber" id="admin-tab" href="/admin"><i class="fas fa-user-cog"></i> Admin</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link tabber" id="admin-new-tab" href="/management"><i class="fas fa-user-cog"></i> Admin (ALPHA)</a>
+                </li>
             @endif
             <li class="nav-item">
                 <button class="nav-link tabber active" id="gegevens-tab" data-bs-toggle="tab" data-bs-target="#gegevens"

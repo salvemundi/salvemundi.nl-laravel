@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\DatabaseCouponRespository;
 use App\DatabasePlanRepository;
+use App\Http\Responses\LogoutResponse;
 use App\Models\AdminSetting;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -11,6 +12,7 @@ use App\Models\Commissie;
 use Laravel\Cashier\Coupon\Contracts\CouponRepository;
 use Laravel\Cashier\Plan\Contracts\PlanRepository;
 use Laravel\Pulse\Facades\Pulse;
+use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
 use mysql_xdevapi\Exception;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(PlanRepository::class, DatabasePlanRepository::class);
         $this->app->bind(CouponRepository::class, DatabaseCouponRespository::class);
+        $this->app->bind(LogoutResponseContract::class, LogoutResponse::class);
     }
 
     /**

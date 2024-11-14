@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\Facades\Filament;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
         $this->configureRateLimiting();
@@ -46,6 +48,13 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+//            Route::prefix('admin')  // Optional: Prefix for Filament (like '/admin')
+//            ->middleware(['admin.auth'])  // Add your custom middleware
+//            ->namespace($this->namespace)
+//                ->group(function () {
+//                    Filament::routes();  // Register Filament's default routes here
+//                });
         });
     }
 
