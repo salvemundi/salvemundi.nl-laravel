@@ -9,6 +9,9 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -31,26 +34,27 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('profile_photo_path')
+                ImageColumn::make('profile_photo_path')
                     ->label('Photo')
                     ->getStateUsing(fn (User $record) => asset('storage/'.$record->ImgPath))
                     ->circular(),
-                Tables\Columns\TextColumn::make('DisplayName')
+                TextColumn::make('DisplayName')
                     ->label('Name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('PhoneNumber')
+                TextColumn::make('PhoneNumber')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('birthday'),
-                Tables\Columns\IconColumn::make('Membership status')
+                TextColumn::make('birthday'),
+                IconColumn::make('Membership status')
                     ->boolean()
                     ->getStateUsing(fn (User $record): bool => $record->hasActiveSubscription()),
-                Tables\Columns\IconColumn::make('visibility')->label('Public visibility')
-                ->boolean()->sortable(),
+                IconColumn::make('visibility')->label('Public visibility')
+                    ->boolean()
+                    ->sortable(),
             ])
             ->filters([
                 //
