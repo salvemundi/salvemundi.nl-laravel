@@ -40,10 +40,8 @@ class UserResource extends Resource
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('PhoneNumber')
-                    ->required()
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('birthday')
-                    ->required(),
+                Forms\Components\DatePicker::make('birthday'),
                 Forms\Components\Toggle::make('visibility')
                     ->default(false),
                 Forms\Components\TextInput::make('minecraftUsername')
