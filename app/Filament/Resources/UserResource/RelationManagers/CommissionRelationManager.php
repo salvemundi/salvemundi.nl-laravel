@@ -18,6 +18,11 @@ class CommissionRelationManager extends RelationManager
     protected static string $relationship = 'commission';
 
     protected static ?string $title = 'Committees';
+    protected static ?string $label = 'Committees';
+    protected static ?string $pluralLabel = 'Committees';
+    protected static ?string $modelLabel = 'Committee';
+    protected static ?string $pluralModelLabel = 'Committees';
+
 
     public function form(Form $form): Form
     {
@@ -33,6 +38,7 @@ class CommissionRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('DisplayName')
+            ->emptyStateHeading('No committees')
             ->columns([
                 Tables\Columns\TextColumn::make('DisplayName')
             ])
