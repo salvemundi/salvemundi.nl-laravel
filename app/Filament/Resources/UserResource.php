@@ -74,6 +74,10 @@ class UserResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'Active' => 'success',
                         'Expired' => 'danger',
+                    })
+                    ->icon(fn (string $state): ?string => match ($state) {
+                        'Active' => 'heroicon-o-check-circle',
+                        'Expired' => 'heroicon-o-x-circle',
                     }),
                 IconColumn::make('visibility')->label('Public visibility')
                     ->boolean()
