@@ -43,6 +43,8 @@ class ManagementPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Warning::class,
             ])
+            ->brandLogo(asset('images/logo_old.svg'))
+            ->brandLogoHeight('40px')
             ->favicon(asset('images/favicons/favicon.ico'))
             ->middleware([
                 EncryptCookies::class,
