@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
+use App\Http\Controllers\AzureController;
 use App\Models\Commissie;
 use App\Models\User;
 use Filament\Forms;
@@ -44,10 +45,22 @@ class CommissionRelationManager extends RelationManager
                     ->label('Add to committee')
                     ->preloadRecordSelect()
                     ->successNotificationTitle('User added to committee')
+                    ->after(function ($record) {
+                        $user =  User::find($this->getOwnerRecord()->id);
+                        $commissie = $record;
+                        $graph = new AzureController();
+                        $graph->addUserToGroup($user, $commissie);
+                    }),
             ])
             ->actions([
                 Tables\Actions\DetachAction::make()
-                    ->successNotificationTitle('User removed from committee')->label('Remove from committee')->button(),
+                    ->successNotificationTitle('User removed from committee')->label('Remove from committee')->button()
+                    ->after(function ($record) {
+                        $user = User::find($this->getOwnerRecord()->id);
+                        $commissie = $record;
+                        $graph = new AzureController();
+                        $graph->removeUserFromGroup($user, $commissie);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
