@@ -46,6 +46,29 @@ class AzureController extends Controller
         return $graph;
     }
 
+    public function updateUserToAzure(User $user): bool
+    {
+        $graph = AzureController::connectToAzure();
+        $data = [
+            'accountEnabled' => true,
+            'displayName' => $user->DisplayName,
+            'givenName' => $user->FirstName,
+            'surname' => $user->LastName,
+            'mailNickname' => str_replace(' ', '.', $user->FirstName),
+            'mobilePhone' => $user->PhoneNumber,
+            'userPrincipalName' => $user->email,
+        ];
+        try {
+            $graph->createRequest("PATCH", "/users/".$user->AzureID)
+                ->addHeaders(array("Content-Type" => "application/json"))
+                ->attachBody(json_encode($data))
+                ->execute();
+        } catch (GraphException $e) {
+            return false;
+        }
+        return true;
+    }
+
     public function createAzureUserAPI(Request $request): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $checkIfUserExists = User::where([
@@ -243,6 +266,21 @@ class AzureController extends Controller
             return false;
         }
         return true;
+    }
+
+    public function syncUserGroupsFromAzure(User $user) {
+        $graph = AzureController::connectToAzure();
+        $userGroups = $graph->createRequest("GET", '/users/'.$user->AzureID.'/memberOf')
+            ->setReturnType(Model\Group::class)
+            ->execute();
+        $groups = collect();
+        foreach($userGroups as $group) {
+            $group = Commissie::where('AzureID', $group->getId())->first();
+            if($group != null) {
+                $groups->push($group);
+            }
+        }
+        $user->commission()->sync($groups->pluck('id'));
     }
 
     public static function DeleteUser(Request $request): RedirectResponse

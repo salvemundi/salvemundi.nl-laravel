@@ -19,7 +19,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasFactory, Notifiable, Billable;
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'birthday',
+        'minecraftUsername',
+        'visibility',
+        'PhoneNumber',
+        'DisplayName',
+        'FirstName',
+        'LastName',
+    ];
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->isAdmin();
@@ -94,20 +110,6 @@ class User extends Authenticatable implements FilamentUser, HasName
     {
         return null;
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'birthday',
-        'minecraftUsername'
-    ];
-
     public function mollieCustomerFields(): array
     {
         return [

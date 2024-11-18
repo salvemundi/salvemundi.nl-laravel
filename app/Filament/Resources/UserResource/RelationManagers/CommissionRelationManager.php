@@ -43,6 +43,7 @@ class CommissionRelationManager extends RelationManager
                 Tables\Actions\AttachAction::make('Add to committee')
                     ->modalHeading('Add to committee')
                     ->label('Add to committee')
+                    ->icon('heroicon-o-plus')
                     ->preloadRecordSelect()
                     ->successNotificationTitle('User added to committee')
                     ->after(function ($record) {
@@ -50,6 +51,14 @@ class CommissionRelationManager extends RelationManager
                         $commissie = $record;
                         $graph = new AzureController();
                         $graph->addUserToGroup($user, $commissie);
+                    }),
+                Tables\Actions\Action::make('Sync groups from Azure')
+                    ->successNotificationTitle('Synced groups')
+                    ->icon('heroicon-o-arrow-path')
+                    ->action(function ($record) {
+                        $user =  User::find($this->getOwnerRecord()->id);
+                        $graph = new AzureController();
+                        $graph->syncUserGroupsFromAzure($user);
                     }),
             ])
             ->actions([

@@ -26,7 +26,28 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('DisplayName')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('FirstName')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('LastName')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('PhoneNumber')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\DatePicker::make('birthday')
+                    ->required(),
+                Forms\Components\Toggle::make('visibility')
+                    ->default(false),
+                Forms\Components\TextInput::make('minecraftUsername')
+                    ->maxLength(255),
             ]);
     }
 
