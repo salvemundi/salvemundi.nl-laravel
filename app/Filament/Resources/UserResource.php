@@ -21,6 +21,10 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
     protected static ?string $recordTitleAttribute = 'DisplayName';
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 
     public static function form(Form $form): Form
     {
