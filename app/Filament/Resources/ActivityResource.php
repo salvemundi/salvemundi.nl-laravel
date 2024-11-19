@@ -57,6 +57,7 @@ class ActivityResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('imgPath')
                     ->image()
+                    ->directory('activities')
                     ->label('Image')
                     ->required(),
             ]);
