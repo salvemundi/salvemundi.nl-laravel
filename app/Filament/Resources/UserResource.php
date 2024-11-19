@@ -63,7 +63,7 @@ class UserResource extends Resource
                         $path = $record->ImgPath ?? 'salvemundi.png';
                         $p = str_replace('users/', '',$path);
                         $p = rawurlencode($p);
-                        return str_contains($record->ImgPath,'SalveMundi') ? asset('storage/images/SalveMundi-Vector.svg') : asset('storage/users/'.$p);
+                        return str_contains($record->ImgPath,'.svg') ? asset('storage/images/SalveMundi-Vector.svg') : asset('storage/users/'.$p);
                     })
                     ->circular(),
                 TextColumn::make('DisplayName')
