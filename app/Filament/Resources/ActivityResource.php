@@ -41,6 +41,7 @@ class ActivityResource extends Resource
                 Forms\Components\TextInput::make('limit')
                     ->numeric()
                     ->label('Limit')
+                    ->default(0)
                     ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->required()
@@ -77,6 +78,9 @@ class ActivityResource extends Resource
                     ->preload()
                     ->multiple()
                     ->relationship('tags', 'name'),
+                Forms\Components\TextInput::make('formsLink')
+                    ->default('https://salvemundi.nl')
+                    ->maxLength(255),
             ]);
     }
 
