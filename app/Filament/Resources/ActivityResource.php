@@ -29,14 +29,14 @@ class ActivityResource extends Resource
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         // Get the base query for the resource's model
-        return parent::getEloquentQuery()->whereNull('index');
+        return parent::getEloquentQuery()->whereNull('index')->orderBy('created_at', 'desc');
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+
             ]);
     }
 
@@ -46,13 +46,11 @@ class ActivityResource extends Resource
             ->columns([
                 ImageColumn::make('profile_photo_path')
                     ->label('Photo')
-                    ->getStateUsing(function (Product $record) {
-                        $files = glob(storage_path('app/public/activities/' . $record->name . '.*'));
-                        if (!empty($files)) {
-                            $filePath = str_replace(storage_path('app/public'), '', $files[0]);
-                            return asset('storage' . $filePath);
-                        }
-                        return asset('images/salvemundi.png');
+                    ->getStateUsing(function (Product $record){
+                        $path = $record->imgPath ?? 'salvemundi.png';
+                        $p = str_replace('activities/', '',$path);
+                        $p = rawurlencode($p);
+                        return $record->imgPath ? asset('storage/activities/'.$p) : asset('images/salvemundi.png');
                     })
                     ->circular(),
                 Tables\Columns\TextColumn::class::make('name')

@@ -59,7 +59,7 @@ class UserResource extends Resource
             ->columns([
                 ImageColumn::make('profile_photo_path')
                     ->label('Photo')
-                    ->getStateUsing(fn (User $record) => asset('storage/'.$record->ImgPath))
+                    ->getStateUsing(fn (User $record) => asset('storage/'.$record->ImgPath) && Log::info($record->img))
                     ->circular(),
                 TextColumn::make('DisplayName')
                     ->label('Name')
