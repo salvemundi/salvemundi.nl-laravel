@@ -17,7 +17,7 @@ class NonMembersRelationManager extends RelationManager
     protected static string $relationship = 'nonMembers';
     public static function canViewForRecord(Product|Model $ownerRecord, string $pageClass): bool
     {
-        return $ownerRecord->amount_non_member > 0;
+        return $ownerRecord->amount_non_member == 0;
     }
 
     public function form(Form $form): Form

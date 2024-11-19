@@ -18,7 +18,7 @@ class Product extends Model
      * @var bool|\Illuminate\Support\HigherOrderCollectionProxy|mixed
      */
     protected $table = 'products';
-    protected $fillable = ['imgPath','membersOnlyContent','isGroupSignup'];
+    protected $fillable = ['imgPath','membersOnlyContent','isGroupSignup','amount','amount_non_member','name','description','startDate','endDate'];
     protected $dates = ['startDate', 'endDate'];
     protected $timezone = 'Europe/Amsterdam';
 

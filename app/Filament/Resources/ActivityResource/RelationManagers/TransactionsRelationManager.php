@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ActivityResource\RelationManagers;
 
+use App\Enums\paymentStatus;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -10,7 +11,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Svg\Tag\Text;
 
 class TransactionsRelationManager extends RelationManager
 {
@@ -22,7 +25,12 @@ class TransactionsRelationManager extends RelationManager
     protected static ?string $pluralModelLabel = 'Non Members';
     public static function canViewForRecord(Product|Model $ownerRecord, string $pageClass): bool
     {
-        return $ownerRecord->amount_non_member == 0;
+        return $ownerRecord->amount_non_member > 0;
+    }
+
+    public function filterTableQuery(Builder $query): Builder
+    {
+        return $query->where('paymentStatus', paymentStatus::paid)->where('email', '!=', '');
     }
 
     public function form(Form $form): Form
@@ -41,6 +49,10 @@ class TransactionsRelationManager extends RelationManager
             ->recordTitleAttribute('transactionId')
             ->columns([
                 Tables\Columns\TextColumn::make('transactionId'),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('paymentStatus')->getStateUsing(function ($record){
+                    return ucfirst(paymentStatus::coerce($record->paymentStatus)->key);
+                }),
             ])
             ->filters([
                 //
@@ -49,12 +61,12 @@ class TransactionsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+//                Tables\Actions\EditAction::make(),
+//                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+//                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

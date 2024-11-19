@@ -26,9 +26,8 @@ class ActivityResource extends Resource
     protected static ?string $pluralModelLabel = 'Activities';
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getEloquentQuery(): Builder
     {
-        // Get the base query for the resource's model
         return parent::getEloquentQuery()->whereNull('index')->orderBy('created_at', 'desc');
     }
 
@@ -36,7 +35,30 @@ class ActivityResource extends Resource
     {
         return $form
             ->schema([
-
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('description'),
+                Forms\Components\TextInput::make('amount')
+                    ->required()
+                    ->numeric()
+                    ->prefix('€')
+                    ->inputMode('decimal')
+                    ->step('0.01'),
+                Forms\Components\TextInput::make('amount_non_member')
+                    ->required()
+                    ->numeric()
+                    ->prefix('€')
+                    ->inputMode('decimal')
+                    ->step('0.01'),
+                Forms\Components\DateTimePicker::make('startDate')
+                    ->required(),
+                Forms\Components\DateTimePicker::make('endDate')
+                    ->required(),
+                Forms\Components\FileUpload::make('imgPath')
+                    ->image()
+                    ->label('Image')
+                    ->required(),
             ]);
     }
 
