@@ -38,7 +38,10 @@ class ActivityResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description'),
+                Forms\Components\TextInput::make('limit')
+                    ->numeric()
+                    ->label('Limit')
+                    ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->required()
                     ->numeric()
@@ -60,6 +63,20 @@ class ActivityResource extends Resource
                     ->directory('activities')
                     ->label('Image')
                     ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->required(),
+                Forms\Components\Group::make([
+                    Forms\Components\Toggle::make('membersOnly')
+                        ->default(false),
+                    Forms\Components\Toggle::make('isGroupSignup')
+                        ->default(false),
+                    Forms\Components\Toggle::make('oneTimeOrder')
+                        ->default(true),
+                ]),
+                Forms\Components\Select::make('tags')
+                    ->preload()
+                    ->multiple()
+                    ->relationship('tags', 'name'),
             ]);
     }
 
