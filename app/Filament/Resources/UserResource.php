@@ -60,10 +60,10 @@ class UserResource extends Resource
                 ImageColumn::make('profile_photo_path')
                     ->label('Photo')
                     ->getStateUsing(function (User $record){
-                        $path = $record->imgPath ?? 'salvemundi.png';
+                        $path = $record->ImgPath ?? 'salvemundi.png';
                         $p = str_replace('users/', '',$path);
                         $p = rawurlencode($p);
-                        return $record->imgPath ? asset('storage/users/'.$p) : asset('images/SalveMundi-Vector.svg');
+                        return $record->ImgPath ? asset('storage/users/'.$p) : asset('images/SalveMundi-Vector.svg');
                     })
                     ->circular(),
                 TextColumn::make('DisplayName')
