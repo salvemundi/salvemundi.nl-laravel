@@ -119,8 +119,6 @@ class ActivityResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                // where column index is null
-
 
             ])
             ->actions([

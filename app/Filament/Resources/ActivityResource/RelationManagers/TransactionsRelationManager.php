@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
 use Svg\Tag\Text;
 
 class TransactionsRelationManager extends RelationManager
@@ -30,7 +31,31 @@ class TransactionsRelationManager extends RelationManager
 
     public function filterTableQuery(Builder $query): Builder
     {
-        return $query->where('paymentStatus', paymentStatus::paid)->where('email', '!=', '');
+        $search = $this->table->getLivewire()->tableSearch; // Retrieves the search term from the table
+        if($this->getOwnerRecord()->isGroupSignup) {
+            return $query
+                ->where('paymentStatus', paymentStatus::paid)
+                ->when($search, function ($query) use ($search) {
+                    $query->where(function ($query) use ($search) {
+                        $query->where('email', 'like', "%{$search}%")
+                            ->orWhereHas('nonMembers', function ($query) use ($search) {
+                                $query->where('name', 'like', "%{$search}%");
+                            });
+                    });
+                });
+        } else {
+            return $query
+                ->where('paymentStatus', paymentStatus::paid)->where('email', '!=', '')
+                ->when($search, function ($query) use ($search) {
+                    $query->where(function ($query) use ($search) {
+                        $query->where('email', 'like', "%{$search}%")
+                            ->orWhereHas('nonMembers', function ($query) use ($search) {
+                                $query->where('name', 'like', "%{$search}%");
+                            });
+                    });
+                });
+        }
+
     }
 
     public function form(Form $form): Form
@@ -46,13 +71,14 @@ class TransactionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('transactionId')
             ->columns([
-                Tables\Columns\TextColumn::make('transactionId'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('paymentStatus')->getStateUsing(function ($record){
-                    return ucfirst(paymentStatus::coerce($record->paymentStatus)->key);
-                }),
+                Tables\Columns\TextColumn::make('Who')->getStateUsing(function ($record) {
+                    if($this->getOwnerRecord()->isGroupSignup) {
+                        $names = $record->nonMembers->pluck('name')->toArray();
+                        return implode(', ', $names);
+                    }
+                    return $record->email;
+                })->searchable(),
             ])
             ->filters([
                 //
