@@ -30,7 +30,7 @@ class MembersRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('DisplayName')
             ->columns([
-                Tables\Columns\TextColumn::make('DisplayName'),
+                Tables\Columns\TextColumn::make('DisplayName')->searchable(),
             ])
             ->filters([
                 //
