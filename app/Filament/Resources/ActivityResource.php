@@ -65,7 +65,8 @@ class ActivityResource extends Resource
                     ->label('Image')
                     ->required(),
                 Forms\Components\Textarea::make('description')
-                    ->required(),
+                    ->required()
+                    ->rows(10),
                 Forms\Components\Group::make([
                     Forms\Components\Toggle::make('membersOnly')
                         ->default(false),
