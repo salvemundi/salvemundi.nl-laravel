@@ -72,6 +72,12 @@ class MerchResource extends Resource
                 Tables\Columns\ImageColumn::make('imgPath')
                     ->label('Image')
                     ->circular()
+                    ->getStateUsing(function (Merch $record){
+                        $path = $record->imgPath ?? 'salvemundi.png';
+                        $p = str_replace('merch/', '',$path);
+                        $p = rawurlencode($p);
+                        return $record->imgPath ? asset('storage/merch/'.$p) : asset('images/salvemundi.png');
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
