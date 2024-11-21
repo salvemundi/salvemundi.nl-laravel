@@ -14,7 +14,18 @@ class Merch extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'merch';
-    protected $fillable = ['isPreOrder', 'amountPreOrdersBeforeNotification'];
+    protected $fillable = [
+        'name',
+        'description',
+        'imgPath',
+        'price',
+        'discount',
+        'isPreOrder',
+        'preOrderNeedsPayment',
+        'amountPreOrdersBeforeNotification',
+        'type',
+        'canSetNote',
+    ];
     public bool $isNew;
 
     public function __construct(array $attributes = [])

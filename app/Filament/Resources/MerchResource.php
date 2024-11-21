@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\MerchType;
 use App\Filament\Resources\MerchResource\Pages;
 use App\Filament\Resources\MerchResource\RelationManagers;
 use App\Models\Merch;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MerchResource extends Resource
 {
     protected static ?string $model = Merch::class;
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?string $title = 'Merch';
     protected static ?string $label = 'Merch';
     protected static ?string $pluralLabel = 'Merch';
@@ -27,7 +30,38 @@ class MerchResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('price')
+                    ->prefix('€')
+                    ->numeric()
+                    ->step('0.01'),
+                Forms\Components\FileUpload::make('imgPath')
+                    ->label('Image')
+                    ->directory('merch')
+                    ->image()
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->required()
+                    ->rows(10),
+                Forms\Components\Group::make([
+                    Forms\Components\Toggle::make('isPreOrder')
+                        ->default(true)->reactive(),
+                    Forms\Components\Toggle::make('preOrderNeedsPayment')
+                        ->default(true),
+                ]),
+                Forms\Components\Select::make('type')
+                    ->options(MerchType::asSelectArray())
+                    ->required(),
+                Forms\Components\Toggle::make('canSetNote')
+                    ->label('Customer can add a note')
+                    ->default(false),
+                Forms\Components\TextInput::make('amountPreOrdersBeforeNotification')
+                    ->numeric()
+                    ->default(10)
+                    ->required()
+                    ->visible(fn ($get) => $get('isPreOrder')),
             ]);
     }
 
@@ -35,13 +69,38 @@ class MerchResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\ImageColumn::make('imgPath')
+                    ->label('Image')
+                    ->circular()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->prefix('€')
+                    ->label('Price')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('isPreOrder')
+                    ->boolean()
+                    ->label('Pre-order')
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('canSetNote')
+                    ->boolean()
+                    ->label('Note')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->getStateUsing(function ($record) {
+                        return MerchType::fromValue($record->type)->description;
+                    })
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->button(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
