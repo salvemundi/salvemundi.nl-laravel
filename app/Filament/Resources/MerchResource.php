@@ -74,7 +74,7 @@ class MerchResource extends Resource
                     ->circular()
                     ->getStateUsing(function (Merch $record){
                         $path = $record->imgPath ?? 'salvemundi.png';
-                        $p = str_replace('public/merch/', '',$path);
+                        $p = str_replace('public/', '',str_replace('merch/','',$path));
                         $p = rawurlencode($p);
                         return $record->imgPath ? asset('storage/merch/'.$p) : asset('images/salvemundi.png');
                     })
