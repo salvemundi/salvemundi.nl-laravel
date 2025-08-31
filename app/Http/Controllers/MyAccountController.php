@@ -32,26 +32,31 @@ class MyAccountController extends Controller
     {
         $user = Auth::user();
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
-        $status = 0;
+        
+        // Haal de meest recente abonnement van de gebruiker op.
+        $subscription = \App\Models\Subscription::where('owner_id', $user->id)->latest()->first();
+
+        // Bepaal de status en de vervaldatum op basis van ons eigen Subscription model.
+        // Dit vervangt de onbetrouwbare Cashier check.
+        $subscriptionActive = false;
         $expiryDate = null;
-        $planCommissieLid = paymentType::fromValue(1);
-
-        $plan = paymentType::fromValue(2);
-        $name = ucfirst(strval($plan->value)) . ' membership';
-        $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
-        if ($user->subscribed($name,$plan->key) || $user->subscribed($nameCommissieLid,$planCommissieLid->key)) {
-            $status = 1;
-        }
-
-        $subscription = Subscription::where('owner_id',$user->id)->latest()->first();
-        if ($subscription != null) {
+        if ($subscription) {
+            $subscriptionActive = $subscription->isActive();
             $expiryDate = $subscription->cycle_ends_at;
         }
 
         $whatsappLinks = WhatsappLink::all();
         $rules = Rules::all();
 
-        return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment()->withTrashed()->get(), 'rules' => $rules, 'expiryDate' => $expiryDate]);
+        return view('mijnAccount', [
+            'user' => $user,
+            'authorized' => $adminAuthorization,
+            'whatsapplink' => $whatsappLinks,
+            'subscriptionActive' => $subscriptionActive, // Gebruik de correct berekende status
+            'transactions' => $user->payment()->withTrashed()->get(),
+            'rules' => $rules,
+            'expiryDate' => $expiryDate
+        ]);
     }
 
     public function deletePicture() {
