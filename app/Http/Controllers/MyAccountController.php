@@ -1,125 +1,88 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\WhatsappLink;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\Rules;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
-use DB;
-use Carbon\Carbon;
-use App\Enums\paymentType;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Laravel\Cashier\Subscription as CashierSubscription;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Microsoft\Graph\Graph;
+use Microsoft\Graph\Model;
+use App\TokenStore\TokenCache;
 use App\Models\Subscription;
 
-class MyAccountController extends Controller
+class AuthController extends Controller
 {
-    private PermissionController $permissionController;
-
-    public function __construct() {
-        $this->permissionController = new PermissionController();
-    }
-
-    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    public function signin()
     {
-        $user = Auth::user();
-        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
+        $loginUrl = \Microsoft\Graph\Graph::createOAuth2Provider()->getAuthorizationUrl();
+        return redirect($loginUrl);
+    }
+
+    public function callback(Request $request)
+    {
+        $tokenCache = new TokenCache();
+        try {
+            $accessToken = \Microsoft\Graph\Graph::createOAuth2Provider()->getAccessToken('authorization_code', [
+                'code' => $request->get('code')
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $this->addError(
+                'De autorisatiecode is ongeldig of is al gebruikt. Probeer het opnieuw.',
+                $e->getMessage()
+            );
+            return redirect('/');
+        }
+    
+        $graph = new Graph();
+        $graph->setAccessToken($accessToken->getToken());
+
+        $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName,givenName,surname,jobTitle,id')
+            ->setReturnType(Model\User::class)
+            ->execute();
         
-        // Haal de meest recente abonnement van de gebruiker op.
-        $subscription = Subscription::where('owner_id', $user->id)->latest()->first();
+        session(['id' => $user->getId()]);
+        
+        $tokenCache->storeTokens($accessToken, $user);
 
-        // Bepaal de status en de vervaldatum op basis van ons eigen Subscription model.
-        // Dit vervangt de onbetrouwbare Cashier check.
-        $subscriptionActive = false;
-        $expiryDate = null;
-        if ($subscription) {
-            $subscriptionActive = $subscription->isActive();
-            $expiryDate = $subscription->cycle_ends_at;
+        // Zoek naar de gebruiker in de database, of maak een nieuwe aan
+        $AzureUser = User::where('AzureID', $user->getId())->first();
+
+        if ($AzureUser === null) {
+            $AzureUser = new User();
+            $AzureUser->AzureID = $user->getId();
+            $AzureUser->name = $user->getGivenName();
+            $AzureUser->surname = $user->getSurname();
+            $AzureUser->DisplayName = $user->getDisplayName();
+            $AzureUser->email = $user->getMail();
+            $AzureUser->ImgPath = "images/logo.svg";
         }
+        
+        $AzureUser->api_token = hash('sha256', strval($accessToken));
+        $AzureUser->save();
 
-        $whatsappLinks = WhatsappLink::all();
-        $rules = Rules::all();
+        Auth::login($AzureUser);
 
-        return view('mijnAccount', [
-            'user' => $user,
-            'authorized' => $adminAuthorization,
-            'whatsapplink' => $whatsappLinks,
-            'subscriptionActive' => $subscriptionActive, // Gebruik de correct berekende status
-            'transactions' => $user->payment()->withTrashed()->get(),
-            'rules' => $rules,
-            'expiryDate' => $expiryDate
-        ]);
+        $intendedUrl = session('intended_url', '/');
+        session()->forget('intended_url');
+
+        return redirect($intendedUrl);
     }
 
-    public function deletePicture() {
-        $loggedInUser = Auth::user();
-        $loggedInUser->ImgPath = "images/logo.svg";
-        $loggedInUser->save();
-
-        if (!AzureController::updateProfilePhoto($loggedInUser)) {
-            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw');
-        }
-
-        $message = 'Je instellingen zijn bijgewerkt.';
-
-        return redirect('/mijnAccount')->with('message', $message);
+    public function signout()
+    {
+        $tokenCache = new TokenCache();
+        $tokenCache->clearTokens();
+        return redirect('/');
     }
 
-    public function savePreferences(Request $request) {
-        $request->validate([
-            'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
-            'minecraft' => 'regex:/^[a-zA-Z0-9_]{3,16}$/'
-        ]);
-
-        $user = User::find($request->input('user_id'));
-
-        if ($request->input('cbx')) {
-            $user->visibility = 1;
-            $message = 'Je bent nu te zien op de website';
+    private function addError($message, $debug = null)
+    {
+        $flash = [
+            'error' => $message
+        ];
+        if ($debug) {
+            $flash['errorDetail'] = $debug;
         }
-        else {
-            $user->visibility = 0;
-            $message = 'Je bent nu niet meer te zien op de website';
-        }
-        $user->save();
-
-        if ($request->input('birthday') != null) {
-            $user->birthday = $request->input('birthday');
-            $user->birthday = date("Y-m-d", strtotime($user->birthday));
-        }
-        $user->save();
-
-        if ($request->input('phoneNumber') != null) {
-            $user->PhoneNumber = $request->input('phoneNumber');
-        }
-        $user->save();
-
-        if($request->input('minecraft') != null) {
-            $user->minecraftUsername = $request->input('minecraft');
-        }
-
-
-        if ($request->file('photo') != null) {
-            $request->file('photo')->storeAs('public/users/',$user->AzureID);
-            $user->ImgPath = 'users/'.$user->AzureID;
-
-            if (!AzureController::updateProfilePhoto($user)) {
-                return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
-            }
-        }
-        $user->save();
-
-        $message = 'Je instellingen zijn bijgewerkt.';
-
-        return redirect('/mijnAccount')->with('message', $message);
+        Session::flash('flash', $flash);
     }
 }
