@@ -1,40 +1,45 @@
 <?php
-use Illuminate\Support\Facades\Hash;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\DB;
 
-require __DIR__.'/vendor/autoload.php';
-$app = require_once __DIR__.'/bootstrap/app.php';
+// Autoload Laravel
+require __DIR__.'/../../vendor/autoload.php';
+$app = require_once __DIR__.'/../../bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
-// CSV pad
-$csvFile = __DIR__.'/storage/import/entra_users_fixed.csv';
-if (!file_exists($csvFile)) {
-    die("CSV bestand niet gevonden\n");
+// Pad naar CSV
+$csvPath = base_path('storage/import/entra_users_fixed.csv');
+
+if (!file_exists($csvPath)) {
+    die("CSV bestand niet gevonden: $csvPath\n");
 }
 
-$handle = fopen($csvFile, 'r');
-$header = fgetcsv($handle, 0, ',');
+// Open CSV en importeer
+if (($handle = fopen($csvPath, 'r')) !== false) {
+    $header = fgetcsv($handle); // eerste rij overslaan
 
-while (($data = fgetcsv($handle, 0, ',')) !== false) {
-    $user = [
-        'DisplayName' => $data[0],
-        'email' => $data[1],
-        'password' => Hash::make($data[2]),
-        'FirstName' => $data[3],
-        'LastName' => $data[4],
-        'visibility' => 1,
-        'created_at' => now(),
-        'updated_at' => now()
-    ];
-
-    // check of gebruiker al bestaat op e-mail
-    if (!DB::table('users')->where('email', $user['email'])->exists()) {
-        DB::table('users')->insert($user);
-        echo "Gebruiker {$user['email']} toegevoegd\n";
-    } else {
-        echo "Gebruiker {$user['email']} bestaat al\n";
+    while (($row = fgetcsv($handle)) !== false) {
+        // Check of gebruiker al bestaat op e-mail
+        if (!DB::table('users')->where('email', $row[1])->exists()) {
+            DB::table('users')->insert([
+                'AzureID'    => $row[1], // userPrincipalName
+                'DisplayName'=> $row[0],
+                'FirstName'  => $row[3],
+                'LastName'   => $row[4],
+                'email'      => $row[1],
+                'visibility' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            echo "Gebruiker {$row[1]} toegevoegd\n";
+        } else {
+            echo "Gebruiker {$row[1]} bestaat al\n";
+        }
     }
+
+    fclose($handle);
 }
 
-fclose($handle);
+echo "Import klaar!\n";
