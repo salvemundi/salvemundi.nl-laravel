@@ -18,7 +18,8 @@ use Carbon\Carbon;
 use App\Enums\paymentType;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Cashier\Subscription;
+use Laravel\Cashier\Subscription as CashierSubscription;
+use App\Models\Subscription;
 
 class MyAccountController extends Controller
 {
@@ -34,7 +35,7 @@ class MyAccountController extends Controller
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
         
         // Haal de meest recente abonnement van de gebruiker op.
-        $subscription = \App\Models\Subscription::where('owner_id', $user->id)->latest()->first();
+        $subscription = Subscription::where('owner_id', $user->id)->latest()->first();
 
         // Bepaal de status en de vervaldatum op basis van ons eigen Subscription model.
         // Dit vervangt de onbetrouwbare Cashier check.
