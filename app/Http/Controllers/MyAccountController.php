@@ -9,12 +9,12 @@ use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
 use App\Models\Subscription;
+use App\Models\WhatsappLink;
+use App\Models\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
-use App\Models\WhatsappLink;
-use App\Models\Rule;
 
 class MyAccountController extends Controller
 {
