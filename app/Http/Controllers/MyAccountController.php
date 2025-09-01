@@ -9,6 +9,12 @@ use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
 use App\Models\Subscription;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Collection;
+use App\Models\WhatsappLink;
+use App\Models\Rule;
 
 class MyAccountController extends Controller
 {
@@ -19,10 +25,12 @@ class MyAccountController extends Controller
         $this->permissionController = new PermissionController();
     }
 
-    public function index(): Factory|Application|View|Illuminate\Contracts\Foundation\Application
+    public function index(): Factory|Application|View
     {
         $user = Auth::user();
-        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
+
+        $transactions = $user->transactions ?? collect();
+        $transactions = $transactions->sortByDesc('created_at');
 
         $subscription = Subscription::where('owner_id', $user->id)->latest()->first();
 
@@ -33,10 +41,8 @@ class MyAccountController extends Controller
             $expiryDate = $subscription->cycle_ends_at;
         }
 
-        $transactions = $user->transactions->sortByDesc('created_at');
         $whatsapplink = WhatsappLink::all();
         $rules = Rule::all();
-        $user = Auth::user();
         $authorized = false;
         if ($user != null) {
             $authorized = $this->permissionController->checkIfUserIsAdmin($user);
