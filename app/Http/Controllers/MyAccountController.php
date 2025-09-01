@@ -8,9 +8,9 @@ use App\Models\User;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
 use App\TokenStore\TokenCache;
-use App\Models\Subscription; // <-- Deze regel is toegevoegd om de 'Class not found' fout te verhelpen.
+use App\Models\Subscription;
 
-class MyAccountController extends Controller // <-- 'AuthController' is gewijzigd in 'MyAccountController'.
+class MyAccountController extends Controller
 {
     private PermissionController $permissionController;
 
@@ -24,11 +24,8 @@ class MyAccountController extends Controller // <-- 'AuthController' is gewijzig
         $user = Auth::user();
         $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
 
-        // Haal de meest recente abonnement van de gebruiker op.
         $subscription = Subscription::where('owner_id', $user->id)->latest()->first();
 
-        // Bepaal de status en de vervaldatum op basis van ons eigen Subscription model.
-        // Dit vervangt de onbetrouwbare Cashier check.
         $subscriptionActive = false;
         $expiryDate = null;
         if ($subscription) {
