@@ -1,64 +1,119 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Subscription;
 use App\Models\WhatsappLink;
-use App\Models\Rule;
-use Illuminate\Contracts\View\View;
+use App\Models\Transaction;
+use App\Models\User;
+use App\Models\Rules;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Session;
+use DB;
+use Carbon\Carbon;
+use App\Enums\paymentType;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Laravel\Cashier\Subscription;
 
 class MyAccountController extends Controller
 {
     private PermissionController $permissionController;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->permissionController = new PermissionController();
     }
 
-    public function index(): Factory|Application|View
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
-
-        // Dit is de correcte manier om de transacties te verwerken,
-        // zelfs als de gebruiker nog geen transacties heeft.
-        $transactions = $user->transactions ?? collect();
-        $transactions = $transactions->sortByDesc('created_at');
-
-        // Haal de meest recente abonnement van de gebruiker op.
-        $subscription = Subscription::where('owner_id', $user->id)->latest()->first();
-
-        // Bepaal de status en de vervaldatum van het abonnement.
-        $subscriptionActive = false;
+        $adminAuthorization = $this->permissionController->checkIfUserIsAdmin($user);
+        $status = 0;
         $expiryDate = null;
-        if ($subscription) {
-            $subscriptionActive = $subscription->isActive();
+        $planCommissieLid = paymentType::fromValue(1);
+
+        $plan = paymentType::fromValue(2);
+        $name = ucfirst(strval($plan->value)) . ' membership';
+        $nameCommissieLid = ucfirst(strval($planCommissieLid)) . ' membership';
+        if ($user->subscribed($name,$plan->key) || $user->subscribed($nameCommissieLid,$planCommissieLid->key)) {
+            $status = 1;
+        }
+
+        $subscription = Subscription::where('owner_id',$user->id)->latest()->first();
+        if ($subscription != null) {
             $expiryDate = $subscription->cycle_ends_at;
         }
 
-        // Haal alle benodigde gegevens op voor de view.
-        $whatsapplink = WhatsappLink::all();
-        $rules = Rule::all();
-        $authorized = false;
-        if ($user != null) {
-            $authorized = $this->permissionController->checkIfUserIsAdmin($user);
+        $whatsappLinks = WhatsappLink::all();
+        $rules = Rules::all();
+
+        return view('mijnAccount', ['user' => $user, 'authorized' => $adminAuthorization,'whatsapplink' => $whatsappLinks,'subscriptionActive' => $status,'transactions' => $user->payment()->withTrashed()->get(), 'rules' => $rules, 'expiryDate' => $expiryDate]);
+    }
+
+    public function deletePicture() {
+        $loggedInUser = Auth::user();
+        $loggedInUser->ImgPath = "images/logo.svg";
+        $loggedInUser->save();
+
+        if (!AzureController::updateProfilePhoto($loggedInUser)) {
+            return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw');
         }
 
-        // Geef alle variabelen door aan de view.
-        return view('mijnAccount', [
-            'authorized' => $authorized,
-            'user' => $user,
-            'transactions' => $transactions,
-            'whatsapplink' => $whatsapplink,
-            'rules' => $rules,
-            'subscriptionActive' => $subscriptionActive,
-            'expiryDate' => $expiryDate
+        $message = 'Je instellingen zijn bijgewerkt.';
+
+        return redirect('/mijnAccount')->with('message', $message);
+    }
+
+    public function savePreferences(Request $request) {
+        $request->validate([
+            'photo' => 'image|mimes:jpeg,png,jpg|max:20480',
+            'minecraft' => 'regex:/^[a-zA-Z0-9_]{3,16}$/'
         ]);
+
+        $user = User::find($request->input('user_id'));
+
+        if ($request->input('cbx')) {
+            $user->visibility = 1;
+            $message = 'Je bent nu te zien op de website';
+        }
+        else {
+            $user->visibility = 0;
+            $message = 'Je bent nu niet meer te zien op de website';
+        }
+        $user->save();
+
+        if ($request->input('birthday') != null) {
+            $user->birthday = $request->input('birthday');
+            $user->birthday = date("Y-m-d", strtotime($user->birthday));
+        }
+        $user->save();
+
+        if ($request->input('phoneNumber') != null) {
+            $user->PhoneNumber = $request->input('phoneNumber');
+        }
+        $user->save();
+
+        if($request->input('minecraft') != null) {
+            $user->minecraftUsername = $request->input('minecraft');
+        }
+
+
+        if ($request->file('photo') != null) {
+            $request->file('photo')->storeAs('public/users/',$user->AzureID);
+            $user->ImgPath = 'users/'.$user->AzureID;
+
+            if (!AzureController::updateProfilePhoto($user)) {
+                return redirect('/mijnAccount')->with('message', 'Er is iets fout gegaan met het bijwerken van je foto op Office365, probeer het later opnieuw.');
+            }
+        }
+        $user->save();
+
+        $message = 'Je instellingen zijn bijgewerkt.';
+
+        return redirect('/mijnAccount')->with('message', $message);
     }
 }
