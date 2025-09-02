@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Microsoft\Graph\Graph;
-use Microsoft\Graph\Model;
-use App\TokenStore\TokenCache;
 use App\Models\Subscription;
 use App\Models\WhatsappLink;
 use App\Models\Rule;
@@ -29,11 +26,15 @@ class MyAccountController extends Controller
     {
         $user = Auth::user();
 
+        // Dit is de correcte manier om de transacties te verwerken,
+        // zelfs als de gebruiker nog geen transacties heeft.
         $transactions = $user->transactions ?? collect();
         $transactions = $transactions->sortByDesc('created_at');
 
+        // Haal de meest recente abonnement van de gebruiker op.
         $subscription = Subscription::where('owner_id', $user->id)->latest()->first();
 
+        // Bepaal de status en de vervaldatum van het abonnement.
         $subscriptionActive = false;
         $expiryDate = null;
         if ($subscription) {
@@ -41,6 +42,7 @@ class MyAccountController extends Controller
             $expiryDate = $subscription->cycle_ends_at;
         }
 
+        // Haal alle benodigde gegevens op voor de view.
         $whatsapplink = WhatsappLink::all();
         $rules = Rule::all();
         $authorized = false;
@@ -48,6 +50,7 @@ class MyAccountController extends Controller
             $authorized = $this->permissionController->checkIfUserIsAdmin($user);
         }
 
+        // Geef alle variabelen door aan de view.
         return view('mijnAccount', [
             'authorized' => $authorized,
             'user' => $user,
